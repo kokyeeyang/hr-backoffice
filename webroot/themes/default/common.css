@@ -1032,3 +1032,12 @@ div.disabled_button div.right_corner {
 .fancybox-lock .fancybox-overlay {
 	overflow-y: hidden; 
 }
+
+div #pictureBox 
+{
+  width: 320px;
+  height: 320px;
+  padding: 10px;
+  border: 5px solid gray;
+  margin: 0;
+}
