@@ -85,7 +85,7 @@ class RegistrationController extends Controller
 	public function actionAddCandidate()
 	{
 		// Put your codes here...
-		exit('Add new candidate form here...');
+		exit('Please add the new candidate form here...');
 	}
 
 	/**
