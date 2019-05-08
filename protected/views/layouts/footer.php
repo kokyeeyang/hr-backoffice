@@ -1,0 +1,1 @@
+<div class="footer_wrapper"><div class="footer_inner_wrapper content-text-small"><?php echo Yii::t('app', 'HR Back Office') . ' ' . date('Y'); ?></div></div>

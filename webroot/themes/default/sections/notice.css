@@ -1,0 +1,90 @@
+/*** Common ***/
+.clear {
+	clear					: both;
+}
+
+.visibility_hide{
+	visibility				: hidden;
+}
+
+.outer-wrapper{
+	padding					: 55px 0px 0px 0px;
+}
+
+.opacity_white_bg {
+	background				: #F4F4F4;
+	-moz-opacity			: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+	filter					: alpha(opacity=75);
+	opacity					: .75;
+}
+
+.main_box_shadow {
+	-moz-box-shadow			: 2px 2px 5px #000000;
+	-webkit-box-shadow		: 2px 2px 5px #000000;
+	box-shadow				: 2px 2px 5px #000000;
+	/* For IE 8 */
+	-ms-filter				: "progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=135, Color='#000000')";
+	/* For IE 5.5 - 7 */
+	filter					: progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=135, Color='#000000');
+}
+
+.main_box_border_radius {
+    -moz-border-radius		: 5px;
+    -webkit-border-radius	: 5px;
+    -khtml-border-radius	: 5px;
+    border-radius			: 5px;
+}
+
+.content_wrapper_bg_layer {
+	width					: 986px;
+	height					: 515px;
+	position				: absolute;
+	z-index					: -1;
+}
+
+.content_wrapper {
+    height          		: 515px;
+    overflow-x      		: hidden;
+    overflow-y      		: auto;
+    width           		: 986px;
+}
+
+.content_inner {
+    font					: 14px Arial, SimSun, Helvetica, tahoma, verdana, 宋体, 华文细黑, STXihei, sans-serif;
+	font-weight				: bold;
+	color					: #f4324c;
+	padding					: 10px 10px 10px 10px;
+}
+
+.tel_no_icon,
+.email_icon,
+.qq_icon {
+	float					: left;
+}
+
+.tel_no_lbl,
+.email_lbl,
+.qq_lbl {
+	float					: left;
+	padding					: 0px 0px 0px 10px;
+}
+
+#common-msg {
+	display					: none;
+}
+
+/*** Layout ***/
+body{
+	color					: #FFFFFF;
+    font					: 12px Arial, SimSun, Helvetica, tahoma, verdana, 宋体, 华文细黑, STXihei, sans-serif;
+    height					: 100%;
+    margin					: 0;
+    padding					: 0;
+}
+
+div.wrapper {
+    margin					: 0px auto;
+    padding					: 0px 0px;
+	width					: 986px;
+    min-height				: 770px;
+}

@@ -1,0 +1,25 @@
+#labelGroup #labelPopup {
+  visibility: none;
+}
+
+#labelGroup:hover #labelPopup {
+  visibility: block;
+}
+
+select#duration {
+  width: 80%;
+}
+
+input#ip_address {
+  width: 90%;
+}
+
+input#label {
+  width: 90%;
+}
+
+/* for the alert when duplicate ip address is found */
+#duplicateIpAlert {
+  display: none;
+  color: red;
+}

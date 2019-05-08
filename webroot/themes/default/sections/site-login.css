@@ -1,0 +1,51 @@
+@import url('../animate.min.css');
+@import url('../animate.delay.css');
+
+body{
+	background-color: #E0EEEE;
+}
+
+.login_panel {
+    height			: 400px;
+    left			: 50%;
+    position		: absolute;
+    top				: 50%;
+}
+
+.login_panel .login_panel_linner {
+    left			: -50%;
+    position		: relative;
+    top				: -200px;
+}
+
+.login_panel .item_row{
+	padding			: 5px 0px 5px 0px;
+}
+
+.login_panel .logo {
+	padding			: 0px 0px 0px 0px;
+}
+
+.login_panel .input_wrapper input {
+    background		: none repeat scroll 0 0 #FFFFFF;
+    border			: 0 none;
+    padding			: 10px;
+    width			: 250px;
+}
+
+.login_panel .input_wrapper button {
+	width			: 270px;
+    background		: none repeat scroll 0 0 #0866c6;
+    border			: 1px solid #053a05;
+    color			: #FFFFFF;
+    display			: block;
+    padding			: 10px;
+    font-size		: 14px;
+    font-weight		: normal;
+    line-height		: 20px;
+	cursor			: pointer;	
+}
+
+.login_panel .input_wrapper button:hover {
+    background		: none repeat scroll 0 0 #2474c6;	
+}
