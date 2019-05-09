@@ -1033,11 +1033,35 @@ div.disabled_button div.right_corner {
 	overflow-y: hidden; 
 }
 
-div #pictureBox 
-{
-  width: 320px;
-  height: 320px;
+/* below css styles for candidate form only */
+div #pictureBox {
+  width: 160px;
+  height: 160px;
   padding: 10px;
   border: 5px solid gray;
-  margin: 0;
+  margin: 1em;
+  float: right;
 }
+
+input[class=inputLine] {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000000;
+  width: 20em;
+}
+
+div #candidateFormTitle {
+	float: left;
+	height: 10em;
+	padding-top: 5em;
+}
+
+div #positionInput {
+	padding-top: 2em;
+}
+
+div #candidateFormHeader {
+	font-weight: bold;
+}
+
+/* end for candidate form css */
