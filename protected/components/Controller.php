@@ -178,7 +178,7 @@ class Controller extends CController
 			} // - end: if else
 
 			if(in_array($strNormalizedController, ['registration']){
-				$objCS->registerCssFile(HTTP_MEDIA_CURRENT_THEME.'/registration-add_new_candidate.css?sv='.SITE_VERSION, 'screen, projection');
+				$objCS->registerCssFile(HTTP_MEDIA_CURRENT_THEME.'/registration-add_candidate.css?sv='.SITE_VERSION, 'screen, projection');
 			}
 			else{
 				$objCS->registerCssFile(HTTP_MEDIA_CURRENT_THEME.'/common.css?sv='.SITE_VERSION, 'screen, projection');
