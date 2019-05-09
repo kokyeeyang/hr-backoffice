@@ -32,13 +32,22 @@ div #candidateFormHeader {
 form[id=candidateForm] {
 	width:80%;
 	height:100%;
-	margin-left: 5em;
+	margin-left: 10em;
 }
 
-div .primaryInfoBox {
+div #candidateDetailsTable {
 	width:80%;
-	height:80%;
+	/*height:80%;*/
 	outline-style:solid;
 }
 
+table tr td {
+	height: 2em;
+	border: 1px solid black;
+}
+
+input {
+	outline: none;
+	border: none;
+}
 /* end for candidate form css */
