@@ -177,8 +177,10 @@ class Controller extends CController
 				$objCS->registerScriptFile(HTTP_MEDIA_JS.'/project.js?sv='.SITE_VERSION, CClientScript::POS_HEAD);
 			} // - end: if else
 
-			if(in_array($strNormalizedController, ['registration']){
-				$objCS->registerCssFile(HTTP_MEDIA_CURRENT_THEME.'/registration-add_candidate.css?sv='.SITE_VERSION, 'screen, projection');
+			if(in_array($strNormalizedController, ['registration'])){
+				if(Yii::app()->user->isGuest === true){
+					$objCS->registerCssFile(HTTP_MEDIA_CURRENT_THEME.'/registration-add_candidate.css?sv='.SITE_VERSION, 'screen, projection');
+				}
 			}
 			else{
 				$objCS->registerCssFile(HTTP_MEDIA_CURRENT_THEME.'/common.css?sv='.SITE_VERSION, 'screen, projection');

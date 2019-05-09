@@ -29,7 +29,7 @@ div #candidateFormHeader {
 	font-weight: bold;
 }
 
-div #candidateForm {
+form[id=candidateForm] {
 	width:80%;
 	height:100%;
 }
