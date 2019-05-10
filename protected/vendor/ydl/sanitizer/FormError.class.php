@@ -7,7 +7,7 @@
 		*/
 		var $arrErrorKey = array();
 		
-		function FormError() {
+		function __construct() {
 		
 		}
 		

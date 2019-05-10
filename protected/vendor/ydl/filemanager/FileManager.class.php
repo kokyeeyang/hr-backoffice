@@ -8,7 +8,7 @@
 		var $strLang;
 		var $arrDeletedFileName;
 		
-		function FileManager($lang = null){
+		function __construct($lang = null){
 			
 			if($lang != '') {
 				$this -> strLang = $lang;
