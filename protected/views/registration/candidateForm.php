@@ -35,11 +35,26 @@
 			 	</td>
 			 	<td colspan="2" rowspan="3">
 			 		<?php echo Yii::t('app', 'How did you find out about this position?'); ?><br>
-			 		  <input type="checkbox" name="findingMethod" value="jobstreet"><?php echo Yii::t('app', 'Jobstreet'); ?><br>
-					  <input type="checkbox" name="findingMethod" value="linkedin"><?php echo Yii::t('app', 'LinkedIn'); ?><br>
-					  <input type="checkbox" name="findingMethod" value="agency"><?php echo Yii::t('app', 'Agency'); ?><br>
-					  <input type="checkbox" name="findingMethod" value="internal referral"><?php echo Yii::t('app', 'Internal Referral'); ?><br>
-					  <input type="checkbox" name="findingMethod" value=""><?php echo Yii::t('app', 'Others'); ?><br>
+		 		  <input type="checkbox" name="findingMethod" value="jobstreet" id="jobstreet">
+	 		  	<label for="jobstreet">
+		 		  	<?php echo Yii::t('app', 'Jobstreet'); ?>
+		 		  </label><br>
+				  <input type="checkbox" name="findingMethod" value="linkedin" id="linkedin">
+				  <label for="linkedin">
+				  	<?php echo Yii::t('app', 'LinkedIn'); ?>
+				  </label><br>
+				  <input type="checkbox" name="findingMethod" value="agency" id="agency">
+			  	<label for="agency">
+					  <?php echo Yii::t('app', 'Agency'); ?>
+					</label><br>
+				  <input type="checkbox" name="findingMethod" value="internal referral" id="referral">
+			  	<label for="referral">
+				  	<?php echo Yii::t('app', 'Internal Referral'); ?>
+				  </label><br>
+				  <input type="checkbox" name="findingMethod" value="" id="others">
+			  	<label for="others">
+				  	<?php echo Yii::t('app', 'Others'); ?>
+				  </label><br>
 			 	</td>
 			</tr>
 			<tr>
@@ -115,7 +130,7 @@
 		</table>
 		<table class="candidateTable">
 			<tr>
-				<td colspan="6" class="candidateDetailsTitle" style="background-color: #0CFEFE;">
+				<td colspan="7" class="candidateDetailsTitle" style="background-color: #0CFEFE;">
 					3.<?php echo Yii::t('app', 'PRESENT AND PREVIOUS EMPLOYMENT'); ?>
 				</td>
 			</tr>
