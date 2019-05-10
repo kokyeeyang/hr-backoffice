@@ -18,7 +18,7 @@
 		static $FILE_ERROR_INVALID;
 		static $FILE_ERROR_INVALID_FILE_TYPE;
 		
-		function Validator($lang = null) {
+		function __construct($lang = null) {
 			
 			if(isset($lang) && ($lang != '') ) {
 				$this -> lang = $lang;
