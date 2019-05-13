@@ -179,7 +179,6 @@ class Controller extends CController
 
 			if(in_array($strNormalizedController, ['registration'])){
 				if(Yii::app()->user->isGuest === true){
-					echo('Registration controller is recognized!');
 					$objCS->registerCssFile(HTTP_MEDIA_CURRENT_THEME.'/registration-add_candidate.css?sv='.SITE_VERSION, 'screen, projection');
 				}
 			}

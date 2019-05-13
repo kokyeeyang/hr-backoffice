@@ -8,7 +8,7 @@ class RoleHelper {
 		switch($strController){
 			case 'registration':
 				// All users can access the registration controller
-				$arrActionsList = array_merge($arrActionsList, ['index', 'addCandidate']);		
+				$arrActionsList = array_merge($arrActionsList, ['index', 'addCandidate', 'saveCandidate']);		
 			break;
 
 			case 'site':

@@ -8,17 +8,17 @@ class EmploymentCandidate extends AppActiveRecord
 {
 	static $tableName = DB_TBL_PREFIX . 'employment_candidate';
 
-	public static tableName(){
+	public function tableName(){
 		return self::$tableName;
 	}
 
-	public static function rules(){
+	public function rules(){
 		return [
-			['full_name, id_no, address, contact_no, email_address, date_of_birth, marital_status, gender, nationality'],
+			['full_name, id_no, address, contact_no, email_address, date_of_birth, marital_status, gender, nationality', 'required'],
 		];
 	}
 
-	public static function attributeLabels(){
+	public function attributeLabels(){
 		return [
 			'full_name' => Yii::t('app', 'full_name'),
 			'id_no' => Yii::t('app', 'id_no'),
@@ -37,5 +37,10 @@ class EmploymentCandidate extends AppActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 		);
+	}
+
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
 	}
 }

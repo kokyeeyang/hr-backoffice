@@ -1,5 +1,5 @@
 <div class="container">
-	<form method="post" action="<?php echo $this->createUrl('registration/saveCandidate') ?>" id="candidateForm">
+	<form method="post" action="<?php echo $this->createUrl('registration/saveCandidate') ?>" id="candidateForm" name="candidateForm">
 		<div id="candidateFormTitle">
 	    <div id="candidateFormHeader">
 	    	<div class="item_row animate0 bounceIn logo">
@@ -368,6 +368,8 @@
 				</td>
 			</tr>
 		</table>
-	  <input type="submit" value="Submit">
+	  <div class="row buttons">
+      <?php echo CHtml::submitButton('Save'); ?>
+    </div>
 	</form>
 </div>

@@ -23,12 +23,12 @@ class RegistrationController extends Controller
 		);
 	}*/
 	
-    public function filters()
-    {
-        return array(
-            'accessControl',
-        );
-    }	
+  public function filters()
+  {
+      return array(
+          'accessControl',
+      );
+  }	
 
 	public function accessRules()
 	{
@@ -93,17 +93,22 @@ class RegistrationController extends Controller
 	{
 		//this is for saving candidate details into employment_candidate table
 		$candidateObjModel = new EmploymentCandidate;
-
-		$candidateObjModel->full_name = $this->getParam('full_name', '');
-		$candidateObjModel->id_no = $this->getParam('id_no', '');
+		$candidateObjModel->full_name = $this->getParam('fullName', '');
+		$candidateObjModel->id_no = $this->getParam('idNo', '');
 		$candidateObjModel->address = $this->getParam('address', '');
-		$candidateObjModel->contact_no = $this->getParam('contact_no', '');
-		$candidateObjModel->email_address = $this->getParam('email_address', '');
-		$candidateObjModel->date_of_birth = $this->getParam('date_of_birth', '');
-		$candidateObjModel->marital_status = $this->getParam('marital_status', '');
+		$candidateObjModel->contact_no = $this->getParam('contactNo', '');
+		$candidateObjModel->email_address = $this->getParam('emailAddress', '');
+		$candidateObjModel->date_of_birth = $this->getParam('DOB', '');
+		$candidateObjModel->marital_status = $this->getParam('maritalStatus', '');
 		$candidateObjModel->gender = $this->getParam('gender', '');
 		$candidateObjModel->nationality = $this->getParam('nationality', '');
 		$candidateObjModel->save();
+
+		// if(!$error = $this->objError->getError()){
+		// 	if($candidateObjModel->save()){
+		// 		$this->redirect(array('showAllWhitelistIp'));
+		// 	}
+		// }
 		//
 	}
 
