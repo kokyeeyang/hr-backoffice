@@ -158,3 +158,18 @@ ALTER TABLE `whitelisted_ip`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+/* Yee Yang 13/5/2019 */
+CREATE TABLE employment_candidate (
+  `id` int(11) NOT NULL,
+  `full_name` varchar(50) NOT NULL,
+  `id_no` varchar(40) NOT NULL,
+  `address` varchar(80) NOT NULL,
+  `contact_no` varchar(25) NOT NULL,
+  `email_address` varchar(60) NOT NULL,
+  `date_of_birth` datetime NOT NULL,
+  `marital_status` varchar(20) NOT NULL,
+  `gender` varchar(20) NOT NULL,
+  `nationality` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

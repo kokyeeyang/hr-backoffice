@@ -89,6 +89,24 @@ class RegistrationController extends Controller
 		$this->render('candidateForm');
 	}
 
+	public function actionSaveCandidate()
+	{
+		//this is for saving candidate details into employment_candidate table
+		$candidateObjModel = new EmploymentCandidate;
+
+		$candidateObjModel->full_name = $this->getParam('full_name', '');
+		$candidateObjModel->id_no = $this->getParam('id_no', '');
+		$candidateObjModel->address = $this->getParam('address', '');
+		$candidateObjModel->contact_no = $this->getParam('contact_no', '');
+		$candidateObjModel->email_address = $this->getParam('email_address', '');
+		$candidateObjModel->date_of_birth = $this->getParam('date_of_birth', '');
+		$candidateObjModel->marital_status = $this->getParam('marital_status', '');
+		$candidateObjModel->gender = $this->getParam('gender', '');
+		$candidateObjModel->nationality = $this->getParam('nationality', '');
+		$candidateObjModel->save();
+		//
+	}
+
 	/**
 	 * This is the 'captcha' action
 	 */

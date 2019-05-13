@@ -1,5 +1,5 @@
 <div class="container">
-	<form action="" id="candidateForm">
+	<form method="post" action="<?php echo $this->createUrl('registration/saveCandidate') ?>" id="candidateForm">
 		<div id="candidateFormTitle">
 	    <div id="candidateFormHeader">
 	    	<div class="item_row animate0 bounceIn logo">
