@@ -25,7 +25,7 @@
 			 	</td>
 			 	<td colspan="2">
 			 		<?php echo Yii::t('app', 'NRIC/Passport No'); ?><br>
-			 		<input type="number" name="idNo">
+			 		<input type="text" name="idNo">
 			 	</td>
 			</tr>
 			<tr>
@@ -130,7 +130,7 @@
 		</table>
 		<table class="candidateTable">
 			<tr>
-				<td colspan="7" class="candidateDetailsTitle" style="background-color: #0CFEFE;">
+				<td colspan="8" class="candidateDetailsTitle" style="background-color: #0CFEFE;">
 					3.<?php echo Yii::t('app', 'PRESENT AND PREVIOUS EMPLOYMENT'); ?>
 				</td>
 			</tr>
@@ -147,7 +147,7 @@
 				<td colspan="1" rowspan="2">
 					<?php echo Yii::t('app', 'Position Held'); ?>
 				</td>
-				<td colspan="1" rowspan="1">
+				<td colspan="2" rowspan="1">
 					<?php echo Yii::t('app', 'Basic Salary'); ?>
 				</td>
 				<td colspan="1" rowspan="2">
@@ -157,8 +157,217 @@
 					<?php echo Yii::t('app', 'Reason for leaving'); ?>
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<?php echo Yii::t('app', 'Month/Year'); ?>
+				</td>
+				<td>
+					<?php echo Yii::t('app', 'Month/Year'); ?>
+				</td>
+				<td>
+					<?php echo Yii::t('app', 'Start'); ?>
+				</td>
+				<td>
+					<?php echo Yii::t('app', 'Final'); ?>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					<input type="text" name="companyName">
+				</td>
+				<td colspan="1">
+					<input type="year" name="startDate">
+				</td>
+				<td colspan="1">
+					<input type="year" name="endDate">
+				</td>
+				<td colspan="1">
+					<input type="text" name="positionHeld">
+				</td>
+				<td colspan="1">
+					<input type="text" name="startingSalary">
+				</td>
+				<td colspan="1">
+					<input type="text" name="endingSalary">
+				</td>
+				<td colspan="1">
+					<input type="text" name="allowances">
+				</td>
+				<td colspan="1">
+					<input type="text" name="leaveReason">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="8">
+					<?php echo Yii::t('app', 'Have you ever been terminated/dismissed/suspended from the service of any employer'); ?>?<br>
+				  <input type="radio" name="termination" value="yes"> Yes<br>
+				  <input type="radio" name="termination" value="no"> No<br>
+					<?php echo Yii::t('app', 'If yes, please give details'); ?><br>
+					<input type="text" name="terminationDetails" class="inputLine"><br><br>
+				</td>
+			</tr>
 		</table>
-<!-- </div> -->
+		<table class="candidateTable">
+			<tr>
+				<td colspan="6" class="candidateDetailsTitle" style="background-color: #0CFEFE;">
+					4.<?php echo Yii::t('app', 'REFEREES (Previous Superiors)'); ?>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					<?php echo Yii::t('app', 'Name'); ?>
+				</td>
+				<td colspan="2">
+					<?php echo Yii::t('app', 'Company'); ?>
+				</td>
+				<td colspan="1">
+					<?php echo Yii::t('app', 'Occupation'); ?>
+				</td>
+				<td colspan="1">
+					<?php echo Yii::t('app', 'Contact No.'); ?>
+				</td>
+				<td colspan="1">
+					<?php echo Yii::t('app', 'Years Known'); ?>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					<input type="text" name="superiorName">
+				</td>
+				<td colspan="2">
+					<input type="year" name="superiorCompany">
+				</td>
+				<td colspan="1">
+					<input type="year" name="superiorOccupation">
+				</td>
+				<td colspan="1">
+					<input type="text" name="superiorContact">
+				</td>
+				<td colspan="1">
+					<input type="text" name="yearsKnown">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6">
+					<?php echo Yii::t('app', 'Can we make references to your employment records with your previous employers/companies'); ?>?<br>
+				  <input type="radio" name="termination" value="yes"> Yes<br>
+				  <input type="radio" name="termination" value="no"> No<br>
+					<?php echo Yii::t('app', 'If no, please give reasons'); ?><br>
+					<input type="text" name="noReferenceReason" class="inputLine"><br><br>
+				</td>
+			</tr>
+		</table>
+		<table class="candidateTable">
+			<tr>
+				<td colspan="2" class="candidateDetailsTitle" style="background-color: #0CFEFE;">
+					5.<?php echo Yii::t('app', 'GENERAL'); ?>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					a) <?php echo Yii::t('app', 'Are you suffering from any physical disabilities or have ever been seriously ill'); ?>?
+				</td>
+				<td colspan="1">
+					<input type="text" name="illness">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					b) <?php echo Yii::t('app', 'Have you ever been convicted for a criminal offence, declared bankrupt, revoked of professional practicing license/certificate and/or charged in court?'); ?>? <br>
+					<?php echo Yii::t('app', 'If yes, please state offence and date of conviction and discharge'); ?>
+				</td>
+				<td colspan="1">
+					<input type="text" name="criminalOffense">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					c) <?php echo Yii::t('app', 'Do you have any relatives or friends working in SagaOS or its subsidiaries? If so, please state name and relationship'); ?>?
+				</td>
+				<td colspan="1">
+					<input type="text" name="sagaosRelative">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					d) <?php echo Yii::t('app', 'Any relatives involved directly or indirectly in similar company’s business'); ?>?
+				</td>
+				<td colspan="1">
+					<input type="text" name="similarBusiness">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					e) <?php echo Yii::t('app', 'Do you possess a car or motorcycle'); ?>?
+				</td>
+				<td colspan="1">
+					<input type="text" name="modeOfTransport">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					f) <?php echo Yii::t('app', 'How did you find this employment opportunity'); ?>?<br>
+						 <?php echo Yii::t('app', 'E.g. Newspaper/Online/Recruitment Agency/SagaOS website/Others'); ?>
+				</td>
+				<td colspan="1">
+					<input type="text" name="methodForFindingJob">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					g) <?php echo Yii::t('app', 'Have you ever applied to/worked at SagaOS before'); ?>?
+				</td>
+				<td colspan="1">
+					<input type="text" name="methodForFindingJob">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					h) <?php echo Yii::t('app', 'If you were offered employment, when can you commence work'); ?>?
+				</td>
+				<td colspan="1">
+					<input type="text" name="commencementDate">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					i) <?php echo Yii::t('app', 'If hired, are you willing to submit to a good conduct certificate'); ?>?
+				</td>
+				<td colspan="1">
+					<input type="text" name="goodConduct">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					j) <?php echo Yii::t('app', 'Expected Salary'); ?>
+				</td>
+				<td colspan="1">
+					<input type="text" name="expectedSalary">
+				</td>
+			</tr>
+		</table>
+		<table class="candidateTable">
+			<tr>
+				<td colspan="6" class="candidateDetailsTitle" style="background-color: #0CFEFE;">
+					6.<?php echo Yii::t('app', 'DECLARATION & CONSENT'); ?>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6">
+					<?php echo Yii::t('app', 'I hereby declare that the information and personal data provided by me in the Application for Employment Form, including any accompanying document(s) are true, correct and complete in every aspect. I fully understand and accept that, if at any time after my employment with the Company, it is found that I have given false and misleading information in the Application for Employment Form, the Company has the right to forthwith terminate my employment. I understand that this application does not constitute an offer of employment. I understand that in some cases, credit checks, reference checks and/or good conduct checks will be required and I will be notified if said checks applies to this application. For the purpose of the Personal Data Protection Act 2010, I hereby give my consent to the Company to process all or any of my personal data and information for any purpose related to or in connection with this employment application and if required, to disclose or transfer such data to any company affiliate for the purpose of processing such data, which may be located outside Malaysia.') ?>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<input type="text" name="signature" class="inputLine"><br>
+					<?php echo Yii::t('app', 'Signature of Applicant'); ?>
+				</td>
+				<td colspan="3">
+					<input type="text" name="dateSigned" class="inputLine"><br>
+					<?php echo Yii::t('app', 'Date'); ?>
+				</td>
+			</tr>
+		</table>
 	  <input type="submit" value="Submit">
 	</form>
 </div>

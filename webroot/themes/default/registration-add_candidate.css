@@ -13,6 +13,8 @@ input[class=inputLine] {
   border: none;
   border-bottom: 1px solid #000000;
   width: 20em;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 div #candidateFormTitle {
@@ -32,7 +34,6 @@ div #candidateFormHeader {
 form[id=candidateForm] {
 	width:100%;
 	height:100%;
-	margin-left: 10em;
 }
 
 div .candidateTable {
@@ -46,10 +47,19 @@ div .candidateTable {
 table tr td {
 	height: 2em;
 	border: 1px solid black;
+	padding-top: 0.5em;
+	padding-left: 0.5em;
+	padding-bottom: 0.5em;
 }
 
 input {
 	outline: none;
 	border: none;
 }
+
+div .container {
+	margin-left: 5em;
+	margin-right: 5em;
+}
+
 /* end for candidate form css */
