@@ -1,10 +1,19 @@
-var RegistrationSaveCandidate = function() {
+var RegistrationAddCandidate = function() {
 	function _init() {
 		$(function() {
-			$('#others').on('click', function()){
-				document.getElementbyId('otherInputLine').disabled = false;
-			}
+			var otherInputLine = document.getElementById("otherInputLine");
+			$("input[name=findingMethod]").click(function() {
+				if ($("input[name=findingMethod]:checked").val() == "others") {
+					$("#otherInputLine").removeAttr("disabled");
+				} else {
+					$("#otherInputLine").attr("disabled", "yes");
+				}
+			});
 		});
 	}
+
+	return {
+		init: _init
+	}
 }();
-RegistrationSaveCandidate.init();
+RegistrationAddCandidate.init();

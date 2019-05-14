@@ -103,12 +103,6 @@ class RegistrationController extends Controller
 		$candidateObjModel->gender = $this->getParam('gender', '');
 		$candidateObjModel->nationality = $this->getParam('nationality', '');
 		$candidateObjModel->save();
-
-		// if(!$error = $this->objError->getError()){
-		// 	if($candidateObjModel->save()){
-		// 		$this->redirect(array('showAllWhitelistIp'));
-		// 	}
-		// }
 		//
 	}
 

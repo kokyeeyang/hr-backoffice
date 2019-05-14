@@ -35,27 +35,27 @@
 			 	</td>
 			 	<td colspan="2" rowspan="3">
 			 		<?php echo Yii::t('app', 'How did you find out about this position?'); ?><br>
-		 			<input type="radio" name="findingMethod" value="jobstreet" id="jobstreet">
+		 			<input type="radio" name="findingMethod" value="jobstreet" id="jobstreet" class="methodRadio">
 	 		  		<label for="jobstreet">
 		 				<?php echo Yii::t('app', 'Jobstreet'); ?>
 		 			</label><br>
-					<input type="radio" name="findingMethod" value="linkedin" id="linkedin">
+					<input type="radio" name="findingMethod" value="linkedin" id="linkedin" class="methodRadio">
 					<label for="linkedin">
 						<?php echo Yii::t('app', 'LinkedIn'); ?>
 					</label><br>
-					<input type="radio" name="findingMethod" value="agency" id="agency">
+					<input type="radio" name="findingMethod" value="agency" id="agency" class="methodRadio">
 				  	<label for="agency">
 						<?php echo Yii::t('app', 'Agency'); ?>
 					</label><br>
-					<input type="radio" name="findingMethod" value="internal referral" id="referral">
+					<input type="radio" name="findingMethod" value="internal referral" id="referral" class="methodRadio">
 				  	<label for="referral">
 					  <?php echo Yii::t('app', 'Internal Referral'); ?>
 					</label><br>
-					<input type="radio" name="findingMethod" id="others">
+					<input type="radio" name="findingMethod" id="others" class="methodRadio" value="others">
 				  	<label for="others">
 						<?php echo Yii::t('app', 'Others'); ?>
 					</label><br>
-					<input type="text" name="terminationDetails" class="inputLine" id="otherInputLine" disabled="disabled">
+					<input type="text" name="otherFindingMethod" class="inputLine" id="otherInputLine" disabled="disabled">
 					<br>
 			 	</td>
 			</tr>
@@ -129,6 +129,57 @@
 					<input type="text" name="cgpa">
 				</td>
 			</tr>
+			<tr>
+				<td colspan="1">
+					<input type="text" name="schoolName">
+				</td>
+				<td colspan="1">
+					<input type="year" name="startYear">
+				</td>
+				<td colspan="1">
+					<input type="year" name="endYear">
+				</td>
+				<td colspan="1">
+					<input type="text" name="qualification">
+				</td>
+				<td colspan="2">
+					<input type="text" name="cgpa">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					<input type="text" name="schoolName">
+				</td>
+				<td colspan="1">
+					<input type="year" name="startYear">
+				</td>
+				<td colspan="1">
+					<input type="year" name="endYear">
+				</td>
+				<td colspan="1">
+					<input type="text" name="qualification">
+				</td>
+				<td colspan="2">
+					<input type="text" name="cgpa">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					<input type="text" name="schoolName">
+				</td>
+				<td colspan="1">
+					<input type="year" name="startYear">
+				</td>
+				<td colspan="1">
+					<input type="year" name="endYear">
+				</td>
+				<td colspan="1">
+					<input type="text" name="qualification">
+				</td>
+				<td colspan="2">
+					<input type="text" name="cgpa">
+				</td>
+			</tr>			
 		</table>
 		<table class="candidateTable">
 			<tr>
