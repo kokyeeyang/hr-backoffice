@@ -105,6 +105,7 @@ class RegistrationController extends Controller
 		$candidateObjModel->position_applied = $this->getParam('positionApplied', '');
 		
 		$candidateObjModel->save();
+		// 
 
 		//// this is for saving candidate education into employment_education table
 		$schoolNames = $this->getParam('schoolName', '');
@@ -118,6 +119,7 @@ class RegistrationController extends Controller
 				foreach ($endYears as $endYear){
 					foreach ($qualifications as $qualification){
 						foreach ($grades as $grade){
+							//only need one field to prevent creation of null rows
 							if ($schoolName != false){
 								$educationObjModel = new EmploymentEducation;
 								$educationObjModel->candidate_id = $candidateObjModel->id_no;
