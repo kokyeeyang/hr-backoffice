@@ -14,7 +14,7 @@ class EmploymentCandidate extends AppActiveRecord
 
 	public function rules(){
 		return [
-			['full_name, id_no, address, contact_no, email_address, date_of_birth, marital_status, gender, nationality', 'required'],
+			['full_name, id_no, address, contact_no, email_address, date_of_birth, marital_status, gender, nationality, position_applied', 'required'],
 		];
 	}
 
@@ -28,7 +28,8 @@ class EmploymentCandidate extends AppActiveRecord
 			'date_of_birth' => Yii::t('app', 'date_of_birth'),
 			'marital_status' => Yii::t('app', 'marital_status'),
 			'gender' => Yii::t('app', 'gender'),
-			'nationality' => Yii::t('app', 'nationality')
+			'nationality' => Yii::t('app', 'nationality'),
+			'position_applied' => Yii::t('app', 'position_applied')
 		];
 	}
 

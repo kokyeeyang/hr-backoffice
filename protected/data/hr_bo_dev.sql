@@ -171,5 +171,6 @@ CREATE TABLE employment_candidate (
   `marital_status` varchar(20) NOT NULL,
   `gender` varchar(20) NOT NULL,
   `nationality` varchar(30) NOT NULL,
+  `position_applied` varchar(40) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

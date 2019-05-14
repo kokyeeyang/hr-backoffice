@@ -12,7 +12,7 @@
 		    <input type="text" name="positionApplied" class="inputLine">
 		  </div>
 	  </div>
-    <input type="file" id="pictureBox" onchange="readUrl(picture)" title="Please choose a picture">
+    <input type="file" name="profilePicture" id="pictureBox" onchange="readUrl(picture)" title="Please choose a picture">
 		<table class="candidateTable">
 			<tr>
 				<td colspan="6" class="candidateDetailsTitle" style="background-color: #0CFEFE;">1.<?php echo Yii::t('app', 'Personal Particulars'); ?></td>
@@ -35,26 +35,28 @@
 			 	</td>
 			 	<td colspan="2" rowspan="3">
 			 		<?php echo Yii::t('app', 'How did you find out about this position?'); ?><br>
-		 		  <input type="checkbox" name="findingMethod" value="jobstreet" id="jobstreet">
-	 		  	<label for="jobstreet">
-		 		  	<?php echo Yii::t('app', 'Jobstreet'); ?>
-		 		  </label><br>
-				  <input type="checkbox" name="findingMethod" value="linkedin" id="linkedin">
-				  <label for="linkedin">
-				  	<?php echo Yii::t('app', 'LinkedIn'); ?>
-				  </label><br>
-				  <input type="checkbox" name="findingMethod" value="agency" id="agency">
-			  	<label for="agency">
-					  <?php echo Yii::t('app', 'Agency'); ?>
+		 			<input type="radio" name="findingMethod" value="jobstreet" id="jobstreet">
+	 		  		<label for="jobstreet">
+		 				<?php echo Yii::t('app', 'Jobstreet'); ?>
+		 			</label><br>
+					<input type="radio" name="findingMethod" value="linkedin" id="linkedin">
+					<label for="linkedin">
+						<?php echo Yii::t('app', 'LinkedIn'); ?>
 					</label><br>
-				  <input type="checkbox" name="findingMethod" value="internal referral" id="referral">
-			  	<label for="referral">
-				  	<?php echo Yii::t('app', 'Internal Referral'); ?>
-				  </label><br>
-				  <input type="checkbox" name="findingMethod" value="" id="others">
-			  	<label for="others">
-				  	<?php echo Yii::t('app', 'Others'); ?>
-				  </label><br>
+					<input type="radio" name="findingMethod" value="agency" id="agency">
+				  	<label for="agency">
+						<?php echo Yii::t('app', 'Agency'); ?>
+					</label><br>
+					<input type="radio" name="findingMethod" value="internal referral" id="referral">
+				  	<label for="referral">
+					  <?php echo Yii::t('app', 'Internal Referral'); ?>
+					</label><br>
+					<input type="radio" name="findingMethod" id="others">
+				  	<label for="others">
+						<?php echo Yii::t('app', 'Others'); ?>
+					</label><br>
+					<input type="text" name="terminationDetails" class="inputLine" id="otherInputLine" disabled="disabled">
+					<br>
 			 	</td>
 			</tr>
 			<tr>
