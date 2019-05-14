@@ -161,7 +161,7 @@ ALTER TABLE `whitelisted_ip`
 
 /* Yee Yang 13/5/2019 */
 CREATE TABLE employment_candidate (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `full_name` varchar(50) NOT NULL,
   `id_no` varchar(40) NOT NULL,
   `address` varchar(80) NOT NULL,
@@ -177,11 +177,11 @@ CREATE TABLE employment_candidate (
 
 /* Yee Yang 14/5/2019 */
 CREATE TABLE employment_education (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `candidate_id` int(11) NOT NULL,
-  `schoot_name` varchar(40) NOT NULl,
-  `from` datetime NOT NULL,
-  `to` datetime NOT NULL,
+  `school_name` varchar(40) NOT NULl,
+  `from` varchar(4) NOT NULL,
+  `to` varchar(4) NOT NULL,
   `qualification` varchar(40) NOT NULL,
   `grade` varchar(40) NOT NULL,
   PRIMARY KEY (`id`)

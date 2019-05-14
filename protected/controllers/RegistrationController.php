@@ -102,8 +102,38 @@ class RegistrationController extends Controller
 		$candidateObjModel->marital_status = $this->getParam('maritalStatus', '');
 		$candidateObjModel->gender = $this->getParam('gender', '');
 		$candidateObjModel->nationality = $this->getParam('nationality', '');
+		$candidateObjModel->position_applied = $this->getParam('positionApplied', '');
+		
 		$candidateObjModel->save();
-		//
+
+		//// this is for saving candidate education into employment_education table
+		$schoolNames = $this->getParam('schoolName', '');
+		$startYears = $this->getParam('startYear', '');
+		$endYears = $this->getParam('endYear', '');
+		$qualifications = $this->getParam('qualification', '');
+		$grades = $this->getParam('cgpa', '');
+
+		foreach ($schoolNames as $schoolName){
+			foreach ($startYears as $startYear){
+				foreach ($endYears as $endYear){
+					foreach ($qualifications as $qualification){
+						foreach ($grades as $grade){
+							if ($schoolName != false){
+								$educationObjModel = new EmploymentEducation;
+								$educationObjModel->candidate_id = $candidateObjModel->id_no;
+								$educationObjModel->school_name = $schoolName;
+								$educationObjModel->from = $startYear;
+								$educationObjModel->to = $endYear;
+								$educationObjModel->qualification = $qualification;
+								$educationObjModel->grade = $grade;
+							}
+						}
+					}
+				}
+			}
+			$educationObjModel->save();
+		}
+		////
 	}
 
 	/**

@@ -114,70 +114,70 @@
 			</tr>
 			<tr>
 				<td colspan="1">
-					<input type="text" name="schoolName">
+					<input type="text" name="schoolName[]">
 				</td>
 				<td colspan="1">
-					<input type="year" name="startYear">
+					<input type="year" name="startYear[]">
 				</td>
 				<td colspan="1">
-					<input type="year" name="endYear">
+					<input type="year" name="endYear[]">
 				</td>
 				<td colspan="1">
-					<input type="text" name="qualification">
+					<input type="text" name="qualification[]">
 				</td>
 				<td colspan="2">
-					<input type="text" name="cgpa">
+					<input type="text" name="cgpa[]">
 				</td>
 			</tr>
 			<tr>
 				<td colspan="1">
-					<input type="text" name="schoolName">
+					<input type="text" name="schoolName[]">
 				</td>
 				<td colspan="1">
-					<input type="year" name="startYear">
+					<input type="year" name="startYear[]">
 				</td>
 				<td colspan="1">
-					<input type="year" name="endYear">
+					<input type="year" name="endYear[]">
 				</td>
 				<td colspan="1">
-					<input type="text" name="qualification">
+					<input type="text" name="qualification[]">
 				</td>
 				<td colspan="2">
-					<input type="text" name="cgpa">
+					<input type="text" name="cgpa[]">
 				</td>
 			</tr>
 			<tr>
 				<td colspan="1">
-					<input type="text" name="schoolName">
+					<input type="text" name="schoolName[]">
 				</td>
 				<td colspan="1">
-					<input type="year" name="startYear">
+					<input type="year" name="startYear[]">
 				</td>
 				<td colspan="1">
-					<input type="year" name="endYear">
+					<input type="year" name="endYear[]">
 				</td>
 				<td colspan="1">
-					<input type="text" name="qualification">
+					<input type="text" name="qualification[]">
 				</td>
 				<td colspan="2">
-					<input type="text" name="cgpa">
+					<input type="text" name="cgpa[]">
 				</td>
 			</tr>
 			<tr>
 				<td colspan="1">
-					<input type="text" name="schoolName">
+					<input type="text" name="schoolName[]">
 				</td>
 				<td colspan="1">
-					<input type="year" name="startYear">
+					<input type="year" name="startYear[]">
 				</td>
 				<td colspan="1">
-					<input type="year" name="endYear">
+					<input type="year" name="endYear[]">
 				</td>
 				<td colspan="1">
-					<input type="text" name="qualification">
+					<input type="text" name="qualification[]">
 				</td>
 				<td colspan="2">
-					<input type="text" name="cgpa">
+					<input type="text" name="cgpa[]">
 				</td>
 			</tr>			
 		</table>
