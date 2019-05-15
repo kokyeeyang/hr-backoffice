@@ -106,7 +106,6 @@ class RegistrationController extends Controller
 		$candidateObjModel->termination_reason = $this->getParam('terminatedDetails', '');
 		$candidateObjModel->reference_consent = $this->getParam('consent', '');
 		$candidateObjModel->refuse_reference_reason = $this->getParam('noReferenceReason', '');
-		$candidateObjModel->position_applied = $this->getParam('positionApplied', '');
 		
 		$candidateObjModel->save();
 		// 
@@ -210,7 +209,7 @@ class RegistrationController extends Controller
 		$refereeObjModel->save();
 	}
 
-	
+
 	//
 
 	/**
