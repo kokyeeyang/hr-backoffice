@@ -253,10 +253,10 @@
 			<tr>
 				<td colspan="8">
 					<?php echo Yii::t('app', 'Have you ever been terminated/dismissed/suspended from the service of any employer'); ?>?<br>
-				  <input type="radio" name="terminationBefore" value="yes"> Yes<br>
-				  <input type="radio" name="terminationBefore" value="no"> No<br>
+				  <input type="radio" name="terminationBefore" value="1"> Yes<br>
+				  <input type="radio" name="terminationBefore" value="0"> No<br>
 					<?php echo Yii::t('app', 'If yes, please give details'); ?><br>
-					<input type="text" name="terminationDetails" class="inputLine"><br><br>
+					<input type="text" name="terminationDetails" class="inputLine" id="terminationReason" disabled="disabled"><br><br>
 				</td>
 			</tr>
 		</table>
@@ -303,10 +303,10 @@
 			<tr>
 				<td colspan="6">
 					<?php echo Yii::t('app', 'Can we make references to your employment records with your previous employers/companies'); ?>?<br>
-				  <input type="radio" name="consent" value="yes"> Yes<br>
-				  <input type="radio" name="consent" value="no"> No<br>
+				  <input type="radio" name="consent" value="1"> Yes<br>
+				  <input type="radio" name="consent" value="0"> No<br>
 					<?php echo Yii::t('app', 'If no, please give reasons'); ?><br>
-					<input type="text" name="noReferenceReason" class="inputLine"><br><br>
+					<input type="text" name="noReferenceReason" class="inputLine" disabled="disabled"><br><br>
 				</td>
 			</tr>
 		</table>
