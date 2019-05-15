@@ -13,7 +13,7 @@ class EmploymentJobExperience extends AppActiveRecord {
 
 	public function rules(){
 		return [
-			['candidate_id, company_name, start_date, end_date, position_held, starting_salary, ending_salary, allowances, terminated_before', 'required'],
+			['candidate_id, company_name, start_date, end_date, position_held, starting_salary, ending_salary, allowances', 'required'],
 		];
 	}	
 
@@ -27,7 +27,6 @@ class EmploymentJobExperience extends AppActiveRecord {
 			'starting_salary' => Yii::t('app', 'starting_salary'),
 			'ending_salary' => Yii::t('app', 'ending_salary'),
 			'allowances' => Yii::t('app', 'allowances'),
-			'terminated_before' => Yii::t('app', 'terminated_before'),
 			'leave_reason' => Yii::t('app', 'leave_reason')
 		];
 	}

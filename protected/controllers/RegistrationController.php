@@ -103,7 +103,7 @@ class RegistrationController extends Controller
 		$candidateObjModel->gender = $this->getParam('gender', '');
 		$candidateObjModel->nationality = $this->getParam('nationality', '');
 		$candidateObjModel->terminated_before = $this->getParam('terminatedBefore', '');
-		$candidateObjModel->terminated_reason = $this->getParam('terminatedDetails', '');
+		$candidateObjModel->termination_reason = $this->getParam('terminatedDetails', '');
 		$candidateObjModel->reference_consent = $this->getParam('consent', '');
 		$candidateObjModel->refuse_reference_reason = $this->getParam('noReferenceReason', '');
 		$candidateObjModel->position_applied = $this->getParam('positionApplied', '');
@@ -117,7 +117,8 @@ class RegistrationController extends Controller
 		$endYears = $this->getParam('endYear', '');
 		$qualifications = $this->getParam('qualification', '');
 		$grades = $this->getParam('cgpa', '');
-
+// var_dump($endYears);
+// exit;
 		foreach ($schoolNames as $schoolName){
 			foreach ($startYears as $startYear){
 				foreach ($endYears as $endYear){
@@ -132,12 +133,12 @@ class RegistrationController extends Controller
 								$educationObjModel->end_year = $endYear;
 								$educationObjModel->qualification = $qualification;
 								$educationObjModel->grade = $grade;
+								$educationObjModel->save();
 							}
 						}
 					}
 				}
 			}
-			$educationObjModel->save();
 		}
 		//
 
@@ -179,11 +180,10 @@ class RegistrationController extends Controller
 				}
 			}
 		}
+
 		$experienceObjModel->save();
 	}
 	//
-
-
 
 	/**
 	 * This is the 'captcha' action

@@ -55,7 +55,7 @@
 				  	<label for="others">
 						<?php echo Yii::t('app', 'Others'); ?>
 					</label><br>
-					<input type="text" name="otherFindingMethod" class="inputLine" id="otherInputLine" disabled="disabled">
+					<input type="text" name="findingMethod" class="inputLine" id="otherInputLine" disabled="disabled">
 					<br>
 			 	</td>
 			</tr>
@@ -253,8 +253,8 @@
 			<tr>
 				<td colspan="8">
 					<?php echo Yii::t('app', 'Have you ever been terminated/dismissed/suspended from the service of any employer'); ?>?<br>
-				  <input type="radio" name="terminationBefore" value="1"> Yes<br>
-				  <input type="radio" name="terminationBefore" value="0"> No<br>
+				  <input type="radio" name="terminatedBefore" value="1"> Yes<br>
+				  <input type="radio" name="terminatedBefore" value="0"> No<br>
 					<?php echo Yii::t('app', 'If yes, please give details'); ?><br>
 					<input type="text" name="terminationDetails" class="inputLine" id="terminationReason" disabled="disabled"><br><br>
 				</td>
