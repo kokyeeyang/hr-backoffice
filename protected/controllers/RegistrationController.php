@@ -107,7 +107,7 @@ class RegistrationController extends Controller
 		$candidateObjModel->save();
 		// 
 
-		//// this is for saving candidate education into employment_education table
+		// this is for saving candidate education into employment_education table
 		$schoolNames = $this->getParam('schoolName', '');
 		$startYears = $this->getParam('startYear', '');
 		$endYears = $this->getParam('endYear', '');
@@ -124,8 +124,8 @@ class RegistrationController extends Controller
 								$educationObjModel = new EmploymentEducation;
 								$educationObjModel->candidate_id = $candidateObjModel->id_no;
 								$educationObjModel->school_name = $schoolName;
-								$educationObjModel->from = $startYear;
-								$educationObjModel->to = $endYear;
+								$educationObjModel->start_year = $startYear;
+								$educationObjModel->end_year = $endYear;
 								$educationObjModel->qualification = $qualification;
 								$educationObjModel->grade = $grade;
 							}
@@ -135,7 +135,10 @@ class RegistrationController extends Controller
 			}
 			$educationObjModel->save();
 		}
-		////
+		//
+
+		// this is for saving candidate job experience into employment_job_experience table
+		
 	}
 
 	/**

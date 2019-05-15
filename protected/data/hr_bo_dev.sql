@@ -178,11 +178,27 @@ CREATE TABLE employment_candidate (
 /* Yee Yang 14/5/2019 */
 CREATE TABLE employment_education (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `candidate_id` int(11) NOT NULL,
-  `school_name` varchar(40) NOT NULl,
-  `from` varchar(4) NOT NULL,
-  `to` varchar(4) NOT NULL,
+  `candidate_id` int(25) NOT NULL,
+  `school_name` varchar(40) NOT NULL,
+  `start_year` varchar(4) NOT NULL,
+  `end_year` varchar(4) NOT NULL,
   `qualification` varchar(40) NOT NULL,
   `grade` varchar(40) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/* Yee Yang 15/5/2019 */
+CREATE TABLE employment_job_experience (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `candidate_id` int(25) NOT NULL,
+  `company_name` varchar(50) NOT NULL,
+  `start_date` varchar(10) NOT NULL,
+  `end_date` varchar(10) NOT NULL,
+  `position_held` varchar(10) NOT NULL,
+  `starting_salary` int(10) NOT NULL,
+  `ending_salary` int(10) NOT NULL,
+  `allowances` int(10) NOT NULL,
+  `terminated_before` int(11) NOT NULL DEFAULT '0',
+  `leave_reason` varchar(80) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
