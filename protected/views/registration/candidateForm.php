@@ -201,7 +201,7 @@
 					<?php echo Yii::t('app', 'Position Held'); ?>
 				</td>
 				<td colspan="2" rowspan="1">
-					<?php echo Yii::t('app', 'Basic Salary'); ?>
+					<?php echo Yii::t('app', 'Basic Salary'); ?> (RM)
 				</td>
 				<td colspan="1" rowspan="2">
 					<?php echo Yii::t('app', 'Allowances'); ?>
@@ -229,10 +229,10 @@
 					<input type="text" name="companyName">
 				</td>
 				<td colspan="1">
-					<input type="year" name="startDate">
+					<input type="year" name="startDate" placeholder="E.g: 01/2018 for Jan 2018">
 				</td>
 				<td colspan="1">
-					<input type="year" name="endDate">
+					<input type="year" name="endDate" placeholder="E.g: 01/2018 for Jan 2018">
 				</td>
 				<td colspan="1">
 					<input type="text" name="positionHeld">
