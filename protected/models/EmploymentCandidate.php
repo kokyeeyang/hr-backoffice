@@ -29,6 +29,10 @@ class EmploymentCandidate extends AppActiveRecord
 			'marital_status' => Yii::t('app', 'marital_status'),
 			'gender' => Yii::t('app', 'gender'),
 			'nationality' => Yii::t('app', 'nationality'),
+			'terminatedBefore' => Yii::t('app', 'terminatedBefore'),
+			'terminatedDetails' => Yii::t('app', 'terminatedDetails'),
+			'consent' => Yii::t('app', 'consent'),
+			'noReferenceReason' => Yii::t('app', 'noReferenceReason'),
 			'position_applied' => Yii::t('app', 'position_applied')
 		];
 	}

@@ -171,6 +171,10 @@ CREATE TABLE employment_candidate (
   `marital_status` varchar(20) NOT NULL,
   `gender` varchar(20) NOT NULL,
   `nationality` varchar(30) NOT NULL,
+  `terminated_before` int(11) NULL DEFAULT '0',
+  `termination_reason` varchar(60) NULL,
+  `reference_consent` int(11) NULL DEFAULT '1',
+  `refuse_reference_reason` varchar(60) NULL,
   `position_applied` varchar(40) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -198,7 +202,6 @@ CREATE TABLE employment_job_experience (
   `starting_salary` int(10) NOT NULL,
   `ending_salary` int(10) NOT NULL,
   `allowances` int(10) NOT NULL,
-  `terminated_before` int(11) NOT NULL DEFAULT '0',
-  `leave_reason` varchar(80) NULL,
+  `leave_reason` varchar(80) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

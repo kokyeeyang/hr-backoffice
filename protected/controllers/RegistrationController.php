@@ -102,6 +102,10 @@ class RegistrationController extends Controller
 		$candidateObjModel->marital_status = $this->getParam('maritalStatus', '');
 		$candidateObjModel->gender = $this->getParam('gender', '');
 		$candidateObjModel->nationality = $this->getParam('nationality', '');
+		$candidateObjModel->terminated_before = $this->getParam('terminatedBefore', '');
+		$candidateObjModel->terminated_reason = $this->getParam('terminatedDetails', '');
+		$candidateObjModel->reference_consent = $this->getParam('consent', '');
+		$candidateObjModel->refuse_reference_reason = $this->getParam('noReferenceReason', '');
 		$candidateObjModel->position_applied = $this->getParam('positionApplied', '');
 		
 		$candidateObjModel->save();
@@ -138,8 +142,48 @@ class RegistrationController extends Controller
 		//
 
 		// this is for saving candidate job experience into employment_job_experience table
-		
+		$companyNames = $this->getParam('companyName','');
+		$startDates = $this->getParam('startDate','');
+		$endDates = $this->getParam('endDate','');
+		$positionsHeld = $this->getParam('positionHeld','');
+		$startingSalaries = $this->getParam('startingSalary','');
+		$endingSalaries = $this->getParam('endingSalary','');
+		$allowances = $this->getParam('allowances','');
+		$leaveReasons = $this->getParam('leaveReason','');
+
+		foreach($companyNames as $companyName){
+			foreach($startDates as $startDate){
+				foreach($endDates as $endDate){
+					foreach($positionsHeld as $positionHeld){
+						foreach($startingSalaries as $startingSalary){
+							foreach($endingSalaries as $endingSalary){
+								foreach($allowances as $allowance){
+									foreach($leaveReasons as $leaveReason){
+										if($companyName != false){
+											$experienceObjModel = new EmploymentJobExperience;
+											$experienceObjModel->candidate_id = $candidateObjModel->id_no;
+											$experienceObjModel->company_name = $companyName;
+											$experienceObjModel->start_date = $startDate;
+											$experienceObjModel->end_date = $endDate;
+											$experienceObjModel->position_held = $positionHeld;
+											$experienceObjModel->starting_salary = $startingSalary;
+											$experienceObjModel->ending_salary = $endingSalary;
+											$experienceObjModel->allowances = $allowance;
+											$experienceObjModel->leave_reason = $leaveReason;
+										} 
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		$experienceObjModel->save();
 	}
+	//
+
+
 
 	/**
 	 * This is the 'captcha' action
