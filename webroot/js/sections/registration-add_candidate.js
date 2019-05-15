@@ -22,14 +22,16 @@ var RegistrationAddCandidate = function() {
 			});
 
 			$("input[name=consent]").click(function() {
-				//if user checked yes box, then remove disabled attribute for the input line
+				//if user checked no(refuses to give consent) box, then remove disabled attribute for the input line
 				if ($("input[name=consent]:checked").val() == "0") {
 					$("input[name=noReferenceReason]").removeAttr("disabled");
 				} else {
+					//user give consent
 					$("input[name=noReferenceReason]").attr("disabled", "yes");
 					$("input[name=noReferenceReason]").val('');
 				}
 			}); 
+
 		});
 	}
 

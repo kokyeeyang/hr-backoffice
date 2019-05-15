@@ -260,7 +260,7 @@
 				</td>
 			</tr>
 		</table>
-		<table class="candidateTable">
+		<table class="candidateTable" id="referees">
 			<tr>
 				<td colspan="6" class="candidateDetailsTitle" style="background-color: #0CFEFE;">
 					4.<?php echo Yii::t('app', 'REFEREES (Previous Superiors)'); ?>
@@ -285,19 +285,70 @@
 			</tr>
 			<tr>
 				<td colspan="1">
-					<input type="text" name="superiorName">
+					<input type="text" name="superiorName[]">
 				</td>
 				<td colspan="2">
-					<input type="year" name="superiorCompany">
+					<input type="year" name="superiorCompany[]">
 				</td>
 				<td colspan="1">
-					<input type="year" name="superiorOccupation">
+					<input type="year" name="superiorOccupation[]">
 				</td>
 				<td colspan="1">
-					<input type="text" name="superiorContact">
+					<input type="text" name="superiorContact[]">
 				</td>
 				<td colspan="1">
-					<input type="text" name="yearsKnown">
+					<input type="text" name="yearsKnown[]">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					<input type="text" name="superiorName[]">
+				</td>
+				<td colspan="2">
+					<input type="year" name="superiorCompany[]">
+				</td>
+				<td colspan="1">
+					<input type="year" name="superiorOccupation[]">
+				</td>
+				<td colspan="1">
+					<input type="text" name="superiorContact[]">
+				</td>
+				<td colspan="1">
+					<input type="text" name="yearsKnown[]">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					<input type="text" name="superiorName[]">
+				</td>
+				<td colspan="2">
+					<input type="year" name="superiorCompany[]">
+				</td>
+				<td colspan="1">
+					<input type="year" name="superiorOccupation[]">
+				</td>
+				<td colspan="1">
+					<input type="text" name="superiorContact[]">
+				</td>
+				<td colspan="1">
+					<input type="text" name="yearsKnown[]">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					<input type="text" name="superiorName[]">
+				</td>
+				<td colspan="2">
+					<input type="year" name="superiorCompany[]">
+				</td>
+				<td colspan="1">
+					<input type="year" name="superiorOccupation[]">
+				</td>
+				<td colspan="1">
+					<input type="text" name="superiorContact[]">
+				</td>
+				<td colspan="1">
+					<input type="text" name="yearsKnown[]">
 				</td>
 			</tr>
 			<tr>
@@ -321,7 +372,9 @@
 					a) <?php echo Yii::t('app', 'Are you suffering from any physical disabilities or have ever been seriously ill'); ?>?
 				</td>
 				<td colspan="1">
-					<input type="text" name="illness">
+					<!-- <input type="text" name="illness"> -->
+					<input type="radio" name="illness" value="1"> Yes
+				  <input type="radio" name="illness" value="0"> No<br>
 				</td>
 			</tr>
 			<tr>
@@ -330,7 +383,9 @@
 					<?php echo Yii::t('app', 'If yes, please state offence and date of conviction and discharge'); ?>
 				</td>
 				<td colspan="1">
-					<input type="text" name="criminalOffense">
+					<!-- <input type="text" name="criminalOffense"> -->
+					<input type="radio" name="criminalOffense" value="1"> Yes
+				  <input type="radio" name="criminalOffense" value="0"> No<br>
 				</td>
 			</tr>
 			<tr>
@@ -338,7 +393,9 @@
 					c) <?php echo Yii::t('app', 'Do you have any relatives or friends working in SagaOS or its subsidiaries? If so, please state name and relationship'); ?>?
 				</td>
 				<td colspan="1">
-					<input type="text" name="sagaosRelative">
+					<!-- <input type="text" name="sagaosRelative"> -->
+					<input type="radio" name="sagaosRelative" value="1"> Yes
+				  <input type="radio" name="sagaosRelative" value="0"> No<br>
 				</td>
 			</tr>
 			<tr>
@@ -346,7 +403,9 @@
 					d) <?php echo Yii::t('app', 'Any relatives involved directly or indirectly in similar company’s business'); ?>?
 				</td>
 				<td colspan="1">
-					<input type="text" name="similarBusiness">
+					<!-- <input type="text" name="similarBusiness"> -->
+					<input type="radio" name="sagaosRelative" value="1"> Yes
+				  <input type="radio" name="sagaosRelative" value="0"> No<br>
 				</td>
 			</tr>
 			<tr>
@@ -354,10 +413,12 @@
 					e) <?php echo Yii::t('app', 'Do you possess a car or motorcycle'); ?>?
 				</td>
 				<td colspan="1">
-					<input type="text" name="modeOfTransport">
+					<!-- <input type="text" name="modeOfTransport"> -->
+					<input type="radio" name="ownTransport" value="1"> Yes
+				  <input type="radio" name="ownTransport" value="0"> No<br>
 				</td>
 			</tr>
-			<tr>
+<!-- 			<tr>
 				<td colspan="1">
 					f) <?php echo Yii::t('app', 'How did you find this employment opportunity'); ?>?<br>
 						 <?php echo Yii::t('app', 'E.g. Newspaper/Online/Recruitment Agency/SagaOS website/Others'); ?>
@@ -365,13 +426,15 @@
 				<td colspan="1">
 					<input type="text" name="methodForFindingJob">
 				</td>
-			</tr>
+			</tr> -->
 			<tr>
 				<td colspan="1">
 					g) <?php echo Yii::t('app', 'Have you ever applied to/worked at SagaOS before'); ?>?
 				</td>
 				<td colspan="1">
-					<input type="text" name="methodForFindingJob">
+					<input type="radio" name="timesApplied" value="1"> Yes
+				  <input type="radio" name="timesApplied" value="0"> No<br>
+					<!-- <input type="text" name="methodForFindingJob"> -->
 				</td>
 			</tr>
 			<tr>
@@ -387,7 +450,9 @@
 					i) <?php echo Yii::t('app', 'If hired, are you willing to submit to a good conduct certificate'); ?>?
 				</td>
 				<td colspan="1">
-					<input type="text" name="goodConduct">
+					<!-- <input type="text" name="goodConduct"> -->
+					<input type="radio" name="timesApplied" value="1"> Yes
+				  <input type="radio" name="timesApplied" value="0"> No<br>
 				</td>
 			</tr>
 			<tr>

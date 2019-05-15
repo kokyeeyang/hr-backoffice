@@ -205,3 +205,27 @@ CREATE TABLE employment_job_experience (
   `leave_reason` varchar(80) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE employment_referee (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `candidate_id` int(25) NOT NULL,
+  `supervisor_name` varchar(50) NOT NULL,
+  `supervisor_company` varchar(50) NOT NULL,
+  `supervisor_occupation` varchar(50) NOT NULL,
+  `supervisor_contact` varchar(50) NOT NULL,
+  `years_known` int(5) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE employment_general_question (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `candidate_id` int(25) NOT NULL,
+  `physical_illness` int(11) NOT NULL,
+  `` int(11) NOT NULL,
+  `` int(11) NOT NULL,
+  `` int(11) NOT NULL,
+  `` int(11) NOT NULL,
+  `` int(11) NOT NULL,
+  `` int(11) NOT NULL,
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
