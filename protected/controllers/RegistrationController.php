@@ -180,37 +180,37 @@ class RegistrationController extends Controller
 		}
 
 		$experienceObjModel->save();
-	}
-	//
+		//
+		
+		// this is for saving candidate referees into employment_referee table
+		$supervisorNames = $this->getParam('superiorName','');
+		$supervisorCompanies = $this->getParam('superiorCompany','');
+		$supervisorOccupations = $this->getParam('superiorOccupation','');
+		$supervisorContacts = $this->getParam('superiorContact','');
+		$yearsKnownArray = $this->getParam('yearsKnown','');
 
-	// this is for saving candidate referees into employment_referee table
-	$supervisorNames = $this->getParam('superiorName','');
-	$supervisorCompanies = $this->getParam('superiorCompany','');
-	$supervisorOccupations = $this->getParam('superiorOccupation','');
-	$supervisorContacts = $this->getParam('superiorContact','');
-	$yearsKnownArray = $this->getParam('yearsKnown','');
-
-	foreach($supervisorNames as $supervisorName){
-		foreach($supervisorCompanies as $supervisorCompany){
-			foreach($supervisorOccupations as $supervisorOccupation){
-				foreach($supervisorContacts as $supervisorContact){
-					foreach($yearsKnownArray as $yearsKnownObj){
-						$refereeObjModel = new EmploymentReferee;
-						$refereeObjModel->candidate_id = $candidateObjModel->id_no;
-						$refereeObjModel->supervisor_name = $supervisorName;
-						$refereeObjModel->supervisor_company = $supervisorCompany;
-						$refereeObjModel->supervisor_occupation = $supervisorOccupation;
-						$refereeObjModel->years_known = $yearsKnownObj;
+		foreach($supervisorNames as $supervisorName){
+			foreach($supervisorCompanies as $supervisorCompany){
+				foreach($supervisorOccupations as $supervisorOccupation){
+					foreach($supervisorContacts as $supervisorContact){
+						foreach($yearsKnownArray as $yearsKnownObj){
+							$refereeObjModel = new EmploymentReferee;
+							$refereeObjModel->candidate_id = $candidateObjModel->id_no;
+							$refereeObjModel->supervisor_name = $supervisorName;
+							$refereeObjModel->supervisor_company = $supervisorCompany;
+							$refereeObjModel->supervisor_occupation = $supervisorOccupation;
+							$refereeObjModel->supervisor_contact = $supervisorContact;
+							$refereeObjModel->years_known = $yearsKnownObj;
+						}
 					}
 				}
 			}
-		}
 
-		$refereeObjModel->save();
+			$refereeObjModel->save();
+		}
+		//
 	}
 
-
-	//
 
 	/**
 	 * This is the 'captcha' action
