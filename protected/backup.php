@@ -32,8 +32,8 @@
 			 	<td colspan="2" rowspan="3">
 			 		<?php echo Yii::t('app', 'How did you find out about this position?'); ?><br>
 		 			<input type="radio" name="findingMethod" value="jobstreet" id="jobstreet" class="methodRadio">
-	 		  		<label for="jobstreet">
-		 				<?php echo Yii::t('app', 'Jobstreet'); ?>
+	 		  	<label for="jobstreet">
+		 			<?php echo Yii::t('app', 'Jobstreet'); ?>
 		 			</label><br>
 					<input type="radio" name="findingMethod" value="linkedin" id="linkedin" class="methodRadio">
 					<label for="linkedin">
