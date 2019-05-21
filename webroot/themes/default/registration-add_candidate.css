@@ -58,6 +58,8 @@ input[class=methodRadio] {
 
 div .radio-buttons {
 	clear: both;
+	margin-left: 18px;
+	margin-bottom: 10px;
 }
 
 input[type=radio] {
@@ -69,23 +71,38 @@ fieldset {
 	margin-top:30px;
 }
 
-span .educationSection {
-	width: 300px;
-}
-
-.grid_block {
+div .grid_block {
   display: inline-grid;
   margin-left: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 
 .educationSectionInput{
 	margin-bottom: 4px;
 }
 
-.general_grid_block {
+div .general_grid_block {
 	display: inline-grid;
   margin-left: 10px;
   margin-bottom: 20px;
   height: 200px;
 }
+
+fieldset[class=fieldset] {
+	border: 1px solid #000;
+}
+
+div .general_lables {
+	width: 180px;
+  float: left;
+  height: 100%;
+}
+
+div .general_lables2 {
+	width: 240px;
+  float: left;
+  padding-right: 5px;
+  height: 100%;
+}
+
+

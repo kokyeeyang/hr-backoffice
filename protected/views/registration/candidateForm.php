@@ -2,7 +2,7 @@
   <div id="tabs-1" aria-labelledby="ui-id-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-expanded="true" aria-hidden="false">
     <form method="post" action="<?php echo $this->createUrl('registration/saveCandidate') ?>" id="candidateForm" name="candidateForm">
       <div>
-        <fieldset class="fieldset" style="border: 1px solid #000;">
+        <fieldset class="fieldset">
           <legend class="legend">
             1.<?php echo Yii::t('app', 'Personal Particulars'); ?>
           </legend>
@@ -106,7 +106,7 @@
             <input type="text" name="findingMethod" id="otherInputLine" style="display:none; width:20%;" placeholder="Please specify">
           </div>
         </fieldset>
-        <fieldset class="fieldset" style="border: 1px solid #000;">
+        <fieldset class="fieldset">
           <legend class="legend">
             2.<?php echo Yii::t('app', 'EDUCATION & PROFESSIONAL QUALIFICATION'); ?>
           </legend>
@@ -119,7 +119,7 @@
           <?php $this->beginContent('//registration/education_section'); ?>
           <?php $this->endContent(); ?>
         </fieldset>
-        <fieldset class="fieldset" style="border: 1px solid #000;">
+        <fieldset class="fieldset">
           <legend class="legend">
             3.<?php echo Yii::t('app', 'PRESENT AND PREVIOUS EMPLOYMENT'); ?>
           </legend>
@@ -131,7 +131,7 @@
           <?php $this->endContent(); ?>
           <?php $this->beginContent('//registration/company_section'); ?>
           <?php $this->endContent(); ?>
-          <div class="grid_block">
+          <div class="grid_block" style="margin-left: 0px;">
             <div class="lable_block">
               <div class="lables">
                 <?php echo Yii::t('app', 'Have you ever been terminated/dismissed/suspended from the service of any employer'); ?>?<br>
@@ -145,7 +145,7 @@
             </div>
           </div>
         </fieldset>
-        <fieldset class="fieldset" style="border: 1px solid #000;">
+        <fieldset class="fieldset">
           <legend class="legend">
             4.<?php echo Yii::t('app', 'REFEREES (Previous Superiors'); ?>
           </legend>
@@ -167,16 +167,16 @@
             </div>
           </div>
         </fieldset>
-        <fieldset class="fieldset" style="border: 1px solid #000;">
+        <fieldset class="fieldset">
           <legend class="legend">
             5.<?php echo Yii::t('app', 'General') ?>
           </legend>
           <div class="general_grid_block">
             <div class="lable_block">
-              <div class="lables">
+              <div class="general_lables">
                 a) <?php echo Yii::t('app', 'Are you suffering from any physical disabilities or have ever been seriously ill'); ?>?
               </div>
-              <div class="lables2">
+              <div class="general_lables2">
                 <input type="radio" name="illness" value="1"> Yes
                 <input type="radio" name="illness" value="0"> No<br>
               </div>
@@ -184,12 +184,12 @@
           </div>
           <div class="general_grid_block">
             <div class="lable_block">
-              <div class="lables">
+              <div class="general_lables">
                 b) <?php echo Yii::t('app', 'Have you ever been convicted for a criminal offence, declared bankrupt, revoked of professional practicing license/certificate and/or charged in court?'); ?>? <br>
                 <?php echo Yii::t('app', 'If yes, please state offence and date of conviction and discharge'); ?>
                 <input type="text" name="criminalOffenseInput" style="display: none;" id="criminalOffenseInput">
               </div>
-              <div class="lables2">
+              <div class="general_lables2">
                 <input type="radio" name="criminalOffenseRadio" value="1"> Yes
                 <input type="radio" name="criminalOffenseRadio" value="0"> No<br>
               </div>
@@ -197,11 +197,11 @@
           </div>
           <div class="general_grid_block">
             <div class="lable_block">
-              <div class="lables">
+              <div class="general_lables">
                 c) <?php echo Yii::t('app', 'Do you have any relatives or friends working in SagaOS or its subsidiaries? If so, please state name and relationship'); ?>? <br>
                  <input type="text" name="sagaosFamilyInput" style="display: none;" id="sagaosFamilyInput">
               </div>
-              <div class="lables2">
+              <div class="general_lables2">
                 <input type="radio" name="sagaosRelative" value="1"> Yes
                 <input type="radio" name="sagaosRelative" value="0"> No<br>
               </div>
@@ -209,10 +209,10 @@
           </div>
           <div class="general_grid_block">
             <div class="lable_block">
-              <div class="lables">
+              <div class="general_lables">
                 d) <?php echo Yii::t('app', 'Any relatives involved directly or indirectly in similar company’s business'); ?>?
               </div>
-              <div class="lables2">
+              <div class="general_lables2">
                 <input type="radio" name="interestConflict" value="1"> Yes
                 <input type="radio" name="interestConflict" value="0"> No<br>
               </div>
@@ -220,10 +220,10 @@
           </div>
           <div class="general_grid_block">
             <div class="lable_block">
-              <div class="lables">
+              <div class="general_lables">
                 e) <?php echo Yii::t('app', 'Do you possess a car or motorcycle'); ?>?
               </div>
-              <div class="lables2">
+              <div class="general_lables2">
                 <input type="radio" name="ownTransport" value="1"> Yes
                 <input type="radio" name="ownTransport" value="0"> No<br>
               </div>
@@ -231,10 +231,10 @@
           </div>
           <div class="general_grid_block">
             <div class="lable_block">
-              <div class="lables">
+              <div class="general_lables">
                 g) <?php echo Yii::t('app', 'Have you ever applied to/worked at SagaOS before'); ?>?
               </div>
-              <div class="lables2">
+              <div class="general_lables2">
                 <input type="radio" name="timesApplied" value="1"> Yes
                 <input type="radio" name="timesApplied" value="0"> No<br>
               </div>
@@ -242,20 +242,20 @@
           </div>
           <div class="general_grid_block">
             <div class="lable_block">
-              <div class="lables">
+              <div class="general_lables">
                 h) <?php echo Yii::t('app', 'If you were offered employment, when can you commence work'); ?>?
               </div>
-              <div class="lables2">
+              <div class="general_lables2">
                 <input type="text" name="commencementDate">
               </div>
             </div>
           </div>
           <div class="general_grid_block">
             <div class="lable_block">
-              <div class="lables">
+              <div class="general_lables">
                 i) <?php echo Yii::t('app', 'If hired, are you willing to submit to a good conduct certificate'); ?>?
               </div>
-              <div class="lables2">
+              <div class="general_lables2">
                 <input type="radio" name="goodConductConsent" value="1"> Yes
                 <input type="radio" name="goodConductConsent" value="0"> No<br>
               </div>
@@ -263,16 +263,16 @@
           </div>
           <div class="general_grid_block">
             <div class="lable_block">
-              <div class="lables">
+              <div class="general_lables">
                 j) <?php echo Yii::t('app', 'Expected Salary'); ?>
               </div>
-              <div class="lables2">
+              <div class="general_lables2">
                 <input type="text" name="expectedSalary">
               </div>
             </div>
           </div>
         </fieldset>
-        <fieldset class="fieldset" style="border: 1px solid #000;">
+        <fieldset class="fieldset">
           <legend class="legend">
             6.<?php echo Yii::t('app', 'DECLARATION & CONSENT') ?>
           </legend>
