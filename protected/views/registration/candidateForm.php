@@ -101,68 +101,172 @@
           <legend class="legend">
             2.<?php echo Yii::t('app', 'EDUCATION & PROFESSIONAL QUALIFICATION'); ?>
           </legend>
-          <div class="education_display_inline_block">
-            <div class="lables">
-              <span><?php echo Yii::t('app', 'Name of School/College/University'); ?></span><br>
-              <span><?php echo Yii::t('app', 'Year from'); ?></span><br>
-              <span><?php echo Yii::t('app', 'Year to'); ?></span><br>
-              <span><?php echo Yii::t('app', 'Qualification & Subject Obtained'); ?></span><br>
-              <span><?php echo Yii::t('app', 'Grade/CGPA'); ?></span><br>
+          <div class="grid_block">
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Name of School/College/University'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="schoolName[]" class="educationSectionInput"><br>
+              </div>
             </div>
-            <div class="lables2">
-              <input type="text" name="schoolName[]" class="educationSectionInput"><br>
-              <input type="year" name="startYear[]" class="educationSectionInput"><br>
-              <input type="year" name="endYear[]" class="educationSectionInput"><br>
-              <input type="text" name="qualification[]" class="educationSectionInput"><br>
-              <input type="text" name="cgpa[]" class="educationSectionInput"><br>
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Year from'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="year" name="startYear[]" class="educationSectionInput"><br>
+              </div>
             </div>
-          </div>
-          <div class="education_display_inline_block">
-            <div class="lables">
-              <span class="educationSection"><?php echo Yii::t('app', 'Name of School/College/University'); ?></span><br>
-              <span class="educationSection"><?php echo Yii::t('app', 'Year from'); ?></span><br>
-              <span class="educationSection"><?php echo Yii::t('app', 'Year to'); ?></span><br>
-              <span class="educationSection"><?php echo Yii::t('app', 'Qualification & Subject Obtained'); ?></span><br>
-              <span class="educationSection"><?php echo Yii::t('app', 'Grade/CGPA'); ?></span><br>
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Year to'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="year" name="endYear[]" class="educationSectionInput"><br>
+              </div>
             </div>
-            <div class="lables2">
-              <input type="text" name="schoolName[]" class="educationSectionInput"><br>
-              <input type="year" name="startYear[]" class="educationSectionInput"><br>
-              <input type="year" name="endYear[]" class="educationSectionInput"><br>
-              <input type="text" name="qualification[]" class="educationSectionInput"><br>
-              <input type="text" name="cgpa[]" class="educationSectionInput"><br>
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Qualification & Subject Obtained'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="qualification[]" class="educationSectionInput"><br>
+              </div>
             </div>
-          </div>
-          <div class="education_display_inline_block">
-            <div class="lables">
-              <span class="educationSection"><?php echo Yii::t('app', 'Name of School/College/University'); ?></span><br>
-              <span class="educationSection"><?php echo Yii::t('app', 'Year from'); ?></span><br>
-              <span class="educationSection"><?php echo Yii::t('app', 'Year to'); ?></span><br>
-              <span class="educationSection"><?php echo Yii::t('app', 'Qualification & Subject Obtained'); ?></span><br>
-              <span class="educationSection"><?php echo Yii::t('app', 'Grade/CGPA'); ?></span><br>
-            </div>
-            <div class="lables2">
-              <input type="text" name="schoolName[]" class="educationSectionInput"><br>
-              <input type="year" name="startYear[]" class="educationSectionInput"><br>
-              <input type="year" name="endYear[]" class="educationSectionInput"><br>
-              <input type="text" name="qualification[]" class="educationSectionInput"><br>
-              <input type="text" name="cgpa[]" class="educationSectionInput"><br>
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Grade/CGPA'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="cgpa[]" class="educationSectionInput"><br>
+              </div>
             </div>
           </div>
-          <div class="education_display_inline_block">
-            <div class="lables">
-              <span class="educationSection"><?php echo Yii::t('app', 'Name of School/College/University'); ?></span><br>
-              <span class="educationSection"><?php echo Yii::t('app', 'Year from'); ?></span><br>
-              <span class="educationSection"><?php echo Yii::t('app', 'Year to'); ?></span><br>
-              <span class="educationSection"><?php echo Yii::t('app', 'Qualification & Subject Obtained'); ?></span><br>
-              <span class="educationSection"><?php echo Yii::t('app', 'Grade/CGPA'); ?></span><br>
+          <div class="grid_block">
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Name of School/College/University'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="schoolName[]" class="educationSectionInput"><br>
+              </div>
             </div>
-            <div class="lables2">
-              <input type="text" name="schoolName[]" class="educationSectionInput"><br>
-              <input type="year" name="startYear[]" class="educationSectionInput"><br>
-              <input type="year" name="endYear[]" class="educationSectionInput"><br>
-              <input type="text" name="qualification[]" class="educationSectionInput"><br>
-              <input type="text" name="cgpa[]" class="educationSectionInput"><br>
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Year from'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="year" name="startYear[]" class="educationSectionInput"><br>
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Year to'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="year" name="endYear[]" class="educationSectionInput"><br>
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Qualification & Subject Obtained'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="qualification[]" class="educationSectionInput"><br>
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Grade/CGPA'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="cgpa[]" class="educationSectionInput"><br>
+              </div>
+            </div>
+          </div>
+          <div class="grid_block">
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Name of School/College/University'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="schoolName[]" class="educationSectionInput"><br>
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Year from'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="year" name="startYear[]" class="educationSectionInput"><br>
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Year to'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="year" name="endYear[]" class="educationSectionInput"><br>
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Qualification & Subject Obtained'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="qualification[]" class="educationSectionInput"><br>
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Grade/CGPA'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="cgpa[]" class="educationSectionInput"><br>
+              </div>
+            </div>
+          </div>
+          <div class="grid_block">
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Name of School/College/University'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="schoolName[]" class="educationSectionInput"><br>
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Year from'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="year" name="startYear[]" class="educationSectionInput"><br>
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Year to'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="year" name="endYear[]" class="educationSectionInput"><br>
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Qualification & Subject Obtained'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="qualification[]" class="educationSectionInput"><br>
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Grade/CGPA'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="cgpa[]" class="educationSectionInput"><br>
+              </div>
             </div>
           </div>
         </fieldset>
@@ -170,7 +274,192 @@
           <legend class="legend">
             3.<?php echo Yii::t('app', 'PRESENT AND PREVIOUS EMPLOYMENT'); ?>
           </legend>
-          
+          <div class="grid_block">
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Name of Company'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="companyName[]">
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'From'); ?>
+              </div>
+              <div class="lables2">
+                <input type="year" name="startDate[]" placeholder="E.g: 01/2018 for Jan 2018">
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'To'); ?>
+              </div>
+              <div class="lables2">
+                <input type="year" name="endDate[]" placeholder="E.g: 01/2018 for Jan 2018">
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'Position Held'); ?>
+              </div>
+              <div class="lables2">
+                <input type="text" name="positionHeld[]">
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'Final Salary'); ?>
+              </div>
+              <div class="lables2">
+                <input type="text" name="endingSalary[]">
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'Allowances'); ?>
+              </div>
+              <div class="lables2">
+                <input type="text" name="allowances[]">
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'Reason for leaving'); ?>
+              </div>
+              <div class="lables2">
+                <input type="text" name="leaveReason[]">
+              </div>
+            </div>
+          </div>
+          <div class="grid_block">
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Name of Company'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="companyName[]">
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'From'); ?>
+              </div>
+              <div class="lables2">
+                <input type="year" name="startDate[]" placeholder="E.g: 01/2018 for Jan 2018">
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'To'); ?>
+              </div>
+              <div class="lables2">
+                <input type="year" name="endDate[]" placeholder="E.g: 01/2018 for Jan 2018">
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'Position Held'); ?>
+              </div>
+              <div class="lables2">
+                <input type="text" name="positionHeld[]">
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'Final Salary'); ?>
+              </div>
+              <div class="lables2">
+                <input type="text" name="endingSalary[]">
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'Allowances'); ?>
+              </div>
+              <div class="lables2">
+                <input type="text" name="allowances[]">
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'Reason for leaving'); ?>
+              </div>
+              <div class="lables2">
+                <input type="text" name="leaveReason[]">
+              </div>
+            </div>
+          </div>
+          <?php $this->renderPartial(’/views/layouts/company_section’); ?>
+          <div class="grid_block">
+            <div class="display_inline_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Name of Company'); ?></span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="companyName[]">
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'From'); ?>
+              </div>
+              <div class="lables2">
+                <input type="year" name="startDate[]" placeholder="E.g: 01/2018 for Jan 2018">
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'To'); ?>
+              </div>
+              <div class="lables2">
+                <input type="year" name="endDate[]" placeholder="E.g: 01/2018 for Jan 2018">
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'Position Held'); ?>
+              </div>
+              <div class="lables2">
+                <input type="text" name="positionHeld[]">
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'Final Salary'); ?>
+              </div>
+              <div class="lables2">
+                <input type="text" name="endingSalary[]">
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'Allowances'); ?>
+              </div>
+              <div class="lables2">
+                <input type="text" name="allowances[]">
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'Reason for leaving'); ?>
+              </div>
+              <div class="lables2">
+                <input type="text" name="leaveReason[]">
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'Have you ever been terminated/dismissed/suspended from the service of any employer'); ?>?<br>
+                <?php echo Yii::t('app', 'If yes, please give details'); ?><br>
+                <input type="text" name="terminationDetails" class="inputLine" id="terminationReason" style="display:none;"><br><br>
+              </div>
+              <div class="lables2">
+                <input type="radio" name="terminatedBefore" value="1"> Yes<br>
+                <input type="radio" name="terminatedBefore" value="0"> No<br>
+              </div>
+            </div>
+          </div>
         </fieldset>
       </div>
     </form>

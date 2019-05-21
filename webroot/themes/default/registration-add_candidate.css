@@ -81,13 +81,18 @@ span .educationSection {
 	width:;
 }*/
 
-.education_display_inline_block{
-  /*display: inline-flex;*/
+/*.education_display_inline_block{
   width:600px;
   margin-left: 10px;
   margin-bottom: 20px;
   margin-right: 20px;
   float:left;
+}*/
+
+.grid_block {
+  display: inline-grid;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
 
 .educationSectionInput{

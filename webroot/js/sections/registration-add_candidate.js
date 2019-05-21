@@ -14,12 +14,15 @@ var RegistrationAddCandidate = function() {
 				}
 			});
 
-			$("input[name=terminationBefore]").click(function() {
+			var terminateBeforeLine = document.getElementById("terminationReason");
+			$("input[name=terminatedBefore]").click(function() {
 				//if user checked yes box, then remove disabled attribute for the input line
-				if ($("input[name=terminationBefore]:checked").val() == "1") {
-					$("input[name=terminationDetails]").removeAttr("disabled");
+				if ($("input[name=terminatedBefore]:checked").val() == "1") {
+					terminateBeforeLine.style.display = "block";
+					// $("input[name=terminationDetails]").removeAttr("disabled");
 				} else {
-					$("input[name=terminationDetails]").attr("disabled", "yes");
+					// $("input[name=terminationDetails]").attr("disabled", "yes");
+					terminateBeforeLine.style.display = "none";
 					$("input[name=terminationDetails]").val('');
 				}
 			});
