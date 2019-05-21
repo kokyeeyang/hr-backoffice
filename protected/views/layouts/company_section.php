@@ -55,15 +55,4 @@
       <input type="text" name="leaveReason[]">
     </div>
   </div>
-  <div class="display_inline_block">
-    <div class="lables">
-      <?php echo Yii::t('app', 'Have you ever been terminated/dismissed/suspended from the service of any employer'); ?>?<br>
-      <?php echo Yii::t('app', 'If yes, please give details'); ?><br>
-      <input type="text" name="terminationDetails" class="inputLine" id="terminationReason" style="display:none;"><br><br>
-    </div>
-    <div class="lables2">
-      <input type="radio" name="terminatedBefore" value="1"> Yes<br>
-      <input type="radio" name="terminatedBefore" value="0"> No<br>
-    </div>
-  </div>
 </div>

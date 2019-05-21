@@ -115,13 +115,48 @@
             3.<?php echo Yii::t('app', 'PRESENT AND PREVIOUS EMPLOYMENT'); ?>
           </legend>
           <?php $this->beginContent('//registration/company_section'); ?>
-          <?php $this->endContent(); ?>          
+          <?php $this->endContent(); ?>
           <?php $this->beginContent('//registration/company_section'); ?>
-          <?php $this->endContent(); ?>  
+          <?php $this->endContent(); ?>
           <?php $this->beginContent('//registration/company_section'); ?>
           <?php $this->endContent(); ?>
           <?php $this->beginContent('//registration/company_section'); ?>
           <?php $this->endContent(); ?>
+          <div class="grid_block">
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'Have you ever been terminated/dismissed/suspended from the service of any employer'); ?>?<br>
+                <?php echo Yii::t('app', 'If yes, please give details'); ?><br>
+                <input type="text" name="terminationDetails[]" class="inputLine" id="terminationReason" style="display:none;"><br><br>
+              </div>
+              <div class="lables2">
+                <input type="radio" name="terminatedBefore" value="1"> Yes<br>
+                <input type="radio" name="terminatedBefore" value="0"> No<br>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="fieldset" style="border: 1px solid #000;">
+          <legend class="legend">
+            4.<?php echo Yii::t('app', 'REFEREES (Previous Superiors'); ?>
+          </legend>
+          <?php $this->beginContent('//registration/referee_section'); ?>
+          <?php $this->endContent(); ?>
+          <?php $this->beginContent('//registration/referee_section'); ?>
+          <?php $this->endContent(); ?>
+          <div class="grid_block">
+            <div class="display_inline_block">
+              <div class="lables">
+                <?php echo Yii::t('app', 'Can we make references to your employment records with your previous employers/companies'); ?>?<br>
+                <?php echo Yii::t('app', 'If no, please give reasons'); ?><br>
+                <input type="text" name="noReferenceReason" id="noReference" class="inputLine" style="display:none"><br><br>
+              </div>
+              <div class="lables2">
+                <input type="radio" name="consent" value="1"> Yes<br>
+                <input type="radio" name="consent" value="0"> No<br>
+              </div>
+            </div>
+          </div>
         </fieldset>
       </div>
     </form>

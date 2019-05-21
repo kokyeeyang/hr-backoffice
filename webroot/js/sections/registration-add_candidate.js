@@ -16,24 +16,23 @@ var RegistrationAddCandidate = function() {
 
 			var terminateBeforeLine = document.getElementById("terminationReason");
 			$("input[name=terminatedBefore]").click(function() {
-				//if user checked yes box, then remove disabled attribute for the input line
+				//if user checked yes box, then display input line
 				if ($("input[name=terminatedBefore]:checked").val() == "1") {
 					terminateBeforeLine.style.display = "block";
-					// $("input[name=terminationDetails]").removeAttr("disabled");
 				} else {
-					// $("input[name=terminationDetails]").attr("disabled", "yes");
 					terminateBeforeLine.style.display = "none";
 					$("input[name=terminationDetails]").val('');
 				}
 			});
 
+			var noReferenceLine = document.getElementById("noReference")
 			$("input[name=consent]").click(function() {
-				//if user checked no(refuses to give consent) box, then remove disabled attribute for the input line
+				//if user checked no(refuses to give consent) box, then display input line
 				if ($("input[name=consent]:checked").val() == "0") {
-					$("input[name=noReferenceReason]").removeAttr("disabled");
+					noReferenceLine.style.display = "block";
 				} else {
 					//user give consent
-					$("input[name=noReferenceReason]").attr("disabled", "yes");
+					noReferenceLine.style.display = "none";
 					$("input[name=noReferenceReason]").val('');
 				}
 			}); 
