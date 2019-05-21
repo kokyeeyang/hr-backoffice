@@ -25,7 +25,7 @@ var RegistrationAddCandidate = function() {
 				}
 			});
 
-			var noReferenceLine = document.getElementById("noReference")
+			var noReferenceLine = document.getElementById("noReference");
 			$("input[name=consent]").click(function() {
 				//if user checked no(refuses to give consent) box, then display input line
 				if ($("input[name=consent]:checked").val() == "0") {
@@ -36,6 +36,28 @@ var RegistrationAddCandidate = function() {
 					$("input[name=noReferenceReason]").val('');
 				}
 			}); 
+
+			var criminalOffenseLine = document.getElementById("criminalOffenseInput");
+			$("input[name=criminalOffenseRadio]").click(function() {
+				// if user clicks yes, then user must describe offense
+				if ($("input[name=criminalOffenseRadio]:checked").val() == "1") {
+					criminalOffenseLine.style.display = "block";
+				} else {
+					//user has not committed offense
+					criminalOffenseLine.style.display = "none";
+					$("input[name=criminalOffenseInput]").val('');
+				}
+			});
+
+			var sagaosFamilyLine = document.getElementById("sagaosFamilyInput");
+			$("input[name=sagaosRelative").click(function() {
+				if ($("input[name=sagaosRelative]:checked").val() == "1"){
+					sagaosFamilyLine.style.display = "block";
+				} else {
+					sagaosFamilyLine.style.display = "none";
+					$("input[name=sagaosFamilyInput]").val('');
+				}
+			});
 
 		});
 	}

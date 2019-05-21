@@ -22,12 +22,12 @@ body {
   padding-right: 5px;
 }
 
-.lables3 {
+/*.lables3 {
 	width: 330px;
 	float: left;
-}
+}*/
 
-.display_inline_block {
+.lable_block {
   display: inline-block;
   margin-left: 10px;
 }
@@ -48,7 +48,7 @@ input[class=inputLine] {
 	border-bottom: 1px solid black;
 	margin-top: 1em;
 	margin-bottom: 1em;
-	width:20%;
+	width:60%;
 	outline:none;
 }
 
@@ -73,22 +73,6 @@ span .educationSection {
 	width: 300px;
 }
 
-/*.educationLabels {
-	width:260px;
-}
-
-.educationLabels2 {
-	width:;
-}*/
-
-/*.education_display_inline_block{
-  width:600px;
-  margin-left: 10px;
-  margin-bottom: 20px;
-  margin-right: 20px;
-  float:left;
-}*/
-
 .grid_block {
   display: inline-grid;
   margin-left: 10px;
@@ -99,6 +83,9 @@ span .educationSection {
 	margin-bottom: 4px;
 }
 
-/*.textRed {
-  color: #FF0000;
-}*/
+.general_grid_block {
+	display: inline-grid;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  height: 200px;
+}
