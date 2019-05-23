@@ -19,23 +19,23 @@ class EmploymentGeneralQuestion extends AppActiveRecord
 	}
 
 	public function attributeLabels(){
-		'candidate_id' => Yii::t('app', 'candidate_id'),
-		'has_physical_ailment' => Yii::t('app', 'has_physical_ailment'),
-		'has_been_convicted' => Yii::t('app', 'has_been_convicted'),
-		'offense' => Yii::t('app', 'offense'),
-		'convicted_date' => Yii::t('app', 'convicted_date'),
-		'date_of_discharge' => Yii::t('app', 'date_of_discharge'),
-		'has_company_contact' => Yii::t('app', 'has_company_contact'),
-		'company_contact_name' => Yii::t('app', 'company_contact_name'),
-		'relationship_with_candidate' => Yii::t('app', 'relationship_with_candidate'),
-		'has_conflict_of_interest' => Yii::t('app', 'has_conflict_of_interest'),
-		'has_own_transport' => Yii::t('app', 'has_own_transport'),
-		'has_applied_before' => Yii::t('app', 'has_applied_before'),
-		'commencement_date' => Yii::t('app', 'commencement_date'),
-		'good_conduct_consent' => Yii::t('app', 'good_conduct_consent'),
-		'expected_salary' => Yii::t('app', 'expected_salary'),
-		'candidate_signature' => Yii::t('app', 'candidate_signature'),
-		'candidate_signature_date' => Yii::t('app', 'candidate_signature_date'),
+		return [
+			'candidate_id' => Yii::t('app', 'candidate_id'),
+			'has_physical_ailment' => Yii::t('app', 'has_physical_ailment'),
+			'has_been_convicted' => Yii::t('app', 'has_been_convicted'),
+			'offense' => Yii::t('app', 'offense'),
+			'convicted_date' => Yii::t('app', 'convicted_date'),
+			'date_of_discharge' => Yii::t('app', 'date_of_discharge'),
+			'has_company_contact' => Yii::t('app', 'has_company_contact'),
+			'company_contact_name' => Yii::t('app', 'company_contact_name'),
+			'relationship_with_candidate' => Yii::t('app', 'relationship_with_candidate'),
+			'has_conflict_of_interest' => Yii::t('app', 'has_conflict_of_interest'),
+			'has_own_transport' => Yii::t('app', 'has_own_transport'),
+			'has_applied_before' => Yii::t('app', 'has_applied_before'),
+			'commencement_date' => Yii::t('app', 'commencement_date'),
+			'good_conduct_consent' => Yii::t('app', 'good_conduct_consent'),
+			'expected_salary' => Yii::t('app', 'expected_salary'),
+		];
 	}
 
 	public function relations(){

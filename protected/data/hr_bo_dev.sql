@@ -175,7 +175,8 @@ CREATE TABLE employment_candidate (
   `termination_reason` varchar(60) NULL,
   `reference_consent` int(11) NULL DEFAULT '1',
   `refuse_reference_reason` varchar(60) NULL,
-  `position_applied` varchar(40) NOT NULL,
+  `candidate_signature` varchar(60) NOT NULL,
+  `candidate_signature_date` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -233,8 +234,6 @@ CREATE TABLE employment_general_question (
   `commencement_date` datetime NOT NULL,
   `good_conduct_consent` int(11) NOT NULL,
   `expected_salary` int(11) NOT NULL,
-  `candidate_signature` varchar(60) NOT NULL,
-  `candidate_signature_date` datetime NOT NULL,
   PRIMARY KEY (`id`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

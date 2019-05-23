@@ -106,7 +106,9 @@ class RegistrationController extends Controller
 		$candidateObjModel->termination_reason = $this->getParam('terminatedDetails', '');
 		$candidateObjModel->reference_consent = $this->getParam('consent', '');
 		$candidateObjModel->refuse_reference_reason = $this->getParam('noReferenceReason', '');
-		
+		$candidateObjModel->candidate_signature = $this->getParam('signature','');
+		$candidateObjModel->candidate_signature_date = $this->getParam('signatureDate','');
+		// var_dump($candidateObjModel);exit;
 		$candidateObjModel->save();
 		// 
 
@@ -131,12 +133,12 @@ class RegistrationController extends Controller
 								$educationObjModel->end_year = $endYear;
 								$educationObjModel->qualification = $qualification;
 								$educationObjModel->grade = $grade;
-								$educationObjModel->save();
 							}
 						}
 					}
 				}
 			}
+			$educationObjModel->save();
 		}
 		//
 
@@ -163,7 +165,6 @@ class RegistrationController extends Controller
 										$experienceObjModel->start_date = $startDate;
 										$experienceObjModel->end_date = $endDate;
 										$experienceObjModel->position_held = $positionHeld;
-										$experienceObjModel->starting_salary = $startingSalary;
 										$experienceObjModel->ending_salary = $endingSalary;
 										$experienceObjModel->allowances = $allowance;
 										$experienceObjModel->leave_reason = $leaveReason;
@@ -174,9 +175,9 @@ class RegistrationController extends Controller
 					}
 				}
 			}
+			$experienceObjModel->save();
 		}
 
-		$experienceObjModel->save();
 		//
 		
 		// this is for saving candidate referees into employment_referee table
@@ -191,20 +192,42 @@ class RegistrationController extends Controller
 				foreach($supervisorOccupations as $supervisorOccupation){
 					foreach($supervisorContacts as $supervisorContact){
 						foreach($yearsKnownArray as $yearsKnownObj){
-							$refereeObjModel = new EmploymentReferee;
-							$refereeObjModel->candidate_id = $candidateObjModel->id_no;
-							$refereeObjModel->supervisor_name = $supervisorName;
-							$refereeObjModel->supervisor_company = $supervisorCompany;
-							$refereeObjModel->supervisor_occupation = $supervisorOccupation;
-							$refereeObjModel->supervisor_contact = $supervisorContact;
-							$refereeObjModel->years_known = $yearsKnownObj;
+							if($supervisorName != false){
+								$refereeObjModel = new EmploymentReferee;
+								$refereeObjModel->candidate_id = $candidateObjModel->id_no;
+								$refereeObjModel->supervisor_name = $supervisorName;
+								$refereeObjModel->supervisor_company = $supervisorCompany;
+								$refereeObjModel->supervisor_occupation = $supervisorOccupation;
+								$refereeObjModel->supervisor_contact = $supervisorContact;
+								$refereeObjModel->years_known = $yearsKnownObj;
+							}
 						}
 					}
 				}
 			}
-
 			$refereeObjModel->save();
 		}
+		//
+
+		// this is for saving candidate general questions into employment_general_question table
+		$generalQuestionObjModel = new EmploymentGeneralQuestion;
+		$generalQuestionObjModel->candidate_id = $candidateObjModel->id_no;
+		$generalQuestionObjModel->has_physical_ailment = $this->getParam('illness','');
+		$generalQuestionObjModel->has_been_convicted = $this->getParam('criminalOffenseRadio','');
+		$generalQuestionObjModel->offense = $this->getParam('criminalOffenseInput','');
+		$generalQuestionObjModel->convicted_date = $this->getParam('convictedDate','');
+		$generalQuestionObjModel->date_of_discharge = $this->getParam('dischargeDate','');
+		$generalQuestionObjModel->has_company_contact = $this->getParam('sagaosRelative','');
+		$generalQuestionObjModel->company_contact_name = $this->getParam('sagaosContactNameInput','');
+		$generalQuestionObjModel->relationship_with_candidate = $this->getParam('sagaosFamilyInput','');
+		$generalQuestionObjModel->has_conflict_of_interest = $this->getParam('interestConflict','');
+		$generalQuestionObjModel->has_own_transport = $this->getParam('ownTransport','');
+		$generalQuestionObjModel->has_applied_before = $this->getParam('timesApplied','');
+		$generalQuestionObjModel->commencement_date = $this->getParam('commencementDate','');
+		$generalQuestionObjModel->good_conduct_consent = $this->getParam('goodConductConsent','');
+		$generalQuestionObjModel->expected_salary = $this->getParam('expectedSalary','');
+
+		$generalQuestionObjModel->save();
 		//
 	}
 

@@ -38,27 +38,38 @@ var RegistrationAddCandidate = function() {
 			}); 
 
 			var criminalOffenseLine = document.getElementById("criminalOffenseInput");
+			var convictedDateLine = document.getElementById("convictedDate");
+			var dischargeDateLine = document.getElementById("dischargeDate");
 			$("input[name=criminalOffenseRadio]").click(function() {
 				// if user clicks yes, then user must describe offense
 				if ($("input[name=criminalOffenseRadio]:checked").val() == "1") {
 					criminalOffenseLine.style.display = "block";
+					convictedDateLine.style.display = "block";
+					dischargeDateLine.style.display = "block";
 				} else {
 					//user has not committed offense
 					criminalOffenseLine.style.display = "none";
+					convictedDateLine.style.display = "none";
+					dischargeDateLine.style.display = "none";
 					$("input[name=criminalOffenseInput]").val('');
+					$("input[name=convictedDate]").val('');
+					$("input[name=dischargeDate]").val('');
 				}
 			});
 
 			var sagaosFamilyLine = document.getElementById("sagaosFamilyInput");
+			var sagaosContactNameLine = document.getElementById("sagaosContactName");
 			$("input[name=sagaosRelative").click(function() {
 				if ($("input[name=sagaosRelative]:checked").val() == "1"){
 					sagaosFamilyLine.style.display = "block";
+					sagaosContactNameLine.style.display = "block";
 				} else {
 					sagaosFamilyLine.style.display = "none";
+					sagaosContactName.style.display = "none";
 					$("input[name=sagaosFamilyInput]").val('');
+					$("input[name=sagaosContactNameInput]").val('');
 				}
 			});
-
 		});
 	}
 

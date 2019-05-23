@@ -116,3 +116,13 @@ div .general_lable_block {
 	display: inline-grid;
 	width: 400px;
 }
+
+input[class=crimeBox] {
+  margin-bottom: 2px;
+  margin-top: 2px;
+}
+
+div #save_button {
+  width: 100px;
+  margin-top: 30px;
+}

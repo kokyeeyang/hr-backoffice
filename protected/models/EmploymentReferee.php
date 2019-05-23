@@ -4,7 +4,7 @@
 This is the model class for table "employment_referee"
 */
 
-class EmployeeReferee extends AppActiveRecord 
+class EmploymentReferee extends AppActiveRecord 
 {
 	static $tableName = DB_TBL_PREFIX . 'employment_referee';
 

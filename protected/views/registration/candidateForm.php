@@ -187,7 +187,9 @@
               <div class="general_lables">
                 b) <?php echo Yii::t('app', 'Have you ever been convicted for a criminal offence, declared bankrupt, revoked of professional practicing license/certificate and/or charged in court?'); ?>? <br>
                 <?php echo Yii::t('app', 'If yes, please state offence and date of conviction and discharge'); ?>
-                <input type="text" name="criminalOffenseInput" style="display: none;" id="criminalOffenseInput">
+               <input type="text" name="criminalOffenseInput" style="display: none;" id="criminalOffenseInput" class="crimeBox" placeholder="Offence">
+               <input type="date" name="convictedDate" style="display: none;" id="convictedDate" class="crimeBox" title="Convicted date">
+               <input type="date" name="dischargeDate" style="display: none;" id="dischargeDate" class="crimeBox" title="Date of discharge">
               </div>
               <div class="general_lables2">
                 <input type="radio" name="criminalOffenseRadio" value="1"> Yes
@@ -199,10 +201,11 @@
             <div class="general_lable_block">
               <div class="general_lables">
                 c) <?php echo Yii::t('app', 'Do you have any relatives or friends working in SagaOS or its subsidiaries? If so, please state name and relationship'); ?>? <br>
-                 <input type="text" name="sagaosFamilyInput" style="display: none;" id="sagaosFamilyInput">
+                 <input type="text" name="sagaosContactNameInput" style="display: none; margin-bottom:5px; margin-top:5px;" id="sagaosContactName" placeholder="Contact name">
+                 <input type="text" name="sagaosFamilyInput" style="display: none;" id="sagaosFamilyInput" placeholder="Relationship with him/her"><br>
               </div>
               <div class="general_lables2">
-                <input type="radio" name="sagaosRelative" value="1"> Yes
+                <input type="radio" name="sagaosRelative" value="1"> Yes<br>
                 <input type="radio" name="sagaosRelative" value="0"> No<br>
               </div>
             </div>
@@ -234,7 +237,7 @@
               <div class="general_lables">
                 g) <?php echo Yii::t('app', 'Have you ever applied to/worked at SagaOS before'); ?>?
               </div>
-              <div class="general_lables2">
+              <div class="general_lables2" style="margin-bottom: 2px">
                 <input type="radio" name="timesApplied" value="1"> Yes
                 <input type="radio" name="timesApplied" value="0"> No<br>
               </div>
@@ -246,7 +249,7 @@
                 h) <?php echo Yii::t('app', 'If you were offered employment, when can you commence work'); ?>?
               </div>
               <div class="general_lables2">
-                <input type="text" name="commencementDate">
+                <input type="date" name="commencementDate">
               </div>
             </div>
           </div>
@@ -291,11 +294,16 @@
                 </span>
               </div>
               <div class="lables2">
-                <input type="text" class="inputLine" name="signatureDate">
+                <input type="date" class="inputLine" name="signatureDate">
                 <br>
                 <span>
                   <?php echo Yii::t('app', 'Date') ?>
                 </span>
+              </div>
+            </div>
+            <div class="lable_block" id="save_button">
+              <div class="row buttons">
+                <?php echo CHtml::submitButton('Save'); ?>
               </div>
             </div>
           </div>

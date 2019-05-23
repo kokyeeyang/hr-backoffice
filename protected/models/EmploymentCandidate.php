@@ -33,6 +33,8 @@ class EmploymentCandidate extends AppActiveRecord
 			'termination_reason' => Yii::t('app', 'termination_reason'),
 			'reference_consent' => Yii::t('app', 'reference_consent'),
 			'refuse_reference_reason' => Yii::t('app', 'refuse_reference_reason'),
+			'candidate_signature' => Yii::t('app', 'candidate_signature'),
+			'candidate_signature_date' => Yii::t('app', 'candidate_signature_date'),
 		];
 	}
 

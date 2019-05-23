@@ -1,7 +1,7 @@
 <div class="grid_block">
   <div class="lable_block">
     <div class="lables">
-      <span><?php echo Yii::t('app', 'Name of Company'); ?></span><br>
+      <span><?php echo Yii::t('app', 'Name of Company'); ?>:</span><br>
     </div>
     <div class="lables2">
       <input type="text" name="companyName[]">
@@ -9,7 +9,7 @@
   </div>
   <div class="lable_block">
     <div class="lables">
-      <?php echo Yii::t('app', 'From'); ?>
+      <?php echo Yii::t('app', 'From'); ?>:
     </div>
     <div class="lables2">
       <input type="year" name="startDate[]" placeholder="E.g: 01/2018 for Jan 2018">
@@ -17,7 +17,7 @@
   </div>
   <div class="lable_block">
     <div class="lables">
-      <?php echo Yii::t('app', 'To'); ?>
+      <?php echo Yii::t('app', 'To'); ?>:
     </div>
     <div class="lables2">
       <input type="year" name="endDate[]" placeholder="E.g: 01/2018 for Jan 2018">
@@ -25,7 +25,7 @@
   </div>
   <div class="lable_block">
     <div class="lables">
-      <?php echo Yii::t('app', 'Position Held'); ?>
+      <?php echo Yii::t('app', 'Position Held'); ?>:
     </div>
     <div class="lables2">
       <input type="text" name="positionHeld[]">
@@ -33,7 +33,7 @@
   </div>
   <div class="lable_block">
     <div class="lables">
-      <?php echo Yii::t('app', 'Final Salary'); ?>
+      <?php echo Yii::t('app', 'Final Salary'); ?>:
     </div>
     <div class="lables2">
       <input type="text" name="endingSalary[]">
@@ -41,7 +41,7 @@
   </div>
   <div class="lable_block">
     <div class="lables">
-      <?php echo Yii::t('app', 'Allowances'); ?>
+      <?php echo Yii::t('app', 'Allowances'); ?>:
     </div>
     <div class="lables2">
       <input type="text" name="allowances[]">
@@ -49,7 +49,7 @@
   </div>
   <div class="lable_block">
     <div class="lables">
-      <?php echo Yii::t('app', 'Reason for leaving'); ?>
+      <?php echo Yii::t('app', 'Reason for leaving'); ?>:
     </div>
     <div class="lables2">
       <input type="text" name="leaveReason[]">
