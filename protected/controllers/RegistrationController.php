@@ -145,7 +145,6 @@ class RegistrationController extends Controller
 		$startDates = $this->getParam('startDate','');
 		$endDates = $this->getParam('endDate','');
 		$positionsHeld = $this->getParam('positionHeld','');
-		$startingSalaries = $this->getParam('startingSalary','');
 		$endingSalaries = $this->getParam('endingSalary','');
 		$allowances = $this->getParam('allowances','');
 		$leaveReasons = $this->getParam('leaveReason','');
@@ -154,23 +153,21 @@ class RegistrationController extends Controller
 			foreach($startDates as $startDate){
 				foreach($endDates as $endDate){
 					foreach($positionsHeld as $positionHeld){
-						foreach($startingSalaries as $startingSalary){
-							foreach($endingSalaries as $endingSalary){
-								foreach($allowances as $allowance){
-									foreach($leaveReasons as $leaveReason){
-										if($companyName != false){
-											$experienceObjModel = new EmploymentJobExperience;
-											$experienceObjModel->candidate_id = $candidateObjModel->id_no;
-											$experienceObjModel->company_name = $companyName;
-											$experienceObjModel->start_date = $startDate;
-											$experienceObjModel->end_date = $endDate;
-											$experienceObjModel->position_held = $positionHeld;
-											$experienceObjModel->starting_salary = $startingSalary;
-											$experienceObjModel->ending_salary = $endingSalary;
-											$experienceObjModel->allowances = $allowance;
-											$experienceObjModel->leave_reason = $leaveReason;
-										} 
-									}
+						foreach($endingSalaries as $endingSalary){
+							foreach($allowances as $allowance){
+								foreach($leaveReasons as $leaveReason){
+									if($companyName != false){
+										$experienceObjModel = new EmploymentJobExperience;
+										$experienceObjModel->candidate_id = $candidateObjModel->id_no;
+										$experienceObjModel->company_name = $companyName;
+										$experienceObjModel->start_date = $startDate;
+										$experienceObjModel->end_date = $endDate;
+										$experienceObjModel->position_held = $positionHeld;
+										$experienceObjModel->starting_salary = $startingSalary;
+										$experienceObjModel->ending_salary = $endingSalary;
+										$experienceObjModel->allowances = $allowance;
+										$experienceObjModel->leave_reason = $leaveReason;
+									} 
 								}
 							}
 						}

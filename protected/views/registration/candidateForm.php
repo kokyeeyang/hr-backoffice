@@ -172,7 +172,7 @@
             5.<?php echo Yii::t('app', 'General') ?>
           </legend>
           <div class="general_grid_block">
-            <div class="lable_block">
+            <div class="general_lable_block">
               <div class="general_lables">
                 a) <?php echo Yii::t('app', 'Are you suffering from any physical disabilities or have ever been seriously ill'); ?>?
               </div>
@@ -183,7 +183,7 @@
             </div>
           </div>
           <div class="general_grid_block">
-            <div class="lable_block">
+            <div class="general_lable_block">
               <div class="general_lables">
                 b) <?php echo Yii::t('app', 'Have you ever been convicted for a criminal offence, declared bankrupt, revoked of professional practicing license/certificate and/or charged in court?'); ?>? <br>
                 <?php echo Yii::t('app', 'If yes, please state offence and date of conviction and discharge'); ?>
@@ -196,7 +196,7 @@
             </div>
           </div>
           <div class="general_grid_block">
-            <div class="lable_block">
+            <div class="general_lable_block">
               <div class="general_lables">
                 c) <?php echo Yii::t('app', 'Do you have any relatives or friends working in SagaOS or its subsidiaries? If so, please state name and relationship'); ?>? <br>
                  <input type="text" name="sagaosFamilyInput" style="display: none;" id="sagaosFamilyInput">
@@ -208,7 +208,7 @@
             </div>
           </div>
           <div class="short_general_grid_block">
-            <div class="lable_block">
+            <div class="general_lable_block">
               <div class="general_lables">
                 d) <?php echo Yii::t('app', 'Any relatives involved directly or indirectly in similar company’s business'); ?>?
               </div>
@@ -219,7 +219,7 @@
             </div>
           </div>
           <div class="short_general_grid_block">
-            <div class="lable_block">
+            <div class="general_lable_block">
               <div class="general_lables">
                 e) <?php echo Yii::t('app', 'Do you possess a car or motorcycle'); ?>?
               </div>
@@ -230,7 +230,7 @@
             </div>
           </div>
           <div class="short_general_grid_block">
-            <div class="lable_block">
+            <div class="general_lable_block">
               <div class="general_lables">
                 g) <?php echo Yii::t('app', 'Have you ever applied to/worked at SagaOS before'); ?>?
               </div>
@@ -241,7 +241,7 @@
             </div>
           </div>
           <div class="short_general_grid_block">
-            <div class="lable_block">
+            <div class="general_lable_block">
               <div class="general_lables">
                 h) <?php echo Yii::t('app', 'If you were offered employment, when can you commence work'); ?>?
               </div>
@@ -251,7 +251,7 @@
             </div>
           </div>
           <div class="short_general_grid_block">
-            <div class="lable_block">
+            <div class="general_lable_block">
               <div class="general_lables">
                 i) <?php echo Yii::t('app', 'If hired, are you willing to submit to a good conduct certificate'); ?>?
               </div>
@@ -262,7 +262,7 @@
             </div>
           </div>
           <div class="short_general_grid_block">
-            <div class="lable_block">
+            <div class="general_lable_block">
               <div class="general_lables">
                 j) <?php echo Yii::t('app', 'Expected Salary'); ?>
               </div>

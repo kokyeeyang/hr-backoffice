@@ -111,3 +111,8 @@ div .short_general_grid_block {
   margin-bottom: 20px;
   height: 180px;
 }
+
+div .general_lable_block {
+	display: inline-grid;
+	width: 400px;
+}
