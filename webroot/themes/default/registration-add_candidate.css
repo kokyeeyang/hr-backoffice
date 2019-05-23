@@ -85,7 +85,7 @@ div .general_grid_block {
 	display: inline-grid;
   margin-left: 10px;
   margin-bottom: 20px;
-  height: 200px;
+  height: 260px;
 }
 
 fieldset[class=fieldset] {
@@ -93,16 +93,21 @@ fieldset[class=fieldset] {
 }
 
 div .general_lables {
-	width: 180px;
+	width: 260px;
   float: left;
-  height: 100%;
+  /*height: 100%;*/
 }
 
 div .general_lables2 {
 	width: 240px;
   float: left;
   padding-right: 5px;
-  height: 100%;
+  /*height: 100%;*/
 }
 
-
+div .short_general_grid_block {
+	display: inline-grid;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  height: 180px;
+}

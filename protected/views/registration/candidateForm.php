@@ -207,7 +207,7 @@
               </div>
             </div>
           </div>
-          <div class="general_grid_block">
+          <div class="short_general_grid_block">
             <div class="lable_block">
               <div class="general_lables">
                 d) <?php echo Yii::t('app', 'Any relatives involved directly or indirectly in similar company’s business'); ?>?
@@ -218,7 +218,7 @@
               </div>
             </div>
           </div>
-          <div class="general_grid_block">
+          <div class="short_general_grid_block">
             <div class="lable_block">
               <div class="general_lables">
                 e) <?php echo Yii::t('app', 'Do you possess a car or motorcycle'); ?>?
@@ -229,7 +229,7 @@
               </div>
             </div>
           </div>
-          <div class="general_grid_block">
+          <div class="short_general_grid_block">
             <div class="lable_block">
               <div class="general_lables">
                 g) <?php echo Yii::t('app', 'Have you ever applied to/worked at SagaOS before'); ?>?
@@ -240,7 +240,7 @@
               </div>
             </div>
           </div>
-          <div class="general_grid_block">
+          <div class="short_general_grid_block">
             <div class="lable_block">
               <div class="general_lables">
                 h) <?php echo Yii::t('app', 'If you were offered employment, when can you commence work'); ?>?
@@ -250,7 +250,7 @@
               </div>
             </div>
           </div>
-          <div class="general_grid_block">
+          <div class="short_general_grid_block">
             <div class="lable_block">
               <div class="general_lables">
                 i) <?php echo Yii::t('app', 'If hired, are you willing to submit to a good conduct certificate'); ?>?
@@ -261,7 +261,7 @@
               </div>
             </div>
           </div>
-          <div class="general_grid_block">
+          <div class="short_general_grid_block">
             <div class="lable_block">
               <div class="general_lables">
                 j) <?php echo Yii::t('app', 'Expected Salary'); ?>
