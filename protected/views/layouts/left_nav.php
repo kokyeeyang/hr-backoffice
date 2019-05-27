@@ -23,7 +23,7 @@
 		</li>
 		<li class="dropdown"><a class="top_level_item" href="javascript:void(0);"><div class="icon icon-key"></div> <?php echo Yii::t('app', 'Interviewees'); ?></a>
 			<ul>
-				<li><a class="btnGetCandidateList" href="<?php echo $this->createUrl('registration/showAllCandidates'); ?>" href="javascript:void(0);"><?php echo Yii::t('app', 'View all interview candidates'); ?></a></li>
+				<li><a class="btnGetCandidateList" href="<?php echo $this->createUrl('registration/showAllCandidates'); ?>"><?php echo Yii::t('app', 'View all interview candidates'); ?></a></li>
 			</ul>
 		</li>
 		<?php
