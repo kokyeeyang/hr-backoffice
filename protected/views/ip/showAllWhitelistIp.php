@@ -39,6 +39,7 @@
 										<?php echo Yii::t('app', 'Label'); ?>
 									</div>
 								</div>
+							</div>
 						</th>
 						<th>
 							<div class="sort_wrapper_inner">

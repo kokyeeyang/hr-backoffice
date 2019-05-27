@@ -21,6 +21,11 @@
 				<li><a class="btnGetAdminForm" rel="<?php echo $this->createUrl('admin/add'); ?>" href="javascript:void(0);"><?php echo Yii::t('app', 'Add User'); ?></a></li>
 			</ul>
 		</li>
+		<li class="dropdown"><a class="top_level_item" href="javascript:void(0);"><div class="icon icon-key"></div> <?php echo Yii::t('app', 'Interviewees'); ?></a>
+			<ul>
+				<li><a class="btnGetCandidateList" rel="<?php echo $this->createUrl('registration/list'); ?>" href="javascript:void(0);"><?php echo Yii::t('app', 'View all interview candidates'); ?></a></li>
+			</ul>
+		</li>
 		<?php
 		} // - end: if
 		?>		
