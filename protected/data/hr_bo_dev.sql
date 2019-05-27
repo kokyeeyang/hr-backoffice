@@ -177,6 +177,8 @@ CREATE TABLE employment_candidate (
   `refuse_reference_reason` varchar(60) NULL,
   `candidate_signature` varchar(60) NOT NULL,
   `candidate_signature_date` datetime NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -189,6 +191,8 @@ CREATE TABLE employment_education (
   `end_year` varchar(4) NOT NULL,
   `qualification` varchar(40) NOT NULL,
   `grade` varchar(40) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -203,6 +207,8 @@ CREATE TABLE employment_job_experience (
   `ending_salary` int(10) NOT NULL,
   `allowances` int(10) NOT NULL,
   `leave_reason` varchar(80) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -214,6 +220,8 @@ CREATE TABLE employment_referee (
   `supervisor_occupation` varchar(50) NOT NULL,
   `supervisor_contact` varchar(50) NOT NULL,
   `years_known` int(5) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -234,6 +242,7 @@ CREATE TABLE employment_general_question (
   `commencement_date` datetime NOT NULL,
   `good_conduct_consent` int(11) NOT NULL,
   `expected_salary` int(11) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

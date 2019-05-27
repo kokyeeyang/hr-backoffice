@@ -86,7 +86,8 @@ class RegistrationController extends Controller
 	{
 		// Put your codes here...
 		// exit('Please add the new candidate form here...');
-		$this->render('candidateForm');
+		$dateToday = date("Y-m-d");
+		$this->render('candidateForm', array('dateToday' => $dateToday));
 	}
 
 	public function actionSaveCandidate()
@@ -108,7 +109,6 @@ class RegistrationController extends Controller
 		$candidateObjModel->refuse_reference_reason = $this->getParam('noReferenceReason', '');
 		$candidateObjModel->candidate_signature = $this->getParam('signature','');
 		$candidateObjModel->candidate_signature_date = $this->getParam('signatureDate','');
-		// var_dump($candidateObjModel);exit;
 		$candidateObjModel->save();
 		// 
 
@@ -119,28 +119,20 @@ class RegistrationController extends Controller
 		$qualifications = $this->getParam('qualification', '');
 		$grades = $this->getParam('cgpa', '');
 
-		foreach ($schoolNames as $schoolName){
-			foreach ($startYears as $startYear){
-				foreach ($endYears as $endYear){
-					foreach ($qualifications as $qualification){
-						foreach ($grades as $grade){
-							//only need one field to prevent creation of null rows
-							if ($schoolName != false){
-								$educationObjModel = new EmploymentEducation;
-								$educationObjModel->candidate_id = $candidateObjModel->id_no;
-								$educationObjModel->school_name = $schoolName;
-								$educationObjModel->start_year = $startYear;
-								$educationObjModel->end_year = $endYear;
-								$educationObjModel->qualification = $qualification;
-								$educationObjModel->grade = $grade;
-							}
-						}
-					}
+		if(empty($schoolNames[0]) === false){
+			foreach ($schoolNames as $iKey => $schoolName){
+				if ($schoolName != '' && empty($startYears[$iKey]) === false && empty($endYears[$iKey]) === false && empty($qualifications[$iKey]) === false && empty($grades[$iKey]) === false) {
+						$educationObjModel = new EmploymentEducation;
+						$educationObjModel->candidate_id = $candidateObjModel->id_no;
+						$educationObjModel->school_name = $schoolName;
+						$educationObjModel->start_year = $startYears[$iKey];
+						$educationObjModel->end_year = $endYears[$iKey];
+						$educationObjModel->qualification = $qualifications[$iKey];
+						$educationObjModel->grade = $grades[$iKey];
+						$educationObjModel->save();
 				}
 			}
-			$educationObjModel->save();
 		}
-		//
 
 		// this is for saving candidate job experience into employment_job_experience table
 		$companyNames = $this->getParam('companyName','');
@@ -151,31 +143,21 @@ class RegistrationController extends Controller
 		$allowances = $this->getParam('allowances','');
 		$leaveReasons = $this->getParam('leaveReason','');
 
-		foreach($companyNames as $companyName){
-			foreach($startDates as $startDate){
-				foreach($endDates as $endDate){
-					foreach($positionsHeld as $positionHeld){
-						foreach($endingSalaries as $endingSalary){
-							foreach($allowances as $allowance){
-								foreach($leaveReasons as $leaveReason){
-									if($companyName != false){
-										$experienceObjModel = new EmploymentJobExperience;
-										$experienceObjModel->candidate_id = $candidateObjModel->id_no;
-										$experienceObjModel->company_name = $companyName;
-										$experienceObjModel->start_date = $startDate;
-										$experienceObjModel->end_date = $endDate;
-										$experienceObjModel->position_held = $positionHeld;
-										$experienceObjModel->ending_salary = $endingSalary;
-										$experienceObjModel->allowances = $allowance;
-										$experienceObjModel->leave_reason = $leaveReason;
-									} 
-								}
-							}
-						}
-					}
+		if(empty($companyNames[0]) === false){
+			foreach($companyNames as $iKey => $companyName){
+				if($companyName != '' && empty($startDates[$iKey]) === false && empty($endDates[$iKey]) === false && empty($positionsHeld[$iKey]) === false && empty($endingSalaries[$iKey]) === false && empty($allowances[$iKey]) === false && empty($leaveReasons[$iKey]) === false){
+					$experienceObjModel = new EmploymentJobExperience;
+					$experienceObjModel->candidate_id = $candidateObjModel->id_no;
+					$experienceObjModel->company_name = $companyName;
+					$experienceObjModel->start_date = $startDates[$iKey];
+					$experienceObjModel->end_date = $endDates[$iKey];
+					$experienceObjModel->position_held = $positionsHeld[$iKey];
+					$experienceObjModel->ending_salary = $endingSalaries[$iKey];
+					$experienceObjModel->allowances = $allowances[$iKey];
+					$experienceObjModel->leave_reason = $leaveReasons[$iKey];
+					$experienceObjModel->save();
 				}
 			}
-			$experienceObjModel->save();
 		}
 
 		//
@@ -187,25 +169,19 @@ class RegistrationController extends Controller
 		$supervisorContacts = $this->getParam('superiorContact','');
 		$yearsKnownArray = $this->getParam('yearsKnown','');
 
-		foreach($supervisorNames as $supervisorName){
-			foreach($supervisorCompanies as $supervisorCompany){
-				foreach($supervisorOccupations as $supervisorOccupation){
-					foreach($supervisorContacts as $supervisorContact){
-						foreach($yearsKnownArray as $yearsKnownObj){
-							if($supervisorName != false){
-								$refereeObjModel = new EmploymentReferee;
-								$refereeObjModel->candidate_id = $candidateObjModel->id_no;
-								$refereeObjModel->supervisor_name = $supervisorName;
-								$refereeObjModel->supervisor_company = $supervisorCompany;
-								$refereeObjModel->supervisor_occupation = $supervisorOccupation;
-								$refereeObjModel->supervisor_contact = $supervisorContact;
-								$refereeObjModel->years_known = $yearsKnownObj;
-							}
-						}
-					}
+		if(empty($supervisorNames[0]) === false){
+			foreach($supervisorNames as $iKey => $supervisorName){
+				if($supervisorName != '' && empty($supervisorCompanies[$iKey]) === false && empty($supervisorOccupations[$iKey]) === false && empty($supervisorOccupations[$iKey]) === false && empty($supervisorContacts[$iKey]) === false && empty($yearsKnownArray[$iKey]) === false){
+					$refereeObjModel = new EmploymentReferee;
+					$refereeObjModel->candidate_id = $candidateObjModel->id_no;
+					$refereeObjModel->supervisor_name = $supervisorName;
+					$refereeObjModel->supervisor_company = $supervisorCompanies[$iKey];
+					$refereeObjModel->supervisor_occupation = $supervisorOccupations[$iKey];
+					$refereeObjModel->supervisor_contact = $supervisorContacts[$iKey];
+					$refereeObjModel->years_known = $yearsKnownArray[$iKey];
+					$refereeObjModel->save();
 				}
 			}
-			$refereeObjModel->save();
 		}
 		//
 

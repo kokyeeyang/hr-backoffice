@@ -14,7 +14,7 @@
                 </span>
               </div>
               <div class="lables2">
-                <input type="text" name="fullName" placeholder="(<?php echo Yii::t('app', 'IN BLOCK LETTERS'); ?>)">
+                <input type="text" name="fullName" placeholder="(<?php echo Yii::t('app', 'IN BLOCK LETTERS'); ?>)" required>
               </div>
             </div>
             <div class="lable_block">
@@ -22,7 +22,7 @@
                 <span><?php echo Yii::t('app', 'Contact No'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="text" name="contactNo">
+                <input type="text" name="contactNo" required>
               </div>
             </div>
             <div class="lable_block">
@@ -30,7 +30,7 @@
                 <span><?php echo Yii::t('app', 'Email Address'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="email" name="emailAddress">
+                <input type="email" name="emailAddress" required>
               </div>
             </div>
             <div class="lable_block">
@@ -38,7 +38,15 @@
                 <span><?php echo Yii::t('app', 'Correspondence Address'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="text" name="address">
+                <input type="text" name="address" required>
+              </div>
+            </div>
+            <div class="lable_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Date of birth'); ?> :</span>
+              </div>
+              <div class="lables2">
+                <input type="date" name="DOB" required>
               </div>
             </div>
           </div>
@@ -48,8 +56,8 @@
                 <span><?php echo Yii::t('app', 'Gender'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="radio" name="gender" value="male"> <span>Male </span>          
-                <input type="radio" name="gender" value="female"> <span>Female </span>
+                <input type="radio" name="gender" value="male" required> <span>Male </span>          
+                <input type="radio" name="gender" value="female" required> <span>Female </span>
               </div>
             </div>
             <div class="lable_block">
@@ -57,7 +65,7 @@
                 <span><?php echo Yii::t('app', 'NRIC/Passport No'); ?>  :</span>
               </div>
               <div class="lables2">
-                <input type="text" name="idNo">
+                <input type="text" name="idNo" required>
               </div>
             </div>
             <div class="lable_block">
@@ -65,7 +73,7 @@
                 <span><?php echo Yii::t('app', 'Marital Status'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="text" name="maritalStatus" value="">
+                <input type="text" name="maritalStatus" required>
               </div>
             </div>
             <div class="lable_block">
@@ -73,7 +81,7 @@
                 <span><?php echo Yii::t('app', 'Nationality'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="text" name="nationality">
+                <input type="text" name="nationality" required>
               </div>
             </div>
           </div>
@@ -83,23 +91,23 @@
             </span>
           </div>
           <div class="radio-buttons">
-            <input type="radio" name="findingMethod" value="jobstreet" id="jobstreet">&nbsp;
+            <input type="radio" name="findingMethod" value="jobstreet" id="jobstreet" required>&nbsp;
             <span>
               <label for="jobstreet"><?php echo Yii::t('app', 'Jobstreet'); ?></label>
             </span>
-            <input type="radio" name="findingMethod" value="linkedin" id="linkedin">&nbsp;
+            <input type="radio" name="findingMethod" value="linkedin" id="linkedin" required>&nbsp;
             <span>
               <label for="linkedin"><?php echo Yii::t('app', 'LinkedIn'); ?></label>
             </span>
-            <input type="radio" name="findingMethod" value="agency" id="agency">&nbsp;
+            <input type="radio" name="findingMethod" value="agency" id="agency" required>&nbsp;
             <span>
               <label for="agency"><?php echo Yii::t('app', 'Agency'); ?></label>
             </span>
-            <input type="radio" name="findingMethod" value="internal-referral" id="internal-referral">&nbsp;
+            <input type="radio" name="findingMethod" value="internal-referral" id="internal-referral" required>&nbsp;
             <span>
               <label for="internal-referral"><?php echo Yii::t('app', 'Internal Referral'); ?></label>
             </span>
-            <input type="radio" name="findingMethod" value="others" id="others">&nbsp;
+            <input type="radio" name="findingMethod" value="others" id="others" required>&nbsp;
             <span>
               <label for="others"><?php echo Yii::t('app', 'Others'); ?></label>
             </span>
@@ -136,11 +144,11 @@
               <div class="lables">
                 <?php echo Yii::t('app', 'Have you ever been terminated/dismissed/suspended from the service of any employer'); ?>?<br>
                 <?php echo Yii::t('app', 'If yes, please give details'); ?><br>
-                <input type="text" name="terminationDetails[]" id="terminationReason" style="display:none;"><br><br>
+                <input type="text" name="terminationDetails" id="terminationReason" style="display:none;"><br><br>
               </div>
               <div class="lables2">
-                <input type="radio" name="terminatedBefore" value="1"> Yes<br>
-                <input type="radio" name="terminatedBefore" value="0"> No<br>
+                <input type="radio" name="terminatedBefore" value="1" required> Yes<br>
+                <input type="radio" name="terminatedBefore" value="0" required> No<br>
               </div>
             </div>
           </div>
@@ -161,8 +169,8 @@
                 <input type="text" name="noReferenceReason" id="noReference" style="display:none"><br><br>
               </div>
               <div class="lables2">
-                <input type="radio" name="consent" value="1"> Yes<br>
-                <input type="radio" name="consent" value="0"> No<br>
+                <input type="radio" name="consent" value="1" required> Yes<br>
+                <input type="radio" name="consent" value="0" required> No<br>
               </div>
             </div>
           </div>
@@ -177,8 +185,8 @@
                 a) <?php echo Yii::t('app', 'Are you suffering from any physical disabilities or have ever been seriously ill'); ?>?
               </div>
               <div class="general_lables2">
-                <input type="radio" name="illness" value="1"> Yes
-                <input type="radio" name="illness" value="0"> No<br>
+                <input type="radio" name="illness" value="1" required> Yes
+                <input type="radio" name="illness" value="0" required> No<br>
               </div>
             </div>
           </div>
@@ -192,8 +200,8 @@
                <input type="date" name="dischargeDate" style="display: none;" id="dischargeDate" class="crimeBox" title="Date of discharge">
               </div>
               <div class="general_lables2">
-                <input type="radio" name="criminalOffenseRadio" value="1"> Yes
-                <input type="radio" name="criminalOffenseRadio" value="0"> No<br>
+                <input type="radio" name="criminalOffenseRadio" value="1" required> Yes
+                <input type="radio" name="criminalOffenseRadio" value="0" required> No<br>
               </div>
             </div>
           </div>
@@ -205,8 +213,8 @@
                  <input type="text" name="sagaosFamilyInput" style="display: none;" id="sagaosFamilyInput" placeholder="Relationship with him/her"><br>
               </div>
               <div class="general_lables2">
-                <input type="radio" name="sagaosRelative" value="1"> Yes<br>
-                <input type="radio" name="sagaosRelative" value="0"> No<br>
+                <input type="radio" name="sagaosRelative" value="1" required> Yes<br>
+                <input type="radio" name="sagaosRelative" value="0" required> No<br>
               </div>
             </div>
           </div>
@@ -216,8 +224,8 @@
                 d) <?php echo Yii::t('app', 'Any relatives involved directly or indirectly in similar company’s business'); ?>?
               </div>
               <div class="general_lables2">
-                <input type="radio" name="interestConflict" value="1"> Yes
-                <input type="radio" name="interestConflict" value="0"> No<br>
+                <input type="radio" name="interestConflict" value="1" required> Yes
+                <input type="radio" name="interestConflict" value="0" required> No<br>
               </div>
             </div>
           </div>
@@ -227,8 +235,8 @@
                 e) <?php echo Yii::t('app', 'Do you possess a car or motorcycle'); ?>?
               </div>
               <div class="general_lables2">
-                <input type="radio" name="ownTransport" value="1"> Yes
-                <input type="radio" name="ownTransport" value="0"> No<br>
+                <input type="radio" name="ownTransport" value="1" required> Yes
+                <input type="radio" name="ownTransport" value="0" required> No<br>
               </div>
             </div>
           </div>
@@ -238,8 +246,8 @@
                 g) <?php echo Yii::t('app', 'Have you ever applied to/worked at SagaOS before'); ?>?
               </div>
               <div class="general_lables2" style="margin-bottom: 2px">
-                <input type="radio" name="timesApplied" value="1"> Yes
-                <input type="radio" name="timesApplied" value="0"> No<br>
+                <input type="radio" name="timesApplied" value="1" required> Yes
+                <input type="radio" name="timesApplied" value="0" required> No<br>
               </div>
             </div>
           </div>
@@ -249,7 +257,7 @@
                 h) <?php echo Yii::t('app', 'If you were offered employment, when can you commence work'); ?>?
               </div>
               <div class="general_lables2">
-                <input type="date" name="commencementDate">
+                <input type="date" name="commencementDate"  required>
               </div>
             </div>
           </div>
@@ -259,8 +267,8 @@
                 i) <?php echo Yii::t('app', 'If hired, are you willing to submit to a good conduct certificate'); ?>?
               </div>
               <div class="general_lables2">
-                <input type="radio" name="goodConductConsent" value="1"> Yes
-                <input type="radio" name="goodConductConsent" value="0"> No<br>
+                <input type="radio" name="goodConductConsent" value="1" required> Yes
+                <input type="radio" name="goodConductConsent" value="0" required> No<br>
               </div>
             </div>
           </div>
@@ -270,7 +278,7 @@
                 j) <?php echo Yii::t('app', 'Expected Salary'); ?>
               </div>
               <div class="general_lables2">
-                <input type="text" name="expectedSalary">
+                <input type="text" name="expectedSalary" required>
               </div>
             </div>
           </div>
@@ -287,14 +295,14 @@
           <div class="grid_block">
             <div class="lable_block">
               <div class="lables">
-                <input type="text" class="inputLine" name="signature">
+                <input type="text" class="inputLine" name="signature" required>
                 <br>
                 <span>
                   <?php echo Yii::t('app', 'Signature') ?>
                 </span>
               </div>
               <div class="lables2">
-                <input type="date" class="inputLine" name="signatureDate">
+                <input type="date" class="inputLine" name="signatureDate" value="<?php echo $dateToday ?>" disabled>
                 <br>
                 <span>
                   <?php echo Yii::t('app', 'Date') ?>
