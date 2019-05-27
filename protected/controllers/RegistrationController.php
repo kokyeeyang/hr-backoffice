@@ -207,6 +207,11 @@ class RegistrationController extends Controller
 		//
 	}
 
+	public function actionShowAllCandidates() {
+		$strSortKey	= $this->getParam('sort_key', '');
+		$candidateArrRecords = EmploymentCandidate::model()->findAll(array('order'=>'id ASC'));
+		$this->render("showAllCandidates", array('$arrRecords' => $arrRecords, 'strSortKey' => $strSortKey));
+	}
 
 	/**
 	 * This is the 'captcha' action
