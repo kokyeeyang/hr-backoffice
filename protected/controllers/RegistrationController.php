@@ -22,33 +22,13 @@ class RegistrationController extends Controller
 			),
 		);
 	}*/
-	
+
   public function filters()
   {
       return array(
           'accessControl',
       );
   }	
-
-	// public function accessRules()
-	// {
-	// 	return array(
-	// 		array(
-	// 			'allow',  // allow all users to perform the RoleHelper's returned actions
-	// 			'actions'=>RoleHelper::GetRole(self::$strController, false),
-	// 			'users'=>array('*'),
-	// 		),
-	// 		array(
-	// 			'allow', // allow authenticated admin user to perform the RoleHelper's returned actions
-	// 			'actions'=>RoleHelper::GetRole(self::$strController, true),
-	// 			'users'=>array('@'),
-	// 		),
-	// 		array(
-	// 			'deny',  // deny all other users access
-	// 			'users'=>array('*'),
-	// 		),
-	// 	);		
-	// }
 
 	/**
 	 * This is the action to handle external exceptions.
@@ -234,8 +214,23 @@ class RegistrationController extends Controller
 	}
 
 	public function actionShowAllJobOpenings() {
-		$arrRecords = EmploymentJobOpening()->findAll(array('order' => 'id ASC'));
+		$arrRecords = EmploymentJobOpening::model()->findAll(array('order'=>'id ASC'));
+
+		// foreach($arrRecords as $intIndex => $objRecord){
+		// 	$encodedJobOpeningId = EmploymentJobOpening::model()->encodeJobOpeningId($objRecord->id);
+		// }
+
 		return $this->render('showAllJobOpenings', array('arrRecords'=>$arrRecords));
+	}
+
+	public function actionGenerateLink($jobOpeningId){
+		$aResult['result'] = false;
+
+		if(Yii::app()->request->isAjaxRequest){
+			md5($jobOpeningId);
+		}
+		echo(json_encode($aResult));
+		Yii::app()->end();
 	}
 	/**
 	 * This is the 'captcha' action

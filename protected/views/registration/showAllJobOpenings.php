@@ -99,7 +99,7 @@
 						  		<?php echo $objRecord->created_date ?>
 						  	</td>
 						  	<td>
-						  		<input type="button" name="generateLink">
+						  		<input type="button" id="generateLink" data-url="<?php echo $this->createUrl('registration/generateLink'); ?>" value="<?php echo $objRecord->id ?>">
 						  	</td>
 				  		</tr>
 				  <?php
@@ -108,5 +108,6 @@
 					?>
 			</tbody>
 		</table>
+		<?php $this->endWidget(); ?> 
 	</div>
 </div>
