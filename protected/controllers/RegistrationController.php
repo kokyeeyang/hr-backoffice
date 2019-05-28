@@ -215,19 +215,17 @@ class RegistrationController extends Controller
 
 	public function actionShowAllJobOpenings() {
 		$arrRecords = EmploymentJobOpening::model()->findAll(array('order'=>'id ASC'));
-
-		// foreach($arrRecords as $intIndex => $objRecord){
-		// 	$encodedJobOpeningId = EmploymentJobOpening::model()->encodeJobOpeningId($objRecord->id);
-		// }
-
 		return $this->render('showAllJobOpenings', array('arrRecords'=>$arrRecords));
 	}
 
-	public function actionGenerateLink($jobOpeningId){
+	public function actionGenerateLink(){
 		$aResult['result'] = false;
 
-		if(Yii::app()->request->isAjaxRequest){
-			md5($jobOpeningId);
+		$arrRecords = EmploymentJobOpening::model()->findAll(array('order'=>'id ASC'));
+		foreach($arrRecords as $intIndex => $objRecord){
+			if(Yii::app()->request->isAjaxRequest){
+				md5($objRecord->id);
+			}
 		}
 		echo(json_encode($aResult));
 		Yii::app()->end();
