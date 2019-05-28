@@ -25,6 +25,7 @@
 			<ul>
 				<li><a href="<?php echo $this->createUrl('registration/showAllCandidates'); ?>"><?php echo Yii::t('app', 'View all interview candidates'); ?></a></li>
 				<li><a href="<?php echo $this->createUrl('registration/addNewJobOpenings'); ?>"><?php echo Yii::t('app', 'Add new job openings'); ?></a></li>
+				<li><a href="<?php echo $this->createUrl('registration/showAllJobOpenings'); ?>"><?php echo Yii::t('app', 'Show all job openings'); ?></a></li>
 			</ul>
 		</li>
 		<?php

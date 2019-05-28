@@ -39,7 +39,7 @@
     		<tr>
           <td>
             <div class="row buttons">
-              <?php //echo CHtml::submitButton($objModel->isNewRecord ? 'Submit' : 'Save'); ?>
+              <?php echo CHtml::submitButton($objModel->isNewRecord ? 'Submit' : 'Save'); ?>
             </div>
           </td>
         </tr>

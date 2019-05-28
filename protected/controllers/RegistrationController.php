@@ -215,7 +215,7 @@ class RegistrationController extends Controller
 
 	public function actionAddNewJobOpenings() {
 		$objModel = new EmploymentJobOpening;
-		$this->render("addNewJobOpenings", 'objModel' => $objModel);
+		$this->render("addNewJobOpenings", array('objModel' => $objModel));
 	}
 
 	public function actionSaveJobOpenings() {
