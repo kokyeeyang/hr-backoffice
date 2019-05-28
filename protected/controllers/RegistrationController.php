@@ -214,9 +214,29 @@ class RegistrationController extends Controller
 	}
 
 	public function actionAddNewJobOpenings() {
-		$this->render("addNewJobOpenings");
+		$objModel = new EmploymentJobOpening;
+		$this->render("addNewJobOpenings", 'objModel' => $objModel);
 	}
 
+	public function actionSaveJobOpenings() {
+		$jobOpeningObjModel = new EmploymentJobOpening;
+		$jobOpeningObjModel->job_title = $this->getParam('jobTitle','');
+		$jobOpeningObjModel->department = $this->getParam('department','');
+		$jobOpeningObjModel->interviewing_manager = $this->getParam('interviewManager','');
+
+		$jobOpeningObjModel->save();
+
+		if(!$error = $this->objError->getError()){
+			if($jobOpeningObjModel->save()){
+				$this->redirect(array('showAllJobOpenings'));
+			}
+		}
+	}
+
+	public function actionShowAllJobOpenings() {
+		$arrRecords = EmploymentJobOpening()->findAll(array('order' => 'id ASC'));
+		return $this->render('showAllJobOpenings', array('arrRecords'=>$arrRecords));
+	}
 	/**
 	 * This is the 'captcha' action
 	 */
