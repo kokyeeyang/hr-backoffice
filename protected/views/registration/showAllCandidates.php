@@ -24,7 +24,7 @@
 				)
 			); 
 		?>
-		<h4 class="widget_title"><?php echo Yii::t('app', 'Whitelist Ip List'); ?>
+		<h4 class="widget_title"><?php echo Yii::t('app', 'Interview Candidates List'); ?>
 		<input type="text" value="" placeholder="<?php echo Yii::t('app', 'Filter results'); ?>" name="label_filter" id="label_filter" style="width:30%"/>
 		</h4> 
 		<?php echo CHtml::hiddenField('mode', 'whitelistip-list'); ?>
@@ -61,6 +61,7 @@
 					</th>
 				</tr>
 			</thead>
-		</table>   	
+		</table>  
+	<?php $this->endWidget(); ?> 	
 	</div>
 </div>
