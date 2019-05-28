@@ -36,6 +36,8 @@
 	
 	define('CONSOLE_YIIC', DIR_PROTECTED.DIRECTORY_SEPARATOR.'yiic');
 	define('CONSOLE_PASSKEY', '8azr8qc293b9175d012e15e03b270t0bv');
+	//To encode the job title id to be placed within the interview link
+	define('JOB_TITLE_ID_SECRET_KEY', 'X2!2X?2129AXV');
 	define('TIME_ZONE', 'UTC');
 	
 	// To determine the environment API

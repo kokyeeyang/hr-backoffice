@@ -224,11 +224,14 @@ class RegistrationController extends Controller
 		$arrRecords = EmploymentJobOpening::model()->findAll(array('order'=>'id ASC'));
 		foreach($arrRecords as $intIndex => $objRecord){
 			if(Yii::app()->request->isAjaxRequest){
-				md5($objRecord->id);
+				$encryptedJobTitleId = str_replace('9', $objRecord->id, JOB_TITLE_ID_SECRET_KEY);
+				$base64EncodedJobTitleId = base64_encode($encryptedJobTitleId);
+				$aResult['result'] = $base64EncodedJobTitleId;
+
+				echo(json_encode($aResult));
+				Yii::app()->end();
 			}
 		}
-		echo(json_encode($aResult));
-		Yii::app()->end();
 	}
 	/**
 	 * This is the 'captcha' action
