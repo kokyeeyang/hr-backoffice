@@ -9,7 +9,16 @@ var RegistrationShowAllJobOpenings = function() {
 				},
 				dataType: 'json',
 				success: function(data){
-					alert(data);
+					if((typeof data.result) !== 'undefined'){
+						// alert(data.result);
+						var link = 'http://portal.sagaos.com/registration?JT=' + data.result;
+						alert(link);
+						// link.select();
+						// document.execCommand("copy");
+					}
+					else{
+						alert('wrong');
+					}
 				},
 				error: function(request, status, err){
 					alert('wrong');
@@ -18,10 +27,20 @@ var RegistrationShowAllJobOpenings = function() {
 		}
 	}
 
+	function _check_if_deletion_is_selected(objElement, objEvent){
+		if ($(".deleteCheckBox:checked").length <= 0){
+			alert($('#msg-select-registration-delete').attr('data-msg'));
+		} else {
+			if (confirm($('#msg-confirm-registration-delete').attr('data-msg'))){
+				$('#jobopening-list').attr('action', $(objElement).attr('data-delete-url')).submit();
+			}
+		}
+	}
+	
 	function _init(){
 		$(function() {
 			$('input#generateLink').on('click', function(objEvent) {
-				RegistrationShowAllJobOpenings._encode_job_opening_id(this, objEvent);
+				RegistrationShowAllJobOpenings.encode_job_opening_id(this, objEvent);
 			});
 
 		});
@@ -29,7 +48,8 @@ var RegistrationShowAllJobOpenings = function() {
 
 	return {
 		init : _init,
-		encode_job_opening_id : _encode_job_opening_id
+		encode_job_opening_id : _encode_job_opening_id,
+		check_if_deletion_is_selected : _check_if_deletion_is_selected
 	}
 }();
 RegistrationShowAllJobOpenings.init();

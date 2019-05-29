@@ -110,8 +110,8 @@
 						  	<td>
 						  		<input type="button" id="generateLink" data-url="<?php echo $this->createUrl('registration/generateLink'); ?>" value="<?php echo $objRecord->id ?>">
 						  	</td>
-						  		<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $objRecord->id ?>">
 						  	<td>
+						  		<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $objRecord->id ?>">
 						  	</td>
 				  		</tr>
 				  <?php
@@ -124,9 +124,9 @@
 	</div>
 </div>
 
-<div id="ip-common-msg">
-	<div id="msg-select-ip-delete" data-msg="<?php echo Yii::t('app', 'Please select a job opening that you would like to delete'); ?>"><!-- Dialog Buttons Label --></div>
+<div id="registration-common-msg">
+	<div id="msg-select-registration-delete" data-msg="<?php echo Yii::t('app', 'Please select a job opening that you would like to delete'); ?>"><!-- Dialog Buttons Label --></div>
 </div>
-<div id="ip-common-msg">
-	<div id="msg-confirm-ip-delete" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to delete selected job openings?'); ?>"><!-- Dialog Buttons Label --></div>
+<div id="registration-common-msg">
+	<div id="msg-confirm-registration-delete" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to delete selected job openings?'); ?>"><!-- Dialog Buttons Label --></div>
 </div>
