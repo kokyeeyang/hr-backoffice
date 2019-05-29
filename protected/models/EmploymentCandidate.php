@@ -54,7 +54,6 @@ class EmploymentCandidate extends AppActiveRecord
 			EmploymentEducation::model()->deleteAll($otherCondition);
 			EmploymentGeneralQuestion::model()->deleteAll($otherCondition);
 			EmploymentJobExperience::model()->deleteAll($otherCondition);
-			EmploymentJobOpening::model()->deleteAll($otherCondition);
 			EmploymentReferee::model()->deleteAll($otherCondition);
 
 		}

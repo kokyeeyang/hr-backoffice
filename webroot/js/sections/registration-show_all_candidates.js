@@ -12,7 +12,7 @@ var RegistrationShowAllCandidates = function() {
 	function _init() {
 		$(function() {
 			$('#deleteJobOpeningButton').on('click', function(objEvent){
-				RegistrationShowAllCandidates._check_if_deletion_is_selected(this, objEvent);
+				RegistrationShowAllCandidates.check_if_deletion_is_selected(this, objEvent);
 			});
 
 			$("#label_filter").on("keyup", function() {
@@ -21,13 +21,13 @@ var RegistrationShowAllCandidates = function() {
 		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 		    });
 		  });
-
-		  return {
-		  	init : _init;
-		  	check_if_deletion_is_selected : _check_if_deletion_is_selected
-		  }
 		});
 	}
 
+  return {
+  	init : _init,
+  	check_if_deletion_is_selected : _check_if_deletion_is_selected
+  }
+
 }();
-IpShowAllWhitelistIp.init();
+RegistrationShowAllCandidates.init();
