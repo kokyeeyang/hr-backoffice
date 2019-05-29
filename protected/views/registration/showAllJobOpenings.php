@@ -72,6 +72,7 @@
 							<div class="sort_label_wrapper">
 								<div class="sort_label">
 									<?php echo Yii::t('app', 'Generate link to send to candidate'); ?>
+									<input type="text" id="copiedText" value="" style="display:none">
 								</div>
 							</div>
 						</div>
@@ -80,7 +81,7 @@
 						<div class="sort_wrapper_inner">
 							<div class="sort_label_wrapper">
 								<div class="sort_label">
-									<input type="button" title="<?php echo Yii::t('app', 'Delete this entry'); ?>" value="Delete selected entries" data-delete-url="<?php echo $this->createUrl('registration/deleteSelectedJobOpening') ?>">
+									<input type="button" title="<?php echo Yii::t('app', 'Delete this entry'); ?>" id="deleteJobOpeningButton" value="Delete selected entries" data-delete-url="<?php echo $this->createUrl('registration/deleteSelectedJobOpenings') ?>">
 								</div>
 							</div>
 						</div>
@@ -109,6 +110,7 @@
 						  	</td>
 						  	<td>
 						  		<input type="button" id="generateLink" data-url="<?php echo $this->createUrl('registration/generateLink'); ?>" value="<?php echo $objRecord->id ?>">
+						  		<input type="text" value="<?php echo $objRecord->id ?>" name="jobTitleId">
 						  	</td>
 						  	<td>
 						  		<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $objRecord->id ?>">

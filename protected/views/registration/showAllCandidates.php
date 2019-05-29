@@ -14,7 +14,7 @@
 			$objForm = $this->beginWidget(
 				'CActiveForm', 
 				array(
-					'id'=>'whitelistip-list',
+					'id'=>'candidate-list',
 					'action'=>$this->CreateUrl('registration/showAllCandidates'),
 					// Please note: When you enable ajax validation, make sure the corresponding
 					// controller action is handling ajax validation correctly.
@@ -54,14 +54,51 @@
 						<div class="sort_wrapper_inner">
 							<div class="sort_label_wrapper">
 								<div class="sort_label">
-									<?php echo Yii::t('app', 'Interview Manager'); ?>
+									<input type="button" title="<?php echo Yii::t('app', 'Delete this entry'); ?>" id="deleteJobOpeningButton" value="Delete selected entries" data-delete-url="<?php echo $this->createUrl('registration/deleteSelectedCandidates') ?>">
 								</div>
 							</div>
 						</div>
 					</th>
+					<!-- <th>
+						<div class="sort_wrapper_inner">
+							<div class="sort_label_wrapper">
+								<div class="sort_label">
+									<?php echo Yii::t('app', 'Interview Manager'); ?>
+								</div>
+							</div>
+						</div>
+					</th> -->
 				</tr>
 			</thead>
+			<tbody id="data_table">
+				<?php
+				if(isset($candidateArrRecords[0])){
+					foreach($candidateArrRecords as $intIndex => $objRecord){
+				?>
+					<tr>
+						<td>
+							<?php echo $objRecord->full_name ?>
+						</td>
+						<td>
+							<?php echo $objRecord->created_date ?>
+						</td>
+						<td>
+							<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $objRecord->id ?>">
+						</td>
+					</tr>
+				<?php 
+					}
+				} 
+				?>
+			</tbody>
 		</table>  
 	<?php $this->endWidget(); ?> 	
 	</div>
+</div>
+
+<div id="registration-common-msg">
+	<div id="msg-select-registration-delete" data-msg="<?php echo Yii::t('app', 'Please select a candidate that you would like to delete'); ?>"><!-- Dialog Buttons Label --></div>
+</div>
+<div id="registration-common-msg">
+	<div id="msg-confirm-registration-delete" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to delete the selected candidates?'); ?>"><!-- Dialog Buttons Label --></div>
 </div>

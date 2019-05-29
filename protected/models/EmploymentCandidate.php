@@ -45,7 +45,23 @@ class EmploymentCandidate extends AppActiveRecord
 		);
 	}
 
+	public function deleteSelectedCandidate($candidateIds){
+		foreach($candidateIds as $candidateId){
+			$candidateCondition = 'id_no = ' . $candidateId;
+			$otherCondition = 'candidate_id = ' . $candidateId;
+
+			EmploymentCandidate::model()->deleteAll($candidateCondition);
+			EmploymentEducation::model()->deleteAll($otherCondition);
+			EmploymentGeneralQuestion::model()->deleteAll($otherCondition);
+			EmploymentJobExperience::model()->deleteAll($otherCondition);
+			EmploymentJobOpening::model()->deleteAll($otherCondition);
+			EmploymentReferee::model()->deleteAll($otherCondition);
+
+		}
+	}
+
 	public static function model($className=__CLASS__){
 		return parent::model($className);
 	}
+
 }

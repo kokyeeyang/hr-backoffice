@@ -190,7 +190,12 @@ class RegistrationController extends Controller
 	public function actionShowAllCandidates() {
 		$strSortKey	= $this->getParam('sort_key', '');
 		$candidateArrRecords = EmploymentCandidate::model()->findAll(array('order'=>'id ASC'));
-		$this->render("showAllCandidates", array('$candidateArrRecords' => $candidateArrRecords, 'strSortKey' => $strSortKey));
+
+		// foreach($candidateArrRecords as $intIndex => $objRecord){
+		// 	var_dump($objRecord->created_date);
+		// }
+		// exit;
+		$this->render("showAllCandidates", array('candidateArrRecords' => $candidateArrRecords, 'strSortKey' => $strSortKey));
 	}
 
 	public function actionAddNewJobOpenings() {
@@ -229,12 +234,12 @@ class RegistrationController extends Controller
 				$aResult['result'] = $base64EncodedJobTitleId;
 
 				echo(json_encode($aResult));
-				Yii::app()->end();
 			}
+				Yii::app()->end();
 		}
 	}
 
-	public function actionDeleteSelectedJobOpening(){
+	public function actionDeleteSelectedJobOpenings(){
 		$jobOpeningIds = $this->getParam('deleteCheckBox', '');
 
 		if ($jobOpeningIds != ''){
@@ -242,6 +247,15 @@ class RegistrationController extends Controller
 		}
 
 		$this->redirect(array('showAllJobOpenings'));
+	}
+
+	public function actionDeleteSelectedCandidates(){
+		$candidateIds = $this->getParam('deleteCheckBox', '');
+		if ($candidateIds != ''){
+			$deleteCandidates = EmploymentCandidate::model()->deleteSelectedCandidate($candidateIds);
+		}
+
+		$this->redirect(array('showAllCandidates'));
 	}
 
 	/**
