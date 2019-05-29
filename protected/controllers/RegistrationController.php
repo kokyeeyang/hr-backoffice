@@ -233,6 +233,17 @@ class RegistrationController extends Controller
 			}
 		}
 	}
+
+	public function actionDeleteSelectedJobOpening(){
+		$jobOpeningIds = $this->getParam('deleteCheckBox', '');
+
+		if ($jobOpeningIds != ''){
+			$deleteJobOpening = EmploymentJobOpening::model()->deleteSelectedJobOpening($jobOpeningIds);
+		}
+
+		$this->redirect(array('showAllJobOpenings'));
+	}
+
 	/**
 	 * This is the 'captcha' action
 	 */

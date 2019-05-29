@@ -76,6 +76,15 @@
 							</div>
 						</div>
 					</th>
+					<th>
+						<div class="sort_wrapper_inner">
+							<div class="sort_label_wrapper">
+								<div class="sort_label">
+									<input type="button" title="<?php echo Yii::t('app', 'Delete this entry'); ?>" value="Delete selected entries" data-delete-url="<?php echo $this->createUrl('registration/deleteSelectedJobOpening') ?>">
+								</div>
+							</div>
+						</div>
+					</th>
 				</tr>
 			</thead>
 			<tbody id="data_table">
@@ -101,6 +110,9 @@
 						  	<td>
 						  		<input type="button" id="generateLink" data-url="<?php echo $this->createUrl('registration/generateLink'); ?>" value="<?php echo $objRecord->id ?>">
 						  	</td>
+						  		<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $objRecord->id ?>">
+						  	<td>
+						  	</td>
 				  		</tr>
 				  <?php
 						}
@@ -110,4 +122,11 @@
 		</table>
 		<?php $this->endWidget(); ?> 
 	</div>
+</div>
+
+<div id="ip-common-msg">
+	<div id="msg-select-ip-delete" data-msg="<?php echo Yii::t('app', 'Please select a job opening that you would like to delete'); ?>"><!-- Dialog Buttons Label --></div>
+</div>
+<div id="ip-common-msg">
+	<div id="msg-confirm-ip-delete" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to delete selected job openings?'); ?>"><!-- Dialog Buttons Label --></div>
 </div>

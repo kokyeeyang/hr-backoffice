@@ -36,9 +36,20 @@ var RegistrationShowAllJobOpenings = function() {
 		});
 	}
 
+	function _check_if_deletion_is_selected(objElement, objEvent){
+		if ($(".deleteCheckBox:checked").length <= 0){
+			alert($('#msg-select-ip-delete').attr('data-msg'));
+		} else {
+			if (confirm($('#msg-confirm-ip-delete').attr('data-msg'))){
+				$('#jobopening-list').attr('action', $(objElement).attr('data-delete-url')).submit();
+			}
+		}
+	}
+
 	return {
 		init : _init,
-		encode_job_opening_id : _encode_job_opening_id
+		encode_job_opening_id : _encode_job_opening_id,
+		check_if_deletion_is_selected : _check_if_deletion_is_selected
 	}
 }();
 RegistrationShowAllJobOpenings.init();

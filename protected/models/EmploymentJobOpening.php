@@ -37,4 +37,11 @@ class EmploymentJobOpening extends AppActiveRecord
 	public static function model($className=__CLASS__){
 		return parent::model($className);
 	}
+
+	public function deleteSelectedJobOpening($jobOpeningIds){
+		foreach($jobOpeningIds as $jobOpeningId){
+			$condition = 'id = ' . $jobOpeningId;
+			EmploymentJobOpening::model()->deleteAll($condition);
+		}
+	}
 }
