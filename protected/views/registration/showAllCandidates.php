@@ -59,15 +59,15 @@
 							</div>
 						</div>
 					</th>
-					<!-- <th>
+					<th>
 						<div class="sort_wrapper_inner">
 							<div class="sort_label_wrapper">
 								<div class="sort_label">
-									<?php echo Yii::t('app', 'Interview Manager'); ?>
+									<?php echo Yii::t('app', 'Edit this candidate'); ?>
 								</div>
 							</div>
 						</div>
-					</th> -->
+					</th>
 				</tr>
 			</thead>
 			<tbody id="data_table">
@@ -83,7 +83,11 @@
 							<?php echo $objRecord->created_date ?>
 						</td>
 						<td>
-							<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $objRecord->id ?>">
+							<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $objRecord->id_no ?>">
+						</td>
+						<td>
+							<div class="btnGetCandidateForm" rel="<?php echo $this->createUrl('registration/edit', array('id' => $objRecord->id_no)); ?>"><?php echo get_button(Yii::t('app', 'Edit'), 80, '', '', 'grey', 'btn_edit_candidate'); ?>
+							</div>
 						</td>
 					</tr>
 				<?php 

@@ -302,7 +302,7 @@
                 </span>
               </div>
               <div class="lables2">
-                <input type="date" class="inputLine" name="signatureDate" value="<?php echo $dateToday ?>" disabled>
+                <input type="date" class="inputLine" name="signatureDate" value="<?php echo $dateToday ?>">
                 <br>
                 <span>
                   <?php echo Yii::t('app', 'Date') ?>

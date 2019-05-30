@@ -47,8 +47,8 @@ class EmploymentCandidate extends AppActiveRecord
 
 	public function deleteSelectedCandidate($candidateIds){
 		foreach($candidateIds as $candidateId){
-			$candidateCondition = 'id_no = ' . $candidateId;
-			$otherCondition = 'candidate_id = ' . $candidateId;
+			$candidateCondition = 'id_no = "' . $candidateId . '"';
+			$otherCondition = 'candidate_id = "' . $candidateId . '"';
 
 			EmploymentCandidate::model()->deleteAll($candidateCondition);
 			EmploymentEducation::model()->deleteAll($otherCondition);
