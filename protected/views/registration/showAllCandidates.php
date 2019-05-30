@@ -86,8 +86,7 @@
 							<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $objRecord->id_no ?>">
 						</td>
 						<td>
-							<div class="btnGetCandidateForm" rel="<?php echo $this->createUrl('registration/viewSelectedCandidate', array('id' => $objRecord->id_no)); ?>" name="editCandidateButton" value="<?php echo $objRecord->id_no ?>">
-								<?php echo get_button(Yii::t('app', 'Edit'), 80, '', '', 'grey', 'btn_edit_candidate'); ?>
+							<input type="button" data-view-url="<?php echo $this->createUrl('registration/viewSelectedCandidate', array('id' => $objRecord->id_no)); ?>" name="editCandidateButton" value="<?php echo $objRecord->id_no ?>" id="viewSelectedCandidateButton">
 							</div>
 						</td>
 					</tr>
