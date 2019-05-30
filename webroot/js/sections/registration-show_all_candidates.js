@@ -77,7 +77,7 @@ var RegistrationShowAllCandidates = function() {
 		  });
 
 		  $('.btnGetCandidateForm').unbind('click').click(function(objEvent){
-		  	Registration.get_candidate_form($(this), objEvent);
+		  	RegistrationShowAllCandidates.get_candidate_form($(this), objEvent);
 		  });
 		});
 	}

@@ -189,12 +189,9 @@ class RegistrationController extends Controller
 
 	public function actionShowAllCandidates() {
 		$strSortKey	= $this->getParam('sort_key', '');
+		
 		$candidateArrRecords = EmploymentCandidate::model()->findAll(array('order'=>'id ASC'));
 
-		// foreach($candidateArrRecords as $intIndex => $objRecord){
-		// 	var_dump($objRecord->created_date);
-		// }
-		// exit;
 		$this->render("showAllCandidates", array('candidateArrRecords' => $candidateArrRecords, 'strSortKey' => $strSortKey));
 	}
 
@@ -256,6 +253,19 @@ class RegistrationController extends Controller
 		}
 
 		$this->redirect(array('showAllCandidates'));
+	}
+
+	public function actionViewSelectedCandidate(){
+		$editCandidateId = $this->getParam('editCandidateButton', '');
+		$candidateCondition = 'id_no = "' . $editCandidateId . '"';
+			// $url = "registration/updateSelectedCandidate";
+		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
+		$educationArrRecords = EmploymentEducation::model()->findAll($candidateCondition);
+		$generalQuestionArrRecords = EmploymentGeneralQuestion::model()->findAll($candidateCondition);
+		$jobExperienceArrRecords = EmploymentJobExperience::model()->findAll($candidateCondition);
+		$refereeArrRecords = EmploymentReferee::model()->findAll($candidateCondition);	
+
+		$this->render('viewCandidateDetails', array('candidateArrRecords'=>$candidateArrRecords, 'educationArrRecords'=>$educationArrRecords, 'generalQuestionArrRecords'=>$generalQuestionArrRecords, 'jobExperienceArrRecords'=>$jobExperienceArrRecords, 'refereeArrRecords'=>$refereeArrRecords));
 	}
 
 	/**
