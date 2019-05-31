@@ -2,6 +2,16 @@ var RegistrationViewSelectedCandidate = function() {
 	function _init() {
 		$(function() {
 			var otherInputLine = document.getElementById("otherInputLine");
+			$(document).ready(function() {
+				//if user checked others box, then remove disabled attribute for the input line
+				if ($("input[name=findingMethod]:checked").val() == "others") {
+					otherInputLine.style.display = "block";
+				} else {
+					otherInputLine.style.display = "none";
+					$("#otherInputLine").val('');
+				}
+			});
+
 			$("input[name=findingMethod]").click(function() {
 				//if user checked others box, then remove disabled attribute for the input line
 				if ($("input[name=findingMethod]:checked").val() == "others") {
@@ -20,4 +30,4 @@ var RegistrationViewSelectedCandidate = function() {
 		init: _init
 	}
 }();
-RegistrationAddCandidate.init();
+RegistrationViewSelectedCandidate.init();

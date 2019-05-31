@@ -85,7 +85,6 @@
                 <input type="text" name="nationality" value="<?php echo $candidateObjRecord->nationality ?>" required>
               </div>
             </div>
-              <?php } ?>
           </div>
           <div class="radio-buttons">
             <span>
@@ -113,33 +112,36 @@
             <span>
               <label for="others"><?php echo Yii::t('app', 'Others'); ?></label>
             </span>
-            <input type="text" name="otherFindingMethod" id="otherInputLine" style="display:none; width:20%;" placeholder="Please specify">
+            <input type="text" name="otherFindingMethod" id="otherInputLine" style="display:none; width:20%;" placeholder="Please specify" value="<?php echo($candidateObjRecord->finding_method != 'jobstreet' || $candidateObjRecord->finding_method != 'linkedin' || $candidateObjRecord->finding_method != 'agency' || $candidateObjRecord->finding_method != 'internal-referral')?$candidateObjRecord->finding_method:'' ?>">
           </div>
+        <?php } ?>
         </fieldset>
         <fieldset class="fieldset">
           <legend class="legend">
             2.<?php echo Yii::t('app', 'EDUCATION & PROFESSIONAL QUALIFICATION'); ?>
           </legend>
-          <?php $this->beginContent('//registration/education_section'); ?>
+          <?php foreach($educationArrRecords as $iKey => $educationObjRecord){ ?>
+          <?php $this->beginContent('//registration/viewCandidate/education_section'); ?>
           <?php $this->endContent(); ?>
-          <?php $this->beginContent('//registration/education_section'); ?>
+          <!-- <?php $this->beginContent('//registration/viewCandidate/education_section'); ?>
           <?php $this->endContent(); ?>
-          <?php $this->beginContent('//registration/education_section'); ?>
+          <?php $this->beginContent('//registration/viewCandidate/education_section'); ?>
           <?php $this->endContent(); ?>
-          <?php $this->beginContent('//registration/education_section'); ?>
-          <?php $this->endContent(); ?>
+          <?php $this->beginContent('//registration/viewCandidate/education_section'); ?>
+          <?php $this->endContent(); ?> -->
+          <?php } ?>
         </fieldset>
         <fieldset class="fieldset">
           <legend class="legend">
             3.<?php echo Yii::t('app', 'PRESENT AND PREVIOUS EMPLOYMENT'); ?>
           </legend>
-          <?php $this->beginContent('//registration/company_section'); ?>
+          <?php $this->beginContent('//registration/viewCandidate/company_section'); ?>
           <?php $this->endContent(); ?>
-          <?php $this->beginContent('//registration/company_section'); ?>
+          <?php $this->beginContent('//registration/viewCandidate/company_section'); ?>
           <?php $this->endContent(); ?>
-          <?php $this->beginContent('//registration/company_section'); ?>
+          <?php $this->beginContent('//registration/viewCandidate/company_section'); ?>
           <?php $this->endContent(); ?>
-          <?php $this->beginContent('//registration/company_section'); ?>
+          <?php $this->beginContent('//registration/viewCandidate/company_section'); ?>
           <?php $this->endContent(); ?>
           <div class="grid_block" style="margin-left: 0px;">
             <div class="lable_block">
@@ -159,9 +161,9 @@
           <legend class="legend">
             4.<?php echo Yii::t('app', 'REFEREES (Previous Superiors'); ?>
           </legend>
-          <?php $this->beginContent('//registration/referee_section'); ?>
+          <?php $this->beginContent('//registration/viewCandidate/referee_section'); ?>
           <?php $this->endContent(); ?>
-          <?php $this->beginContent('//registration/referee_section'); ?>
+          <?php $this->beginContent('//registration/viewCandidate/referee_section'); ?>
           <?php $this->endContent(); ?>
           <div class="grid_block">
             <div class="lable_block">
