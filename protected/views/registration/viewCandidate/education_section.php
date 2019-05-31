@@ -4,7 +4,7 @@
       <span><?php echo Yii::t('app', 'Name of School/College/University'); ?>:</span><br>
     </div>
     <div class="lables2">
-      <input type="text" name="schoolName[]" class="educationSectionInput"><br>
+      <input type="text" name="schoolName[]" class="educationSectionInput" value=""><br>
     </div>
   </div>
   <div class="lable_block">

@@ -270,6 +270,7 @@ class RegistrationController extends Controller
 			// $url = "registration/updateSelectedCandidate";
 		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
 		$educationArrRecords = EmploymentEducation::model()->findAll($otherCondition);
+
 		$generalQuestionArrRecords = EmploymentGeneralQuestion::model()->findAll($otherCondition);
 		$jobExperienceArrRecords = EmploymentJobExperience::model()->findAll($otherCondition);
 		$refereeArrRecords = EmploymentReferee::model()->findAll($otherCondition);	
