@@ -81,6 +81,13 @@ class RegistrationController extends Controller
 		$candidateObjModel->email_address = $this->getParam('emailAddress', '');
 		$candidateObjModel->date_of_birth = $this->getParam('DOB', '');
 		$candidateObjModel->marital_status = $this->getParam('maritalStatus', '');
+
+		if($this->getParam('findingMethod', '') != false){
+			$candidateObjModel->finding_method = $this->getParam('otherFindingMethod', '');
+		}else {
+			$candidateObjModel->finding_method = $this->getParam('findingMethod', '');
+		}
+
 		$candidateObjModel->gender = $this->getParam('gender', '');
 		$candidateObjModel->nationality = $this->getParam('nationality', '');
 		$candidateObjModel->terminated_before = $this->getParam('terminatedBefore', '');
@@ -267,8 +274,8 @@ class RegistrationController extends Controller
 		$jobExperienceArrRecords = EmploymentJobExperience::model()->findAll($otherCondition);
 		$refereeArrRecords = EmploymentReferee::model()->findAll($otherCondition);	
 
-		// $this->render('viewCandidateDetails', array('candidateArrRecords'=>$candidateArrRecords, 'educationArrRecords'=>$educationArrRecords, 'generalQuestionArrRecords'=>$generalQuestionArrRecords, 'jobExperienceArrRecords'=>$jobExperienceArrRecords, 'refereeArrRecords'=>$refereeArrRecords));
-		$this->render('viewCandidateDetails');
+		$this->render('viewCandidateDetails', array('candidateArrRecords'=>$candidateArrRecords, 'educationArrRecords'=>$educationArrRecords, 'generalQuestionArrRecords'=>$generalQuestionArrRecords, 'jobExperienceArrRecords'=>$jobExperienceArrRecords, 'refereeArrRecords'=>$refereeArrRecords));
+		// $this->render('viewCandidateDetails');
 		
 	}
 

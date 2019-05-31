@@ -13,8 +13,9 @@
                   <?php echo Yii::t('app', 'Full Name as per NRIC'); ?> :
                 </span>
               </div>
+              <?php foreach($candidateArrRecords as $candidateObjRecord){ ?>
               <div class="lables2">
-                <input type="text" name="fullName" placeholder="(<?php echo Yii::t('app', 'IN BLOCK LETTERS'); ?>)" required>
+                <input type="text" name="fullName" placeholder="(<?php echo Yii::t('app', 'IN BLOCK LETTERS'); ?>)" value="<?php echo $candidateObjRecord->full_name ?>"required>
               </div>
             </div>
             <div class="lable_block">
@@ -22,7 +23,7 @@
                 <span><?php echo Yii::t('app', 'Contact No'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="text" name="contactNo" required>
+                <input type="text" name="contactNo" value="<?php echo $candidateObjRecord->contact_no ?>" required>
               </div>
             </div>
             <div class="lable_block">
@@ -30,7 +31,7 @@
                 <span><?php echo Yii::t('app', 'Email Address'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="email" name="emailAddress" required>
+                <input type="email" name="emailAddress" value="<?php echo $candidateObjRecord->email_address ?>" required>
               </div>
             </div>
             <div class="lable_block">
@@ -38,7 +39,7 @@
                 <span><?php echo Yii::t('app', 'Correspondence Address'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="text" name="address" required>
+                <input type="text" name="address" value="<?php echo $candidateObjRecord->address ?>" required>
               </div>
             </div>
             <div class="lable_block">
@@ -46,7 +47,7 @@
                 <span><?php echo Yii::t('app', 'Date of birth'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="date" name="DOB" required>
+                <input type="text" name="DOB" value="<?php echo str_replace('00:00:00', '', $candidateObjRecord->date_of_birth) ?>" required>
               </div>
             </div>
           </div>
@@ -56,8 +57,8 @@
                 <span><?php echo Yii::t('app', 'Gender'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="radio" name="gender" value="male" required> <span>Male </span>          
-                <input type="radio" name="gender" value="female" required> <span>Female </span>
+                <input type="radio" name="gender" value="male" <?php echo($candidateObjRecord->gender == 'male')?'checked="checked"':'' ?> required> <span>Male </span>          
+                <input type="radio" name="gender" value="female" <?php echo($candidateObjRecord->gender == 'female')?'checked="checked"':'' ?> required> <span>Female </span>
               </div>
             </div>
             <div class="lable_block">
@@ -65,7 +66,7 @@
                 <span><?php echo Yii::t('app', 'NRIC/Passport No'); ?>  :</span>
               </div>
               <div class="lables2">
-                <input type="text" name="idNo" required>
+                <input type="text" name="idNo" value="<?php echo $candidateObjRecord->id_no ?>" required>
               </div>
             </div>
             <div class="lable_block">
@@ -73,7 +74,7 @@
                 <span><?php echo Yii::t('app', 'Marital Status'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="text" name="maritalStatus" required>
+                <input type="text" name="maritalStatus" value="<?php echo $candidateObjRecord->marital_status ?>" required>
               </div>
             </div>
             <div class="lable_block">
@@ -81,37 +82,38 @@
                 <span><?php echo Yii::t('app', 'Nationality'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="text" name="nationality" required>
+                <input type="text" name="nationality" value="<?php echo $candidateObjRecord->nationality ?>" required>
               </div>
             </div>
+              <?php } ?>
           </div>
           <div class="radio-buttons">
             <span>
-              <label for="jobstreet"><?php echo Yii::t('app', 'How did you find out about us'); ?>?</label>
+              <label for="jobstreet"><?php echo Yii::t('app', 'How did you find out about SagaOs'); ?>?</label>
             </span>
           </div>
           <div class="radio-buttons">
-            <input type="radio" name="findingMethod" value="jobstreet" id="jobstreet" required>&nbsp;
+            <input type="radio" name="findingMethod" value="jobstreet" id="jobstreet" <?php echo($candidateObjRecord->finding_method == 'jobstreet')?'checked="checked"':'' ?>required>&nbsp;
             <span>
               <label for="jobstreet"><?php echo Yii::t('app', 'Jobstreet'); ?></label>
             </span>
-            <input type="radio" name="findingMethod" value="linkedin" id="linkedin" required>&nbsp;
+            <input type="radio" name="findingMethod" value="linkedin" id="linkedin" <?php echo($candidateObjRecord->finding_method == 'linkedin')?'checked="checked"':'' ?> required>&nbsp;
             <span>
               <label for="linkedin"><?php echo Yii::t('app', 'LinkedIn'); ?></label>
             </span>
-            <input type="radio" name="findingMethod" value="agency" id="agency" required>&nbsp;
+            <input type="radio" name="findingMethod" value="agency" id="agency" <?php echo($candidateObjRecord->finding_method == 'agency')?'checked="checked"':'' ?>required>&nbsp;
             <span>
               <label for="agency"><?php echo Yii::t('app', 'Agency'); ?></label>
             </span>
-            <input type="radio" name="findingMethod" value="internal-referral" id="internal-referral" required>&nbsp;
+            <input type="radio" name="findingMethod" value="internal-referral" id="internal-referral" <?php echo($candidateObjRecord->finding_method == 'internal-referral')?'checked="checked"':'' ?> required>&nbsp;
             <span>
               <label for="internal-referral"><?php echo Yii::t('app', 'Internal Referral'); ?></label>
             </span>
-            <input type="radio" name="findingMethod" value="others" id="others" required>&nbsp;
+            <input type="radio" name="findingMethod" value="others" id="others" <?php echo($candidateObjRecord->finding_method != 'jobstreet' || $candidateObjRecord->finding_method != 'linkedin' || $candidateObjRecord->finding_method != 'agency' || $candidateObjRecord->finding_method != 'internal-referral')?'checked="checked"':'' ?> required>&nbsp;
             <span>
               <label for="others"><?php echo Yii::t('app', 'Others'); ?></label>
             </span>
-            <input type="text" name="findingMethod" id="otherInputLine" style="display:none; width:20%;" placeholder="Please specify">
+            <input type="text" name="otherFindingMethod" id="otherInputLine" style="display:none; width:20%;" placeholder="Please specify">
           </div>
         </fieldset>
         <fieldset class="fieldset">

@@ -175,6 +175,7 @@ CREATE TABLE employment_candidate (
   `termination_reason` varchar(60) NULL,
   `reference_consent` int(11) NULL DEFAULT '1',
   `refuse_reference_reason` varchar(60) NULL,
+  `finding_method` varchar(60) NULL,
   `candidate_signature` varchar(60) NOT NULL,
   `candidate_signature_date` datetime NOT NULL,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,

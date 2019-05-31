@@ -111,7 +111,7 @@
             <span>
               <label for="others"><?php echo Yii::t('app', 'Others'); ?></label>
             </span>
-            <input type="text" name="findingMethod" id="otherInputLine" style="display:none; width:20%;" placeholder="Please specify">
+            <input type="text" name="otherFindingMethod" id="otherInputLine" style="display:none; width:20%;" placeholder="Please specify">
           </div>
         </fieldset>
         <fieldset class="fieldset">
