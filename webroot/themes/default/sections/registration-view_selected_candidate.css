@@ -1,0 +1,128 @@
+.legend {
+  padding: 5px 10px;
+  background-color: #007F64;
+  color: white;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+body {
+  font: 12px/26px Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+}
+
+.lables {
+  width: 250px;
+  float: left;
+}
+
+.lables2 {
+  width: 300px;
+  float: left;
+  padding-right: 5px;
+}
+
+/*.lables3 {
+	width: 330px;
+	float: left;
+}*/
+
+.lable_block {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+input {
+  padding: 1px 0px;
+  width: 100%;
+}
+
+/*input {
+	padding: 1px 0px;
+	width:50%;
+}*/
+
+input[class=inputLine] {
+	background-color:#A2C7F5;
+	border:none;
+	border-bottom: 1px solid black;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	width:60%;
+	outline:none;
+}
+
+input[class=methodRadio] {
+	text-align: left;
+}
+
+div .radio-buttons {
+	clear: both;
+	margin-left: 18px;
+	margin-bottom: 10px;
+}
+
+input[type=radio] {
+	width:20px;
+}
+
+fieldset {
+	background-color: #A2C7F5;
+	margin-top:30px;
+}
+
+div .grid_block {
+  display: inline-grid;
+  margin-left: 10px;
+  margin-bottom: 30px;
+}
+
+.educationSectionInput{
+	margin-bottom: 4px;
+}
+
+div .general_grid_block {
+	display: inline-grid;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  height: 260px;
+}
+
+fieldset[class=fieldset] {
+	border: 1px solid #000;
+}
+
+div .general_lables {
+	width: 260px;
+  float: left;
+  /*height: 100%;*/
+}
+
+div .general_lables2 {
+	width: 240px;
+  float: left;
+  padding-right: 5px;
+  /*height: 100%;*/
+}
+
+div .short_general_grid_block {
+	display: inline-grid;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  height: 180px;
+}
+
+div .general_lable_block {
+	display: inline-grid;
+	width: 400px;
+}
+
+input[class=crimeBox] {
+  margin-bottom: 2px;
+  margin-top: 2px;
+}
+
+div #save_button {
+  width: 100px;
+  margin-top: 30px;
+}
