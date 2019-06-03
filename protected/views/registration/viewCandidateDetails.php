@@ -1,6 +1,6 @@
 <div id="tabs" class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all" style="width:100%;">
   <div id="tabs-1" aria-labelledby="ui-id-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-expanded="true" aria-hidden="false">
-    <form method="post" action="<?php echo $this->createUrl('registration/updateSelectedCandidate') ?>" id="candidateForm" name="candidateForm">
+    <form method="post" action="<?php echo $this->createUrl('registration/updateSelectedCandidate', array('candidateId' => $candidateId)) ?>" id="candidateForm" name="candidateForm">
       <div>
         <fieldset class="fieldset">
           <legend class="legend">
@@ -227,7 +227,10 @@
                 <input type="text" name="leaveReason[]" value="<?php echo $jobExperienceObjRecord->leave_reason ?>">
               </div>
             </div>
+          </div>          
           <?php } ?>
+          <?php foreach($candidateArrRecords as $candidateObjRecord){ ?>
+          <!-- <div class="grid_block"> -->
             <div class="display_inline_block">
               <div class="lables">
                 <?php echo Yii::t('app', 'Have you ever been terminated/dismissed/suspended from the service of any employer'); ?>?<br>
@@ -235,13 +238,12 @@
                 <input type="text" name="terminationDetails" class="inputLine" id="terminationReason" style="display:none;" <?php echo($candidateObjRecord->terminated_before == 1)?"value='$candidateObjRecord->termination_reason'":'' ?>><br><br>
               </div>
               <div class="lables2">
-              <?php foreach($candidateArrRecords as $candidateObjRecord){ ?>
                 <input type="radio" name="terminatedBefore" value="1" <?php echo($candidateObjRecord->terminated_before == 1)?'checked="checked"':'' ?>> Yes<br>
                 <input type="radio" name="terminatedBefore" value="0"  <?php echo($candidateObjRecord->terminated_before == 0)?'':'checked="checked"' ?>> No<br>
-              <?php } ?>
               </div>
             </div>
-          </div>          
+          <!-- </div> -->
+          <?php } ?>
         </fieldset>
         <fieldset class="fieldset">
           <legend class="legend">
@@ -249,62 +251,74 @@
           </legend>
           <?php foreach($refereeArrRecords as $refereeObjRecord){ ?>
           <div class="grid_block">
-            <div class="lable_block">
-              <div class="lables">
-                <span><?php echo Yii::t('app', 'Name'); ?>:</span><br>
-              </div>
-              <div class="lables2">
-                <input type="text" name="superiorName[]" value="<?php echo $refereeObjRecord->supervisor_name ?>">
-              </div>
-            </div>
-            <div class="lable_block">
-              <div class="lables">
-                <span><?php echo Yii::t('app', 'Company'); ?>:</span><br>
-              </div>
-              <div class="lables2">
-                <input type="year" name="superiorCompany[]" value="<?php echo $refereeObjRecord->supervisor_company ?>">
+            <div class="display_inline_block">
+              <div class="lable_block">
+                <div class="lables">
+                  <span><?php echo Yii::t('app', 'Name'); ?>:</span><br>
+                </div>
+                <div class="lables2">
+                  <input type="text" name="superiorName[]" value="<?php echo $refereeObjRecord->supervisor_name ?>">
+                </div>
               </div>
             </div>
-            <div class="lable_block">
-              <div class="lables">
-                <span><?php echo Yii::t('app', 'Occupation'); ?>:</span><br>
-              </div>
-              <div class="lables2">
-                <input type="year" name="superiorOccupation[]" value="<?php echo $refereeObjRecord->supervisor_occupation ?>">
-              </div>
-            </div>
-            <div class="lable_block">
-              <div class="lables">
-                <span><?php echo Yii::t('app', 'Contact No.'); ?>:</span><br>
-              </div>
-              <div class="lables2">
-                <input type="text" name="superiorContact[]" value="<?php echo $refereeObjRecord->supervisor_contact ?>">
+            <div class="display_inline_block">
+              <div class="lable_block">
+                <div class="lables">
+                  <span><?php echo Yii::t('app', 'Company'); ?>:</span><br>
+                </div>
+                <div class="lables2">
+                  <input type="year" name="superiorCompany[]" value="<?php echo $refereeObjRecord->supervisor_company ?>">
+                </div>
               </div>
             </div>
-            <div class="lable_block">
-              <div class="lables">
-                <span><?php echo Yii::t('app', 'Years Known'); ?>:</span><br>
+            <div class="display_inline_block">
+              <div class="lable_block">
+                <div class="lables">
+                  <span><?php echo Yii::t('app', 'Occupation'); ?>:</span><br>
+                </div>
+                <div class="lables2">
+                  <input type="year" name="superiorOccupation[]" value="<?php echo $refereeObjRecord->supervisor_occupation ?>">
+                </div>
               </div>
-              <div class="lables2">
-                <input type="text" name="yearsKnown[]" value="<?php echo $refereeObjRecord->years_known ?>">
+            </div>
+            <div class="display_inline_block">
+              <div class="lable_block">
+                <div class="lables">
+                  <span><?php echo Yii::t('app', 'Contact No.'); ?>:</span><br>
+                </div>
+                <div class="lables2">
+                  <input type="text" name="superiorContact[]" value="<?php echo $refereeObjRecord->supervisor_contact ?>">
+                </div>
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lable_block">
+                <div class="lables">
+                  <span><?php echo Yii::t('app', 'Years Known'); ?>:</span><br>
+                </div>
+                <div class="lables2">
+                  <input type="text" name="yearsKnown[]" value="<?php echo $refereeObjRecord->years_known ?>">
+                </div>
               </div>
             </div>
           </div>
           <?php } ?>
           <?php foreach($candidateArrRecords as $candidateObjRecord){ ?>
-          <div class="grid_block">
-            <div class="lable_block">
-              <div class="lables">
-                <?php echo Yii::t('app', 'Can we make references to your employment records with your previous employers/companies'); ?>?<br>
-                <?php echo Yii::t('app', 'If no, please give reasons'); ?><br>
-                <input type="text" name="noReferenceReason" id="noReference" value="<?php echo($candidateObjRecord->reference_consent == 0)?'$candidateObjRecord->refuse_reference_reason':'' ?>" style="display:none"><br><br>
-              </div>
-              <div class="lables2">
-                <input type="radio" name="consent" value="1" <?php echo($candidateObjRecord->reference_consent == 1)?'checked="checked"':'' ?> required> Yes<br>
-                <input type="radio" name="consent" value="0" <?php echo($candidateObjRecord->reference_consent == 0)?'checked="checked"':'' ?> required> No<br>
+          <!-- <div class="grid_block"> -->
+            <div class="display_inline_block">
+              <div class="lable_block">
+                <div class="lables">
+                  <?php echo Yii::t('app', 'Can we make references to your employment records with your previous employers/companies'); ?>?<br>
+                  <?php echo Yii::t('app', 'If no, please give reasons'); ?><br>
+                  <input type="text" name="noReferenceReason" id="noReference" value="<?php echo($candidateObjRecord->reference_consent == 0)?'$candidateObjRecord->refuse_reference_reason':'' ?>" style="display:none"><br><br>
+                </div>
+                <div class="lables2">
+                  <input type="radio" name="consent" value="1" <?php echo($candidateObjRecord->reference_consent == 1)?'checked="checked"':'' ?> required> Yes<br>
+                  <input type="radio" name="consent" value="0" <?php echo($candidateObjRecord->reference_consent == 0)?'checked="checked"':'' ?> required> No<br>
+                </div>
               </div>
             </div>
-          </div>
+          <!-- </div> -->
           <?php } ?>
         </fieldset>
         <?php foreach($generalQuestionArrRecords as $generalQuestionObjRecord){ ?>

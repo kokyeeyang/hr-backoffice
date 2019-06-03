@@ -264,20 +264,151 @@ class RegistrationController extends Controller
 
 	public function actionViewSelectedCandidate($id){
 		$candidateId = (int)$id;
-// var_dump('hello');exit;
 		$candidateCondition = 'id_no = "' . $candidateId . '"';
 		$otherCondition = 'candidate_id = "' . $candidateId . '"';
-			// $url = "registration/updateSelectedCandidate";
+
 		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
 		$educationArrRecords = EmploymentEducation::model()->findAll($otherCondition);
-
 		$generalQuestionArrRecords = EmploymentGeneralQuestion::model()->findAll($otherCondition);
 		$jobExperienceArrRecords = EmploymentJobExperience::model()->findAll($otherCondition);
 		$refereeArrRecords = EmploymentReferee::model()->findAll($otherCondition);	
 
-		$this->render('viewCandidateDetails', array('candidateArrRecords'=>$candidateArrRecords, 'educationArrRecords'=>$educationArrRecords, 'generalQuestionArrRecords'=>$generalQuestionArrRecords, 'jobExperienceArrRecords'=>$jobExperienceArrRecords, 'refereeArrRecords'=>$refereeArrRecords));
-		// $this->render('viewCandidateDetails');
+		$this->render('viewCandidateDetails', array('candidateArrRecords'=>$candidateArrRecords, 'educationArrRecords'=>$educationArrRecords, 'generalQuestionArrRecords'=>$generalQuestionArrRecords, 'jobExperienceArrRecords'=>$jobExperienceArrRecords, 'refereeArrRecords'=>$refereeArrRecords, 'candidateId' => $candidateId));
 		
+	}
+
+	public function actionUpdateSelectedCandidate($candidateId){
+
+		$candidateCondition = 'id_no = "' . $candidateId . '"';
+		$otherCondition = 'candidate_id = "' . $candidateId . '"';
+
+		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
+		$educationArrRecords = EmploymentEducation::model()->findAll($otherCondition);
+		$jobExperienceArrRecords = EmploymentJobExperience::model()->findAll($otherCondition);
+		$refereeArrRecords = EmploymentReferee::model()->findAll($otherCondition);
+		$generalQuestionArrRecords = EmploymentGeneralQuestion::model()->findAll($otherCondition);
+
+		$schoolNames = $this->getParam('schoolName', '');
+		$startYears = $this->getParam('startYear', '');
+		$endYears = $this->getParam('endYear', '');
+		$qualifications = $this->getParam('qualification', '');
+		$grades = $this->getParam('cgpa', '');
+		
+		foreach($candidateArrRecords as $candidateObjRecord){
+			$candidateObjRecord['full_name'] = $this->getParam('fullName', '');
+			$candidateObjRecord['id_no'] = $this->getParam('idNo', '');
+			$candidateObjRecord['address'] = $this->getParam('address', '');
+			$candidateObjRecord['contact_no'] = $this->getParam('contactNo', '');
+			$candidateObjRecord['email_address'] = $this->getParam('emailAddress', '');
+			$candidateObjRecord['date_of_birth'] = $this->getParam('DOB', '');
+			$candidateObjRecord['marital_status'] = $this->getParam('maritalStatus', '');
+
+			if($this->getParam('findingMethod', '') != false){
+				$candidateObjRecord['finding_method'] = $this->getParam('otherFindingMethod', '');
+			} else {
+				$candidateObjRecord['finding_method'] = $this->getParam('findingMethod', '');
+			}
+
+			$candidateObjRecord['gender'] = $this->getParam('gender', '');
+			$candidateObjRecord['nationality'] = $this->getParam('nationality', '');
+			$candidateObjRecord['terminated_before'] = $this->getParam('terminatedBefore', '');
+			$candidateObjRecord['termination_reason'] = $this->getParam('terminatedDetails', '');
+			$candidateObjRecord['reference_consent'] = $this->getParam('consent', '');
+			$candidateObjRecord['refuse_reference_reason'] = $this->getParam('noReferenceReason', '');
+			$candidateObjRecord['candidate_signature'] = $this->getParam('signature','');
+			$candidateObjRecord['candidate_signature_date'] = $this->getParam('signatureDate','');
+
+			$candidateObjRecord->update();
+		}
+
+		$schoolNames = $this->getParam('schoolName', '');
+		$startYears = $this->getParam('startYear', '');
+		$endYears = $this->getParam('endYear', '');
+		$qualifications = $this->getParam('qualification', '');
+		$grades = $this->getParam('cgpa', '');
+
+		if(empty($schoolNames[0]) === false){
+			foreach ($schoolNames as $iKey => $schoolName){
+				if ($schoolName != '' && empty($startYears[$iKey]) === false && empty($endYears[$iKey]) === false && empty($qualifications[$iKey]) === false && empty($grades[$iKey]) === false) {
+					$educationArrRecords[$iKey]->candidate_id = $this->getParam('idNo', '');
+					$educationArrRecords[$iKey]->school_name = $schoolNames[$iKey];
+					$educationArrRecords[$iKey]->start_year = $startYears[$iKey];
+					$educationArrRecords[$iKey]->end_year = $endYears[$iKey];
+					$educationArrRecords[$iKey]->qualification = $qualifications[$iKey];
+					$educationArrRecords[$iKey]->grade = $grades[$iKey];
+					$educationArrRecords[$iKey]->update();
+				}
+			}
+		}
+
+		$companyNames = $this->getParam('companyName','');
+		$startDates = $this->getParam('startDate','');
+		$endDates = $this->getParam('endDate','');
+		$positionsHeld = $this->getParam('positionHeld','');
+		$endingSalaries = $this->getParam('endingSalary','');
+		$allowances = $this->getParam('allowances','');
+		$leaveReasons = $this->getParam('leaveReason','');
+
+		if(empty($companyNames[0]) === false){
+			foreach($companyNames as $iKey => $companyName){
+				if($companyName != '' && empty($startDates[$iKey]) === false && empty($endDates[$iKey]) === false && empty($positionsHeld[$iKey]) === false && empty($endingSalaries[$iKey]) === false && empty($allowances[$iKey]) === false && empty($leaveReasons[$iKey]) === false){
+					$jobExperienceArrRecords[$iKey]->candidate_id = $this->getParam('idNo', '');
+					$jobExperienceArrRecords[$iKey]->company_name = $companyNames[$iKey];
+					$jobExperienceArrRecords[$iKey]->start_date = $startDates[$iKey];
+					$jobExperienceArrRecords[$iKey]->end_date = $endDates[$iKey];
+					$jobExperienceArrRecords[$iKey]->position_held = $positionsHeld[$iKey];
+					$jobExperienceArrRecords[$iKey]->ending_salary = $endingSalaries[$iKey];
+					$jobExperienceArrRecords[$iKey]->allowances = $allowances[$iKey];
+					$jobExperienceArrRecords[$iKey]->leave_reason = $leaveReasons[$iKey];
+
+					$jobExperienceArrRecords[$iKey]->update();
+				}
+			}
+		}
+
+		$supervisorNames = $this->getParam('superiorName','');
+		$supervisorCompanies = $this->getParam('superiorCompany','');
+		$supervisorOccupations = $this->getParam('superiorOccupation','');
+		$supervisorContacts = $this->getParam('superiorContact','');
+		$yearsKnownArray = $this->getParam('yearsKnown','');
+
+		if(empty($supervisorNames[0]) === false){
+			foreach($supervisorNames as $iKey => $supervisorName){
+				if($supervisorName != '' && empty($supervisorCompanies[$iKey]) === false && empty($supervisorOccupations[$iKey]) === false && empty($supervisorOccupations[$iKey]) === false && empty($supervisorContacts[$iKey]) === false && empty($yearsKnownArray[$iKey]) === false){
+					$refereeArrRecords[$iKey]->candidate_id = $this->getParam('idNo', '');
+					$refereeArrRecords[$iKey]->supervisor_name = $supervisorNames[$iKey];
+					$refereeArrRecords[$iKey]->supervisor_company = $supervisorCompanies[$iKey];
+					$refereeArrRecords[$iKey]->supervisor_occupation = $supervisorOccupations[$iKey];
+					$refereeArrRecords[$iKey]->supervisor_contact = $supervisorContacts[$iKey];
+					$refereeArrRecords[$iKey]->years_known = $yearsKnownArray[$iKey];
+
+					$refereeArrRecords[$iKey]->update();
+				}
+			}
+		}
+
+		foreach($generalQuestionArrRecords as $generalQuestionObjRecord){
+			$generalQuestionObjRecord->candidate_id = $this->getParam('idNo', '');
+			$generalQuestionObjRecord->has_physical_ailment = $this->getParam('illness','');
+			$generalQuestionObjRecord->has_been_convicted = $this->getParam('criminalOffenseRadio','');
+			$generalQuestionObjRecord->offense = $this->getParam('criminalOffenseInput','');
+			$generalQuestionObjRecord->convicted_date = $this->getParam('convictedDate','');
+			$generalQuestionObjRecord->date_of_discharge = $this->getParam('dischargeDate','');
+			$generalQuestionObjRecord->has_company_contact = $this->getParam('sagaosRelative','');
+			$generalQuestionObjRecord->company_contact_name = $this->getParam('sagaosContactNameInput','');
+			$generalQuestionObjRecord->relationship_with_candidate = $this->getParam('sagaosFamilyInput','');
+			$generalQuestionObjRecord->has_conflict_of_interest = $this->getParam('interestConflict','');
+			$generalQuestionObjRecord->has_own_transport = $this->getParam('ownTransport','');
+			$generalQuestionObjRecord->has_applied_before = $this->getParam('timesApplied','');
+			$generalQuestionObjRecord->commencement_date = $this->getParam('commencementDate','');
+			$generalQuestionObjRecord->good_conduct_consent = $this->getParam('goodConductConsent','');
+			$generalQuestionObjRecord->expected_salary = $this->getParam('expectedSalary','');
+
+			$generalQuestionObjRecord->update();
+		}
+
+
+		$this->redirect(array('showAllCandidates'));
 	}
 
 	/**
