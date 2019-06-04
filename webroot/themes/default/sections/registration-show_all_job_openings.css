@@ -1,3 +1,7 @@
 #generateLink {
-	width: 20px;
+	width: 40%;
+}
+
+td #generateLinkColumn {
+	padding-left: 90px;	
 }

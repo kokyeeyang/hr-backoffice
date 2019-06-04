@@ -108,8 +108,8 @@
 						  	<td>
 						  		<?php echo $objRecord->created_date ?>
 						  	</td>
-						  	<td>
-						  		<input type="button" id="generateLink" data-url="<?php echo $this->createUrl('registration/generateLink', array('jobId' => $objRecord->id)); ?>" value="<?php echo $objRecord->id ?>">
+						  	<td id="generateLinkColumn" style="padding-left: 90px;">
+						  		<input type="button" id="generateLink" data-url="<?php echo $this->createUrl('registration/generateLink', array('jobId' => $objRecord->id)); ?>" value="<?php echo Yii::t('app', 'Generate link'); ?>">
 						  	</td>
 						  	<td>
 						  		<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $objRecord->id ?>">
