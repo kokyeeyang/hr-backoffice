@@ -323,6 +323,21 @@
     </form>
   </div>
 </div>
+<div id="registration-common-msg">
+  <div id="msg-search-method" data-msg="<?php echo Yii::t('app', 'Please state a method'); ?>"><!-- Dialog Buttons Label --></div>
+</div>
+<div id="registration-common-msg">
+  <div id="msg-terminated_before" data-msg="<?php echo Yii::t('app', 'Please state why you were terminated'); ?>"><!-- Dialog Buttons Label --></div>
+</div>
+<div id="registration-common-msg">
+  <div id="msg-refuse-consent" data-msg="<?php echo Yii::t('app', 'Please explain why you would not want us to call for reference'); ?>"><!-- Dialog Buttons Label --></div>
+</div>
+<div id="registration-common-msg">
+  <div id="msg-criminal-offence" data-msg="<?php echo Yii::t('app', 'Please state your offence, date of conviction and date of discharge.'); ?>"><!-- Dialog Buttons Label --></div>
+</div>
+<div id="registration-common-msg">
+  <div id="msg-has-relative" data-msg="<?php echo Yii::t('app', 'Please state name of relative or friend'); ?>"><!-- Dialog Buttons Label --></div>
+</div>
 
 
 

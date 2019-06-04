@@ -5,10 +5,8 @@ var RegistrationAddCandidate = function() {
 			$("input[name=findingMethod]").click(function() {
 				//if user checked others box, then remove disabled attribute for the input line
 				if ($("input[name=findingMethod]:checked").val() == "others") {
-					// $("#otherInputLine").removeAttr("disabled");
 					otherInputLine.style.display = "block";
 				} else {
-					// $("#otherInputLine").attr("disabled", "yes");
 					otherInputLine.style.display = "none";
 					$("#otherInputLine").val('');
 				}
@@ -65,10 +63,51 @@ var RegistrationAddCandidate = function() {
 					sagaosContactNameLine.style.display = "block";
 				} else {
 					sagaosFamilyLine.style.display = "none";
-					sagaosContactName.style.display = "none";
+					sagaosContactNameLine.style.display = "none";
 					$("input[name=sagaosFamilyInput]").val('');
 					$("input[name=sagaosContactNameInput]").val('');
 				}
+			});
+
+			$("#save_button").on('click',function(e) {
+				e.preventDefault();
+				if ($("input[name=findingMethod]:checked").val() == "others" && $("input[name=otherFindingMethod]").val() == "") {
+					alert($("#msg-search-method").attr('data-msg'));
+					otherInputLine.focus();
+					return
+				}
+
+				if ($("input[name=terminatedBefore]:checked").val() == "1" && $("input[name=terminationDetails]").val() == ""){
+					alert($("#msg-terminated_before").attr('data-msg'));
+					terminateBeforeLine.focus();
+				}
+
+				if ($("input[name=consent]:checked").val() == "0" && $("input[name=noReferenceReason]").val() == ""){
+					alert($("#msg-refuse-consent").attr('data-msg'));
+					noReferenceLine.focus();
+				}
+
+				var crimeLine = $("input[name=criminalOffenseInput]");
+				var dateOfConviction = $("input[name=convictedDate]");
+				var dateOfDischarge = $("input[name=dischargeDate]");
+
+				if ($("input[name=criminalOffenseRadio]:checked").val() == "1"){
+					if(crimeLine.val() == "" || dateOfConviction.val() == "" || dateOfDischarge.val() == ""){
+						alert($("#msg-criminal-offence").attr('data-msg'));
+						criminalOffenseLine.focus();
+					} 
+				}
+
+				var sagaosFamily = $("input[name=sagaosContactNameInput]");
+				var sagaosContactName = $("input[name=sagaosFamilyInput]");
+
+				if ($("input[name=sagaosRelative]:checked").val() == "1"){
+					if(sagaosFamily.val() == "" || sagaosContactName.val() == ""){
+						alert($("#msg-has-relative").attr('data-msg'));
+						sagaosFamilyLine.focus();
+					}
+				}
+
 			});
 		});
 	}
