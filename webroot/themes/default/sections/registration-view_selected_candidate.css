@@ -1,6 +1,6 @@
 .legend {
   padding: 5px 10px;
-  background-color: #007F64;
+  background-color: #DF9920;
   color: white;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -43,7 +43,7 @@ input {
 }*/
 
 input[class=inputLine] {
-	background-color:#A2C7F5;
+	background-color:#D2CABC;
 	border:none;
 	border-bottom: 1px solid black;
 	margin-top: 1em;
@@ -67,7 +67,7 @@ input[type=radio] {
 }
 
 fieldset {
-	background-color: #A2C7F5;
+	background-color: #D2CABC;
 	margin-top:30px;
 }
 

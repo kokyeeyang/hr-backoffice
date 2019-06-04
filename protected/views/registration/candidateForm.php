@@ -15,6 +15,7 @@
               </div>
               <div class="lables2">
                 <input type="text" name="fullName" placeholder="(<?php echo Yii::t('app', 'IN BLOCK LETTERS'); ?>)" required>
+                <input type="text" name="encryptedJobId" value="<?php echo $encryptedJobId ?>" style="display:none;">
               </div>
             </div>
             <div class="lable_block">
@@ -139,7 +140,7 @@
           <?php $this->endContent(); ?>
           <?php $this->beginContent('//registration/company_section'); ?>
           <?php $this->endContent(); ?>
-          <div class="grid_block" style="margin-left: 0px;">
+          <div class="grid_block">
             <div class="lable_block">
               <div class="lables">
                 <?php echo Yii::t('app', 'Have you ever been terminated/dismissed/suspended from the service of any employer'); ?>?<br>

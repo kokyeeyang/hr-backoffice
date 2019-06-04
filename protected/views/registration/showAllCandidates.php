@@ -54,6 +54,24 @@
 						<div class="sort_wrapper_inner">
 							<div class="sort_label_wrapper">
 								<div class="sort_label">
+									<?php echo Yii::t('app', 'Job applied for'); ?>
+								</div>
+							</div>
+						</div>
+					</th>
+					<th>
+						<div class="sort_wrapper_inner">
+							<div class="sort_label_wrapper">
+								<div class="sort_label">
+									<?php echo Yii::t('app', 'Interviewing manager'); ?>
+								</div>
+							</div>
+						</div>
+					</th>
+					<th>
+						<div class="sort_wrapper_inner">
+							<div class="sort_label_wrapper">
+								<div class="sort_label">
 									<input type="button" title="<?php echo Yii::t('app', 'Delete this entry'); ?>" id="deleteJobOpeningButton" value="Delete selected entries" data-delete-url="<?php echo $this->createUrl('registration/deleteSelectedCandidates') ?>">
 								</div>
 							</div>
@@ -81,6 +99,12 @@
 						</td>
 						<td>
 							<?php echo $objRecord->created_date ?>
+						</td>
+						<td>
+							<?php echo EmploymentJobOpening::model()->queryForCandidateJob($objRecord->id)?>
+						</td>
+						<td>
+							<?php echo EmploymentJobOpening::model()->queryForCandidateInterviewingManager($objRecord->id)?>
 						</td>
 						<td>
 							<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $objRecord->id_no ?>">

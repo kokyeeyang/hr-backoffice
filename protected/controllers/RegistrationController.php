@@ -67,12 +67,19 @@ class RegistrationController extends Controller
 		// Put your codes here...
 		// exit('Please add the new candidate form here...');
 		$dateToday = date("Y-m-d");
-		$this->render('candidateForm', array('dateToday' => $dateToday));
+		$link = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+		$encryptedJobId = substr($link, strpos($link, "=") + 1);
+		
+		$this->render('candidateForm', array('dateToday' => $dateToday, 'encryptedJobId' => $encryptedJobId));
 	}
 
 	public function actionSaveCandidate()
 	{
 		//this is for saving candidate details into employment_candidate table
+		$encryptedJobId = $this->getParam('encryptedJobId', '');
+		$jobIdInSecretKey = base64_decode($encryptedJobId);
+		$jobId = substr($jobIdInSecretKey,9);
+
 		$candidateObjModel = new EmploymentCandidate;
 		$candidateObjModel->full_name = $this->getParam('fullName', '');
 		$candidateObjModel->id_no = $this->getParam('idNo', '');
@@ -90,6 +97,7 @@ class RegistrationController extends Controller
 
 		$candidateObjModel->gender = $this->getParam('gender', '');
 		$candidateObjModel->nationality = $this->getParam('nationality', '');
+		$candidateObjModel->job_id = $jobId;
 		$candidateObjModel->terminated_before = $this->getParam('terminatedBefore', '');
 		$candidateObjModel->termination_reason = $this->getParam('terminatedDetails', '');
 		$candidateObjModel->reference_consent = $this->getParam('consent', '');
@@ -227,20 +235,19 @@ class RegistrationController extends Controller
 		return $this->render('showAllJobOpenings', array('arrRecords'=>$arrRecords));
 	}
 
-	public function actionGenerateLink(){
+	// generates a job application link to send to candidate
+	public function actionGenerateLink($jobId){
 		$aResult['result'] = false;
 
 		$arrRecords = EmploymentJobOpening::model()->findAll(array('order'=>'id ASC'));
-		foreach($arrRecords as $intIndex => $objRecord){
-			if(Yii::app()->request->isAjaxRequest){
-				$encryptedJobTitleId = str_replace('9', $objRecord->id, JOB_TITLE_ID_SECRET_KEY);
-				$base64EncodedJobTitleId = base64_encode($encryptedJobTitleId);
-				$aResult['result'] = $base64EncodedJobTitleId;
+		if(Yii::app()->request->isAjaxRequest){
+			$encryptedJobTitleId = str_replace('9', $jobId, JOB_TITLE_ID_SECRET_KEY);
+			$base64EncodedJobTitleId = base64_encode($encryptedJobTitleId);
+			$aResult['result'] = $base64EncodedJobTitleId;
 
-				echo(json_encode($aResult));
-			}
-				Yii::app()->end();
+			echo(json_encode($aResult));
 		}
+			Yii::app()->end();
 	}
 
 	public function actionDeleteSelectedJobOpenings(){

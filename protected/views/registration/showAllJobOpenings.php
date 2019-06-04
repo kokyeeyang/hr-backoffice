@@ -109,7 +109,7 @@
 						  		<?php echo $objRecord->created_date ?>
 						  	</td>
 						  	<td>
-						  		<input type="button" id="generateLink" data-url="<?php echo $this->createUrl('registration/generateLink'); ?>" value="<?php echo $objRecord->id ?>">
+						  		<input type="button" id="generateLink" data-url="<?php echo $this->createUrl('registration/generateLink', array('jobId' => $objRecord->id)); ?>" value="<?php echo $objRecord->id ?>">
 						  		<input type="text" value="<?php echo $objRecord->id ?>" name="jobTitleId">
 						  	</td>
 						  	<td>

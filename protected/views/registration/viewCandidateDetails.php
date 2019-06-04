@@ -231,7 +231,7 @@
           <?php } ?>
           <?php foreach($candidateArrRecords as $candidateObjRecord){ ?>
           <!-- <div class="grid_block"> -->
-            <div class="display_inline_block">
+            <div class="display_inline_block" style="margin-left: 10px;">
               <div class="lables">
                 <?php echo Yii::t('app', 'Have you ever been terminated/dismissed/suspended from the service of any employer'); ?>?<br>
                 <?php echo Yii::t('app', 'If yes, please give details'); ?><br>

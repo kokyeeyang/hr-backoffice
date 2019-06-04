@@ -34,14 +34,51 @@ class EmploymentJobOpening extends AppActiveRecord
 		);
 	}
 
-	public static function model($className=__CLASS__){
-		return parent::model($className);
-	}
-
 	public function deleteSelectedJobOpening($jobOpeningIds){
 		foreach($jobOpeningIds as $jobOpeningId){
 			$condition = 'id = ' . $jobOpeningId;
 			EmploymentJobOpening::model()->deleteAll($condition);
 		}
 	}
+
+	public function queryForCandidateJob($jobId){
+		$sql = 'SELECT job_title 
+
+						FROM ' . self::$tableName . '
+						
+						WHERE id = ' . $jobId;
+
+		$objConnection = Yii::app()->db;
+		$objCommand = $objConnection->createCommand($sql);
+		$arrData = $objCommand->queryRow();
+
+		if (!empty($arrData['job_title'])){
+			foreach($arrData as $objData){
+				return $objData;
+			}
+		}
+	}
+
+	public function queryForCandidateInterviewingManager($jobId){
+		$sql = 'SELECT interviewing_manager 
+
+						FROM ' . self::$tableName . '
+						
+						WHERE id = ' . $jobId;
+
+		$objConnection = Yii::app()->db;
+		$objCommand = $objConnection->createCommand($sql);
+		$arrData = $objCommand->queryRow();
+
+		if (!empty($arrData['interviewing_manager'])){
+			foreach($arrData as $objData){
+				return $objData;
+			}
+		}
+	}
+
+	public static function model($className=__CLASS__){
+		return parent::model($className);
+	}
+
 }

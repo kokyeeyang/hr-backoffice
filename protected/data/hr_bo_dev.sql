@@ -257,3 +257,7 @@ CREATE TABLE employment_job_opening (
   `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/* Yee Yang 04/06/2019 */
+ALTER TABLE `employment_candidate` 
+  ADD `job_id` int(11) NOT NULL;
