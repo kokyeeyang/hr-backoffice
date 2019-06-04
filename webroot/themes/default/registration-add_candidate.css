@@ -43,7 +43,7 @@ input {
 }*/
 
 input[class=inputLine] {
-	background-color:#D2CABC;
+	background-color:#F4EFE5;
 	border:none;
 	border-bottom: 1px solid black;
 	margin-top: 1em;
@@ -67,7 +67,7 @@ input[type=radio] {
 }
 
 fieldset {
-	background-color: #D2CABC;
+	background-color: #F4EFE5;
 	margin-top:30px;
 }
 

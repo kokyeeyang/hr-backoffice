@@ -4,7 +4,7 @@
       <div>
         <fieldset class="fieldset">
           <legend class="legend">
-            1.<?php echo Yii::t('app', 'Personal Particulars'); ?>
+            1.<?php echo Yii::t('app', 'PERSONAL PARTICULARS'); ?>
           </legend>
           <div class="grid_block">
             <div class="lable_block">
@@ -247,7 +247,7 @@
         </fieldset>
         <fieldset class="fieldset">
           <legend class="legend">
-            4.<?php echo Yii::t('app', 'REFEREES (Previous Superiors'); ?>
+            4.<?php echo Yii::t('app', 'REFEREES (Previous Superiors)'); ?>
           </legend>
           <?php foreach($refereeArrRecords as $refereeObjRecord){ ?>
           <div class="grid_block">
@@ -325,7 +325,7 @@
         <!-- <?php } ?> -->
         <fieldset class="fieldset">
           <legend class="legend">
-            5.<?php echo Yii::t('app', 'General') ?>
+            5.<?php echo Yii::t('app', 'GENERAL') ?>
           </legend>
           <div class="general_grid_block">
             <div class="general_lable_block">

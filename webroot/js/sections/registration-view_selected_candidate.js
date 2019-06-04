@@ -106,6 +106,18 @@ var RegistrationViewSelectedCandidate = function() {
 					$("input[name=sagaosContactNameInput]").val('');
 				}
 			});
+
+			var noReferenceLine = document.getElementById("noReference");
+			$("input[name=consent]").click(function() {
+				//if user checked no(refuses to give consent) box, then display input line
+				if ($("input[name=consent]:checked").val() == "0") {
+					noReferenceLine.style.display = "block";
+				} else {
+					//user give consent
+					noReferenceLine.style.display = "none";
+					$("input[name=noReferenceReason]").val('');
+				}
+			}); 
 		});
 	}
 
