@@ -110,7 +110,6 @@
 						  	</td>
 						  	<td>
 						  		<input type="button" id="generateLink" data-url="<?php echo $this->createUrl('registration/generateLink', array('jobId' => $objRecord->id)); ?>" value="<?php echo $objRecord->id ?>">
-						  		<input type="text" value="<?php echo $objRecord->id ?>" name="jobTitleId">
 						  	</td>
 						  	<td>
 						  		<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $objRecord->id ?>">

@@ -2,6 +2,8 @@
   <div id="tabs-1" aria-labelledby="ui-id-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-expanded="true" aria-hidden="false">
     <form method="post" action="<?php echo $this->createUrl('registration/saveCandidate') ?>" id="candidateForm" name="candidateForm">
       <div>
+        <img src="/images/alllanguages/sagaos_logo.png">
+        <header><?php echo Yii::t('app', 'APPLICATION FOR EMPLOYMENT'); ?></header>
         <fieldset class="fieldset">
           <legend class="legend">
             1.<?php echo Yii::t('app', 'PERSONAL PARTICULARS'); ?>
