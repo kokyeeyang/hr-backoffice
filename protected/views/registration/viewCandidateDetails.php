@@ -239,7 +239,7 @@
               </div>
               <div class="lables2">
                 <input type="radio" name="terminatedBefore" value="1" <?php echo($candidateObjRecord->terminated_before == 1)?'checked="checked"':'' ?>> Yes<br>
-                <input type="radio" name="terminatedBefore" value="0"  <?php echo($candidateObjRecord->terminated_before == 0)?'':'checked="checked"' ?>> No<br>
+                <input type="radio" name="terminatedBefore" value="0"  <?php echo($candidateObjRecord->terminated_before == 0)?'checked="checked"':'' ?>> No<br>
               </div>
             </div>
           <!-- </div> -->

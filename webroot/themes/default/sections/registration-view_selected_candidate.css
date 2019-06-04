@@ -114,7 +114,7 @@ div .short_general_grid_block {
 
 div .general_lable_block {
 	display: inline-grid;
-	width: 400px;
+	width: 300px;
 }
 
 input[class=crimeBox] {
