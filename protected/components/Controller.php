@@ -186,20 +186,6 @@ class Controller extends CController
 					$objCS->registerCssFile(HTTP_MEDIA_CURRENT_THEME.'/common.css?sv='.SITE_VERSION, 'screen, projection');
 			}
 
-			// if(in_array($strNormalizedController, ['registration'])){
-			// 	if(Yii::app()->user->isGuest === true){
-			// 		$objCS->registerCssFile(HTTP_MEDIA_CURRENT_THEME.'/registration-add_candidate.css?sv='.SITE_VERSION, 'screen, projection');
-			// 	}else if (Yii::app()->user->isGuest === false){
-			// 		$objCS->registerCssFile(HTTP_MEDIA_CURRENT_THEME.'/common.css?sv='.SITE_VERSION, 'screen, projection');
-			// 	}
-			// }  
-			// else {
-			// 	if(Yii::app()->user->isGuest === false){
-			// 		// echo('you are logged in!');
-			// 		$objCS->registerCssFile(HTTP_MEDIA_CURRENT_THEME.'/common.css?sv='.SITE_VERSION, 'screen, projection');
-			// 	}
-			// }
-
 			if(is_file(DIR_MEDIA_CURRENT_THEME_SECTIONS . '/' . $strNormalizedController . '.css')){ 
 				$objCS->registerCssFile(HTTP_MEDIA_CURRENT_THEME . '/sections/' . $strNormalizedController . '.css?sv='.SITE_VERSION, 'screen, projection');
 			} // end: if

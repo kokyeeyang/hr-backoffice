@@ -1,5 +1,5 @@
 var RegistrationShowAllJobOpenings = function() {
-	function _encode_job_opening_id(objElement, objEvent){
+	function _copy_link(objElement, objEvent){
 		if($(objElement).val() != ''){
 			$.ajax({
 				type: 'post',
@@ -10,11 +10,15 @@ var RegistrationShowAllJobOpenings = function() {
 				dataType: 'json',
 				success: function(data){
 					if((typeof data.result) !== 'undefined'){
-						// alert(data.result);
 						var link = 'http://portal.sagaos.com/registration?JT=' + data.result;
-						alert(link);
-						// link.select();
-						// document.execCommand("copy");
+						var tempInput = document.createElement("input");
+				    tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+				    tempInput.value = link;
+				    document.body.appendChild(tempInput);
+				    tempInput.select();
+				    document.execCommand("copy");
+				    document.body.removeChild(tempInput);
+						alert('Link is copied! Please attach link to email and send to candidate');
 					}
 					else{
 						alert('wrong');
@@ -40,7 +44,7 @@ var RegistrationShowAllJobOpenings = function() {
 	function _init(){
 		$(function() {
 			$('input#generateLink').on('click', function(objEvent) {
-				RegistrationShowAllJobOpenings.encode_job_opening_id(this, objEvent);
+				RegistrationShowAllJobOpenings.copy_link(this, objEvent);
 			});
 
 		  $("#label_filter").on("keyup", function() {
@@ -59,7 +63,7 @@ var RegistrationShowAllJobOpenings = function() {
 
 	return {
 		init : _init,
-		encode_job_opening_id : _encode_job_opening_id,
+		copy_link : _copy_link,
 		check_if_deletion_is_selected : _check_if_deletion_is_selected
 	}
 }();
