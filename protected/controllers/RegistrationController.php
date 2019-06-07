@@ -200,6 +200,8 @@ class RegistrationController extends Controller
 
 		$generalQuestionObjModel->save();
 		//
+
+		$this->redirect("redirectAfterRegister");
 	}
 
 	public function actionShowAllCandidates() {
@@ -416,6 +418,10 @@ class RegistrationController extends Controller
 
 
 		$this->redirect(array('showAllCandidates'));
+	}
+
+	public function actionRedirectAfterRegister(){
+		$this->render("redirectAfterRegister");
 	}
 
 	/**
