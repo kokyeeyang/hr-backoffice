@@ -33,7 +33,7 @@
 		<div class="flash_alert">
 			<?php echo Yii::app()->user->getFlash('flash_alert'); ?>
 		</div>		
-		<div id="common-msg">
+		<div id="common-msg" style="display:none">
 			<div id="dialog-buttons-label" rel="<?php echo Yii::t('app', 'Confirm') . '|' . Yii::t('app', 'Cancel'); ?>"><!-- Dialog Buttons Label --></div>
 			<div id="dialog-error" title="<?php echo Yii::t('app', 'Notice'); ?>"><?php echo Yii::t('app', 'Operation failed, please try again later.'); ?></div>
 			<div id="dialog-confirm" title="<?php echo Yii::t('app', 'Notice'); ?>"><?php echo Yii::t('app', 'Confirm to proceed with this operation?'); ?></div>

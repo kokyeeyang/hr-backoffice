@@ -338,6 +338,10 @@
 <div id="registration-common-msg">
   <div id="msg-has-relative" data-msg="<?php echo Yii::t('app', 'Please state name of relative or friend'); ?>"><!-- Dialog Buttons Label --></div>
 </div>
+<div id="registration-common-msg">
+  <div id="msg-confirm-save" data-msg="<?php echo Yii::t('app', 'Please state name of relative or friend'); ?>"><!-- Dialog Buttons Label --></div>
+</div>
+
 
 
 
