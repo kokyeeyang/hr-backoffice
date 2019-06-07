@@ -8,7 +8,12 @@ class RoleHelper {
 		switch($strController){
 			case 'registration':
 				// All users can access the registration controller
-				$arrActionsList = array_merge($arrActionsList, ['index', 'addCandidate', 'saveCandidate']);		
+				$arrActionsList = array_merge($arrActionsList, ['index', 'addCandidate', 'saveCandidate']);
+
+				if($bolAuthenticated === true && isset(Yii::app()->user->priv) && in_array(Yii::app()->user->priv, ['admin', 'manager', 'hr'])){
+					// set the actions which only admin can access
+					$arrActionsList = array_merge($arrActionsList, ['showAllCandidates', 'addNewJobOpenings', 'saveJobOpenings', 'showAllJobOpenings', 'deleteSelectedJobOpenings', 'generateLink', 'deleteSelectedCandidates', 'viewSelectedCandidate', 'updateSelectedCandidate']);
+				}	
 			break;
 
 			case 'site':

@@ -29,6 +29,26 @@ class RegistrationController extends Controller
           'accessControl',
       );
   }	
+  
+	public function accessRules()
+  {
+		return array(
+			array(
+				'allow',  // allow all users to perform the RoleHelper's returned actions
+				'actions'=>RoleHelper::GetRole(self::$strController, false),
+				'users'=>array('*'),
+			),
+			array(
+				'allow', // allow authenticated admin user to perform the RoleHelper's returned actions
+				'actions'=>RoleHelper::GetRole(self::$strController, true),
+				'users'=>array('@'),
+			),
+			array(
+				'deny',  // deny all other users access
+				'users'=>array('*'),
+			),
+		);
+  }
 
 	/**
 	 * This is the action to handle external exceptions.
