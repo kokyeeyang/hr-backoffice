@@ -1,6 +1,5 @@
 /*** GENERIC ***/
 body{
-	/*background			: #0866c6;*/
 	color				: #333333;
     font				: 12px Arial, SimSun, Helvetica, tahoma, verdana, å®‹ä½“, åŽæ–‡ç»†é»‘, STXihei, sans-serif;
     height				: 100%;
@@ -576,7 +575,7 @@ div.disabled_button div.right_corner {
 }
 
 #top_header .head_menu > li > a .head-admin-logout {
-    background-image	: url(./images/alllanguages/users.png);
+    background-image	: url(./images/alllanguages/exit_PNG43.png);
 }
 
 #top_header .header_right {
@@ -667,8 +666,8 @@ div.disabled_button div.right_corner {
 }
 
 #tpl_left_wrapper .left_menu .nav > li.active > a { 
-	background-color	: #f0b028; 
-	color				: #fff; 
+	background-color	: #0866c6; 
+	color				: #1C1B1A;
 	border-bottom-color	: rgba(0,0,0,0.2); 
 }
 
@@ -694,7 +693,7 @@ div.disabled_button div.right_corner {
 }
 
 #tpl_left_wrapper .left_menu .nav > li.dropdown.active > a {
-	background			: #f0b028 url(./images/alllanguages/drop_arrow.png) no-repeat right 19px; 
+	background			: #0866c6 url(./images/alllanguages/drop_arrow.png) no-repeat right 19px; 
 }
 
 #tpl_left_wrapper .left_menu .nav .dropdown ul li a {
