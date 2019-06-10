@@ -575,7 +575,8 @@ div.disabled_button div.right_corner {
 }
 
 #top_header .head_menu > li > a .head-admin-logout {
-    background-image	: url(./images/alllanguages/iconfinder_exit-to-app_326635.png) no-repeat 10px 10px transparent;
+    background-image	: url(./images/alllanguages/iconfinder_exit-to-app_326635.png) 
+    background-repeat: no-repeat;
 }
 
 #top_header .header_right {
