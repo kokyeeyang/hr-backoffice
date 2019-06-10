@@ -288,7 +288,7 @@ class Admin extends AppActiveRecord
 		return $arrData['admin_username'];
 	}
 
-	public static function checkForAdminPrivilege($createdAdminId){
+	public static function checkForAdminPrivilege($createdAdminId, $controller){
 		if ($createdAdminId) {
 			$sql = 'SELECT '. self::$tableName . '_priv ';
 			$sql .= 'FROM ' . self::$tableName;
@@ -299,12 +299,19 @@ class Admin extends AppActiveRecord
 			$arrData		= $objCommand->queryRow();
 
 			$infinityDuration = '';
+			$access = '';
 
 			if($arrData['admin_priv'] == "admin"){
-				$infinityDuration = 9999;
+				if($controller == 'ip'){
+					$infinityDuration = 9999;
+					return $infinityDuration;
+				}else if($controller == 'registration'){
+					return $access;
+				}
+			}else{
+				$access = 'disabled';
+				return $access;
 			}
-
-			return $infinityDuration;
 		}
 	}
 

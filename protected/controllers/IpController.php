@@ -24,7 +24,7 @@ class IpController extends Controller
 	public function actionCreateNewWhitelistIp() {
 		if (Yii::app()->user->id){
 			$currentAdminId = Yii::app()->user->id;
-			$infinityDuration = Admin::model()->checkForAdminPrivilege($currentAdminId);
+			$infinityDuration = Admin::model()->checkForAdminPrivilege($currentAdminId, 'ip');
 			$durationArr = range(0,60);
 
 			if($infinityDuration){

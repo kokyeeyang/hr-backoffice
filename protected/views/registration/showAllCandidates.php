@@ -81,7 +81,7 @@
 						<div class="sort_wrapper_inner">
 							<div class="sort_label_wrapper">
 								<div class="sort_label">
-									<?php echo Yii::t('app', 'Edit this candidate'); ?>
+									<?php echo Yii::t('app', 'View this candidate'); ?>
 								</div>
 							</div>
 						</div>
@@ -110,7 +110,7 @@
 							<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $objRecord->id_no ?>">
 						</td>
 						<td>
-							<input type="button" data-view-url="<?php echo $this->createUrl('registration/viewSelectedCandidate', array('id' => $objRecord->id_no)); ?>" name="editCandidateButton" id="viewSelectedCandidateButton" value="<?php echo Yii::t('app', 'Edit'); ?>">
+							<input type="button" data-view-url="<?php echo $this->createUrl('registration/viewSelectedCandidate', array('id' => $objRecord->id_no)); ?>" name="editCandidateButton" id="viewSelectedCandidateButton" value="<?php echo Yii::t('app', 'View'); ?>">
 							</div>
 						</td>
 					</tr>

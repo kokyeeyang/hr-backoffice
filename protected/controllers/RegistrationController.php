@@ -302,7 +302,11 @@ class RegistrationController extends Controller
 		$jobExperienceArrRecords = EmploymentJobExperience::model()->findAll($otherCondition);
 		$refereeArrRecords = EmploymentReferee::model()->findAll($otherCondition);	
 
-		$this->render('viewCandidateDetails', array('candidateArrRecords'=>$candidateArrRecords, 'educationArrRecords'=>$educationArrRecords, 'generalQuestionArrRecords'=>$generalQuestionArrRecords, 'jobExperienceArrRecords'=>$jobExperienceArrRecords, 'refereeArrRecords'=>$refereeArrRecords, 'candidateId' => $candidateId));
+		$currentAdminId = Yii::app()->user->id;
+		//this is to allow editing only for hr and admin
+		$access = Admin::model()->checkForAdminPrivilege($currentAdminId, 'registration');
+
+		$this->render('viewCandidateDetails', array('candidateArrRecords'=>$candidateArrRecords, 'educationArrRecords'=>$educationArrRecords, 'generalQuestionArrRecords'=>$generalQuestionArrRecords, 'jobExperienceArrRecords'=>$jobExperienceArrRecords, 'refereeArrRecords'=>$refereeArrRecords, 'candidateId' => $candidateId, 'access' => $access));
 		
 	}
 

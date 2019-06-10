@@ -15,7 +15,7 @@
               </div>
               <?php foreach($candidateArrRecords as $candidateObjRecord){ ?>
               <div class="lables2">
-                <input type="text" name="fullName" placeholder="(<?php echo Yii::t('app', 'IN BLOCK LETTERS'); ?>)" value="<?php echo $candidateObjRecord->full_name ?>"required>
+                <input type="text" name="fullName" placeholder="(<?php echo Yii::t('app', 'IN BLOCK LETTERS'); ?>)" value="<?php echo $candidateObjRecord->full_name ?>"required <?php echo $access ?>>
               </div>
             </div>
             <div class="lable_block">
@@ -23,7 +23,7 @@
                 <span><?php echo Yii::t('app', 'Contact No'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="text" name="contactNo" value="<?php echo $candidateObjRecord->contact_no ?>" required>
+                <input type="text" name="contactNo" value="<?php echo $candidateObjRecord->contact_no ?>" required <?php echo $access ?>>
               </div>
             </div>
             <div class="lable_block">
@@ -31,7 +31,7 @@
                 <span><?php echo Yii::t('app', 'Email Address'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="email" name="emailAddress" value="<?php echo $candidateObjRecord->email_address ?>" required>
+                <input type="email" name="emailAddress" value="<?php echo $candidateObjRecord->email_address ?>" required <?php echo $access ?>>
               </div>
             </div>
             <div class="lable_block">
@@ -39,7 +39,7 @@
                 <span><?php echo Yii::t('app', 'Correspondence Address'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="text" name="address" value="<?php echo $candidateObjRecord->address ?>" required>
+                <input type="text" name="address" value="<?php echo $candidateObjRecord->address ?>" required <?php echo $access ?>>
               </div>
             </div>
             <div class="lable_block">
@@ -47,7 +47,7 @@
                 <span><?php echo Yii::t('app', 'Date of birth'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="text" name="DOB" value="<?php echo str_replace('00:00:00', '', $candidateObjRecord->date_of_birth) ?>" required>
+                <input type="text" name="DOB" value="<?php echo str_replace('00:00:00', '', $candidateObjRecord->date_of_birth) ?>" required <?php echo $access ?>>
               </div>
             </div>
           </div>
@@ -57,8 +57,8 @@
                 <span><?php echo Yii::t('app', 'Gender'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="radio" name="gender" value="male" <?php echo($candidateObjRecord->gender == 'male')?'checked="checked"':'' ?> required> <span>Male </span>          
-                <input type="radio" name="gender" value="female" <?php echo($candidateObjRecord->gender == 'female')?'checked="checked"':'' ?> required> <span>Female </span>
+                <input type="radio" name="gender" value="male" <?php echo($candidateObjRecord->gender == 'male')?'checked="checked"':'' ?> required <?php echo $access ?>> <span>Male </span>          
+                <input type="radio" name="gender" value="female" <?php echo($candidateObjRecord->gender == 'female')?'checked="checked"':'' ?> required <?php echo $access ?>> <span>Female </span>
               </div>
             </div>
             <div class="lable_block">
@@ -66,7 +66,7 @@
                 <span><?php echo Yii::t('app', 'NRIC/Passport No'); ?>  :</span>
               </div>
               <div class="lables2">
-                <input type="text" name="idNo" value="<?php echo $candidateObjRecord->id_no ?>" required>
+                <input type="text" name="idNo" value="<?php echo $candidateObjRecord->id_no ?>" required <?php echo $access ?>>
               </div>
             </div>
             <div class="lable_block">
@@ -74,7 +74,7 @@
                 <span><?php echo Yii::t('app', 'Marital Status'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="text" name="maritalStatus" value="<?php echo $candidateObjRecord->marital_status ?>" required>
+                <input type="text" name="maritalStatus" value="<?php echo $candidateObjRecord->marital_status ?>" required <?php echo $access ?>>
               </div>
             </div>
             <div class="lable_block">
@@ -82,7 +82,7 @@
                 <span><?php echo Yii::t('app', 'Nationality'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="text" name="nationality" value="<?php echo $candidateObjRecord->nationality ?>" required>
+                <input type="text" name="nationality" value="<?php echo $candidateObjRecord->nationality ?>" required <?php echo $access ?>>
               </div>
             </div>
           </div>
@@ -92,27 +92,27 @@
             </span>
           </div>
           <div class="radio-buttons">
-            <input type="radio" name="findingMethod" value="jobstreet" id="jobstreet" <?php echo($candidateObjRecord->finding_method == 'jobstreet')?'checked="checked"':'' ?>required>&nbsp;
+            <input type="radio" name="findingMethod" value="jobstreet" id="jobstreet" <?php echo($candidateObjRecord->finding_method == 'jobstreet')?'checked="checked"':'' ?>required <?php echo $access ?>>&nbsp;
             <span>
               <label for="jobstreet"><?php echo Yii::t('app', 'Jobstreet'); ?></label>
             </span>
-            <input type="radio" name="findingMethod" value="linkedin" id="linkedin" <?php echo($candidateObjRecord->finding_method == 'linkedin')?'checked="checked"':'' ?> required>&nbsp;
+            <input type="radio" name="findingMethod" value="linkedin" id="linkedin" <?php echo($candidateObjRecord->finding_method == 'linkedin')?'checked="checked"':'' ?> required <?php echo $access ?>>&nbsp;
             <span>
               <label for="linkedin"><?php echo Yii::t('app', 'LinkedIn'); ?></label>
             </span>
-            <input type="radio" name="findingMethod" value="agency" id="agency" <?php echo($candidateObjRecord->finding_method == 'agency')?'checked="checked"':'' ?>required>&nbsp;
+            <input type="radio" name="findingMethod" value="agency" id="agency" <?php echo($candidateObjRecord->finding_method == 'agency')?'checked="checked"':'' ?>required <?php echo $access ?>>&nbsp;
             <span>
               <label for="agency"><?php echo Yii::t('app', 'Agency'); ?></label>
             </span>
-            <input type="radio" name="findingMethod" value="internal-referral" id="internal-referral" <?php echo($candidateObjRecord->finding_method == 'internal-referral')?'checked="checked"':'' ?> required>&nbsp;
+            <input type="radio" name="findingMethod" value="internal-referral" id="internal-referral" <?php echo($candidateObjRecord->finding_method == 'internal-referral')?'checked="checked"':'' ?> required <?php echo $access ?>>&nbsp;
             <span>
               <label for="internal-referral"><?php echo Yii::t('app', 'Internal Referral'); ?></label>
             </span>
-            <input type="radio" name="findingMethod" value="others" id="others" <?php echo($candidateObjRecord->finding_method != 'jobstreet' || $candidateObjRecord->finding_method != 'linkedin' || $candidateObjRecord->finding_method != 'agency' || $candidateObjRecord->finding_method != 'internal-referral')?'checked="checked"':'' ?> required>&nbsp;
+            <input type="radio" name="findingMethod" value="others" id="others" <?php echo($candidateObjRecord->finding_method != 'jobstreet' || $candidateObjRecord->finding_method != 'linkedin' || $candidateObjRecord->finding_method != 'agency' || $candidateObjRecord->finding_method != 'internal-referral')?'checked="checked"':'' ?> required <?php echo $access ?>>&nbsp;
             <span>
               <label for="others"><?php echo Yii::t('app', 'Others'); ?></label>
             </span>
-            <input type="text" name="otherFindingMethod" id="otherInputLine" style="display:none; width:20%;" placeholder="Please specify" value="<?php echo($candidateObjRecord->finding_method != 'jobstreet' || $candidateObjRecord->finding_method != 'linkedin' || $candidateObjRecord->finding_method != 'agency' || $candidateObjRecord->finding_method != 'internal-referral')?$candidateObjRecord->finding_method:'' ?>">
+            <input type="text" name="otherFindingMethod" id="otherInputLine" style="display:none; width:20%;" placeholder="Please specify" value="<?php echo($candidateObjRecord->finding_method != 'jobstreet' || $candidateObjRecord->finding_method != 'linkedin' || $candidateObjRecord->finding_method != 'agency' || $candidateObjRecord->finding_method != 'internal-referral')?$candidateObjRecord->finding_method:'' ?>" <?php echo $access ?>>
           </div>
         <?php } ?>
         </fieldset>
@@ -127,7 +127,7 @@
                   <span><?php echo Yii::t('app', 'Name of School/College/University'); ?>:</span><br>
                 </div>
                 <div class="lables2">
-                  <input type="text" name="schoolName[]" class="educationSectionInput" value="<?php echo $educationObjRecord->school_name ?>"><br>
+                  <input type="text" name="schoolName[]" class="educationSectionInput" value="<?php echo $educationObjRecord->school_name ?>" <?php echo $access ?>><br>
                 </div>
               </div>
               <div class="lable_block">
@@ -135,7 +135,7 @@
                   <span><?php echo Yii::t('app', 'Year from'); ?>:</span><br>
                 </div>
                 <div class="lables2">
-                  <input type="year" name="startYear[]" class="educationSectionInput" value="<?php echo $educationObjRecord->start_year ?>"><br>
+                  <input type="year" name="startYear[]" class="educationSectionInput" value="<?php echo $educationObjRecord->start_year ?>" <?php echo $access ?>><br>
                 </div>
               </div>
               <div class="lable_block">
@@ -143,7 +143,7 @@
                   <span><?php echo Yii::t('app', 'Year to'); ?>:</span><br>
                 </div>
                 <div class="lables2">
-                  <input type="year" name="endYear[]" class="educationSectionInput" value="<?php echo $educationObjRecord->end_year ?>"><br>
+                  <input type="year" name="endYear[]" class="educationSectionInput" value="<?php echo $educationObjRecord->end_year ?>" <?php echo $access ?>><br>
                 </div>
               </div>
               <div class="lable_block">
@@ -151,7 +151,7 @@
                   <span><?php echo Yii::t('app', 'Qualification & Subject Obtained'); ?>:</span><br>
                 </div>
                 <div class="lables2">
-                  <input type="text" name="qualification[]" class="educationSectionInput" value="<?php echo $educationObjRecord->qualification ?>"><br>
+                  <input type="text" name="qualification[]" class="educationSectionInput" value="<?php echo $educationObjRecord->qualification ?>" <?php echo $access ?>><br>
                 </div>
               </div>
               <div class="lable_block">
@@ -159,7 +159,7 @@
                   <span><?php echo Yii::t('app', 'Grade/CGPA'); ?>:</span><br>
                 </div>
                 <div class="lables2">
-                  <input type="text" name="cgpa[]" class="educationSectionInput" value="<?php echo $educationObjRecord->grade ?>"><br>
+                  <input type="text" name="cgpa[]" class="educationSectionInput" value="<?php echo $educationObjRecord->grade ?>" <?php echo $access ?>><br>
                 </div>
               </div>
             </div>            
@@ -176,7 +176,7 @@
                 <span><?php echo Yii::t('app', 'Name of Company'); ?></span><br>
               </div>
               <div class="lables2">
-                <input type="text" name="companyName[]" value="<?php echo $jobExperienceObjRecord->company_name ?>">
+                <input type="text" name="companyName[]" value="<?php echo $jobExperienceObjRecord->company_name ?>" <?php echo $access ?>>
               </div>
             </div>
             <div class="display_inline_block">
@@ -184,7 +184,7 @@
                 <?php echo Yii::t('app', 'From'); ?>
               </div>
               <div class="lables2">
-                <input type="year" name="startDate[]" placeholder="E.g: 01/2018 for Jan 2018" value="<?php echo $jobExperienceObjRecord->start_date ?>">
+                <input type="year" name="startDate[]" placeholder="E.g: 01/2018 for Jan 2018" value="<?php echo $jobExperienceObjRecord->start_date ?>" <?php echo $access ?>>
               </div>
             </div>
             <div class="display_inline_block">
@@ -192,7 +192,7 @@
                 <?php echo Yii::t('app', 'To'); ?>
               </div>
               <div class="lables2">
-                <input type="year" name="endDate[]" placeholder="E.g: 01/2018 for Jan 2018" value="<?php echo $jobExperienceObjRecord->end_date ?>">
+                <input type="year" name="endDate[]" placeholder="E.g: 01/2018 for Jan 2018" value="<?php echo $jobExperienceObjRecord->end_date ?>" <?php echo $access ?>>
               </div>
             </div>
             <div class="display_inline_block">
@@ -200,7 +200,7 @@
                 <?php echo Yii::t('app', 'Position Held'); ?>
               </div>
               <div class="lables2">
-                <input type="text" name="positionHeld[]" value="<?php echo $jobExperienceObjRecord->position_held ?>">
+                <input type="text" name="positionHeld[]" value="<?php echo $jobExperienceObjRecord->position_held ?>" <?php echo $access ?>>
               </div>
             </div>
             <div class="display_inline_block">
@@ -208,7 +208,7 @@
                 <?php echo Yii::t('app', 'Final Salary'); ?>
               </div>
               <div class="lables2">
-                <input type="text" name="endingSalary[]" value="<?php echo $jobExperienceObjRecord->ending_salary ?>">
+                <input type="text" name="endingSalary[]" value="<?php echo $jobExperienceObjRecord->ending_salary ?>" <?php echo $access ?>>
               </div>
             </div>
             <div class="display_inline_block">
@@ -216,7 +216,7 @@
                 <?php echo Yii::t('app', 'Allowances'); ?>
               </div>
               <div class="lables2">
-                <input type="text" name="allowances[]" value="<?php echo $jobExperienceObjRecord->allowances ?>">
+                <input type="text" name="allowances[]" value="<?php echo $jobExperienceObjRecord->allowances ?>" <?php echo $access ?>>
               </div>
             </div>
             <div class="display_inline_block">
@@ -224,7 +224,7 @@
                 <?php echo Yii::t('app', 'Reason for leaving'); ?>
               </div>
               <div class="lables2">
-                <input type="text" name="leaveReason[]" value="<?php echo $jobExperienceObjRecord->leave_reason ?>">
+                <input type="text" name="leaveReason[]" value="<?php echo $jobExperienceObjRecord->leave_reason ?>" <?php echo $access ?>>
               </div>
             </div>
           </div>          
@@ -235,11 +235,11 @@
               <div class="lables">
                 <?php echo Yii::t('app', 'Have you ever been terminated/dismissed/suspended from the service of any employer'); ?>?<br>
                 <?php echo Yii::t('app', 'If yes, please give details'); ?><br>
-                <input type="text" name="terminationDetails" class="inputLine" id="terminationReason" style="display:none;" <?php echo($candidateObjRecord->terminated_before == 1)?"value='$candidateObjRecord->termination_reason'":'' ?>><br><br>
+                <input type="text" name="terminationDetails" class="inputLine" id="terminationReason" style="display:none;" <?php echo($candidateObjRecord->terminated_before == 1)?"value='$candidateObjRecord->termination_reason'":'' ?> <?php echo $access ?>><br><br>
               </div>
               <div class="lables2">
-                <input type="radio" name="terminatedBefore" value="1" <?php echo($candidateObjRecord->terminated_before == 1)?'checked="checked"':'' ?>> Yes<br>
-                <input type="radio" name="terminatedBefore" value="0"  <?php echo($candidateObjRecord->terminated_before == 0)?'checked="checked"':'' ?>> No<br>
+                <input type="radio" name="terminatedBefore" value="1" <?php echo($candidateObjRecord->terminated_before == 1)?'checked="checked"':'' ?> <?php echo $access ?>> Yes<br>
+                <input type="radio" name="terminatedBefore" value="0"  <?php echo($candidateObjRecord->terminated_before == 0)?'checked="checked"':'' ?> <?php echo $access ?>> No<br>
               </div>
             </div>
           <!-- </div> -->
@@ -257,7 +257,7 @@
                   <span><?php echo Yii::t('app', 'Name'); ?>:</span><br>
                 </div>
                 <div class="lables2">
-                  <input type="text" name="superiorName[]" value="<?php echo $refereeObjRecord->supervisor_name ?>">
+                  <input type="text" name="superiorName[]" value="<?php echo $refereeObjRecord->supervisor_name ?>" <?php echo $access ?>>
                 </div>
               </div>
             </div>
@@ -267,7 +267,7 @@
                   <span><?php echo Yii::t('app', 'Company'); ?>:</span><br>
                 </div>
                 <div class="lables2">
-                  <input type="year" name="superiorCompany[]" value="<?php echo $refereeObjRecord->supervisor_company ?>">
+                  <input type="year" name="superiorCompany[]" value="<?php echo $refereeObjRecord->supervisor_company ?>" <?php echo $access ?>>
                 </div>
               </div>
             </div>
@@ -277,7 +277,7 @@
                   <span><?php echo Yii::t('app', 'Occupation'); ?>:</span><br>
                 </div>
                 <div class="lables2">
-                  <input type="year" name="superiorOccupation[]" value="<?php echo $refereeObjRecord->supervisor_occupation ?>">
+                  <input type="year" name="superiorOccupation[]" value="<?php echo $refereeObjRecord->supervisor_occupation ?>" <?php echo $access ?>>
                 </div>
               </div>
             </div>
@@ -287,7 +287,7 @@
                   <span><?php echo Yii::t('app', 'Contact No.'); ?>:</span><br>
                 </div>
                 <div class="lables2">
-                  <input type="text" name="superiorContact[]" value="<?php echo $refereeObjRecord->supervisor_contact ?>">
+                  <input type="text" name="superiorContact[]" value="<?php echo $refereeObjRecord->supervisor_contact ?>" <?php echo $access ?>>
                 </div>
               </div>
             </div>
@@ -297,7 +297,7 @@
                   <span><?php echo Yii::t('app', 'Years Known'); ?>:</span><br>
                 </div>
                 <div class="lables2">
-                  <input type="text" name="yearsKnown[]" value="<?php echo $refereeObjRecord->years_known ?>">
+                  <input type="text" name="yearsKnown[]" value="<?php echo $refereeObjRecord->years_known ?>" <?php echo $access ?>>
                 </div>
               </div>
             </div>
@@ -310,11 +310,11 @@
                 <div class="lables">
                   <?php echo Yii::t('app', 'Can we make references to your employment records with your previous employers/companies'); ?>?<br>
                   <?php echo Yii::t('app', 'If no, please give reasons'); ?><br>
-                  <input type="text" name="noReferenceReason" id="noReference" value="<?php echo($candidateObjRecord->reference_consent == 0)?'$candidateObjRecord->refuse_reference_reason':'' ?>" style="display:none"><br><br>
+                  <input type="text" name="noReferenceReason" id="noReference" value="<?php echo($candidateObjRecord->reference_consent == 0)?'$candidateObjRecord->refuse_reference_reason':'' ?>" style="display:none" <?php echo $access ?>><br><br>
                 </div>
                 <div class="lables2">
-                  <input type="radio" name="consent" value="1" <?php echo($candidateObjRecord->reference_consent == 1)?'checked="checked"':'' ?> required> Yes<br>
-                  <input type="radio" name="consent" value="0" <?php echo($candidateObjRecord->reference_consent == 0)?'checked="checked"':'' ?> required> No<br>
+                  <input type="radio" name="consent" value="1" <?php echo($candidateObjRecord->reference_consent == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> Yes<br>
+                  <input type="radio" name="consent" value="0" <?php echo($candidateObjRecord->reference_consent == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> No<br>
                 </div>
               </div>
             </div>
@@ -333,8 +333,8 @@
                 a) <?php echo Yii::t('app', 'Are you suffering from any physical disabilities or have ever been seriously ill'); ?>?
               </div>
               <div class="general_lables2">
-                <input type="radio" name="illness" value="1" <?php echo($generalQuestionObjRecord->has_physical_ailment == 1)?'checked="checked"':'' ?> required> Yes
-                <input type="radio" name="illness" value="0" <?php echo($generalQuestionObjRecord->has_physical_ailment == 0)?'checked="checked"':'' ?> required> No<br>
+                <input type="radio" name="illness" value="1" <?php echo($generalQuestionObjRecord->has_physical_ailment == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> Yes
+                <input type="radio" name="illness" value="0" <?php echo($generalQuestionObjRecord->has_physical_ailment == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> No<br>
               </div>
             </div>
           </div>
@@ -343,13 +343,13 @@
               <div class="general_lables">
                 b) <?php echo Yii::t('app', 'Have you ever been convicted for a criminal offence, declared bankrupt, revoked of professional practicing license/certificate and/or charged in court?'); ?>? <br>
                 <?php echo Yii::t('app', 'If yes, please state offence and date of conviction and discharge'); ?>
-               <input type="text" name="criminalOffenseInput" style="display: none;" id="criminalOffenseInput" class="crimeBox" placeholder="Offence">
-               <input type="date" name="convictedDate" style="display: none;" id="convictedDate" class="crimeBox" title="Convicted date">
-               <input type="date" name="dischargeDate" style="display: none;" id="dischargeDate" class="crimeBox" title="Date of discharge">
+               <input type="text" name="criminalOffenseInput" style="display: none;" id="criminalOffenseInput" class="crimeBox" placeholder="Offence" <?php echo $access ?>>
+               <input type="date" name="convictedDate" style="display: none;" id="convictedDate" class="crimeBox" title="Convicted date" <?php echo $access ?>>
+               <input type="date" name="dischargeDate" style="display: none;" id="dischargeDate" class="crimeBox" title="Date of discharge" <?php echo $access ?>>
               </div>
               <div class="general_lables2">
-                <input type="radio" name="criminalOffenseRadio" value="1" <?php echo($generalQuestionObjRecord->has_been_convicted == 1)?'checked="checked"':'' ?> required> Yes
-                <input type="radio" name="criminalOffenseRadio" value="0" <?php echo($generalQuestionObjRecord->has_been_convicted == 0)?'checked="checked"':'' ?> required> No<br>
+                <input type="radio" name="criminalOffenseRadio" value="1" <?php echo($generalQuestionObjRecord->has_been_convicted == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> Yes
+                <input type="radio" name="criminalOffenseRadio" value="0" <?php echo($generalQuestionObjRecord->has_been_convicted == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> No<br>
               </div>
             </div>
           </div>
@@ -357,12 +357,12 @@
             <div class="general_lable_block">
               <div class="general_lables">
                 c) <?php echo Yii::t('app', 'Do you have any relatives or friends working in SagaOS or its subsidiaries? If so, please state name and relationship'); ?>? <br>
-                 <input type="text" name="sagaosContactNameInput" style="display: none; margin-bottom:5px; margin-top:5px;" id="sagaosContactName" placeholder="Contact name">
-                 <input type="text" name="sagaosFamilyInput" style="display: none;" id="sagaosFamilyInput" placeholder="Relationship with him/her"><br>
+                 <input type="text" name="sagaosContactNameInput" style="display: none; margin-bottom:5px; margin-top:5px;" id="sagaosContactName" placeholder="Contact name" <?php echo $access ?>>
+                 <input type="text" name="sagaosFamilyInput" style="display: none;" id="sagaosFamilyInput" placeholder="Relationship with him/her" <?php echo $access ?>><br>
               </div>
               <div class="general_lables2">
-                <input type="radio" name="sagaosRelative" value="1" <?php echo($generalQuestionObjRecord->has_company_contact == 1)?'checked="checked"':'' ?> required> Yes<br>
-                <input type="radio" name="sagaosRelative" value="0" <?php echo($generalQuestionObjRecord->has_company_contact == 0)?'checked="checked"':'' ?> required> No<br>
+                <input type="radio" name="sagaosRelative" value="1" <?php echo($generalQuestionObjRecord->has_company_contact == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> Yes<br>
+                <input type="radio" name="sagaosRelative" value="0" <?php echo($generalQuestionObjRecord->has_company_contact == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> No<br>
               </div>
             </div>
           </div>
@@ -372,8 +372,8 @@
                 d) <?php echo Yii::t('app', 'Any relatives involved directly or indirectly in similar company’s business'); ?>?
               </div>
               <div class="general_lables2">
-                <input type="radio" name="interestConflict" value="1" <?php echo($generalQuestionObjRecord->has_conflict_of_interest == 1)?'checked="checked"':'' ?> required> Yes
-                <input type="radio" name="interestConflict" value="0" <?php echo($generalQuestionObjRecord->has_conflict_of_interest == 0)?'checked="checked"':'' ?> required> No<br>
+                <input type="radio" name="interestConflict" value="1" <?php echo($generalQuestionObjRecord->has_conflict_of_interest == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> Yes
+                <input type="radio" name="interestConflict" value="0" <?php echo($generalQuestionObjRecord->has_conflict_of_interest == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> No<br>
               </div>
             </div>
           </div>
@@ -383,8 +383,8 @@
                 e) <?php echo Yii::t('app', 'Do you possess a car or motorcycle'); ?>?
               </div>
               <div class="general_lables2">
-                <input type="radio" name="ownTransport" value="1" <?php echo($generalQuestionObjRecord->has_own_transport == 1)?'checked="checked"':'' ?> required> Yes
-                <input type="radio" name="ownTransport" value="0" <?php echo($generalQuestionObjRecord->has_own_transport == 0)?'checked="checked"':'' ?> required> No<br>
+                <input type="radio" name="ownTransport" value="1" <?php echo($generalQuestionObjRecord->has_own_transport == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> Yes
+                <input type="radio" name="ownTransport" value="0" <?php echo($generalQuestionObjRecord->has_own_transport == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> No<br>
               </div>
             </div>
           </div>
@@ -394,8 +394,8 @@
                 g) <?php echo Yii::t('app', 'Have you ever applied to/worked at SagaOS before'); ?>?
               </div>
               <div class="general_lables2" style="margin-bottom: 2px">
-                <input type="radio" name="timesApplied" value="1" <?php echo($generalQuestionObjRecord->has_applied_before == 1)?'checked="checked"':'' ?> required> Yes
-                <input type="radio" name="timesApplied" value="0" <?php echo($generalQuestionObjRecord->has_applied_before == 0)?'checked="checked"':'' ?> required> No<br>
+                <input type="radio" name="timesApplied" value="1" <?php echo($generalQuestionObjRecord->has_applied_before == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> Yes
+                <input type="radio" name="timesApplied" value="0" <?php echo($generalQuestionObjRecord->has_applied_before == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> No<br>
               </div>
             </div>
           </div>
@@ -405,7 +405,7 @@
                 h) <?php echo Yii::t('app', 'If you were offered employment, when can you commence work'); ?>?
               </div>
               <div class="general_lables2">
-                <input type="text" name="commencementDate" value="<?php echo str_replace('00:00:00', '', $generalQuestionObjRecord->commencement_date) ?>" required>
+                <input type="text" name="commencementDate" value="<?php echo str_replace('00:00:00', '', $generalQuestionObjRecord->commencement_date) ?>" required <?php echo $access ?>>
               </div>
             </div>
           </div>
@@ -415,8 +415,8 @@
                 i) <?php echo Yii::t('app', 'If hired, are you willing to submit to a good conduct certificate'); ?>?
               </div>
               <div class="general_lables2">
-                <input type="radio" name="goodConductConsent" value="1" <?php echo($generalQuestionObjRecord->good_conduct_consent == 1)?'checked="checked"':'' ?> required> Yes
-                <input type="radio" name="goodConductConsent" value="0" <?php echo($generalQuestionObjRecord->good_conduct_consent == 0)?'checked="checked"':'' ?> required> No<br>
+                <input type="radio" name="goodConductConsent" value="1" <?php echo($generalQuestionObjRecord->good_conduct_consent == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> Yes
+                <input type="radio" name="goodConductConsent" value="0" <?php echo($generalQuestionObjRecord->good_conduct_consent == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> No<br>
               </div>
             </div>
           </div>
@@ -426,7 +426,7 @@
                 j) <?php echo Yii::t('app', 'Expected Salary'); ?>
               </div>
               <div class="general_lables2">
-                <input type="text" name="expectedSalary" value="<?php echo $generalQuestionObjRecord->expected_salary ?>" required>
+                <input type="text" name="expectedSalary" value="<?php echo $generalQuestionObjRecord->expected_salary ?>" required <?php echo $access ?>>
               </div>
             </div>
           </div>
@@ -444,14 +444,14 @@
           <div class="grid_block">
             <div class="lable_block">
               <div class="lables">
-                <input type="text" class="inputLine" name="signature" value="<?php echo $candidateObjRecord->candidate_signature ?>" required>
+                <input type="text" class="inputLine" name="signature" value="<?php echo $candidateObjRecord->candidate_signature ?>" required <?php echo $access ?>>
                 <br>
                 <span>
                   <?php echo Yii::t('app', 'Signature') ?>
                 </span>
               </div>
               <div class="lables2">
-                <input type="text" class="inputLine" name="signatureDate" value="<?php echo str_replace('00:00:00', '', $candidateObjRecord->candidate_signature_date) ?>">
+                <input type="text" class="inputLine" name="signatureDate" value="<?php echo str_replace('00:00:00', '', $candidateObjRecord->candidate_signature_date) ?>" <?php echo $access ?>>
                 <br>
                 <span>
                   <?php echo Yii::t('app', 'Date') ?>
