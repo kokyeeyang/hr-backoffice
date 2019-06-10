@@ -1,7 +1,7 @@
 <div class="breadcrumb">
   <div class="breadcrumb_wrapper">
     <div class="breadcrumb-top"><?php echo Yii::t('app', 'Add New Job Openings'); ?></div>
-    <div class="breadcrumb-bottom breadcrumb-bottom-chart">
+    <div class="breadcrumb-bottom breadcrumb-bottom-people">
       <div class="title">
         <span><?php echo Yii::t('app', 'Add new job openings'); ?></span>
       </div>

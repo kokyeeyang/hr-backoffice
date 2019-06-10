@@ -1,4 +1,4 @@
-<div class="logo"><img alt="" src="<?php echo HTTP_MEDIA_CURRENT_THEME . '/images/alllanguages/site_logo_grey.png'; ?>" /></div>
+<div class="logo"><img alt="" src="<?php echo HTTP_MEDIA_CURRENT_THEME . '/images/alllanguages/site_logo.png'; ?>" /></div>
 <div class="header_inner">
 	<ul class="head_menu">
 		<li class="odd">
