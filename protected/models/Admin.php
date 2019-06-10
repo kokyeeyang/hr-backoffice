@@ -17,7 +17,7 @@ class Admin extends AppActiveRecord
 	const INACTIVE				= 0;
 	
 	static $tableName			= DB_TBL_PREFIX.'admin';
-	static $arrPriv				= ['admin' => 'Administrator', 'payment' => 'Payment', 'marketing' => 'Marketing', 'content' => 'Content Management', 'cs' => 'CS Support', 'kyc' => 'KYC Team'];
+	static $arrPriv				= ['admin' => 'Administrator', 'manager' => 'Manager', 'hr' => 'HR'];
 	
 	/**
 	 * @return string the associated database table name
@@ -301,7 +301,7 @@ class Admin extends AppActiveRecord
 			$infinityDuration = '';
 			$access = '';
 
-			if($arrData['admin_priv'] == "admin"){
+			if($arrData['admin_priv'] == "admin" || $arrData['admin_priv'] == "hr"){
 				if($controller == 'ip'){
 					$infinityDuration = 9999;
 					return $infinityDuration;
