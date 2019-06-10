@@ -1,7 +1,15 @@
-#site-welcome  .title .color1{
+/*#site-welcome  .title .color1{
 	color: #8bb7e3;
 }
 
 #site-welcome .title .color2{
 	color: #0866c6;
+}*/
+
+#site-welcome  .title .color1{
+	color: #FEEE04;
+}
+
+#site-welcome .title .color2{
+	color: #f0b028;
 }
