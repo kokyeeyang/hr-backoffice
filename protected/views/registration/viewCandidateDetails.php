@@ -439,18 +439,19 @@
             <span>
               <?php echo Yii::t('app', 'I hereby declare that the information and personal data provided by me in the Application for Employment Form, including any accompanying document(s) are true, correct and complete in every aspect. I fully understand and accept that, if at any time after my employment with the Company, it is found that I have given false and misleading information in the Application for Employment Form, the Company has the right to forthwith terminate my employment. I understand that this application does not constitute an offer of employment. I understand that in some cases, credit checks, reference checks and/or good conduct checks will be required and I will be notified if said checks applies to this application. For the purpose of the Personal Data Protection Act 2010, I hereby give my consent to the Company to process all or any of my personal data and information for any purpose related to or in connection with this employment application and if required, to disclose or transfer such data to any company affiliate for the purpose of processing such data, which may be located outside Malaysia.') ?>
             </span>
+            <span id="termsCheckBox">
+              <div class="general_lables" style="width:40px;">
+                <input type="checkbox" name="agreeTerms" id="agreeTerms" style="float: left;"  value="1" required>
+              </div>
+              <div class="general_lables2" style="margin-top: 12px; width: 300px;">
+                <label for="agreeTerms"><?php echo Yii::t('app', 'I have read and agree to the above terms.') ?></label>
+              </div>
+            </span>
           </div>
           <?php foreach($candidateArrRecords as $candidateObjRecord){ ?>
           <div class="grid_block">
             <div class="lable_block">
               <div class="lables">
-                <input type="text" class="inputLine" name="signature" value="<?php echo $candidateObjRecord->candidate_signature ?>" required <?php echo $access ?>>
-                <br>
-                <span>
-                  <?php echo Yii::t('app', 'Signature') ?>
-                </span>
-              </div>
-              <div class="lables2">
                 <input type="text" class="inputLine" name="signatureDate" value="<?php echo str_replace('00:00:00', '', $candidateObjRecord->candidate_signature_date) ?>" <?php echo $access ?>>
                 <br>
                 <span>

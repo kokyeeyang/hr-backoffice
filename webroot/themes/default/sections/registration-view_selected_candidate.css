@@ -131,3 +131,7 @@ div .logo {
   padding-bottom: 20px;
 }
 
+input[id=agreeTerms]{
+  width: 20px;
+  margin-top: 20px;
+}
