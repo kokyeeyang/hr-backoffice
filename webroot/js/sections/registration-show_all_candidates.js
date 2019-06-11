@@ -26,7 +26,7 @@ var RegistrationShowAllCandidates = function() {
 		    });
 		  });
 
-		  $('#viewSelectedCandidateButton').on('click', function(objEvent){
+		  $('input[name=editCandidateButton]').on('click', function(objEvent){
 		  	RegistrationShowAllCandidates.view_selected_candidate(this, objEvent);
 		  });
 

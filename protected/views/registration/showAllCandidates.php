@@ -101,10 +101,10 @@
 							<?php echo $objRecord->created_date ?>
 						</td>
 						<td>
-							<?php echo EmploymentJobOpening::model()->queryForCandidateJob($objRecord->id)?>
+							<?php echo EmploymentJobOpening::model()->queryForCandidateJob($objRecord->job_id)?>
 						</td>
 						<td>
-							<?php echo EmploymentJobOpening::model()->queryForCandidateInterviewingManager($objRecord->id)?>
+							<?php echo EmploymentJobOpening::model()->queryForCandidateInterviewingManager($objRecord->job_id)?>
 						</td>
 						<td>
 							<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $objRecord->id_no ?>">

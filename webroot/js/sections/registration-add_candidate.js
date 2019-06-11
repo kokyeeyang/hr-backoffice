@@ -69,23 +69,20 @@ var RegistrationAddCandidate = function() {
 				}
 			});
 
-			$("#save_button").on('click',function(event) {
+			$("input[name=signature]").on('click',function() {
 				if ($("input[name=findingMethod]:checked").val() == "others" && $("input[name=otherFindingMethod]").val() == "") {
 					alert($("#msg-search-method").attr('data-msg'));
 					otherInputLine.focus();
-					event.preventDefault();
 				}
 
 				if ($("input[name=terminatedBefore]:checked").val() == "1" && $("input[name=terminationDetails]").val() == ""){
 					alert($("#msg-terminated_before").attr('data-msg'));
 					terminateBeforeLine.focus();
-					event.preventDefault();
 				}
 
 				if ($("input[name=consent]:checked").val() == "0" && $("input[name=noReferenceReason]").val() == ""){
 					alert($("#msg-refuse-consent").attr('data-msg'));
 					noReferenceLine.focus();
-					event.preventDefault();
 				}
 
 				var crimeLine = $("input[name=criminalOffenseInput]");
@@ -96,7 +93,6 @@ var RegistrationAddCandidate = function() {
 					if(crimeLine.val() == "" || dateOfConviction.val() == "" || dateOfDischarge.val() == ""){
 						alert($("#msg-criminal-offence").attr('data-msg'));
 						criminalOffenseLine.focus();
-						event.preventDefault();
 					} 
 				}
 
@@ -107,16 +103,17 @@ var RegistrationAddCandidate = function() {
 					if(sagaosFamily.val() == "" || sagaosContactName.val() == ""){
 						alert($("#msg-has-relative").attr('data-msg'));
 						sagaosFamilyLine.focus();
-						event.preventDefault();
 					}
 				}
 
+			});
+
+			$("#save_button").on('click',function(event) {
 				if ($("input[name=signature]").val() != ""){
 			    if( !confirm('Are you sure that you want to submit the form')){ 
 		        event.preventDefault();
 		      } 
 				}
-
 			});
 
 		});

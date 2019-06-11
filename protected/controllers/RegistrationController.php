@@ -98,30 +98,30 @@ class RegistrationController extends Controller
 		//this is for saving candidate details into employment_candidate table
 		$encryptedJobId = $this->getParam('encryptedJobId', '');
 		$jobIdInSecretKey = base64_decode($encryptedJobId);
-		$jobId = substr($jobIdInSecretKey,9);
+		$jobId = substr($jobIdInSecretKey,9,1);
 
 		$candidateObjModel = new EmploymentCandidate;
-		$candidateObjModel->full_name = $this->getParam('fullName', '');
-		$candidateObjModel->id_no = $this->getParam('idNo', '');
-		$candidateObjModel->address = $this->getParam('address', '');
+		$candidateObjModel->full_name = strtoupper($this->getParam('fullName', ''));
+		$candidateObjModel->id_no = strtoupper($this->getParam('idNo', ''));
+		$candidateObjModel->address = strtoupper($this->getParam('address', ''));
 		$candidateObjModel->contact_no = $this->getParam('contactNo', '');
 		$candidateObjModel->email_address = $this->getParam('emailAddress', '');
 		$candidateObjModel->date_of_birth = $this->getParam('DOB', '');
-		$candidateObjModel->marital_status = $this->getParam('maritalStatus', '');
+		$candidateObjModel->marital_status = strtoupper($this->getParam('maritalStatus', ''));
 
 		if($this->getParam('findingMethod', '') != false){
-			$candidateObjModel->finding_method = $this->getParam('otherFindingMethod', '');
+			$candidateObjModel->finding_method = strtoupper($this->getParam('otherFindingMethod', ''));
 		}else {
-			$candidateObjModel->finding_method = $this->getParam('findingMethod', '');
+			$candidateObjModel->finding_method = strtoupper($this->getParam('findingMethod', ''));
 		}
 
-		$candidateObjModel->gender = $this->getParam('gender', '');
-		$candidateObjModel->nationality = $this->getParam('nationality', '');
+		$candidateObjModel->gender = strtoupper($this->getParam('gender', ''));
+		$candidateObjModel->nationality = strtoupper($this->getParam('nationality', ''));
 		$candidateObjModel->job_id = $jobId;
 		$candidateObjModel->terminated_before = $this->getParam('terminatedBefore', '');
-		$candidateObjModel->termination_reason = $this->getParam('terminatedDetails', '');
+		$candidateObjModel->termination_reason = strtoupper($this->getParam('terminatedDetails', ''));
 		$candidateObjModel->reference_consent = $this->getParam('consent', '');
-		$candidateObjModel->refuse_reference_reason = $this->getParam('noReferenceReason', '');
+		$candidateObjModel->refuse_reference_reason = strtoupper($this->getParam('noReferenceReason', ''));
 		$candidateObjModel->candidate_signature = $this->getParam('signature','');
 		$candidateObjModel->candidate_signature_date = $this->getParam('signatureDate','');
 		$candidateObjModel->save();
@@ -139,10 +139,10 @@ class RegistrationController extends Controller
 				if ($schoolName != '' && empty($startYears[$iKey]) === false && empty($endYears[$iKey]) === false && empty($qualifications[$iKey]) === false && empty($grades[$iKey]) === false) {
 						$educationObjModel = new EmploymentEducation;
 						$educationObjModel->candidate_id = $candidateObjModel->id_no;
-						$educationObjModel->school_name = $schoolName;
+						$educationObjModel->school_name = strtoupper($schoolName);
 						$educationObjModel->start_year = $startYears[$iKey];
 						$educationObjModel->end_year = $endYears[$iKey];
-						$educationObjModel->qualification = $qualifications[$iKey];
+						$educationObjModel->qualification = strtoupper($qualifications[$iKey]);
 						$educationObjModel->grade = $grades[$iKey];
 						$educationObjModel->save();
 				}
@@ -163,13 +163,13 @@ class RegistrationController extends Controller
 				if($companyName != '' && empty($startDates[$iKey]) === false && empty($endDates[$iKey]) === false && empty($positionsHeld[$iKey]) === false && empty($endingSalaries[$iKey]) === false && empty($allowances[$iKey]) === false && empty($leaveReasons[$iKey]) === false){
 					$experienceObjModel = new EmploymentJobExperience;
 					$experienceObjModel->candidate_id = $candidateObjModel->id_no;
-					$experienceObjModel->company_name = $companyName;
+					$experienceObjModel->company_name = strtoupper($companyName);
 					$experienceObjModel->start_date = $startDates[$iKey];
 					$experienceObjModel->end_date = $endDates[$iKey];
-					$experienceObjModel->position_held = $positionsHeld[$iKey];
+					$experienceObjModel->position_held = strtoupper($positionsHeld[$iKey]);
 					$experienceObjModel->ending_salary = $endingSalaries[$iKey];
 					$experienceObjModel->allowances = $allowances[$iKey];
-					$experienceObjModel->leave_reason = $leaveReasons[$iKey];
+					$experienceObjModel->leave_reason = strtoupper($leaveReasons[$iKey]);
 					$experienceObjModel->save();
 				}
 			}
@@ -189,9 +189,9 @@ class RegistrationController extends Controller
 				if($supervisorName != '' && empty($supervisorCompanies[$iKey]) === false && empty($supervisorOccupations[$iKey]) === false && empty($supervisorOccupations[$iKey]) === false && empty($supervisorContacts[$iKey]) === false && empty($yearsKnownArray[$iKey]) === false){
 					$refereeObjModel = new EmploymentReferee;
 					$refereeObjModel->candidate_id = $candidateObjModel->id_no;
-					$refereeObjModel->supervisor_name = $supervisorName;
-					$refereeObjModel->supervisor_company = $supervisorCompanies[$iKey];
-					$refereeObjModel->supervisor_occupation = $supervisorOccupations[$iKey];
+					$refereeObjModel->supervisor_name = strtoupper($supervisorName);
+					$refereeObjModel->supervisor_company = strtoupper($supervisorCompanies[$iKey]);
+					$refereeObjModel->supervisor_occupation = strtoupper($supervisorOccupations[$iKey]);
 					$refereeObjModel->supervisor_contact = $supervisorContacts[$iKey];
 					$refereeObjModel->years_known = $yearsKnownArray[$iKey];
 					$refereeObjModel->save();
@@ -205,12 +205,12 @@ class RegistrationController extends Controller
 		$generalQuestionObjModel->candidate_id = $candidateObjModel->id_no;
 		$generalQuestionObjModel->has_physical_ailment = $this->getParam('illness','');
 		$generalQuestionObjModel->has_been_convicted = $this->getParam('criminalOffenseRadio','');
-		$generalQuestionObjModel->offense = $this->getParam('criminalOffenseInput','');
+		$generalQuestionObjModel->offense = strtoupper($this->getParam('criminalOffenseInput',''));
 		$generalQuestionObjModel->convicted_date = $this->getParam('convictedDate','');
 		$generalQuestionObjModel->date_of_discharge = $this->getParam('dischargeDate','');
 		$generalQuestionObjModel->has_company_contact = $this->getParam('sagaosRelative','');
-		$generalQuestionObjModel->company_contact_name = $this->getParam('sagaosContactNameInput','');
-		$generalQuestionObjModel->relationship_with_candidate = $this->getParam('sagaosFamilyInput','');
+		$generalQuestionObjModel->company_contact_name = strtoupper($this->getParam('sagaosContactNameInput',''));
+		$generalQuestionObjModel->relationship_with_candidate = strtoupper($this->getParam('sagaosFamilyInput',''));
 		$generalQuestionObjModel->has_conflict_of_interest = $this->getParam('interestConflict','');
 		$generalQuestionObjModel->has_own_transport = $this->getParam('ownTransport','');
 		$generalQuestionObjModel->has_applied_before = $this->getParam('timesApplied','');
@@ -221,7 +221,7 @@ class RegistrationController extends Controller
 		$generalQuestionObjModel->save();
 		//
 
-		$this->redirect("redirectAfterRegister");
+		$this->render("redirectAfterRegister");
 	}
 
 	public function actionShowAllCandidates() {
