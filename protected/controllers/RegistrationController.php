@@ -124,7 +124,7 @@ class RegistrationController extends Controller
 		$candidateObjModel->termination_reason = strtoupper($this->getParam('terminatedDetails', ''));
 		$candidateObjModel->reference_consent = $this->getParam('consent', '');
 		$candidateObjModel->refuse_reference_reason = strtoupper($this->getParam('noReferenceReason', ''));
-		$candidateObjModel->candidate_signature = $this->getParam('signature','');
+		$candidateObjModel->candidate_signature = $this->getParam('agreeTerms','');
 		$candidateObjModel->candidate_signature_date = $this->getParam('signatureDate','');
 		$candidateObjModel->save();
 		// 

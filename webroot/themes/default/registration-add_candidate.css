@@ -123,6 +123,11 @@ input[class=crimeBox] {
 }
 
 div #save_button {
-  width: 100px;
+  width: 140px;
   margin-top: 30px;
+}
+
+input[id=agreeTerms]{
+  width: 20px;
+  margin-top: 20px;
 }

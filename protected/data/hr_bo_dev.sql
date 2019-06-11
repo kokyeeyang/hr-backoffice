@@ -265,3 +265,9 @@ ALTER TABLE `employment_candidate`
 /* Yee Yang 11/06/2019 */
 ALTER TABLE `employment_referee`
   ADD `supervisor_email` varchar(50) NULL;
+
+ALTER TABLE employment_candidate 
+  ADD `candidate_agree_terms` int(11) NOT NULL  AFTER `candidate_signature`;
+
+ALTER TABLE employment_candidate
+  DROP COLUMN `candidate_signature`;

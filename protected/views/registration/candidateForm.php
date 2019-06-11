@@ -110,12 +110,12 @@
             <span>
               <label for="internal-referral"><?php echo Yii::t('app', 'Internal Referral'); ?></label>
             </span>
-            <input type="text" name="referralFindingMethod" id="referralInputLine" style="display:none; width:20%;" placeholder="Please specify who">
             <input type="radio" name="findingMethod" value="others" id="others" required>&nbsp;
             <span>
               <label for="others"><?php echo Yii::t('app', 'Others'); ?></label>
             </span>
             <input type="text" name="otherFindingMethod" id="otherInputLine" style="display:none; width:20%;" placeholder="Please specify">
+            <input type="text" name="referralFindingMethod" id="referralInputLine" style="display:none; width:20%;" placeholder="Please specify who">
           </div>
         </fieldset>
         <fieldset class="fieldset">
@@ -159,7 +159,7 @@
         </fieldset>
         <fieldset class="fieldset">
           <legend class="legend">
-            4.<?php echo Yii::t('app', 'REFEREES (Previous Superiors'); ?>
+            4.<?php echo Yii::t('app', 'REFEREES (Previous Superiors)'); ?>
           </legend>
           <?php $this->beginContent('//registration/referee_section'); ?>
           <?php $this->endContent(); ?>
@@ -295,17 +295,18 @@
             <span>
               <?php echo Yii::t('app', 'I hereby declare that the information and personal data provided by me in the Application for Employment Form, including any accompanying document(s) are true, correct and complete in every aspect. I fully understand and accept that, if at any time after my employment with the Company, it is found that I have given false and misleading information in the Application for Employment Form, the Company has the right to forthwith terminate my employment. I understand that this application does not constitute an offer of employment. I understand that in some cases, credit checks, reference checks and/or good conduct checks will be required and I will be notified if said checks applies to this application. For the purpose of the Personal Data Protection Act 2010, I hereby give my consent to the Company to process all or any of my personal data and information for any purpose related to or in connection with this employment application and if required, to disclose or transfer such data to any company affiliate for the purpose of processing such data, which may be located outside Malaysia.') ?>
             </span>
+            <span id="termsCheckBox">
+              <div class="general_lables" style="width:40px;">
+                <input type="checkbox" name="agreeTerms" id="agreeTerms" style="float: left;"  value="1" required>
+              </div>
+              <div class="general_lables2" style="margin-top: 12px; width: 300px;">
+                <label for="agreeTerms"><?php echo Yii::t('app', 'I have read and agree to the above terms.') ?></label>
+              </div>
+            </span>
           </div>
           <div class="grid_block">
             <div class="lable_block">
               <div class="lables">
-                <input type="text" class="inputLine" name="signature" required>
-                <br>
-                <span>
-                  <?php echo Yii::t('app', 'Signature') ?>
-                </span>
-              </div>
-              <div class="lables2">
                 <input type="date" class="inputLine" name="signatureDate" value="<?php echo $dateToday ?>">
                 <br>
                 <span>
@@ -315,7 +316,7 @@
             </div>
             <div class="lable_block" id="save_button">
               <div class="row buttons">
-                <?php echo CHtml::submitButton('Save'); ?>
+                <?php echo CHtml::submitButton('Submit Application'); ?>
               </div>
             </div>
           </div>
@@ -339,12 +340,3 @@
 <div id="registration-common-msg">
   <div id="msg-has-relative" data-msg="<?php echo Yii::t('app', 'Please state name of relative or friend'); ?>"><!-- Dialog Buttons Label --></div>
 </div>
-<div id="registration-common-msg">
-  <div id="msg-confirm-save" data-msg="<?php echo Yii::t('app', 'Please state name of relative or friend'); ?>"><!-- Dialog Buttons Label --></div>
-</div>
-
-
-
-
-
-

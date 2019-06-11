@@ -79,7 +79,7 @@ var RegistrationAddCandidate = function() {
 				}
 			});
 
-			$("input[name=signature]").on('click',function() {
+			$("input[name=agreeTerms]").on('click',function() {
 				if ($("input[name=findingMethod]:checked").val() == "others" && $("input[name=otherFindingMethod]").val() == "") {
 					alert($("#msg-search-method").attr('data-msg'));
 					otherInputLine.focus();
