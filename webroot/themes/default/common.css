@@ -668,7 +668,7 @@ div.disabled_button div.right_corner {
 }
 
 #tpl_left_wrapper .left_menu .nav > li.active > a { 
-	background-color	: #0866c6; 
+	background-color	: #f0b028; 
 	color				: #1C1B1A;
 	border-bottom-color	: rgba(0,0,0,0.2); 
 }
@@ -695,7 +695,7 @@ div.disabled_button div.right_corner {
 }
 
 #tpl_left_wrapper .left_menu .nav > li.dropdown.active > a {
-	background			: #0866c6 url(./images/alllanguages/drop_arrow.png) no-repeat right 19px; 
+	background			: #f0b028 url(./images/alllanguages/drop_arrow.png) no-repeat right 19px; 
 }
 
 #tpl_left_wrapper .left_menu .nav .dropdown ul li a {
