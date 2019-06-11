@@ -2,6 +2,7 @@ var RegistrationAddCandidate = function() {
 	function _init() {
 		$(function() {
 			var otherInputLine = document.getElementById("otherInputLine");
+			var referralInputLine = document.getElementById("referralInputLine");
 			$("input[name=findingMethod]").click(function() {
 				//if user checked others box, then remove disabled attribute for the input line
 				if ($("input[name=findingMethod]:checked").val() == "others") {
@@ -10,7 +11,16 @@ var RegistrationAddCandidate = function() {
 					otherInputLine.style.display = "none";
 					$("#otherInputLine").val('');
 				}
+
+				if ($("input[name=findingMethod]:checked").val() == "internal-referral") {
+					referralInputLine.style.display = "block";
+				} else {
+					referralInputLine.style.display = "none";
+					$("#referralInputLine").val('');
+				}
+
 			});
+
 
 			var terminateBeforeLine = document.getElementById("terminationReason");
 			$("input[name=terminatedBefore]").click(function() {

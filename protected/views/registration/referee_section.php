@@ -31,6 +31,14 @@
     	<input type="text" name="superiorContact[]">
     </div>
 	</div>
+  <div class="lable_block">
+    <div class="lables">
+      <span><?php echo Yii::t('app', 'Email Address.'); ?>:</span><br>
+    </div>
+    <div class="lables2">
+      <input type="text" name="superiorEmail[]">
+    </div>
+  </div>
 	<div class="lable_block">
 		<div class="lables">
       <span><?php echo Yii::t('app', 'Years Known'); ?>:</span><br>

@@ -261,3 +261,7 @@ CREATE TABLE employment_job_opening (
 /* Yee Yang 04/06/2019 */
 ALTER TABLE `employment_candidate` 
   ADD `job_id` int(11) NOT NULL;
+
+/* Yee Yang 11/06/2019 */
+ALTER TABLE `employment_referee`
+  ADD `supervisor_email` varchar(50) NULL;

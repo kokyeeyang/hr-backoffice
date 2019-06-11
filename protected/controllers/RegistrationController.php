@@ -109,9 +109,11 @@ class RegistrationController extends Controller
 		$candidateObjModel->date_of_birth = $this->getParam('DOB', '');
 		$candidateObjModel->marital_status = strtoupper($this->getParam('maritalStatus', ''));
 
-		if($this->getParam('findingMethod', '') != false){
+		if($this->getParam('findingMethod', '') == 'others'){
 			$candidateObjModel->finding_method = strtoupper($this->getParam('otherFindingMethod', ''));
-		}else {
+		}else if($this->getParam('findingMethod', '') == 'internal-referral'){
+			$candidateObjModel->finding_method = strtoupper($this->getParam('referralFindingMethod', ''));
+		} else {
 			$candidateObjModel->finding_method = strtoupper($this->getParam('findingMethod', ''));
 		}
 
@@ -182,6 +184,7 @@ class RegistrationController extends Controller
 		$supervisorCompanies = $this->getParam('superiorCompany','');
 		$supervisorOccupations = $this->getParam('superiorOccupation','');
 		$supervisorContacts = $this->getParam('superiorContact','');
+		$supervisorEmails = $this->getParam('superiorEmail','');
 		$yearsKnownArray = $this->getParam('yearsKnown','');
 
 		if(empty($supervisorNames[0]) === false){
@@ -193,6 +196,7 @@ class RegistrationController extends Controller
 					$refereeObjModel->supervisor_company = strtoupper($supervisorCompanies[$iKey]);
 					$refereeObjModel->supervisor_occupation = strtoupper($supervisorOccupations[$iKey]);
 					$refereeObjModel->supervisor_contact = $supervisorContacts[$iKey];
+					$refereeObjModel->supervisor_email = $supervisorEmails[$iKey];
 					$refereeObjModel->years_known = $yearsKnownArray[$iKey];
 					$refereeObjModel->save();
 				}

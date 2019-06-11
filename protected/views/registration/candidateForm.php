@@ -110,6 +110,7 @@
             <span>
               <label for="internal-referral"><?php echo Yii::t('app', 'Internal Referral'); ?></label>
             </span>
+            <input type="text" name="referralFindingMethod" id="referralInputLine" style="display:none; width:20%;" placeholder="Please specify who">
             <input type="radio" name="findingMethod" value="others" id="others" required>&nbsp;
             <span>
               <label for="others"><?php echo Yii::t('app', 'Others'); ?></label>
