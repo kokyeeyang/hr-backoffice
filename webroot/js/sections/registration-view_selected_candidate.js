@@ -2,6 +2,7 @@ var RegistrationViewSelectedCandidate = function() {
 	function _init() {
 		$(function() {
 			var otherInputLine = document.getElementById("otherInputLine");
+			var referralInputLine = document.getElementById("referralInputLine");
 			var criminalOffenseLine = document.getElementById("criminalOffenseInput");
 			var convictedDateLine = document.getElementById("convictedDate");
 			var dischargeDateLine = document.getElementById("dischargeDate");
@@ -24,7 +25,7 @@ var RegistrationViewSelectedCandidate = function() {
 					referralInputLine.style.display = "none";
 					$("#referralInputLine").val('');
 				}
-				
+
 				if ($("input[name=criminalOffenseRadio]:checked").val() == "1") {
 					criminalOffenseLine.style.display = "block";
 					convictedDateLine.style.display = "block";
