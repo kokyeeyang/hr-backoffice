@@ -57,8 +57,8 @@
                 <span><?php echo Yii::t('app', 'Gender'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="radio" name="gender" value="male" <?php echo($candidateObjRecord->gender == 'male')?'checked="checked"':'' ?> required <?php echo $access ?>> <span>Male </span>          
-                <input type="radio" name="gender" value="female" <?php echo($candidateObjRecord->gender == 'female')?'checked="checked"':'' ?> required <?php echo $access ?>> <span>Female </span>
+                <input type="radio" name="gender" value="male" id="male" <?php echo($candidateObjRecord->gender == 'male')?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="male"><span>Male </span></label>          
+                <input type="radio" name="gender" value="female" id="female" <?php echo($candidateObjRecord->gender == 'female')?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="female"><span>Female </span></label>
               </div>
             </div>
             <div class="lable_block">
@@ -113,6 +113,7 @@
               <label for="others"><?php echo Yii::t('app', 'Others'); ?></label>
             </span>
             <input type="text" name="otherFindingMethod" id="otherInputLine" style="display:none; width:20%;" placeholder="Please specify" value="<?php echo($candidateObjRecord->finding_method != 'jobstreet' || $candidateObjRecord->finding_method != 'linkedin' || $candidateObjRecord->finding_method != 'agency' || $candidateObjRecord->finding_method != 'internal-referral')?$candidateObjRecord->finding_method:'' ?>" <?php echo $access ?>>
+            <input type="text" name="referralFindingMethod" id="referralInputLine" style="display:none; width:20%;" placeholder="Please specify who" value="<?php echo($candidateObjRecord->finding_method != 'jobstreet' || $candidateObjRecord->finding_method != 'linkedin' || $candidateObjRecord->finding_method != 'agency' || $candidateObjRecord->finding_method != 'others')?$candidateObjRecord->finding_method:'' ?>" <?php echo $access ?>>
           </div>
         <?php } ?>
         </fieldset>
@@ -238,8 +239,8 @@
                 <input type="text" name="terminationDetails" class="inputLine" id="terminationReason" style="display:none;" <?php echo($candidateObjRecord->terminated_before == 1)?"value='$candidateObjRecord->termination_reason'":'' ?> <?php echo $access ?>><br><br>
               </div>
               <div class="lables2">
-                <input type="radio" name="terminatedBefore" value="1" <?php echo($candidateObjRecord->terminated_before == 1)?'checked="checked"':'' ?> <?php echo $access ?>> Yes<br>
-                <input type="radio" name="terminatedBefore" value="0"  <?php echo($candidateObjRecord->terminated_before == 0)?'checked="checked"':'' ?> <?php echo $access ?>> No<br>
+                <input type="radio" name="terminatedBefore" value="1" id="terminatedYes" <?php echo($candidateObjRecord->terminated_before == 1)?'checked="checked"':'' ?> <?php echo $access ?>> <label for="terminatedYes">Yes</label><br>
+                <input type="radio" name="terminatedBefore" value="0" id="terminatedNo" <?php echo($candidateObjRecord->terminated_before == 0)?'checked="checked"':'' ?> <?php echo $access ?>> <label for="terminatedNo">No</label><br>
               </div>
             </div>
           <!-- </div> -->
@@ -313,8 +314,8 @@
                   <input type="text" name="noReferenceReason" id="noReference" value="<?php echo($candidateObjRecord->reference_consent == 0)?'$candidateObjRecord->refuse_reference_reason':'' ?>" style="display:none" <?php echo $access ?>><br><br>
                 </div>
                 <div class="lables2">
-                  <input type="radio" name="consent" value="1" <?php echo($candidateObjRecord->reference_consent == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> Yes<br>
-                  <input type="radio" name="consent" value="0" <?php echo($candidateObjRecord->reference_consent == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> No<br>
+                  <input type="radio" name="consent" value="1" id="referenceYes" <?php echo($candidateObjRecord->reference_consent == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="referenceYes">Yes<br></label>
+                  <input type="radio" name="consent" value="0" id="referenceNo" <?php echo($candidateObjRecord->reference_consent == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="referenceNo">No<br></label>
                 </div>
               </div>
             </div>
@@ -333,8 +334,8 @@
                 a) <?php echo Yii::t('app', 'Are you suffering from any physical disabilities or have ever been seriously ill'); ?>?
               </div>
               <div class="general_lables2">
-                <input type="radio" name="illness" value="1" <?php echo($generalQuestionObjRecord->has_physical_ailment == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> Yes
-                <input type="radio" name="illness" value="0" <?php echo($generalQuestionObjRecord->has_physical_ailment == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> No<br>
+                <input type="radio" name="illness" value="1" id="illnessYes" <?php echo($generalQuestionObjRecord->has_physical_ailment == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="illnessYes">Yes</label>
+                <input type="radio" name="illness" value="0" id="illnessNo" <?php echo($generalQuestionObjRecord->has_physical_ailment == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="illnessNo">No<br></label>
               </div>
             </div>
           </div>
@@ -348,8 +349,8 @@
                <input type="date" name="dischargeDate" style="display: none;" id="dischargeDate" class="crimeBox" title="Date of discharge" <?php echo $access ?>>
               </div>
               <div class="general_lables2">
-                <input type="radio" name="criminalOffenseRadio" value="1" <?php echo($generalQuestionObjRecord->has_been_convicted == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> Yes
-                <input type="radio" name="criminalOffenseRadio" value="0" <?php echo($generalQuestionObjRecord->has_been_convicted == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> No<br>
+                <input type="radio" name="criminalOffenseRadio" value="1" id="convictedYes" <?php echo($generalQuestionObjRecord->has_been_convicted == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="convictedYes">Yes</label>
+                <input type="radio" name="criminalOffenseRadio" value="0" id="convictedNo" <?php echo($generalQuestionObjRecord->has_been_convicted == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="convictedNo">No</label><br>
               </div>
             </div>
           </div>
@@ -361,8 +362,8 @@
                  <input type="text" name="sagaosFamilyInput" style="display: none;" id="sagaosFamilyInput" placeholder="Relationship with him/her" <?php echo $access ?>><br>
               </div>
               <div class="general_lables2">
-                <input type="radio" name="sagaosRelative" value="1" <?php echo($generalQuestionObjRecord->has_company_contact == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> Yes<br>
-                <input type="radio" name="sagaosRelative" value="0" <?php echo($generalQuestionObjRecord->has_company_contact == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> No<br>
+                <input type="radio" name="sagaosRelative" value="1" id="relativeYes" <?php echo($generalQuestionObjRecord->has_company_contact == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="relativeYes">Yes</label><br>
+                <input type="radio" name="sagaosRelative" value="0" id="relativeNo" <?php echo($generalQuestionObjRecord->has_company_contact == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="relativeNo">No</label><br>
               </div>
             </div>
           </div>
@@ -372,8 +373,8 @@
                 d) <?php echo Yii::t('app', 'Any relatives involved directly or indirectly in similar company’s business'); ?>?
               </div>
               <div class="general_lables2">
-                <input type="radio" name="interestConflict" value="1" <?php echo($generalQuestionObjRecord->has_conflict_of_interest == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> Yes
-                <input type="radio" name="interestConflict" value="0" <?php echo($generalQuestionObjRecord->has_conflict_of_interest == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> No<br>
+                <input type="radio" name="interestConflict" value="1" id="conflictYes" <?php echo($generalQuestionObjRecord->has_conflict_of_interest == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="conflictYes"> Yes</label>
+                <input type="radio" name="interestConflict" value="0" id="conflictNo" <?php echo($generalQuestionObjRecord->has_conflict_of_interest == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="conflictNo"> No</label><br>
               </div>
             </div>
           </div>
@@ -383,8 +384,8 @@
                 e) <?php echo Yii::t('app', 'Do you possess a car or motorcycle'); ?>?
               </div>
               <div class="general_lables2">
-                <input type="radio" name="ownTransport" value="1" <?php echo($generalQuestionObjRecord->has_own_transport == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> Yes
-                <input type="radio" name="ownTransport" value="0" <?php echo($generalQuestionObjRecord->has_own_transport == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> No<br>
+                <input type="radio" name="ownTransport" value="1" id="transportYes" <?php echo($generalQuestionObjRecord->has_own_transport == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="transportYes">Yes</label>
+                <input type="radio" name="ownTransport" value="0" id="transportNo" <?php echo($generalQuestionObjRecord->has_own_transport == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="transportNo">No</label><br>
               </div>
             </div>
           </div>
@@ -394,8 +395,8 @@
                 g) <?php echo Yii::t('app', 'Have you ever applied to/worked at SagaOS before'); ?>?
               </div>
               <div class="general_lables2" style="margin-bottom: 2px">
-                <input type="radio" name="timesApplied" value="1" <?php echo($generalQuestionObjRecord->has_applied_before == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> Yes
-                <input type="radio" name="timesApplied" value="0" <?php echo($generalQuestionObjRecord->has_applied_before == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> No<br>
+                <input type="radio" name="timesApplied" value="1" id="appliedYes" <?php echo($generalQuestionObjRecord->has_applied_before == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="appliedYes"> Yes</label>
+                <input type="radio" name="timesApplied" value="0" id="appliedNo" <?php echo($generalQuestionObjRecord->has_applied_before == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="appliedNo"> No</label><br>
               </div>
             </div>
           </div>
@@ -415,8 +416,8 @@
                 i) <?php echo Yii::t('app', 'If hired, are you willing to submit to a good conduct certificate'); ?>?
               </div>
               <div class="general_lables2">
-                <input type="radio" name="goodConductConsent" value="1" <?php echo($generalQuestionObjRecord->good_conduct_consent == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> Yes
-                <input type="radio" name="goodConductConsent" value="0" <?php echo($generalQuestionObjRecord->good_conduct_consent == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> No<br>
+                <input type="radio" name="goodConductConsent" value="1" id="conductYes" <?php echo($generalQuestionObjRecord->good_conduct_consent == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="conductYes">Yes</label>
+                <input type="radio" name="goodConductConsent" value="0" id="conductNo" <?php echo($generalQuestionObjRecord->good_conduct_consent == 0)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="conductNo">No</label><br>
               </div>
             </div>
           </div>

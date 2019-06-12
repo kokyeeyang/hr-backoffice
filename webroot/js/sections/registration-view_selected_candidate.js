@@ -18,6 +18,13 @@ var RegistrationViewSelectedCandidate = function() {
 					$("#otherInputLine").val('');
 				}
 
+				if ($("input[name=findingMethod]:checked").val() == "internal-referral") {
+					referralInputLine.style.display = "block";
+				} else {
+					referralInputLine.style.display = "none";
+					$("#referralInputLine").val('');
+				}
+				
 				if ($("input[name=criminalOffenseRadio]:checked").val() == "1") {
 					criminalOffenseLine.style.display = "block";
 					convictedDateLine.style.display = "block";
