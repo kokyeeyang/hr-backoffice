@@ -310,6 +310,9 @@
             </div>
           </div>
           <?php } ?>
+          <div class="extraReferees">
+          </div>
+          <input type="button" id="add" id="addEntry">Add entry
           <?php foreach($candidateArrRecords as $candidateObjRecord){ ?>
           <!-- <div class="grid_block"> -->
             <div class="display_inline_block">

@@ -170,6 +170,9 @@ var RegistrationViewSelectedCandidate = function() {
 
 			});
 
+			$("input#add").click(function(){
+				$(".extraReferees").append("");
+			});
 		});
 	}
 
