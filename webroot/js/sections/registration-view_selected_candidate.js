@@ -3,6 +3,7 @@ var RegistrationViewSelectedCandidate = function() {
 		$(function() {
 			var otherInputLine = document.getElementById("otherInputLine");
 			var referralInputLine = document.getElementById("referralInputLine");
+			var terminateBeforeLine = document.getElementById("terminationReason");
 			var criminalOffenseLine = document.getElementById("criminalOffenseInput");
 			var convictedDateLine = document.getElementById("convictedDate");
 			var dischargeDateLine = document.getElementById("dischargeDate");
@@ -54,10 +55,8 @@ var RegistrationViewSelectedCandidate = function() {
 			$("input[name=findingMethod]").click(function() {
 				//if user checked others box, then remove disabled attribute for the input line
 				if ($("input[name=findingMethod]:checked").val() == "others") {
-					// $("#otherInputLine").removeAttr("disabled");
 					otherInputLine.style.display = "block";
 				} else {
-					// $("#otherInputLine").attr("disabled", "yes");
 					otherInputLine.style.display = "none";
 					$("#otherInputLine").val('');
 				}
@@ -84,10 +83,8 @@ var RegistrationViewSelectedCandidate = function() {
 			$("input[name=terminatedBefore]").click(function() {
 				//if user checked others box, then remove disabled attribute for the input line
 				if ($("input[name=terminatedBefore]:checked").val() == "1") {
-					// $("#otherInputLine").removeAttr("disabled");
 					terminationReason.style.display = "block";
 				} else {
-					// $("#otherInputLine").attr("disabled", "yes");
 					terminationReason.style.display = "none";
 					$("#terminationReason").val('');
 				}
@@ -133,6 +130,46 @@ var RegistrationViewSelectedCandidate = function() {
 					$("input[name=noReferenceReason]").val('');
 				}
 			}); 
+
+			$("input[name=agreeTerms]").on('click',function() {
+				if ($("input[name=findingMethod]:checked").val() == "others" && $("input[name=otherFindingMethod]").val() == "") {
+					alert($("#msg-search-method").attr('data-msg'));
+					otherInputLine.focus();
+				}
+
+				if ($("input[name=terminatedBefore]:checked").val() == "1" && $("input[name=terminationDetails]").val() == ""){
+					alert($("#msg-terminated_before").attr('data-msg'));
+					terminateBeforeLine.focus();
+				}
+
+				if ($("input[name=consent]:checked").val() == "0" && $("input[name=noReferenceReason]").val() == ""){
+					alert($("#msg-refuse-consent").attr('data-msg'));
+					noReferenceLine.focus();
+				}
+
+				var crimeLine = $("input[name=criminalOffenseInput]");
+				var dateOfConviction = $("input[name=convictedDate]");
+				var dateOfDischarge = $("input[name=dischargeDate]");
+
+				if ($("input[name=criminalOffenseRadio]:checked").val() == "1"){
+					if(crimeLine.val() == "" || dateOfConviction.val() == "" || dateOfDischarge.val() == ""){
+						alert($("#msg-criminal-offence").attr('data-msg'));
+						criminalOffenseLine.focus();
+					} 
+				}
+
+				var sagaosFamily = $("input[name=sagaosContactNameInput]");
+				var sagaosContactName = $("input[name=sagaosFamilyInput]");
+
+				if ($("input[name=sagaosRelative]:checked").val() == "1"){
+					if(sagaosFamily.val() == "" || sagaosContactName.val() == ""){
+						alert($("#msg-has-relative").attr('data-msg'));
+						sagaosFamilyLine.focus();
+					}
+				}
+
+			});
+
 		});
 	}
 

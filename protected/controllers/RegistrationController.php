@@ -110,9 +110,9 @@ class RegistrationController extends Controller
 		$candidateObjModel->marital_status = strtoupper($this->getParam('maritalStatus', ''));
 
 		if($this->getParam('findingMethod', '') == 'others'){
-			$candidateObjModel->finding_method = strtoupper($this->getParam('otherFindingMethod', ''));
+			$candidateObjModel->finding_method = 'OTHERS-' . strtoupper($this->getParam('otherFindingMethod', ''));
 		}else if($this->getParam('findingMethod', '') == 'internal-referral'){
-			$candidateObjModel->finding_method = strtoupper($this->getParam('referralFindingMethod', ''));
+			$candidateObjModel->finding_method = 'INTERNAL-REFERRAL-' . strtoupper($this->getParam('referralFindingMethod', ''));
 		} else {
 			$candidateObjModel->finding_method = strtoupper($this->getParam('findingMethod', ''));
 		}
@@ -340,10 +340,15 @@ class RegistrationController extends Controller
 			$candidateObjRecord['date_of_birth'] = $this->getParam('DOB', '');
 			$candidateObjRecord['marital_status'] = $this->getParam('maritalStatus', '');
 
-			if($this->getParam('findingMethod', '') != false){
-				$candidateObjRecord['finding_method'] = $this->getParam('otherFindingMethod', '');
+			if($this->getParam('findingMethod', '') == 'others'){
+				$candidateObjRecord['finding_method'] = 'OTHERS-' . strtoupper($this->getParam('otherFindingMethod', ''));
+				$candidateObjRecord->update();
+			}else if($this->getParam('findingMethod', '') == 'internal-referral'){
+				$candidateObjRecord['finding_method'] = 'INTERNAL-REFERRAL-' . strtoupper($this->getParam('referralFindingMethod', ''));
+				$candidateObjRecord->update();
 			} else {
-				$candidateObjRecord['finding_method'] = $this->getParam('findingMethod', '');
+				$candidateObjRecord['finding_method'] = strtoupper($this->getParam('findingMethod', ''));
+				$candidateObjRecord->update();
 			}
 
 			$candidateObjRecord['gender'] = $this->getParam('gender', '');

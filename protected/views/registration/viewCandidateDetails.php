@@ -92,28 +92,34 @@
             </span>
           </div>
           <div class="radio-buttons">
-            <input type="radio" name="findingMethod" value="jobstreet" id="jobstreet" <?php echo($candidateObjRecord->finding_method == 'jobstreet')?'checked="checked"':'' ?>required <?php echo $access ?>>&nbsp;
+            <input type="radio" name="findingMethod" value="jobstreet" id="jobstreet" <?php echo($candidateObjRecord->finding_method == 'JOBSTREET')?'checked ':'' ?>required <?php echo $access ?>>&nbsp;
             <span>
               <label for="jobstreet"><?php echo Yii::t('app', 'Jobstreet'); ?></label>
             </span>
-            <input type="radio" name="findingMethod" value="linkedin" id="linkedin" <?php echo($candidateObjRecord->finding_method == 'linkedin')?'checked="checked"':'' ?> required <?php echo $access ?>>&nbsp;
+
+            <input type="radio" name="findingMethod" value="linkedin" id="linkedin" <?php echo($candidateObjRecord->finding_method == 'LINKEDIN')?'checked ':'' ?> required <?php echo $access ?>>&nbsp;
             <span>
               <label for="linkedin"><?php echo Yii::t('app', 'LinkedIn'); ?></label>
             </span>
-            <input type="radio" name="findingMethod" value="agency" id="agency" <?php echo($candidateObjRecord->finding_method == 'agency')?'checked="checked"':'' ?>required <?php echo $access ?>>&nbsp;
+
+            <input type="radio" name="findingMethod" value="agency" id="agency" <?php echo($candidateObjRecord->finding_method == 'AGENCY')?'checked ':'' ?>required <?php echo $access ?>>&nbsp;
             <span>
               <label for="agency"><?php echo Yii::t('app', 'Agency'); ?></label>
             </span>
-            <input type="radio" name="findingMethod" value="internal-referral" id="internal-referral" <?php echo($candidateObjRecord->finding_method == 'internal-referral')?'checked="checked"':'' ?> required <?php echo $access ?>>&nbsp;
+
+            <input type="radio" name="findingMethod" value="internal-referral" id="internal-referral" <?php echo(strpos($candidateObjRecord->finding_method, 'NTERNAL-REFERRAL-') == 1)?'checked ':'' ?> required <?php echo $access ?>>&nbsp;
             <span>
               <label for="internal-referral"><?php echo Yii::t('app', 'Internal Referral'); ?></label>
             </span>
-            <input type="radio" name="findingMethod" value="others" id="others" <?php echo($candidateObjRecord->finding_method != 'jobstreet' || $candidateObjRecord->finding_method != 'linkedin' || $candidateObjRecord->finding_method != 'agency' || $candidateObjRecord->finding_method != 'internal-referral')?'checked="checked"':'' ?> required <?php echo $access ?>>&nbsp;
+
+            <input type="radio" name="findingMethod" value="others" id="others" <?php echo(strpos($candidateObjRecord->finding_method, 'THERS-') == 1)?'checked ':'' ?> required <?php echo $access ?>>&nbsp;
             <span>
               <label for="others"><?php echo Yii::t('app', 'Others'); ?></label>
             </span>
-            <input type="text" name="otherFindingMethod" id="otherInputLine" style="display:none; width:20%;" placeholder="Please specify" value="<?php echo($candidateObjRecord->finding_method != 'jobstreet' || $candidateObjRecord->finding_method != 'linkedin' || $candidateObjRecord->finding_method != 'agency' || $candidateObjRecord->finding_method != 'internal-referral')?$candidateObjRecord->finding_method:'' ?>" <?php echo $access ?>>
-            <input type="text" name="referralFindingMethod" id="referralInputLine" style="display:none; width:20%;" placeholder="Please specify who" value="<?php echo($candidateObjRecord->finding_method != 'jobstreet' || $candidateObjRecord->finding_method != 'linkedin' || $candidateObjRecord->finding_method != 'agency' || $candidateObjRecord->finding_method != 'others')?$candidateObjRecord->finding_method:'' ?>" <?php echo $access ?>>
+
+            <input type="text" name="otherFindingMethod" id="otherInputLine" style="display:none; width:20%;" placeholder="Please specify" value="<?php echo(strpos($candidateObjRecord->finding_method, 'THERS-') == 1)?str_replace('OTHERS-', '', $candidateObjRecord->finding_method):'' ?>" <?php echo $access ?>>
+
+            <input type="text" name="referralFindingMethod" id="referralInputLine" style="display:none; width:20%;" placeholder="Please specify who" value="<?php echo(strpos($candidateObjRecord->finding_method, 'NTERNAL-REFERRAL-') == 1)?str_replace('INTERNAL-REFERRAL-', '', $candidateObjRecord->finding_method):'' ?>" <?php echo $access ?>>
           </div>
         <?php } ?>
         </fieldset>
@@ -442,7 +448,7 @@
             </span>
             <span id="termsCheckBox">
               <div class="general_lables" style="width:40px;">
-                <input type="checkbox" name="agreeTerms" id="agreeTerms" style="float: left;"  value="1" required>
+                <input type="checkbox" name="agreeTerms" id="agreeTerms" style="float: left;"  value="1" <?php echo($candidateObjRecord->candidate_agree_terms == 1)?'checked="checked"':'' ?> <?php echo $access ?> required>
               </div>
               <div class="general_lables2" style="margin-top: 12px; width: 300px;">
                 <label for="agreeTerms"><?php echo Yii::t('app', 'I have read and agree to the above terms.') ?></label>
@@ -472,7 +478,21 @@
     </form>
   </div>
 </div>
-
+<div id="registration-common-msg">
+  <div id="msg-search-method" data-msg="<?php echo Yii::t('app', 'Please state a method'); ?>"><!-- Dialog Buttons Label --></div>
+</div>
+<div id="registration-common-msg">
+  <div id="msg-terminated_before" data-msg="<?php echo Yii::t('app', 'Please state why you were terminated'); ?>"><!-- Dialog Buttons Label --></div>
+</div>
+<div id="registration-common-msg">
+  <div id="msg-refuse-consent" data-msg="<?php echo Yii::t('app', 'Please explain why you would not want us to call for reference'); ?>"><!-- Dialog Buttons Label --></div>
+</div>
+<div id="registration-common-msg">
+  <div id="msg-criminal-offence" data-msg="<?php echo Yii::t('app', 'Please state your offence, date of conviction and date of discharge.'); ?>"><!-- Dialog Buttons Label --></div>
+</div>
+<div id="registration-common-msg">
+  <div id="msg-has-relative" data-msg="<?php echo Yii::t('app', 'Please state name of relative or friend'); ?>"><!-- Dialog Buttons Label --></div>
+</div>
 
 
 
