@@ -61,6 +61,13 @@ var RegistrationViewSelectedCandidate = function() {
 					otherInputLine.style.display = "none";
 					$("#otherInputLine").val('');
 				}
+
+				if ($("input[name=findingMethod]:checked").val() == "internal-referral") {
+					referralInputLine.style.display = "block";
+				} else {
+					referralInputLine.style.display = "none";
+					$("#referralInputLine").val('');
+				}
 			});
 
 			var terminationReason = document.getElementById("terminationReason");
