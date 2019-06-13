@@ -301,6 +301,16 @@
             <div class="display_inline_block">
               <div class="lable_block">
                 <div class="lables">
+                  <span><?php echo Yii::t('app', 'Email Address'); ?>:</span><br>
+                </div>
+                <div class="lables2">
+                  <input type="text" name="superiorEmail[]" value="<?php echo $refereeObjRecord->supervisor_email ?>">
+                </div>
+              </div>
+            </div>
+            <div class="display_inline_block">
+              <div class="lable_block">
+                <div class="lables">
                   <span><?php echo Yii::t('app', 'Years Known'); ?>:</span><br>
                 </div>
                 <div class="lables2">
@@ -310,11 +320,110 @@
             </div>
           </div>
           <?php } ?>
-          <div class="extraReferees">
+          <div class="grid_block" id="extraReferee1" style="display:none">
+            <div class="lable_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Name'); ?>:</span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="extraSuperiorName1" <?php echo $access ?>>
+              </div>
+            </div>
+            <div class="lable_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Company'); ?>:</span><br>
+              </div>
+              <div class="lables2">
+                <input type="year" name="extraSuperiorCompany1">
+              </div>
+            </div>
+            <div class="lable_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Occupation'); ?>:</span><br>
+              </div>
+              <div class="lables2">
+                <input type="year" name="extraSuperiorOccupation1">
+              </div>
+            </div>
+            <div class="lable_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Contact No.'); ?>:</span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="extraSuperiorContact1">
+              </div>
+            </div>
+            <div class="lable_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Email Address'); ?>:</span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="extraSuperiorEmail1">
+              </div>
+            </div>
+            <div class="lable_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Years Known'); ?>:</span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="extraYearsKnown1">
+              </div>
+            </div>
           </div>
-          <input type="button" id="add" id="addEntry">Add entry
+          <div class="grid_block" id="extraReferee2" style="display:none">
+            <div class="lable_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Name'); ?>:</span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="extraSuperiorName2">
+              </div>
+            </div>
+            <div class="lable_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Company'); ?>:</span><br>
+              </div>
+              <div class="lables2">
+                <input type="year" name="extraSuperiorCompany2">
+              </div>
+            </div>
+            <div class="lable_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Occupation'); ?>:</span><br>
+              </div>
+              <div class="lables2">
+                <input type="year" name="extraSuperiorOccupation2">
+              </div>
+            </div>
+            <div class="lable_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Contact No.'); ?>:</span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="extraSuperiorContact2">
+              </div>
+            </div>
+            <div class="lable_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Email Address'); ?>:</span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="extraSuperiorEmail2">
+              </div>
+            </div>
+            <div class="lable_block">
+              <div class="lables">
+                <span><?php echo Yii::t('app', 'Years Known'); ?>:</span><br>
+              </div>
+              <div class="lables2">
+                <input type="text" name="extraYearsKnown2">
+              </div>
+            </div>
+          </div>
+          <div class="display_inline_block">
+            <input type="button" id="add" value="<?php echo Yii::t('app', 'Add more referees'); ?>" <?php echo $access ?>>
+          </div>
           <?php foreach($candidateArrRecords as $candidateObjRecord){ ?>
-          <!-- <div class="grid_block"> -->
             <div class="display_inline_block">
               <div class="lable_block">
                 <div class="lables">
@@ -328,7 +437,6 @@
                 </div>
               </div>
             </div>
-          <!-- </div> -->
           <?php } ?>
         </fieldset>
         <?php foreach($generalQuestionArrRecords as $generalQuestionObjRecord){ ?>

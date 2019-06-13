@@ -276,6 +276,20 @@ class RegistrationController extends Controller
 			Yii::app()->end();
 	}
 
+	public function actionGenerateEmail($jobId){
+		$aResult['result'] = false;
+		$jobId = (int)$jobId;
+		$arrRecords = EmploymentJobOpening::model()->findAll(array('order'=>'id ASC'));
+		if(Yii::app()->request->isAjaxRequest){
+			$encryptedJobTitleId = str_replace('9', $jobId, JOB_TITLE_ID_SECRET_KEY);
+			$base64EncodedJobTitleId = base64_encode($encryptedJobTitleId);
+			$aResult['result'] = $base64EncodedJobTitleId;
+
+			echo(json_encode($aResult));
+		}
+			Yii::app()->end();
+	}
+
 	public function actionDeleteSelectedJobOpenings(){
 		$jobOpeningIds = $this->getParam('deleteCheckBox', '');
 
@@ -426,6 +440,30 @@ class RegistrationController extends Controller
 
 					$refereeArrRecords[$iKey]->update();
 				}
+			}
+		}
+
+		if($this->getParam('extraSuperiorName1','') != false){
+			$refereeObjModel = new EmploymentReferee;
+			$refereeObjModel->candidate_id = $this->getParam('idNo', '');
+			$refereeObjModel->supervisor_name = strtoupper($this->getParam('extraSuperiorName1',''));
+			$refereeObjModel->supervisor_company = strtoupper($this->getParam('extraSuperiorCompany1',''));
+			$refereeObjModel->supervisor_occupation = strtoupper($this->getParam('extraSuperiorOccupation1',''));
+			$refereeObjModel->supervisor_contact = $this->getParam('extraSuperiorContact1','');
+			$refereeObjModel->supervisor_email = $this->getParam('extraSuperiorEmail1','');
+			$refereeObjModel->years_known = $this->getParam('extraYearsKnown1','');
+			$refereeObjModel->save();
+
+			if($this->getParam('extraSuperiorName2','') != false){
+				$refereeObjModel = new EmploymentReferee;
+				$refereeObjModel->candidate_id = $this->getParam('idNo', '');
+				$refereeObjModel->supervisor_name = strtoupper($this->getParam('extraSuperiorName2',''));
+				$refereeObjModel->supervisor_company = strtoupper($this->getParam('extraSuperiorCompany2',''));
+				$refereeObjModel->supervisor_occupation = strtoupper($this->getParam('extraSuperiorOccupation2',''));
+				$refereeObjModel->supervisor_contact = $this->getParam('extraSuperiorContact2','');
+				$refereeObjModel->supervisor_email = $this->getParam('extraSuperiorEmail2','');
+				$refereeObjModel->years_known = $this->getParam('extraYearsKnown2','');
+				$refereeObjModel->save();
 			}
 		}
 

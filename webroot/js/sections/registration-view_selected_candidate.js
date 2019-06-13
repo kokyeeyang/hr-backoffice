@@ -170,8 +170,16 @@ var RegistrationViewSelectedCandidate = function() {
 
 			});
 
+			var extraRefereeSection1 = document.getElementById("extraReferee1");
+			var extraRefereeSection2 = document.getElementById("extraReferee2");
+			var flag = 1;
 			$("input#add").click(function(){
-				$(".extraReferees").append("");
+				if(flag == 1){
+					extraRefereeSection1.style.display="inline-grid";
+				} else if (flag == 2){
+					extraRefereeSection2.style.display="inline-grid";
+				}
+				flag ++;
 			});
 		});
 	}

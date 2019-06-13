@@ -81,6 +81,16 @@
 						<div class="sort_wrapper_inner">
 							<div class="sort_label_wrapper">
 								<div class="sort_label">
+									<?php echo Yii::t('app', 'Email'); ?>
+									<input type="text" id="copiedText" value="" style="display:none">
+								</div>
+							</div>
+						</div>
+					</th>
+					<th>
+						<div class="sort_wrapper_inner">
+							<div class="sort_label_wrapper">
+								<div class="sort_label">
 									<input type="button" title="<?php echo Yii::t('app', 'Delete this entry'); ?>" id="deleteJobOpeningButton" value="Delete selected entries" data-delete-url="<?php echo $this->createUrl('registration/deleteSelectedJobOpenings') ?>">
 								</div>
 							</div>
@@ -110,6 +120,10 @@
 						  	</td>
 						  	<td id="generateLinkColumn" style="padding-left: 90px;">
 						  		<input type="button" id="generateLink" data-url="<?php echo $this->createUrl('registration/generateLink', array('jobId' => $objRecord->id)); ?>" value="<?php echo Yii::t('app', 'Generate link'); ?>">
+						  	</td>
+						  	<td>
+								  <input type="button" id="generateEmail" data-email-url="<?php echo $this->createUrl('registration/generateEmail', array('jobId' => $objRecord->id)); ?>" value="<?php echo Yii::t('app', 'Generate email'); ?>">
+						  		<!-- <a href="mailto:kokyeeyang1994@gmail.com?Hello%20How%20Are%20You"><input type="button" value="<?php echo Yii::t('app', 'Generate email'); ?>"></a> -->
 						  	</td>
 						  	<td>
 						  		<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $objRecord->id ?>">

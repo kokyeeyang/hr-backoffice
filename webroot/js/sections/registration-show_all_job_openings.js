@@ -31,6 +31,36 @@ var RegistrationShowAllJobOpenings = function() {
 		}
 	}
 
+	function _generate_email(objElement, objEvent){
+		if($(objElement).val() != ''){
+			$.ajax({
+				type: 'post',
+				url: $(objElement).attr('data-email-url'),
+				data: {
+					job_opening_id : $(objElement).val()
+				},
+				dataType: 'json',
+				success: function(data){
+					if(data != null && (typeof data.result) != 'undefined'){
+						var link = 'http://portal.sagaos.com/registration?JT=' + data.result;
+						var emailSubject = 'We would like to invite you for an interview!';
+						var greeting = 'Dear ,';
+						var emailBody1 = 'You have been invited to an interview with SAGA OS!'
+
+						window.location.href = "mailto:?" + "subject=" + emailSubject + "&body=" + greeting + "%0D%0A%0D%0A" + emailBody1;
+						window.close(); 
+					} else {
+						// alert($(objElement).val());
+						alert('there is an error when generating the email.');
+					} 
+				},
+				error: function(request, status, err){
+					alert('something is wrong');
+				}
+			});
+		}
+	}
+
 	function _check_if_deletion_is_selected(objElement, objEvent){
 		if ($(".deleteCheckBox:checked").length <= 0){
 			alert($('#msg-select-registration-delete').attr('data-msg'));
@@ -45,6 +75,10 @@ var RegistrationShowAllJobOpenings = function() {
 		$(function() {
 			$('input#generateLink').on('click', function(objEvent) {
 				RegistrationShowAllJobOpenings.copy_link(this, objEvent);
+			});
+
+			$('input#generateEmail').on('click', function(objEvent) {
+				RegistrationShowAllJobOpenings.generate_email(this, objEvent);
 			});
 
 		  $("#label_filter").on("keyup", function() {
@@ -64,6 +98,7 @@ var RegistrationShowAllJobOpenings = function() {
 	return {
 		init : _init,
 		copy_link : _copy_link,
+		generate_email : _generate_email,
 		check_if_deletion_is_selected : _check_if_deletion_is_selected
 	}
 }();
