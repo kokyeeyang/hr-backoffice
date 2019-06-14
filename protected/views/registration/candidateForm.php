@@ -4,6 +4,7 @@
       <div>
         <img src="/images/alllanguages/sagaos_logo.png">
         <header><?php echo Yii::t('app', 'APPLICATION FOR EMPLOYMENT'); ?></header>
+        <input type="file" name="pic" accept="image/*">
         <fieldset class="fieldset">
           <legend class="legend">
             1.<?php echo Yii::t('app', 'PERSONAL PARTICULARS'); ?>

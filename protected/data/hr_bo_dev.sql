@@ -270,4 +270,5 @@ ALTER TABLE employment_candidate
   ADD `candidate_agree_terms` int(11) NOT NULL  AFTER `candidate_signature`;
 
 ALTER TABLE employment_candidate
-  DROP COLUMN `candidate_signature`;
+  DROP COLUMN `candidate_signature`,
+  ADD COLUMN `candidate_image` varchar(100) NULL AFTER `job_id`;

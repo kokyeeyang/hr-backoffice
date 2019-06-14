@@ -42,15 +42,16 @@ var RegistrationShowAllJobOpenings = function() {
 				dataType: 'json',
 				success: function(data){
 					if(data != null && (typeof data.result) != 'undefined'){
-						var link = 'http://portal.sagaos.com/registration?JT=' + data.result;
+						var link = 'http://portaldev.sagaos.com/registration?JT=' + data.result;
 						var emailSubject = 'We would like to invite you for an interview!';
 						var greeting = 'Dear ,';
 						var emailBody1 = 'You have been invited to an interview with SAGA OS!'
+						var emailBody2 = link + ' to fill up your details';
 
-						window.location.href = "mailto:?" + "subject=" + emailSubject + "&body=" + greeting + "%0D%0A%0D%0A" + emailBody1;
+						window.location.href = "mailto:?" + "subject=" + emailSubject + "&body=" + greeting + "%0D%0A%0D%0A" 
+						+ emailBody1 + "%0D%0A Please go to this link " + emailBody2;
 						window.close(); 
 					} else {
-						// alert($(objElement).val());
 						alert('there is an error when generating the email.');
 					} 
 				},
