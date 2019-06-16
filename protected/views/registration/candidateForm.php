@@ -13,7 +13,9 @@
             <div class="lable_block">
               <div class="lables">
                 <span>
-                  <?php echo Yii::t('app', 'Full Name as per NRIC'); ?> :
+                  <?php echo Yii::t('app', 'Full Name as per NRIC'); ?> 
+                  <span class="required">*</span>
+                  :
                 </span>
               </div>
               <div class="lables2">
@@ -23,7 +25,10 @@
             </div>
             <div class="lable_block">
               <div class="lables">
-                <span><?php echo Yii::t('app', 'Contact No'); ?> :</span>
+                <span><?php echo Yii::t('app', 'Contact No'); ?> 
+                <span class="required">*</span>
+                :
+                </span>
               </div>
               <div class="lables2">
                 <input type="text" name="contactNo" required>
@@ -31,7 +36,11 @@
             </div>
             <div class="lable_block">
               <div class="lables">
-                <span><?php echo Yii::t('app', 'Email Address'); ?> :</span>
+                <span>
+                  <?php echo Yii::t('app', 'Email Address'); ?> 
+                  <span class="required">*</span>
+                  :
+                </span>
               </div>
               <div class="lables2">
                 <input type="email" name="emailAddress" required>
@@ -39,7 +48,11 @@
             </div>
             <div class="lable_block">
               <div class="lables">
-                <span><?php echo Yii::t('app', 'Correspondence Address'); ?> :</span>
+                <span>
+                  <?php echo Yii::t('app', 'Correspondence Address'); ?> 
+                  <span class="required">*</span>
+                  :
+                </span>
               </div>
               <div class="lables2">
                 <input type="text" name="address" required>
@@ -47,7 +60,11 @@
             </div>
             <div class="lable_block">
               <div class="lables">
-                <span><?php echo Yii::t('app', 'Date of birth'); ?> :</span>
+                <span>
+                  <?php echo Yii::t('app', 'Date of birth'); ?> 
+                  <span class="required">*</span>
+                  :
+                </span>
               </div>
               <div class="lables2">
                 <input type="date" name="DOB" required>
@@ -57,7 +74,10 @@
           <div class="grid_block">
             <div class="lable_block">
               <div class="lables">
-                <span><?php echo Yii::t('app', 'Gender'); ?> :</span>
+                <span><?php echo Yii::t('app', 'Gender'); ?> 
+                <span class="required">*</span>
+                :
+                </span>
               </div>
               <div class="lables2">
                 <label for="male"><input type="radio" name="gender" value="male" id="male" required><span>Male</span></label>
@@ -66,7 +86,11 @@
             </div>
             <div class="lable_block">
               <div class="lables">
-                <span><?php echo Yii::t('app', 'NRIC/Passport No'); ?>  :</span>
+                <span>
+                  <?php echo Yii::t('app', 'NRIC/Passport No'); ?>  
+                  <span class="required">*</span>
+                  :
+                </span>
               </div>
               <div class="lables2">
                 <input type="text" name="idNo" required>
@@ -74,7 +98,11 @@
             </div>
             <div class="lable_block">
               <div class="lables">
-                <span><?php echo Yii::t('app', 'Marital Status'); ?> :</span>
+                <span>
+                  <?php echo Yii::t('app', 'Marital Status'); ?> 
+                  <span class="required">*</span>
+                  :
+                </span>
               </div>
               <div class="lables2">
                 <input type="text" name="maritalStatus" required>
@@ -82,7 +110,11 @@
             </div>
             <div class="lable_block">
               <div class="lables">
-                <span><?php echo Yii::t('app', 'Nationality'); ?> :</span>
+                <span>
+                  <?php echo Yii::t('app', 'Nationality'); ?> 
+                  <span class="required">*</span>
+                  :
+                </span>
               </div>
               <div class="lables2">
                 <input type="text" name="nationality" required>
@@ -92,6 +124,7 @@
           <div class="radio-buttons">
             <span>
               <?php echo Yii::t('app', 'How did you find out about us'); ?>?
+              <span class="required">*</span>
             </span>
           </div>
           <div class="radio-buttons">

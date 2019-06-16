@@ -141,6 +141,6 @@ input[id=add]{
   margin-left: 600px;
 }
 
-span[class=required] {
+span .required {
   color: red;
 }

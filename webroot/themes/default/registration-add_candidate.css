@@ -131,3 +131,7 @@ input[id=agreeTerms]{
   width: 30px;
   margin-top: 20px;
 }
+
+span .required {
+  color: red;
+}
