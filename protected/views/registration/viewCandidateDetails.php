@@ -10,7 +10,9 @@
             <div class="lable_block">
               <div class="lables">
                 <span>
-                  <?php echo Yii::t('app', 'Full Name as per NRIC'); ?> :
+                  <?php echo Yii::t('app', 'Full Name as per NRIC'); ?> 
+                  <span id="required">*</span>
+                  : 
                 </span>
               </div>
               <?php foreach($candidateArrRecords as $candidateObjRecord){ ?>
@@ -57,8 +59,8 @@
                 <span><?php echo Yii::t('app', 'Gender'); ?> :</span>
               </div>
               <div class="lables2">
-                <input type="radio" name="gender" value="male" id="male" <?php echo($candidateObjRecord->gender == 'male')?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="male"><span>Male </span></label>          
-                <input type="radio" name="gender" value="female" id="female" <?php echo($candidateObjRecord->gender == 'female')?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="female"><span>Female </span></label>
+                <input type="radio" name="gender" value="male" id="male" <?php echo($candidateObjRecord->gender == 'MALE')?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="male"><span>Male </span></label>          
+                <input type="radio" name="gender" value="female" id="female" <?php echo($candidateObjRecord->gender == 'FEMALE')?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="female"><span>Female </span></label>
               </div>
             </div>
             <div class="lable_block">

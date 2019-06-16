@@ -140,3 +140,7 @@ input[id=add]{
   width: 240px;
   margin-left: 600px;
 }
+
+span[class=required] {
+  color: red;
+}

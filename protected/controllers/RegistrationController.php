@@ -127,10 +127,10 @@ class RegistrationController extends Controller
 		$candidateObjModel->refuse_reference_reason = strtoupper($this->getParam('noReferenceReason', ''));
 		$candidateObjModel->candidate_agree_terms = $this->getParam('agreeTerms','');
 		$candidateObjModel->candidate_signature_date = $this->getParam('signatureDate','');
-		$candidateObjModel->candidate_image = $this->getParam('pic', '');
+		// $candidateObjModel->candidate_image = $this->getParam('pic', '');
 
 		// $candidatePhoto->saveAs('/images/candidate/' . $candidatePhoto->name);
-var_dump(ENV_MODE);exit;
+// var_dump(ENV_MODE);exit;
 		$candidateObjModel->save();
 		// 
 
