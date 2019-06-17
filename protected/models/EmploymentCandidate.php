@@ -50,12 +50,22 @@ class EmploymentCandidate extends AppActiveRecord
 			$candidateCondition = 'id_no = "' . $candidateId . '"';
 			$otherCondition = 'candidate_id = "' . $candidateId . '"';
 
+			$fileName = EmploymentCandidate::model()->showPhoto($candidateId);
+// var_dump($fileName);exit;
 			EmploymentCandidate::model()->deleteAll($candidateCondition);
 			EmploymentEducation::model()->deleteAll($otherCondition);
 			EmploymentGeneralQuestion::model()->deleteAll($otherCondition);
 			EmploymentJobExperience::model()->deleteAll($otherCondition);
 			EmploymentReferee::model()->deleteAll($otherCondition);
 
+			//if production mode, then delete image from s3, if dev then delete from server
+			if($fileName != false){
+				if(ENV_MODE == "prod"){	
+					$deleteImage = S3Helper::deleteObject(S3_PRODUCTION_FOLDER.'/'.$fileName['candidate_image']);
+				} else {
+					$deleteImage = unlink(getcwd() . "/images/candidate/" . $fileName['candidate_image']);
+				}
+			}
 		}
 	}
 
@@ -78,10 +88,10 @@ class EmploymentCandidate extends AppActiveRecord
 	        //verify that the file type is allowed
 	        if(in_array($fileType, $allowed)){
 	        	//check whether file exists before uploading
-	        	if(file_exists("candidate/" . $filename)){
+	        	if(file_exists("candidate/" . $fileName)){
 	        		echo $fileName . " already exists.";
 	        	} else {
-	        		move_uploaded_file($_FILES["pic"]["tmp_name"], getcwd() . "/images/candidate/" . $filename);
+	        		move_uploaded_file($_FILES["pic"]["tmp_name"], getcwd() . "/images/candidate/" . $fileName);
 	        	}
 	        } else {
 	        	echo "Error: There was a problem uploading your file. Please try again."; 
@@ -90,9 +100,8 @@ class EmploymentCandidate extends AppActiveRecord
 	        echo "Error: " . $_FILES["pic"]["error"];
 		    }
 		  } else {
-		  	$fileSize = S3Helper::formatSizeUnits($_FILES['image_uploads']['size']);
 		  	$fileTmpName = $_FILES["pic"]["tmp_name"];
-		  	$result = S3Helper::putObject(S3_PRODUCTION_FOLDER.'/'.$file_name, $fileTmpName);
+		  	$result = S3Helper::putObject(S3_PRODUCTION_FOLDER.'/'.$fileName, $fileTmpName);
 		  	$fileObjectUrl = $result->get('ObjectURL');
 		  }
 		}
@@ -107,7 +116,6 @@ class EmploymentCandidate extends AppActiveRecord
 			$objConnection 	= Yii::app()->db;
 			$objCommand		= $objConnection->createCommand($sql);
 			$arrData		= $objCommand->queryRow(); 
-
 			if (!empty($arrData['candidate_image'])){
 				return $arrData;
 			} else {

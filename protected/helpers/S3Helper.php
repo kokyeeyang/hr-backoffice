@@ -100,7 +100,8 @@ class S3Helper
 		try 
 		{
 			$contentType = 'application/octet-stream';
-			$extension = strtolower(end(explode('.', $file_name)));
+			$arrFileName = explode('.', $file_name);
+			$extension = strtolower(end($arrFileName));
 			if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') 
 				$contentType = "image/".$extension;
 			else if ($extension == 'pdf')
