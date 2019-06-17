@@ -3,7 +3,7 @@
     <form method="post" action="<?php echo $this->createUrl('registration/updateSelectedCandidate', array('candidateId' => $candidateId)) ?>" id="candidateForm" name="candidateForm">
       <div>
         <fieldset class="fieldset">
-          <div id="candidateImage">
+          <div id="candidateImage" style="display:<?php echo $displayPhotoSection ?>;">
             <img src="/images/candidate/<?php echo $photoSource['candidate_image']; ?>">
           </div>
           <legend class="legend">

@@ -59,6 +59,45 @@ class EmploymentCandidate extends AppActiveRecord
 		}
 	}
 
+	public function movePhotoToFileSystem(){
+		if($_SERVER["REQUEST_METHOD"] == "POST"){
+			$allowed = array("JPG" => "image/jpg", "JPEG" => "image/jpeg", "GIF" => "image/gif", "PNG" => "image/png", "JPG" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
+			$fileName = $_FILES["pic"]["name"];
+      $fileType = $_FILES["pic"]["type"];
+
+			if(ENV_MODE == "dev"){
+				if(isset($_FILES['pic']) && $_FILES["pic"]["error"] == 0){
+	        $fileSize = $_FILES["pic"]["size"];
+
+	        //verify file extension
+	        $ext = pathinfo($fileName, PATHINFO_EXTENSION);
+	        if(!array_key_exists($ext, $allowed)){ 
+	        	die("Error: Please select a valid file format.");
+	        }
+
+	        //verify that the file type is allowed
+	        if(in_array($fileType, $allowed)){
+	        	//check whether file exists before uploading
+	        	if(file_exists("candidate/" . $filename)){
+	        		echo $fileName . " already exists.";
+	        	} else {
+	        		move_uploaded_file($_FILES["pic"]["tmp_name"], getcwd() . "/images/candidate/" . $filename);
+	        	}
+	        } else {
+	        	echo "Error: There was a problem uploading your file. Please try again."; 
+	        }
+				} else{
+	        echo "Error: " . $_FILES["pic"]["error"];
+		    }
+		  } else {
+		  	$fileSize = S3Helper::formatSizeUnits($_FILES['image_uploads']['size']);
+		  	$fileTmpName = $_FILES["pic"]["tmp_name"];
+		  	$result = S3Helper::putObject(S3_PRODUCTION_FOLDER.'/'.$file_name, $fileTmpName);
+		  	$fileObjectUrl = $result->get('ObjectURL');
+		  }
+		}
+	}
+
 	public function showPhoto($candidateId){
 		if(ENV_MODE == "dev"){
 			$sql = 'SELECT ' . 'candidate_image ';
