@@ -144,3 +144,7 @@ input[id=add]{
 span .required {
   color: red;
 }
+
+div #candidateImage {
+  padding-left: 20px; 
+}

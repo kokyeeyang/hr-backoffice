@@ -127,14 +127,39 @@ class RegistrationController extends Controller
 		$candidateObjModel->refuse_reference_reason = strtoupper($this->getParam('noReferenceReason', ''));
 		$candidateObjModel->candidate_agree_terms = $this->getParam('agreeTerms','');
 		$candidateObjModel->candidate_signature_date = $this->getParam('signatureDate','');
-		// $candidateObjModel->candidate_image = $this->getParam('pic', '');
+		$candidateObjModel->candidate_image = $_FILES["pic"]["name"];
 
-		// $candidatePhoto->saveAs('/images/candidate/' . $candidatePhoto->name);
-// var_dump(ENV_MODE);exit;
+		if($_SERVER["REQUEST_METHOD"] == "POST"){
+			if(isset($_FILES['pic']) && $_FILES["pic"]["error"] == 0){
+				$allowed = array("JPG" => "image/jpg", "JPEG" => "image/jpeg", "GIF" => "image/gif", "PNG" => "image/png", "JPG" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
+				$filename = $_FILES["pic"]["name"];
+        $filetype = $_FILES["pic"]["type"];
+        $filesize = $_FILES["pic"]["size"];
+
+        //verify file extension
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        if(!array_key_exists($ext, $allowed)){ 
+        	die("Error: Please select a valid file format.");
+        }
+
+        //verify that the file type is allowed
+        if(in_array($filetype, $allowed)){
+        	//check whether file exists before uploading
+        	if(file_exists("candidate/" . $filename)){
+        		echo $filename . " already exists.";
+        	} else {
+        		move_uploaded_file($_FILES["pic"]["tmp_name"], getcwd() . "/images/candidate/" . $filename);
+        	}
+        } else {
+        	echo "Error: There was a problem uploading your file. Please try again."; 
+        }
+			} else{
+        echo "Error: " . $_FILES["pic"]["error"];
+	    }
+		}
 		$candidateObjModel->save();
 		// 
 
-		// this is for saving candidate education into employment_education table
 		$schoolNames = $this->getParam('schoolName', '');
 		$startYears = $this->getParam('startYear', '');
 		$endYears = $this->getParam('endYear', '');
@@ -227,6 +252,8 @@ class RegistrationController extends Controller
 		$generalQuestionObjModel->good_conduct_consent = $this->getParam('goodConductConsent','');
 		$generalQuestionObjModel->expected_salary = $this->getParam('expectedSalary','');
 
+var_dump($_POST);
+exit;
 		$generalQuestionObjModel->save();
 		//
 
@@ -324,12 +351,13 @@ class RegistrationController extends Controller
 		$generalQuestionArrRecords = EmploymentGeneralQuestion::model()->findAll($otherCondition);
 		$jobExperienceArrRecords = EmploymentJobExperience::model()->findAll($otherCondition);
 		$refereeArrRecords = EmploymentReferee::model()->findAll($otherCondition);	
-
+		$photoSource = EmploymentCandidate::model()->showPhoto($candidateId);
+// var_dump($photoSource);exit;
 		$currentAdminId = Yii::app()->user->id;
 		//this is to allow editing only for hr and admin
 		$access = Admin::model()->checkForAdminPrivilege($currentAdminId, 'registration');
 
-		$this->render('viewCandidateDetails', array('candidateArrRecords'=>$candidateArrRecords, 'educationArrRecords'=>$educationArrRecords, 'generalQuestionArrRecords'=>$generalQuestionArrRecords, 'jobExperienceArrRecords'=>$jobExperienceArrRecords, 'refereeArrRecords'=>$refereeArrRecords, 'candidateId' => $candidateId, 'access' => $access));
+		$this->render('viewCandidateDetails', array('candidateArrRecords'=>$candidateArrRecords, 'educationArrRecords'=>$educationArrRecords, 'generalQuestionArrRecords'=>$generalQuestionArrRecords, 'jobExperienceArrRecords'=>$jobExperienceArrRecords, 'refereeArrRecords'=>$refereeArrRecords, 'candidateId' => $candidateId, 'access' => $access, 'photoSource'=>$photoSource));
 		
 	}
 

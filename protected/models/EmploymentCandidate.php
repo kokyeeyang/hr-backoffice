@@ -59,6 +59,24 @@ class EmploymentCandidate extends AppActiveRecord
 		}
 	}
 
+	public function showPhoto($candidateId){
+		if(ENV_MODE == "dev"){
+			$sql = 'SELECT ' . 'candidate_image ';
+			$sql .= 'FROM ' . 'employment_candidate ';
+			$sql .= 'WHERE ' . 'id_no = "' . $candidateId . '"';
+
+			$objConnection 	= Yii::app()->db;
+			$objCommand		= $objConnection->createCommand($sql);
+			$arrData		= $objCommand->queryRow(); 
+
+			if (!empty($arrData['candidate_image'])){
+				return $arrData;
+			} else {
+				return false;
+			}
+		}
+	}
+
 	public static function model($className=__CLASS__){
 		return parent::model($className);
 	}

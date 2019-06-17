@@ -1,10 +1,11 @@
 <div id="tabs" class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all" style="width:100%;">
   <div id="tabs-1" aria-labelledby="ui-id-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-expanded="true" aria-hidden="false">
-    <form method="post" action="<?php echo $this->createUrl('registration/saveCandidate') ?>" id="candidateForm" name="candidateForm">
+    <form method="post" action="<?php echo $this->createUrl('registration/saveCandidate') ?>" id="candidateForm" name="candidateForm" enctype="multipart/form-data">
       <div>
         <img src="/images/alllanguages/sagaos_logo.png">
         <header><?php echo Yii::t('app', 'APPLICATION FOR EMPLOYMENT'); ?></header>
-        <input type="file" name="pic" accept="image/*">
+        <label for="pic">Please upload your photo (passport size)</label>
+        <input type="file" name="pic" id="pic" accept="image/*">
         <fieldset class="fieldset">
           <legend class="legend">
             1.<?php echo Yii::t('app', 'PERSONAL PARTICULARS'); ?>

@@ -3,6 +3,9 @@
     <form method="post" action="<?php echo $this->createUrl('registration/updateSelectedCandidate', array('candidateId' => $candidateId)) ?>" id="candidateForm" name="candidateForm">
       <div>
         <fieldset class="fieldset">
+          <div id="candidateImage">
+            <img src="/images/candidate/<?php echo $photoSource['candidate_image']; ?>">
+          </div>
           <legend class="legend">
             1.<?php echo Yii::t('app', 'PERSONAL PARTICULARS'); ?>
           </legend>
