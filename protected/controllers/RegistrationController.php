@@ -228,7 +228,7 @@ class RegistrationController extends Controller
 		$generalQuestionObjModel->commencement_date = $this->getParam('commencementDate','');
 		$generalQuestionObjModel->good_conduct_consent = $this->getParam('goodConductConsent','');
 		$generalQuestionObjModel->expected_salary = $this->getParam('expectedSalary','');
-
+// var_dump($generalQuestionObjModel);exit;
 		$generalQuestionObjModel->save();
 		//
 
@@ -318,7 +318,7 @@ class RegistrationController extends Controller
 	}
 
 	public function actionViewSelectedCandidate($id){
-		$candidateId = (int)$id;
+		$candidateId = $id;
 		$candidateCondition = 'id_no = "' . $candidateId . '"';
 		$otherCondition = 'candidate_id = "' . $candidateId . '"';
 

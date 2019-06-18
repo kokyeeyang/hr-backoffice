@@ -62,11 +62,12 @@ class EmploymentCandidate extends AppActiveRecord
 			EmploymentReferee::model()->deleteAll($otherCondition);
 
 			//if production mode, then delete image from s3, if dev then delete from server
+			$specificFileName = substr($fileName, 69);
 			if($fileName != false){
-				if(ENV_MODE == "prod"){	
-					$deleteImage = S3Helper::deleteObject(S3_PRODUCTION_FOLDER.'/'.$fileName['candidate_image']);
+				if(ENV_MODE == "dev"){	
+					$deleteImage = S3Helper::deleteObject($specificFileName);
 				} else {
-					$deleteImage = unlink(getcwd() . EmploymentCandidate::SERVER_DIRECTORY . $fileName['candidate_image']);
+					$deleteImage = unlink(getcwd() . $fileName);
 				}
 			}
 		}
@@ -77,7 +78,7 @@ class EmploymentCandidate extends AppActiveRecord
 			$allowed = array("JPG" => "image/jpg", "JPEG" => "image/jpeg", "GIF" => "image/gif", "PNG" => "image/png", "JPG" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
       $fileType = $_FILES["pic"]["type"];
 
-			if(ENV_MODE == "dev"){
+			if(ENV_MODE == "prod"){
 				if(isset($_FILES['pic']) && $_FILES["pic"]["error"] == 0){
 	        $fileSize = $_FILES["pic"]["size"];
 
@@ -119,7 +120,7 @@ class EmploymentCandidate extends AppActiveRecord
 		$arrData		= $objCommand->queryRow(); 
 
 			if (!empty($arrData['candidate_image'])){
-				if(ENV_MODE == "dev"){
+				if(ENV_MODE == "prod"){
 					$photoSource = EmploymentCandidate::SERVER_DIRECTORY . $arrData['candidate_image'];
 					return $photoSource;
 				} else {
