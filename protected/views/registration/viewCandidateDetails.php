@@ -4,7 +4,7 @@
       <div>
         <fieldset class="fieldset">
           <div id="candidateImage" style="display:<?php echo $displayPhotoSection ?>;">
-            <img src="/images/candidate/<?php echo $photoSource['candidate_image']; ?>">
+            <img src="<?php echo $photoSource; ?>">
           </div>
           <legend class="legend">
             1.<?php echo Yii::t('app', 'PERSONAL PARTICULARS'); ?>

@@ -8,6 +8,10 @@ class EmploymentCandidate extends AppActiveRecord
 {
 	static $tableName = DB_TBL_PREFIX . 'employment_candidate';
 
+	const S3_ADDRESS = "https://hrbo-prd.s3-ap-southeast-1.amazonaws.com/hrbo-prd/production/";
+
+	const SERVER_DIRECTORY = "/images/candidate/";
+
 	public function tableName(){
 		return self::$tableName;
 	}
@@ -51,7 +55,6 @@ class EmploymentCandidate extends AppActiveRecord
 			$otherCondition = 'candidate_id = "' . $candidateId . '"';
 
 			$fileName = EmploymentCandidate::model()->showPhoto($candidateId);
-// var_dump($fileName);exit;
 			EmploymentCandidate::model()->deleteAll($candidateCondition);
 			EmploymentEducation::model()->deleteAll($otherCondition);
 			EmploymentGeneralQuestion::model()->deleteAll($otherCondition);
@@ -60,10 +63,10 @@ class EmploymentCandidate extends AppActiveRecord
 
 			//if production mode, then delete image from s3, if dev then delete from server
 			if($fileName != false){
-				if(ENV_MODE == "prod"){	
+				if(ENV_MODE == "dev"){	
 					$deleteImage = S3Helper::deleteObject(S3_PRODUCTION_FOLDER.'/'.$fileName['candidate_image']);
 				} else {
-					$deleteImage = unlink(getcwd() . "/images/candidate/" . $fileName['candidate_image']);
+					$deleteImage = unlink(getcwd() . EmploymentCandidate::SERVER_DIRECTORY . $fileName['candidate_image']);
 				}
 			}
 		}
@@ -75,7 +78,7 @@ class EmploymentCandidate extends AppActiveRecord
 			$fileName = $_FILES["pic"]["name"];
       $fileType = $_FILES["pic"]["type"];
 
-			if(ENV_MODE == "dev"){
+			if(ENV_MODE == "prod"){
 				if(isset($_FILES['pic']) && $_FILES["pic"]["error"] == 0){
 	        $fileSize = $_FILES["pic"]["size"];
 
@@ -108,20 +111,32 @@ class EmploymentCandidate extends AppActiveRecord
 	}
 
 	public function showPhoto($candidateId){
-		if(ENV_MODE == "dev"){
-			$sql = 'SELECT ' . 'candidate_image ';
-			$sql .= 'FROM ' . 'employment_candidate ';
-			$sql .= 'WHERE ' . 'id_no = "' . $candidateId . '"';
+		$sql = 'SELECT ' . 'candidate_image ';
+		$sql .= 'FROM ' . 'employment_candidate ';
+		$sql .= 'WHERE ' . 'id_no = "' . $candidateId . '"';
 
-			$objConnection 	= Yii::app()->db;
-			$objCommand		= $objConnection->createCommand($sql);
-			$arrData		= $objCommand->queryRow(); 
+		$objConnection 	= Yii::app()->db;
+		$objCommand		= $objConnection->createCommand($sql);
+		$arrData		= $objCommand->queryRow(); 
+
 			if (!empty($arrData['candidate_image'])){
-				return $arrData;
+				if(ENV_MODE == "prod"){
+					$photoSource = EmploymentCandidate::SERVER_DIRECTORY . $arrData['candidate_image'];
+					return $photoSource;
+				} else {
+					$photoSource = EmploymentCandidate::S3_ADDRESS . $arrData['candidate_image'];
+					return $photoSource;
+				}	
 			} else {
 				return false;
 			}
-		}
+	}
+
+	public function encryptCandidateId($candidateId){
+		$encryptedCandidateId = str_replace('9', $candidateId, JOB_CANDIDATE_ID_SECRET_KEY);
+		$base64EncodedCandidateId = base64_encode($encryptedCandidateId);
+
+		return $base64EncodedCandidateId;
 	}
 
 	public static function model($className=__CLASS__){

@@ -127,7 +127,8 @@ class RegistrationController extends Controller
 		$candidateObjModel->refuse_reference_reason = strtoupper($this->getParam('noReferenceReason', ''));
 		$candidateObjModel->candidate_agree_terms = $this->getParam('agreeTerms','');
 		$candidateObjModel->candidate_signature_date = $this->getParam('signatureDate','');
-		$candidateObjModel->candidate_image = $_FILES["pic"]["name"];
+		// $candidateObjModel->candidate_image = $_FILES["pic"]["name"];
+		$candidateObjModel->candidate_image = "CANDIDATE_" . EmploymentCandidate::model()->encryptCandidateId($candidateObjModel->id) . "_" . date("Y-m-d");
 
 		$movePhoto = EmploymentCandidate::model()->movePhotoToFileSystem();
 		$candidateObjModel->save();
