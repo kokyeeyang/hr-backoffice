@@ -277,7 +277,6 @@ class RegistrationController extends Controller
 			$encryptedJobTitleId = str_replace('9', $jobId, JOB_TITLE_ID_SECRET_KEY);
 			$base64EncodedJobTitleId = base64_encode($encryptedJobTitleId);
 			$aResult['jobIdResult'] = $base64EncodedJobTitleId;
-			$aResult['jobtTitleResult'] = $base64EncodedJobTitleId;
 
 			echo(json_encode($aResult));
 		}
@@ -292,7 +291,7 @@ class RegistrationController extends Controller
 			$encryptedJobTitleId = str_replace('9', $jobId, JOB_TITLE_ID_SECRET_KEY);
 			$base64EncodedJobTitleId = base64_encode($encryptedJobTitleId);
 			$aResult['result'] = $base64EncodedJobTitleId;
-			$aResult['']
+			$aResult['jobTitleResult'] = $jobTitle;
 
 			echo(json_encode($aResult));
 		}

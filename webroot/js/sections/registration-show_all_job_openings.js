@@ -37,14 +37,15 @@ var RegistrationShowAllJobOpenings = function() {
 				type: 'post',
 				url: $(objElement).attr('data-email-url'),
 				data: {
-					job_opening_id : $(objElement).val();
-					job_title : $(objEvent).val();
+					job_opening_id : $(objElement).val(),
+					job_title : $(objElement).val()
 				},
+				
 				dataType: 'json',
 				success: function(data){
 					if(data != null && (typeof data.result) != 'undefined'){
-						var link = 'http://portaldev.sagaos.com/registration?JT=' + data.jobIdResult;
-						var emailSubject = 'Invitation for interview for the position of ' + data.jobTitleResult + 'at Saga OS';
+						var link = 'http://portaldev.sagaos.com/registration?JT=' + data.result;
+						var emailSubject = 'Interview invitation for the position of ' + data.jobTitleResult + ' at Saga OS';
 						var greeting = 'Hi ,';
 						var emailBody1 = 'Thank you for showing interest in the abovementioned position.'
 						var emailBody2 = link + ' to fill up your details';
