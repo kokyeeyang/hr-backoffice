@@ -276,14 +276,15 @@ class RegistrationController extends Controller
 		if(Yii::app()->request->isAjaxRequest){
 			$encryptedJobTitleId = str_replace('9', $jobId, JOB_TITLE_ID_SECRET_KEY);
 			$base64EncodedJobTitleId = base64_encode($encryptedJobTitleId);
-			$aResult['result'] = $base64EncodedJobTitleId;
+			$aResult['jobIdResult'] = $base64EncodedJobTitleId;
+			$aResult['jobtTitleResult'] = $base64EncodedJobTitleId;
 
 			echo(json_encode($aResult));
 		}
 			Yii::app()->end();
 	}
 
-	public function actionGenerateEmail($jobId){
+	public function actionGenerateEmail($jobId, $jobTitle){
 		$aResult['result'] = false;
 		$jobId = (int)$jobId;
 		$arrRecords = EmploymentJobOpening::model()->findAll(array('order'=>'id ASC'));
@@ -291,6 +292,7 @@ class RegistrationController extends Controller
 			$encryptedJobTitleId = str_replace('9', $jobId, JOB_TITLE_ID_SECRET_KEY);
 			$base64EncodedJobTitleId = base64_encode($encryptedJobTitleId);
 			$aResult['result'] = $base64EncodedJobTitleId;
+			$aResult['']
 
 			echo(json_encode($aResult));
 		}
