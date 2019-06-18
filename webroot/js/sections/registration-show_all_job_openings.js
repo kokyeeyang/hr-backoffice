@@ -44,15 +44,14 @@ var RegistrationShowAllJobOpenings = function() {
 				dataType: 'json',
 				success: function(data){
 					if(data != null && (typeof data.result) != 'undefined'){
-						var link = 'http://portaldev.sagaos.com/registration?JT=' + data.result;
-						var emailSubject = 'Interview invitation for the position of ' + data.jobTitleResult + ' at Saga OS';
+						var link = $('#site_url').attr('rel') + 'registration?JT=' + data.result;
+						var emailSubject = 'Interview Invitation for the position of ' + data.jobTitleResult + ' at Saga OS';
 						var greeting = 'Hi ,';
 						var emailBody1 = 'Thank you for showing interest in the abovementioned position.'
-						var emailBody2 = link + ' to fill up your details';
 
 						window.location.href = "mailto:?" + "subject=" + emailSubject + "&body=" + greeting + "%0D%0A%0D%0A" 
-						+ emailBody1 + "%0D%0A Please fill in the application form in the link below before attending the interview at Saga OS" 
-						+ "%0D%0A%0D%0A" + emailBody2;
+						+ emailBody1 + "%0D%0A Please fill in the application form in the link below before attending the interview at Saga OS." 
+						+ "%0D%0A%0D%0A" + link + "%0D%0A";
 						window.close(); 
 					} else {
 						alert('there is an error when generating the email.');

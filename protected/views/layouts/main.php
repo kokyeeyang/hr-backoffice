@@ -34,6 +34,7 @@
 			<?php echo Yii::app()->user->getFlash('flash_alert'); ?>
 		</div>		
 		<div id="common-msg" style="display:none">
+			<div id="site_url" rel="<?php echo Yii::app()->getBaseUrl(true) . '/'; ?>"></div>
 			<div id="dialog-buttons-label" rel="<?php echo Yii::t('app', 'Confirm') . '|' . Yii::t('app', 'Cancel'); ?>"><!-- Dialog Buttons Label --></div>
 			<div id="dialog-error" title="<?php echo Yii::t('app', 'Notice'); ?>"><?php echo Yii::t('app', 'Operation failed, please try again later.'); ?></div>
 			<div id="dialog-confirm" title="<?php echo Yii::t('app', 'Notice'); ?>"><?php echo Yii::t('app', 'Confirm to proceed with this operation?'); ?></div>
@@ -44,7 +45,7 @@
 			<div class="msg_loading"><?php echo Yii::t('app', 'Loading...'); ?></div>
 			<div class="msg_coming_soon" rel="<?php echo Yii::t('app', 'Coming Soon'); ?>"></div>
 			<div class="msg_report_range_day" rel="<?php echo Yii::t('app', 'Date range should not exceed [#day#] day(s).'); ?>"></div>
-			<div class="msg_void" rel="<?php echo Yii::t('app', 'Void'); ?>"></div>
+			<div class="msg_void" rel="<?php echo Yii::t('app', 'Void'); ?>"></div>			
 		</div>	
 	</body>
 </html>
