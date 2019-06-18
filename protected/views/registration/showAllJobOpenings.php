@@ -71,16 +71,6 @@
 						<div class="sort_wrapper_inner">
 							<div class="sort_label_wrapper">
 								<div class="sort_label">
-									<?php echo Yii::t('app', 'Generate link to send to candidate'); ?>
-									<input type="text" id="copiedText" value="" style="display:none">
-								</div>
-							</div>
-						</div>
-					</th>
-					<th>
-						<div class="sort_wrapper_inner">
-							<div class="sort_label_wrapper">
-								<div class="sort_label">
 									<?php echo Yii::t('app', 'Email'); ?>
 									<input type="text" id="copiedText" value="" style="display:none">
 								</div>
@@ -117,9 +107,6 @@
 						  	</td>
 						  	<td>
 						  		<?php echo $objRecord->created_date ?>
-						  	</td>
-						  	<td id="generateLinkColumn" style="padding-left: 90px;">
-						  		<input type="button" id="generateLink" data-url="<?php echo $this->createUrl('registration/generateLink', array('jobId' => $objRecord->id)); ?>" value="<?php echo Yii::t('app', 'Generate link'); ?>">
 						  	</td>
 						  	<td>
 								  <input type="button" id="generateEmail" data-email-url="<?php echo $this->createUrl('registration/generateEmail', array('jobId' => $objRecord->id)); ?>" value="<?php echo Yii::t('app', 'Generate email'); ?>">
