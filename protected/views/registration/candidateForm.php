@@ -221,7 +221,8 @@
           <div class="general_grid_block">
             <div class="general_lable_block">
               <div class="general_lables">
-                a) <?php echo Yii::t('app', 'Are you suffering from any physical disabilities or have ever been seriously ill'); ?>?
+                a) <?php echo Yii::t('app', 'Are you suffering from any physical disabilities or have ever been seriously ill'); ?>? 
+                <span class="required" style="color:red;">*</span>
               </div>
               <div class="general_lables2">
                 <label for="illnessYes"><input type="radio" name="illness" value="1" id="illnessYes" required> Yes</label>
@@ -232,7 +233,9 @@
           <div class="general_grid_block">
             <div class="general_lable_block">
               <div class="general_lables">
-                b) <?php echo Yii::t('app', 'Have you ever been convicted for a criminal offence, declared bankrupt, revoked of professional practicing license/certificate and/or charged in court?'); ?>? <br>
+                b) <?php echo Yii::t('app', 'Have you ever been convicted for a criminal offence, declared bankrupt, revoked of professional practicing license/certificate and/or charged in court'); ?>?
+                <span class="required" style="color:red;">*</span> 
+                <br>
                 <?php echo Yii::t('app', 'If yes, please state offence and date of conviction and discharge'); ?>
                <input type="text" name="criminalOffenseInput" style="display: none;" id="criminalOffenseInput" class="crimeBox" placeholder="Offence">
                <input type="date" name="convictedDate" style="display: none;" id="convictedDate" class="crimeBox" title="Convicted date">
@@ -247,7 +250,9 @@
           <div class="general_grid_block">
             <div class="general_lable_block">
               <div class="general_lables">
-                c) <?php echo Yii::t('app', 'Do you have any relatives or friends working in SagaOS or its subsidiaries? If so, please state name and relationship'); ?>? <br>
+                c) <?php echo Yii::t('app', 'Do you have any relatives or friends working in SagaOS or its subsidiaries? If so, please state name and relationship'); ?>? 
+                <span class="required" style="color:red;">*</span>
+                 <br>
                  <input type="text" name="sagaosContactNameInput" style="display: none; margin-bottom:5px; margin-top:5px;" id="sagaosContactName" placeholder="Contact name">
                  <input type="text" name="sagaosFamilyInput" style="display: none;" id="sagaosFamilyInput" placeholder="Relationship with him/her"><br>
               </div>
@@ -261,6 +266,7 @@
             <div class="general_lable_block">
               <div class="general_lables">
                 d) <?php echo Yii::t('app', 'Any relatives involved directly or indirectly in similar company’s business'); ?>?
+                <span class="required" style="color:red;">*</span>
               </div>
               <div class="general_lables2">
                 <label for="conflictYes"><input type="radio" name="interestConflict" value="1" id="conflictYes" required> Yes</label>
@@ -272,6 +278,7 @@
             <div class="general_lable_block">
               <div class="general_lables">
                 e) <?php echo Yii::t('app', 'Do you possess a car or motorcycle'); ?>?
+                <span class="required" style="color:red;">*</span>
               </div>
               <div class="general_lables2">
                 <label for="transportYes"><input type="radio" name="ownTransport" value="1" id="transportYes" required> Yes</label>
@@ -282,7 +289,8 @@
           <div class="short_general_grid_block">
             <div class="general_lable_block">
               <div class="general_lables">
-                g) <?php echo Yii::t('app', 'Have you ever applied to/worked at SagaOS before'); ?>?
+                f) <?php echo Yii::t('app', 'Have you ever applied to/worked at SagaOS before'); ?>?
+                <span class="required" style="color:red;">*</span>
               </div>
               <div class="general_lables2" style="margin-bottom: 2px">
                 <label for="appliedYes"><input type="radio" name="timesApplied" value="1" id="appliedYes" required> Yes</label>
@@ -293,7 +301,8 @@
           <div class="short_general_grid_block">
             <div class="general_lable_block">
               <div class="general_lables">
-                h) <?php echo Yii::t('app', 'If you were offered employment, when can you commence work'); ?>?
+                g) <?php echo Yii::t('app', 'If you were offered employment, when can you commence work'); ?>?
+                <span class="required" style="color:red;">*</span>
               </div>
               <div class="general_lables2">
                 <input type="date" name="commencementDate"  required>
@@ -303,7 +312,8 @@
           <div class="short_general_grid_block">
             <div class="general_lable_block">
               <div class="general_lables">
-                i) <?php echo Yii::t('app', 'If hired, are you willing to submit to a good conduct certificate'); ?>?
+                h) <?php echo Yii::t('app', 'If hired, are you willing to submit to a good conduct certificate'); ?>?
+                <span class="required" style="color:red;">*</span>
               </div>
               <div class="general_lables2">
                 <label for="conductYes"><input type="radio" name="goodConductConsent" value="1" id="conductYes" required> Yes</label>
@@ -314,7 +324,8 @@
           <div class="short_general_grid_block">
             <div class="general_lable_block">
               <div class="general_lables">
-                j) <?php echo Yii::t('app', 'Expected Salary'); ?>
+                i) <?php echo Yii::t('app', 'Expected Salary'); ?>
+                <span class="required" style="color:red;">*</span>
               </div>
               <div class="general_lables2">
                 <input type="text" name="expectedSalary" required>
@@ -336,6 +347,7 @@
               </div>
               <div class="general_lables2" style="margin-top: 12px; width: 300px;">
                 <label for="agreeTerms"><?php echo Yii::t('app', 'I have read and agree to the above terms.') ?></label>
+                <span class="required" style="color:red;">*</span>
               </div>
             </span>
           </div>

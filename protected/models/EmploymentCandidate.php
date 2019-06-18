@@ -63,7 +63,7 @@ class EmploymentCandidate extends AppActiveRecord
 
 			//if production mode, then delete image from s3, if dev then delete from server
 			if($fileName != false){
-				if(ENV_MODE == "dev"){	
+				if(ENV_MODE == "prod"){	
 					$deleteImage = S3Helper::deleteObject(S3_PRODUCTION_FOLDER.'/'.$fileName['candidate_image']);
 				} else {
 					$deleteImage = unlink(getcwd() . EmploymentCandidate::SERVER_DIRECTORY . $fileName['candidate_image']);
@@ -72,18 +72,17 @@ class EmploymentCandidate extends AppActiveRecord
 		}
 	}
 
-	public function movePhotoToFileSystem(){
+	public function movePhotoToFileSystemOrS3($candidateImageName){
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
 			$allowed = array("JPG" => "image/jpg", "JPEG" => "image/jpeg", "GIF" => "image/gif", "PNG" => "image/png", "JPG" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
-			$fileName = $_FILES["pic"]["name"];
       $fileType = $_FILES["pic"]["type"];
 
-			if(ENV_MODE == "prod"){
+			if(ENV_MODE == "dev"){
 				if(isset($_FILES['pic']) && $_FILES["pic"]["error"] == 0){
 	        $fileSize = $_FILES["pic"]["size"];
 
 	        //verify file extension
-	        $ext = pathinfo($fileName, PATHINFO_EXTENSION);
+	        $ext = pathinfo($candidateImageName, PATHINFO_EXTENSION);
 	        if(!array_key_exists($ext, $allowed)){ 
 	        	die("Error: Please select a valid file format.");
 	        }
@@ -91,10 +90,10 @@ class EmploymentCandidate extends AppActiveRecord
 	        //verify that the file type is allowed
 	        if(in_array($fileType, $allowed)){
 	        	//check whether file exists before uploading
-	        	if(file_exists("candidate/" . $fileName)){
-	        		echo $fileName . " already exists.";
+	        	if(file_exists("candidate/" . $candidateImageName)){
+	        		echo $candidateImageName . " already exists.";
 	        	} else {
-	        		move_uploaded_file($_FILES["pic"]["tmp_name"], getcwd() . "/images/candidate/" . $fileName);
+	        		move_uploaded_file($_FILES["pic"]["tmp_name"], getcwd() . "/images/candidate/" . $candidateImageName);
 	        	}
 	        } else {
 	        	echo "Error: There was a problem uploading your file. Please try again."; 
@@ -104,7 +103,7 @@ class EmploymentCandidate extends AppActiveRecord
 		    }
 		  } else {
 		  	$fileTmpName = $_FILES["pic"]["tmp_name"];
-		  	$result = S3Helper::putObject(S3_PRODUCTION_FOLDER.'/'.$fileName, $fileTmpName);
+		  	$result = S3Helper::putObject(S3_PRODUCTION_FOLDER.'/'.$candidateImageName, $fileTmpName);
 		  	$fileObjectUrl = $result->get('ObjectURL');
 		  }
 		}
@@ -120,7 +119,7 @@ class EmploymentCandidate extends AppActiveRecord
 		$arrData		= $objCommand->queryRow(); 
 
 			if (!empty($arrData['candidate_image'])){
-				if(ENV_MODE == "prod"){
+				if(ENV_MODE == "dev"){
 					$photoSource = EmploymentCandidate::SERVER_DIRECTORY . $arrData['candidate_image'];
 					return $photoSource;
 				} else {

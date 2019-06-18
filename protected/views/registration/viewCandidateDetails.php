@@ -4,7 +4,7 @@
       <div>
         <fieldset class="fieldset">
           <div id="candidateImage" style="display:<?php echo $displayPhotoSection ?>;">
-            <img src="<?php echo $photoSource; ?>">
+            <img src="<?php echo $photoSource; ?>" style="width:100px; height: 130px;">
           </div>
           <legend class="legend">
             1.<?php echo Yii::t('app', 'PERSONAL PARTICULARS'); ?>
@@ -489,6 +489,7 @@
             <div class="general_lable_block">
               <div class="general_lables">
                 a) <?php echo Yii::t('app', 'Are you suffering from any physical disabilities or have ever been seriously ill'); ?>?
+                <span class="required" style="color:red;">*</span>
               </div>
               <div class="general_lables2">
                 <input type="radio" name="illness" value="1" id="illnessYes" <?php echo($generalQuestionObjRecord->has_physical_ailment == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="illnessYes">Yes</label>
@@ -499,7 +500,9 @@
           <div class="general_grid_block">
             <div class="general_lable_block">
               <div class="general_lables">
-                b) <?php echo Yii::t('app', 'Have you ever been convicted for a criminal offence, declared bankrupt, revoked of professional practicing license/certificate and/or charged in court?'); ?>? <br>
+                b) <?php echo Yii::t('app', 'Have you ever been convicted for a criminal offence, declared bankrupt, revoked of professional practicing license/certificate and/or charged in court?'); ?>? 
+                <span class="required" style="color:red;">*</span>
+                <br>
                 <?php echo Yii::t('app', 'If yes, please state offence and date of conviction and discharge'); ?>
                <input type="text" name="criminalOffenseInput" style="display: none;" id="criminalOffenseInput" class="crimeBox" placeholder="Offence" <?php echo $access ?>>
                <input type="date" name="convictedDate" style="display: none;" id="convictedDate" class="crimeBox" title="Convicted date" <?php echo $access ?>>
@@ -514,7 +517,9 @@
           <div class="general_grid_block">
             <div class="general_lable_block">
               <div class="general_lables">
-                c) <?php echo Yii::t('app', 'Do you have any relatives or friends working in SagaOS or its subsidiaries? If so, please state name and relationship'); ?>? <br>
+                c) <?php echo Yii::t('app', 'Do you have any relatives or friends working in SagaOS or its subsidiaries? If so, please state name and relationship'); ?>? 
+                 <span class="required" style="color:red;">*</span>
+                 <br>
                  <input type="text" name="sagaosContactNameInput" style="display: none; margin-bottom:5px; margin-top:5px;" id="sagaosContactName" placeholder="Contact name" <?php echo $access ?>>
                  <input type="text" name="sagaosFamilyInput" style="display: none;" id="sagaosFamilyInput" placeholder="Relationship with him/her" <?php echo $access ?>><br>
               </div>
@@ -528,6 +533,7 @@
             <div class="general_lable_block">
               <div class="general_lables">
                 d) <?php echo Yii::t('app', 'Any relatives involved directly or indirectly in similar company’s business'); ?>?
+                <span class="required" style="color:red;">*</span>
               </div>
               <div class="general_lables2">
                 <input type="radio" name="interestConflict" value="1" id="conflictYes" <?php echo($generalQuestionObjRecord->has_conflict_of_interest == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="conflictYes"> Yes</label>
@@ -539,6 +545,7 @@
             <div class="general_lable_block">
               <div class="general_lables">
                 e) <?php echo Yii::t('app', 'Do you possess a car or motorcycle'); ?>?
+                <span class="required" style="color:red;">*</span>
               </div>
               <div class="general_lables2">
                 <input type="radio" name="ownTransport" value="1" id="transportYes" <?php echo($generalQuestionObjRecord->has_own_transport == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="transportYes">Yes</label>
@@ -549,7 +556,8 @@
           <div class="short_general_grid_block">
             <div class="general_lable_block">
               <div class="general_lables">
-                g) <?php echo Yii::t('app', 'Have you ever applied to/worked at SagaOS before'); ?>?
+                f) <?php echo Yii::t('app', 'Have you ever applied to/worked at SagaOS before'); ?>?
+                <span class="required" style="color:red;">*</span>
               </div>
               <div class="general_lables2" style="margin-bottom: 2px">
                 <input type="radio" name="timesApplied" value="1" id="appliedYes" <?php echo($generalQuestionObjRecord->has_applied_before == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="appliedYes"> Yes</label>
@@ -560,7 +568,8 @@
           <div class="short_general_grid_block">
             <div class="general_lable_block">
               <div class="general_lables">
-                h) <?php echo Yii::t('app', 'If you were offered employment, when can you commence work'); ?>?
+                g) <?php echo Yii::t('app', 'If you were offered employment, when can you commence work'); ?>?
+                <span class="required" style="color:red;">*</span>
               </div>
               <div class="general_lables2">
                 <input type="text" name="commencementDate" value="<?php echo str_replace('00:00:00', '', $generalQuestionObjRecord->commencement_date) ?>" required <?php echo $access ?>>
@@ -570,7 +579,8 @@
           <div class="short_general_grid_block">
             <div class="general_lable_block">
               <div class="general_lables">
-                i) <?php echo Yii::t('app', 'If hired, are you willing to submit to a good conduct certificate'); ?>?
+                h) <?php echo Yii::t('app', 'If hired, are you willing to submit to a good conduct certificate'); ?>?
+                <span class="required" style="color:red;">*</span>
               </div>
               <div class="general_lables2">
                 <input type="radio" name="goodConductConsent" value="1" id="conductYes" <?php echo($generalQuestionObjRecord->good_conduct_consent == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="conductYes">Yes</label>
@@ -581,7 +591,8 @@
           <div class="short_general_grid_block">
             <div class="general_lable_block">
               <div class="general_lables">
-                j) <?php echo Yii::t('app', 'Expected Salary'); ?>
+                i) <?php echo Yii::t('app', 'Expected Salary'); ?>
+                <span class="required" style="color:red;">*</span>
               </div>
               <div class="general_lables2">
                 <input type="text" name="expectedSalary" value="<?php echo $generalQuestionObjRecord->expected_salary ?>" required <?php echo $access ?>>
