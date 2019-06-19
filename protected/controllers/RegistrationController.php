@@ -132,7 +132,7 @@ class RegistrationController extends Controller
 		$filePicType = $_FILES["pic"]["type"];
 		$fileType = substr($filePicType,6);
 
-		$candidateObjModel->candidate_image = "CANDIDATE_" . EmploymentCandidate::model()->encryptCandidateId($candidateObjModel->id) . "_" . date("Y-m-d") . "." . $fileType;
+		$candidateObjModel->candidate_image = "CANDIDATE_" . EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
 
 		if($candidateObjModel->candidate_image != false){
 			$movePhoto = EmploymentCandidate::model()->movePhotoToFileSystemOrS3($candidateObjModel->candidate_image);
