@@ -10,6 +10,8 @@ class EmploymentCandidate extends AppActiveRecord
 
 	const S3_ADDRESS = "https://hrbo-prd.s3-ap-southeast-1.amazonaws.com/hrbo-prd/production/";
 
+	const S3_HRBO_PRODUCTION = "hrbo-prd/production/";
+
 	const SERVER_DIRECTORY = "/images/candidate/";
 
 	public function tableName(){
@@ -64,8 +66,8 @@ class EmploymentCandidate extends AppActiveRecord
 			//if production mode, then delete image from s3, if dev then delete from server
 			$specificFileName = substr($fileName, 69);
 			if($fileName != false){
-				if(ENV_MODE == "dev"){	
-					$deleteImage = S3Helper::deleteObject($specificFileName);
+				if(ENV_MODE == "prod"){	
+					$deleteImage = S3Helper::deleteObject(EmploymentCandidate::S3_HRBO_PRODUCTION . $specificFileName);
 				} else {
 					$deleteImage = unlink(getcwd() . $fileName);
 				}
@@ -78,7 +80,7 @@ class EmploymentCandidate extends AppActiveRecord
 			$allowed = array("JPG" => "image/jpg", "JPEG" => "image/jpeg", "GIF" => "image/gif", "PNG" => "image/png", "JPG" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
       $fileType = $_FILES["pic"]["type"];
 
-			if(ENV_MODE == "prod"){
+			if(ENV_MODE == "dev"){
 				if(isset($_FILES['pic']) && $_FILES["pic"]["error"] == 0){
 	        $fileSize = $_FILES["pic"]["size"];
 
@@ -120,7 +122,7 @@ class EmploymentCandidate extends AppActiveRecord
 		$arrData		= $objCommand->queryRow(); 
 
 			if (!empty($arrData['candidate_image'])){
-				if(ENV_MODE == "prod"){
+				if(ENV_MODE == "dev"){
 					$photoSource = EmploymentCandidate::SERVER_DIRECTORY . $arrData['candidate_image'];
 					return $photoSource;
 				} else {

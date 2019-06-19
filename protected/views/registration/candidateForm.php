@@ -94,7 +94,7 @@
                 </span>
               </div>
               <div class="lables2">
-                <input type="text" name="idNo" required>
+                <input type="text" name="idNo" placeholder="<?php echo Yii::t('app', 'Please do not include dashes or empty spaces'); ?>" required>
               </div>
             </div>
             <div class="lable_block">

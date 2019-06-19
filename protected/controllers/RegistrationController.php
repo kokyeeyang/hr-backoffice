@@ -100,10 +100,11 @@ class RegistrationController extends Controller
 		$encryptedJobId = $this->getParam('encryptedJobId', '');
 		$jobIdInSecretKey = base64_decode($encryptedJobId);
 		$jobId = substr($jobIdInSecretKey,9,1);
+		$sanitizedIdNo = str_replace("-", "", strtoupper($this->getParam('idNo', '')));
 
 		$candidateObjModel = new EmploymentCandidate;
 		$candidateObjModel->full_name = strtoupper($this->getParam('fullName', ''));
-		$candidateObjModel->id_no = strtoupper($this->getParam('idNo', ''));
+		$candidateObjModel->id_no = $sanitizedIdNo;
 		$candidateObjModel->address = strtoupper($this->getParam('address', ''));
 		$candidateObjModel->contact_no = $this->getParam('contactNo', '');
 		$candidateObjModel->email_address = $this->getParam('emailAddress', '');
@@ -133,7 +134,10 @@ class RegistrationController extends Controller
 
 		$candidateObjModel->candidate_image = "CANDIDATE_" . EmploymentCandidate::model()->encryptCandidateId($candidateObjModel->id) . "_" . date("Y-m-d") . "." . $fileType;
 
-		$movePhoto = EmploymentCandidate::model()->movePhotoToFileSystemOrS3($candidateObjModel->candidate_image);
+		if($candidateObjModel->candidate_image != false){
+			$movePhoto = EmploymentCandidate::model()->movePhotoToFileSystemOrS3($candidateObjModel->candidate_image);
+		}
+
 		$candidateObjModel->save();
 		// 
 
@@ -228,7 +232,7 @@ class RegistrationController extends Controller
 		$generalQuestionObjModel->commencement_date = $this->getParam('commencementDate','');
 		$generalQuestionObjModel->good_conduct_consent = $this->getParam('goodConductConsent','');
 		$generalQuestionObjModel->expected_salary = $this->getParam('expectedSalary','');
-// var_dump($generalQuestionObjModel);exit;
+
 		$generalQuestionObjModel->save();
 		//
 
@@ -321,7 +325,6 @@ class RegistrationController extends Controller
 		$candidateId = $id;
 		$candidateCondition = 'id_no = "' . $candidateId . '"';
 		$otherCondition = 'candidate_id = "' . $candidateId . '"';
-
 		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
 		$educationArrRecords = EmploymentEducation::model()->findAll($otherCondition);
 		$generalQuestionArrRecords = EmploymentGeneralQuestion::model()->findAll($otherCondition);

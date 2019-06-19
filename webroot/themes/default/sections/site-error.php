@@ -40,7 +40,7 @@
 }
 
 #site-error .content_main {
-	background					: #428bca;
+	background					: #f0b028;
 	border-top-left-radius		: 3px;
 	border-top-right-radius		: 3px;
 	border-bottom-left-radius	: 3px;
