@@ -272,3 +272,12 @@ ALTER TABLE employment_candidate
 ALTER TABLE employment_candidate
   DROP COLUMN `candidate_signature`,
   ADD COLUMN `candidate_image` varchar(100) NULL AFTER `job_id`;
+
+/* Yee Yang 19/06/2019 */
+CREATE TABLE employment_link_token (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `token` varchar(8) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  
