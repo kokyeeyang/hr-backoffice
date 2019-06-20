@@ -41,7 +41,45 @@ class EmploymentLinkToken extends AppActiveRecord {
 		return $result;
 	}	
 
-	public function purgeOldTokens(){
+	public function verifyToken($tokenPassed){
+		$sql = 'SELECT 
+							token 
+					  FROM ' .
+					  	self::$tableName . '
+					  WHERE token = "' . 
+					  $tokenPassed . '"';
+
+		$objConnection 	= Yii::app()->db;
+		$objCommand		= $objConnection->createCommand($sql);
+		$arrData		= $objCommand->queryRow();
+
+		if (!empty($arrData['token'])){
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	//Once candidate clicked save, then delete token from database
+	public function deleteUsedToken($usedToken){
+		$condition = 'token = "' . $usedToken . '"';
+		EmploymentLinkToken::model()->deleteAll($condition);
+	}
+	
+	public function purgeUnusedTokens(){
 		$condition = 'token WHERE created_date';
+	}
+
+
+	/**
+	 * Returns the static model of the specified AR class.
+	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 * @param string $className active record class name.
+	 * @return TblUser the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
 	}
 }

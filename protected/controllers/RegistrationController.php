@@ -85,16 +85,28 @@ class RegistrationController extends Controller
 	 */
 	public function actionAddCandidate()
 	{
-		// Put your codes here...
-		// exit('Please add the new candidate form here...');
-		$dateToday = date("Y-m-d");
-		$link = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-		$encryptedJobId = substr($link, strpos($link, "=") + 1);
-		
-		$this->render('candidateForm', array('dateToday' => $dateToday, 'encryptedJobId' => $encryptedJobId));
+		// put check job title applied for and token here
+		if ($_SERVER['QUERY_STRING'] != ''){
+			$queryString = explode('token=', $_SERVER['QUERY_STRING']);
+			$token = $queryString[1];
+			$tokenPassed = EmploymentLinkToken::model()->verifyToken($token);
+			//if manage to find token inside database, then allow user to proceed to registration page
+			if($tokenPassed == true ){
+				$dateToday = date("Y-m-d");
+				$link = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+				$queryString = $_SERVER['QUERY_STRING'];
+				$encryptedJobId = substr($link, strpos($link, "=") + 1);
+				
+				$this->render('candidateForm', array('dateToday' => $dateToday, 'encryptedJobId' => $encryptedJobId, 'queryString' => $queryString));
+			} else {
+				exit('You have already submitted an application before.');
+			}
+		} else {
+			exit('Link is not valid.');
+		}
 	}
 
-	public function actionSaveCandidate()
+	public function actionSaveCandidate($queryString)
 	{
 		//this is for saving candidate details into employment_candidate table
 		$encryptedJobId = $this->getParam('encryptedJobId', '');
@@ -131,10 +143,13 @@ class RegistrationController extends Controller
 
 		$filePicType = $_FILES["pic"]["type"];
 		$fileType = substr($filePicType,6);
+		$imageParam = $this->getParam('pic','');
 
-		$candidateObjModel->candidate_image = "CANDIDATE_" . EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
+		// $candidateObjModel->candidate_image = "CANDIDATE_" . EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
 
-		if($candidateObjModel->candidate_image != false){
+		$candidateObjModel->candidate_image = CommonHelper::setImageName($imageParam, $sanitizedIdNo, $fileType);
+
+		if($this->getParam('pic','') != false){
 			$movePhoto = EmploymentCandidate::model()->movePhotoToFileSystemOrS3($candidateObjModel->candidate_image);
 		}
 
@@ -235,6 +250,11 @@ class RegistrationController extends Controller
 
 		$generalQuestionObjModel->save();
 		//
+
+		//delete token from database once candidate has submitted application
+		$tokenString = explode('token=', $queryString);
+		$usedToken = $tokenString[1];
+		$deleteToken = EmploymentLinkToken::model()->deleteUsedToken($usedToken);
 
 		$this->render("redirectAfterRegister");
 	}

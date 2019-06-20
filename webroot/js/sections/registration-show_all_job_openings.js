@@ -38,13 +38,14 @@ var RegistrationShowAllJobOpenings = function() {
 				url: $(objElement).attr('data-email-url'),
 				data: {
 					job_opening_id : $(objElement).val(),
-					job_title : $(objElement).val()
+					job_title : $(objElement).val(),
+					job_link_token : $(objElement).val()
 				},
 				
 				dataType: 'json',
 				success: function(data){
 					if(data != null && (typeof data.result) != 'undefined'){
-						var link = $('#site_url').attr('rel') + 'registration?JT=' + data.result + '&token=' + data.token;
+						var link = $('#site_url').attr('rel') + 'registration?JT=' + data.result + 'token=' + data.token;
 						var emailSubject = 'Interview Invitation for the position of ' + data.jobTitleResult + ' at Saga OS';
 						var greeting = 'Hi ,';
 						var emailBody1 = 'Thank you for showing interest in the abovementioned position.'
