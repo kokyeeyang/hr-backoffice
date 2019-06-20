@@ -191,6 +191,8 @@ class SiteController extends Controller
 	public function actionWelcome()
 	{	
 		$arrRecords = AdminLoginLog::model() -> findAll(array('order'=>'admin_login_log_id DESC', 'condition' => 'admin_login_log_username = :admin_username', 'limit'=>10, 'params' => array(':admin_username' => Yii::app()->user->username)));
+		$purgeUnusedTokens = EmploymentLinkToken::model()->purgeUnusedTokens();
+
 		$this->render('welcome', array('model'=>$arrRecords));
 	}
 

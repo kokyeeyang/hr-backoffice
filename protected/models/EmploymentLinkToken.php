@@ -68,7 +68,8 @@ class EmploymentLinkToken extends AppActiveRecord {
 	}
 	
 	public function purgeUnusedTokens(){
-		$condition = 'token WHERE created_date';
+		$condition = 'token WHERE created_date = DATE_SUB(NOW(), INTERVAL 14 DAY)';
+		EmploymentLinkToken::model()->deleteAll($condition);
 	}
 
 
