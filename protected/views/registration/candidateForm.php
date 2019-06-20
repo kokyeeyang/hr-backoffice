@@ -21,7 +21,7 @@
               </div>
               <div class="lables2">
                 <input type="text" name="fullName" placeholder="(<?php echo Yii::t('app', 'IN BLOCK LETTERS'); ?>)" required>
-                <input type="text" name="encrypt  edJobId" value="<?php echo $encryptedJobId ?>" style="display:none;">
+                <input type="text" name="encryptedJobId" value="<?php echo $encryptedJobId ?>" style="display:none;">
               </div>
             </div>
             <div class="lable_block">
