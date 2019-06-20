@@ -291,11 +291,14 @@ class RegistrationController extends Controller
 		$aResult['result'] = false;
 		$jobId = (int)$jobId;
 		$arrRecords = EmploymentJobOpening::model()->findAll(array('order'=>'id ASC'));
+		$token = EmploymentLinkToken::model()->generateRandomToken();
+
 		if(Yii::app()->request->isAjaxRequest){
 			$encryptedJobTitleId = str_replace('9', $jobId, JOB_TITLE_ID_SECRET_KEY);
 			$base64EncodedJobTitleId = base64_encode($encryptedJobTitleId);
 			$aResult['result'] = $base64EncodedJobTitleId;
 			$aResult['jobTitleResult'] = $jobTitle;
+			$aResult['token'] = $token;
 
 			echo(json_encode($aResult));
 		}
