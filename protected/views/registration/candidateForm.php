@@ -4,8 +4,20 @@
       <div>
         <img src="/images/alllanguages/sagaos_logo.png">
         <header><?php echo Yii::t('app', 'APPLICATION FOR EMPLOYMENT'); ?></header>
-        <label for="pic">Please upload your photo (passport size)</label>
-        <input type="file" name="pic" id="pic" accept="image/*">
+        <div id="upload">
+          <div class="upload-child">
+            <label for="pic">Please upload your photo (passport size)</label>
+            <input type="file" name="pic" id="pic" accept="image/*">
+          </div>
+          <div class="upload-child">
+            <label for="pic">Please upload your resume</label>
+            <input type="file" name="resume" id="resume" accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+          </div>
+          <div class="upload-child">
+            <label for="pic">Please upload your cover letter</label>
+            <input type="file" name="coverLetter" id="coverLetter" accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+          </div>
+        </div>
         <fieldset class="fieldset">
           <legend class="legend">
             1.<?php echo Yii::t('app', 'PERSONAL PARTICULARS'); ?>

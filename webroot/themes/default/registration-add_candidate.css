@@ -135,3 +135,8 @@ input[id=agreeTerms]{
 span .required {
   color: red;
 }
+
+div .upload-child {
+  height: 50px;
+  display: inline-grid;
+}

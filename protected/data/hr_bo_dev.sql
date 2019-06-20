@@ -280,4 +280,8 @@ CREATE TABLE employment_link_token (
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-  
+
+/* Yee Yang 20/06/2019 */
+ALTER TABLE employment_candidate
+  ADD COLUMN `candidate_resume` varchar(100) NULL AFTER `candidate_image`,
+  ADD COLUMN `candidate_cover_letter` varchar(100) NULL AFTER `candidate_resume`;
