@@ -365,22 +365,23 @@ class RegistrationController extends Controller
 		$refereeArrRecords = EmploymentReferee::model()->findAll($otherCondition);	
 		$photoSource = EmploymentCandidate::model()->showPhoto($candidateId);
 		$resumeSource = EmploymentCandidate::model()->showDocument($candidateId, "candidate_resume");
+
 		$coverLetterSource = EmploymentCandidate::model()->showDocument($candidateId, "candidate_cover_letter");
 
 		if($resumeSource != false){
-			$displayResumeSection = 'block';
+			$displayResumeSection = 'inline-grid';
 		}	else {
 			$displayResumeSection = "none";
 		}
 
 		if($coverLetterSource != false){
-			$displayCoverLetterSection = 'block';
+			$displayCoverLetterSection = 'inline-grid';
 		}	else {
 			$displayCoverLetterSection = 'none';
 		}
 
 		if($photoSource != false){
-			$displayPhotoSection = 'block';
+			$displayPhotoSection = 'inline-grid';
 		} else {
 			$displayPhotoSection = 'none';
 		}

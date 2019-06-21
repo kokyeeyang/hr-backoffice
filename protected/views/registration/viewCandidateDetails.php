@@ -3,16 +3,20 @@
     <form method="post" action="<?php echo $this->createUrl('registration/updateSelectedCandidate', array('candidateId' => $candidateId)) ?>" id="candidateForm" name="candidateForm">
       <div>
         <fieldset class="fieldset">
-          <div id="candidateImage" style="display:<?php echo $displayPhotoSection ?>;">
-            <img src="<?php echo $photoSource; ?>" style="width:100px; height: 130px;">
-          </div>
-          <div id="candidateResume" style="display:<?php echo $displayResumeSection ?>">
-            <a href="<?php echo $resumeSource ?>" download>
-            </a>
-          </div>
-          <div id="candidateCoverLetter" style="display:<?php echo $displayCoverLetterSection ?>">
-            <a href="<?php echo $coverLetterSource ?>" download>
-            </a>
+          <div id="mediaSection">
+            <div id="candidateImage" style="display:<?php echo $displayPhotoSection ?>;">
+              <img src="<?php echo $photoSource; ?>" style="width:100px; height: 130px;">
+            </div>
+            <div id="candidateResume" style="display:<?php echo $displayResumeSection ?>">
+              <a href="<?php echo $resumeSource ?>" download>
+                <input type="button" value="<?php echo Yii::t('app', 'Click here to download resume'); ?>">
+              </a>
+            </div>
+            <div id="candidateCoverLetter" style="display:<?php echo $displayCoverLetterSection ?>">
+              <a href="<?php echo $coverLetterSource ?>" download>
+                <input type="button" value="<?php echo Yii::t('app', 'Click here to download cover letter'); ?>">
+              </a>
+            </div>
           </div>
           <legend class="legend">
             1.<?php echo Yii::t('app', 'PERSONAL PARTICULARS'); ?>
