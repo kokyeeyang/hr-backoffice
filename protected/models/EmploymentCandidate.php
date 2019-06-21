@@ -14,6 +14,10 @@ class EmploymentCandidate extends AppActiveRecord
 
 	const SERVER_DIRECTORY = "/images/candidate/";
 
+	const DOCUMENT_RESUME_DIRECTORY = "/documents/resume";
+
+	const DOCUMENT_COVERLETTER_DIRECTORY = "/documents/coverLetter";
+
 	public function tableName(){
 		return self::$tableName;
 	}
@@ -121,17 +125,37 @@ class EmploymentCandidate extends AppActiveRecord
 		$objCommand		= $objConnection->createCommand($sql);
 		$arrData		= $objCommand->queryRow(); 
 
-			if (!empty($arrData['candidate_image'])){
-				if(ENV_MODE == "dev"){
-					$photoSource = EmploymentCandidate::SERVER_DIRECTORY . $arrData['candidate_image'];
-					return $photoSource;
-				} else {
-					$photoSource = EmploymentCandidate::S3_ADDRESS . $arrData['candidate_image'];
-					return $photoSource;
-				}	
+		if (!empty($arrData['candidate_image'])){
+			if(ENV_MODE == "dev"){
+				$photoSource = EmploymentCandidate::SERVER_DIRECTORY . $arrData['candidate_image'];
+				return $photoSource;
 			} else {
-				return false;
+				$photoSource = EmploymentCandidate::S3_ADDRESS . $arrData['candidate_image'];
+				return $photoSource;
+			}	
+		} else {
+			return false;
+		}
+	}
+
+	public function showDocument($candidateId, $documentType){
+		$sql = 'SELECT ' . $documentType;
+		$sql .= 'FROM ' . 'employment_candidate ';
+		$sql .= 'WHERE ' . 'id_no = "' . $candidateId . '"';
+
+		$objConnection 	= Yii::app()->db;
+		$objCommand		= $objConnection->createCommand($sql);
+		$arrData		= $objCommand->queryRow(); 
+
+		if (!empty($arrData[$documentType])){
+			if($documentType == "resume"){
+				$resumeSource = EmploymentCandidate::DOCUMENT_RESUME_DIRECTORY . $arrData[$documentType];
+				return $resumeSource;
+			} else if ($documentType == "coverLetter"){
+				$coverLetterSource = EmploymentCandidate::DOCUMENT_COVERLETTER_DIRECTORY . $arrData[$documentType];
+				return $coverLetterSource;
 			}
+		}
 	}
 
 	public function encryptCandidateId($candidateId){

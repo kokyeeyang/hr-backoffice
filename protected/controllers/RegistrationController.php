@@ -142,17 +142,27 @@ class RegistrationController extends Controller
 		$candidateObjModel->candidate_signature_date = $this->getParam('signatureDate','');
 
 		$filePicType = $_FILES["pic"]["type"];
+
 		$fileType = substr($filePicType,6);
-		$imageParam = $this->getParam('pic','');
 
-		// $candidateObjModel->candidate_image = "CANDIDATE_" . EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
+		$resumePath = $_FILES["resume"]["name"];
+		$coverLetterPath = $_FILES["coverLetter"]["name"];
 
-		$candidateObjModel->candidate_image = CommonHelper::setImageName($imageParam, $sanitizedIdNo, $fileType);
+		$resumeFileType = CommonHelper::getDocumentType($resumePath);
+		$coverLetterFileType = CommonHelper::getDocumentType($coverLetterPath);
+		$candidateObjModel->candidate_image = CommonHelper::setFileName($filePicType, $sanitizedIdNo, $fileType);
+		$candidateObjModel->candidate_resume = CommonHelper::setFileName($resumePath, $sanitizedIdNo, $resumeFileType);
+		$candidateObjModel->candidate_cover_letter = CommonHelper::setFileName($coverLetterPath, $sanitizedIdNo, $coverLetterFileType);
 
-		if($this->getParam('pic','') != false){
+		if($filePicType != false){
 			$movePhoto = EmploymentCandidate::model()->movePhotoToFileSystemOrS3($candidateObjModel->candidate_image);
 		}
 
+		if($resumePath != false && $coverLetterPath != false){
+			$moveResume = CommonHelper::moveDocumentToFileSystem($candidateObjModel->candidate_resume, "resume", $resumeFileType);
+			$moveCoverLetter = CommonHelper::moveDocumentToFileSystem($candidateObjModel->candidate_resume, "coverLetter", $coverLetterFileType);
+		}
+		
 		$candidateObjModel->save();
 		// 
 
@@ -354,6 +364,20 @@ class RegistrationController extends Controller
 		$jobExperienceArrRecords = EmploymentJobExperience::model()->findAll($otherCondition);
 		$refereeArrRecords = EmploymentReferee::model()->findAll($otherCondition);	
 		$photoSource = EmploymentCandidate::model()->showPhoto($candidateId);
+		$resumeSource = EmploymentCandidate::model()->showDocument($candidateId, "candidate_resume");
+		$coverLetterSource = EmploymentCandidate::model()->showDocument($candidateId, "candidate_cover_letter");
+
+		if($resumeSource != false){
+			$displayResumeSection = 'block';
+		}	else {
+			$displayResumeSection = "none";
+		}
+
+		if($coverLetterSource != false){
+			$displayCoverLetterSection = 'block';
+		}	else {
+			$displayCoverLetterSection = 'none';
+		}
 
 		if($photoSource != false){
 			$displayPhotoSection = 'block';
@@ -365,7 +389,7 @@ class RegistrationController extends Controller
 		//this is to allow editing only for hr and admin
 		$access = Admin::model()->checkForAdminPrivilege($currentAdminId, 'registration');
 
-		$this->render('viewCandidateDetails', array('candidateArrRecords'=>$candidateArrRecords, 'educationArrRecords'=>$educationArrRecords, 'generalQuestionArrRecords'=>$generalQuestionArrRecords, 'jobExperienceArrRecords'=>$jobExperienceArrRecords, 'refereeArrRecords'=>$refereeArrRecords, 'candidateId' => $candidateId, 'access' => $access, 'photoSource'=>$photoSource, 'displayPhotoSection'=>$displayPhotoSection));
+		$this->render('viewCandidateDetails', array('candidateArrRecords'=>$candidateArrRecords, 'educationArrRecords'=>$educationArrRecords, 'generalQuestionArrRecords'=>$generalQuestionArrRecords, 'jobExperienceArrRecords'=>$jobExperienceArrRecords, 'refereeArrRecords'=>$refereeArrRecords, 'candidateId' => $candidateId, 'access' => $access, 'photoSource'=>$photoSource, 'displayPhotoSection'=>$displayPhotoSection, 'displayCoverLetterSection'=>$displayCoverLetterSection, 'resumeSource'=>$resumeSource, 'coverLetterSource'=>$coverLetterSource, 'displayResumeSection'=>$displayResumeSection));
 		
 	}
 
