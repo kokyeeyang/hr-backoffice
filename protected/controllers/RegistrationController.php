@@ -150,9 +150,9 @@ class RegistrationController extends Controller
 
 		$resumeFileType = CommonHelper::getDocumentType($resumePath);
 		$coverLetterFileType = CommonHelper::getDocumentType($coverLetterPath);
-		$candidateObjModel->candidate_image = CommonHelper::setFileName($filePicType, $sanitizedIdNo, $fileType);
-		$candidateObjModel->candidate_resume = CommonHelper::setFileName($resumePath, $sanitizedIdNo, $resumeFileType);
-		$candidateObjModel->candidate_cover_letter = CommonHelper::setFileName($coverLetterPath, $sanitizedIdNo, $coverLetterFileType);
+		$candidateObjModel->candidate_image = CommonHelper::setFileName($filePicType, $sanitizedIdNo, $fileType, "image");
+		$candidateObjModel->candidate_resume = CommonHelper::setFileName($resumePath, $sanitizedIdNo, $resumeFileType, "resume");
+		$candidateObjModel->candidate_cover_letter = CommonHelper::setFileName($coverLetterPath, $sanitizedIdNo, $coverLetterFileType, "cover-letter");
 
 		if($filePicType != false){
 			$movePhoto = EmploymentCandidate::model()->movePhotoToFileSystemOrS3($candidateObjModel->candidate_image);

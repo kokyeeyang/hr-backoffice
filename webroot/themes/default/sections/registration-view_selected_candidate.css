@@ -148,3 +148,9 @@ span .required {
 div #candidateImage {
   padding-left: 20px;
 }
+
+img[class=candidateDocument] {
+  width:60px;
+  height: 90px;
+  padding: 20px;
+}
