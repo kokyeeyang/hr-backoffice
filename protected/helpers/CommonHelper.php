@@ -3,11 +3,12 @@ class CommonHelper {
 
 	public static function setFileName($inputParam, $sanitizedIdNo, $fileType, $documentType){
 		if($inputParam != ''){
-			return "CANDIDATE_" . EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
 			if($documentType == "resume"){
-				return "CANDIDATE_" "RESUME_". EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
+				return "CANDIDATE_" . "RESUME_". EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
 			} else if ($documentType == "cover-letter"){
-				return "CANDIDATE_" "COVER_LETTER_". EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
+				return "CANDIDATE_" . "COVER_LETTER_". EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
+			} else {
+				return "CANDIDATE_" . EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
 			}
 		} else {
 			return false;

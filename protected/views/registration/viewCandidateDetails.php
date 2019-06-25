@@ -5,18 +5,18 @@
         <fieldset class="fieldset">
           <div id="mediaSection">
             <div id="candidateImage" style="display:<?php echo $displayPhotoSection ?>;">
-              <img src="<?php echo $photoSource; ?>" style="width:100px; height: 130px;" download>
+              <a href="<?php echo $photoSource; ?>" title="Click here to download image" download>
+                <img src="<?php echo $photoSource; ?>" style="width:100px; height: 130px;">
+              </a>
             </div>
             <div id="candidateResume" style="display:<?php echo $displayResumeSection ?>">
               <a href="<?php echo $resumeSource ?>" title="Click here to download resume" download>
                 <img src="/images/alllanguages/download-logo.png" class="candidateDocument">
-                <!-- <input type="button" value="<?php echo Yii::t('app', 'Click here to download resume'); ?>"> -->
               </a>
             </div>
             <div id="candidateCoverLetter" style="display:<?php echo $displayCoverLetterSection ?>">
               <a href="<?php echo $coverLetterSource ?>" title="Click here to download cover letter" download>
                 <img src="/images/alllanguages/download-logo.png" class="candidateDocument">
-                <!-- <input type="button" value="<?php echo Yii::t('app', 'Click here to download cover letter'); ?>"> -->
               </a>
             </div>
           </div>
