@@ -24,7 +24,7 @@
 				)
 			); 
 		?> 
-		<h4 class="widget_title"><?php echo Yii::t('app', 'Whitelist Ip List'); ?>
+		<h4 class="widget_title"><?php echo Yii::t('app', 'Job Openings List'); ?>
 			<input type="text" value="" placeholder="<?php echo Yii::t('app', 'Filter results'); ?>" name="label_filter" id="label_filter" style="width:30%"/>
 		</h4>
 		<?php echo CHtml::hiddenField('mode', 'jobopening-list'); ?>
