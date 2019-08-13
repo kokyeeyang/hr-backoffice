@@ -20,10 +20,10 @@
           <td>:</td>
           <td>
             <select id="duration" name="duration" required>
-              <option value="">Days</option>
-              <?php foreach($durationArr as $durationObj){ ?>
+              <option value="">Candidate names</option>
+              <?php foreach($arrRecords as $intIndex => $objRecord){ ?>
                 <option value="<?php echo $durationObj ?>">
-                  <?php echo $durationObj ?>
+                  <?php echo $objRecord->full_name ?>
                 </option>
               <?php } ?>
             </select>
@@ -32,15 +32,12 @@
         <tr>
           <td><?php echo Yii::t('app', 'Ip Address to be whitelisted'); ?></td>
           <td>:</td>
-          <td><input data-url="<?php echo $this->createUrl('ip/checkDuplicateWhitelistIp') ?>" type="text" value="<?php echo $currentIpAddress; ?>" name="ip_address" id="ip_address" required/></td>
-          <td id="duplicateIpAlert" style="display:<?php echo $display ?>"><?php echo Yii::t('app', 'Duplicate IP Address'); ?> </td>
         </tr>
         <tr id="labelGroup">
           <td title="<?php echo Yii::t('app', 'By default, this is set as your username+home.'); ?>">
             <?php echo Yii::t('app', 'Please specify a label'); ?>
           </td>
           <td>:</td>
-          <td><input type="text" value="<?php echo $labelName; ?>" name="label" id="label" required/>
           </td>
         </tr>
         <tr>

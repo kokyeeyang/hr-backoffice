@@ -300,5 +300,6 @@ CREATE TABLE employment_new_hire (
   `marital_status` varchar(20) NOT NULL,
   `nationality` varchar(30) NOT NULL,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

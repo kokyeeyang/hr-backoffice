@@ -32,7 +32,7 @@ class EmploymentNewHire extends AppActiveRecord
 			'contact_no' => Yii::t('app', 'contact_no'),
 			'email_address' => Yii::t('app', 'email_address'),
 			'date_of_birth' => Yii::t('app', 'date_of_birth'),
-			'gender' => Yii::t('app', 'gender')
+			'gender' => Yii::t('app', 'gender'),
 			'job_title' => Yii::t('app', 'job_title'),
 			'marital_status' => Yii::t('app', 'marital_status'),
 			'nationality' => Yii::t('app', 'nationality')
