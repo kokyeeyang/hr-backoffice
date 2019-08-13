@@ -285,3 +285,20 @@ CREATE TABLE employment_link_token (
 ALTER TABLE employment_candidate
   ADD COLUMN `candidate_resume` varchar(100) NULL AFTER `candidate_image`,
   ADD COLUMN `candidate_cover_letter` varchar(100) NULL AFTER `candidate_resume`;
+
+/* Yee Yang 13/08/2019 */
+CREATE TABLE employment_new_hire (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `full_name` varchar(50) NOT NULL,
+  `id_no` varchar(40) NOT NULL,
+  `address` varchar(80) NOT NULL,
+  `contact_no` varchar(25) NOT NULL,
+  `email_address` varchar(60) NOT NULL,
+  `date_of_birth` datetime NOT NULL,
+  `gender` varchar(20) NOT NULL,
+  `job_title` varchar(50) NULL,
+  `marital_status` varchar(20) NOT NULL,
+  `nationality` varchar(30) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
