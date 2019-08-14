@@ -16,13 +16,13 @@
     <form method="post" enctype="multipart/form-data" id="newHireForm" name="newHireForm" action="<?php echo $this->createUrl('registration/saveNewHire') ?>" >
       <table style="line-height: 32px;padding-left: 10px;font-size: 15px;">
         <tr>
-          <td><?php echo Yii::t('app', 'Duration'); ?> </td>
+          <td><?php echo Yii::t('app', 'Select a candidate that you wish to hire'); ?> </td>
           <td>:</td>
           <td>
-            <select id="duration" name="duration" required>
+            <select id="candidateName" name="candidateName" required>
               <option value="">Candidate names</option>
               <?php foreach($arrRecords as $intIndex => $objRecord){ ?>
-                <option value="<?php echo $durationObj ?>">
+                <option value="<?php echo $objRecord->full_name ?>">
                   <?php echo $objRecord->full_name ?>
                 </option>
               <?php } ?>
@@ -30,8 +30,9 @@
           </td>
         </tr>
         <tr>
-          <td><?php echo Yii::t('app', 'Ip Address to be whitelisted'); ?></td>
+          <td><?php echo Yii::t('app', 'id_no'); ?></td>
           <td>:</td>
+          <td><input type="text" /></td>
         </tr>
         <tr id="labelGroup">
           <td title="<?php echo Yii::t('app', 'By default, this is set as your username+home.'); ?>">

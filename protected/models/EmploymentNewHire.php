@@ -45,4 +45,18 @@ class EmploymentNewHire extends AppActiveRecord
 		return array(
 		);
 	}
+
+	public static function checkForCandidateInformation($candidateName){
+		$sql = 'SELECT ' . 'full_name, id_no, address, contact_no, email_address, date_of_birth, gender, job_title, marital_status, nationality ';
+		$sql .= 'FROM ' . 'employment_candidate';
+		$sql .= 'WHERE ' . 'full_name = ' . '"' . $candidateName . '"';
+		$objConnection 	= Yii::app()->db;
+		$objCommand		= $objConnection->createCommand($sql);
+		$arrData		= $objCommand->queryRow();
+		if (!empty($arrData['full_name, id_no, address, contact_no, email_address, date_of_birth, gender, job_title, marital_status, nationality'])){
+			return $arrData; 
+		} else {
+			return false;
+		}
+	}
 }
