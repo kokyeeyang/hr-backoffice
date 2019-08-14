@@ -1,19 +1,21 @@
 var TrainingAddNewHire = function() {
 	function _check_for_candidate_information(objElement, objEvent){
+		var candidateName = $("#candidateName option:selected").val();
+
 		if($(objElement).val() != ''){
 			$.ajax({
 				type: 'post',
 				url: $(objElement).attr('data-url'),
 				data: {
-					information : $(objElement).val()
-				}
+					candidateName : $(objElement).val()
+				},
 				dataType: 'json',
 				success: function(data){
-					alert('correct');
+					alert($(objElement).attr('data-url'));
 				},
 				error: function(request, status, err)
 				{
-					alert('wrong');
+					alert(err);
 				}
 			});
 		}
@@ -21,7 +23,7 @@ var TrainingAddNewHire = function() {
 
 	function _init(){
 		$(function() {
-			$('input#candidateName').bind('click', function(objEvent) {
+			$('select#candidateName').on('click', function(objEvent) {
 				TrainingAddNewHire.check_for_candidate_information(this, objEvent);
 			});
 		});

@@ -19,7 +19,7 @@
           <td><?php echo Yii::t('app', 'Select a candidate that you wish to hire'); ?> </td>
           <td>:</td>
           <td>
-            <select id="candidateName" name="candidateName" required>
+            <select id="candidateName" data-url="<?php echo $this->createUrl('training/checkForCandidateInformation') ?>" name="candidateName" required>
               <option value="">Candidate names</option>
               <?php foreach($arrRecords as $intIndex => $objRecord){ ?>
                 <option value="<?php echo $objRecord->full_name ?>">
