@@ -19,8 +19,9 @@
           <td><?php echo Yii::t('app', 'Select a candidate that you wish to hire'); ?> </td>
           <td>:</td>
           <td>
-            <!-- <select id="candidateName" data-url="<?php echo $this->createUrl('training/checkForCandidateInformation') ?>" name="candidateName" required> -->
-            <select id="candidateName" onchange="show_candidate_information(this.value)" name="candidateName" required>
+            <select id="candidateName" data-url="<?php echo $this->createUrl('training/checkForCandidateInformation') ?>" name="candidateName" required>
+            <!-- <select id="candidateName" onchange="show_candidate_information(this.value)" name="candidateName" required> -->
+            <!-- <select id="candidateName" name="candidateName" required> -->
               <option value="">Candidate names</option>
               <?php foreach($arrRecords as $intIndex => $objRecord){ ?>
                 <option value="<?php echo $objRecord->full_name ?>">
@@ -36,10 +37,8 @@
           <td><input type="text" /></td>
         </tr>
         <tr id="labelGroup">
-          <td title="<?php echo Yii::t('app', 'By default, this is set as your username+home.'); ?>">
-            <?php echo Yii::t('app', 'Please specify a label'); ?>
-          </td>
-          <td>:</td>
+          <td>
+            <div id="txtHint"><b>Person info will be listed here.</b></div>
           </td>
         </tr>
         <tr>

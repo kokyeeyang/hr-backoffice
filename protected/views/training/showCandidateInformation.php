@@ -2,7 +2,6 @@
 
   // public function actionShowCandidateInformation(){
     $candidateName = intval($_GET['query']);
-
     $sql = 'SELECT ' . 'full_name, id_no, address, contact_no, email_address, date_of_birth, gender, marital_status, nationality ';
     $sql .= 'FROM ' . 'employment_candidate';
     $sql .= 'WHERE ' . 'full_name = ' . '"' . $candidateName . '"';
