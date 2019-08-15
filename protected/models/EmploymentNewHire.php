@@ -46,20 +46,30 @@ class EmploymentNewHire extends AppActiveRecord
 		);
 	}
 
-	public static function checkForCandidateInformation(){
-		$candidateName = intval($_GET['query']);
-
-		$sql = 'SELECT ' . 'full_name, id_no, address, contact_no, email_address, date_of_birth, gender, marital_status, nationality ';
-		$sql .= 'FROM ' . 'employment_candidate';
+	public static function checkForCandidateInformation($candidateName){
+		$sql = 'SELECT  full_name, id_no, address, contact_no, email_address, date_of_birth, gender, marital_status, nationality ';
+		$sql .= 'FROM ' . 'employment_candidate ';
 		$sql .= 'WHERE ' . 'full_name = ' . '"' . $candidateName . '"';
+
 		$objConnection 	= Yii::app()->db;
 		$objCommand		= $objConnection->createCommand($sql);
 		$arrData		= $objCommand->queryRow();
 
-		if (!empty($arrData['full_name, id_no, address, contact_no, email_address, date_of_birth, gender, job_title, marital_status, nationality'])){
+		if (!empty($arrData['full_name'])){
 			return $arrData;
 		} else {
-			return 'no data found';
+			return false;
 		}
+	}
+
+		/**
+	 * Returns the static model of the specified AR class.
+	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 * @param string $className active record class name.
+	 * @return TblUser the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
 	}
 }

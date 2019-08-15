@@ -4,14 +4,25 @@ var TrainingAddNewHire = function() {
 
 		if($(objElement).val() != ''){
 			$.ajax({
-				type: 'post',
+				type: 'POST',
 				url: $(objElement).attr('data-url'),
 				data: {
 					candidateName : $(objElement).val(),
 				},
 				dataType: 'json',
 				success: function(data){
-					alert(data);
+					if((typeof data.result) !== 'undefined' && data.result != false){
+						alert(data.result['address']);
+						$("#fullName").val(data.result['full_name']);
+						$("#idNo").val(data.result['id_no']);
+						$("#address").val(data.result['address']);
+						$("#contactNo").val(data.result['contact_no']);
+						$("#emailAddress").val(data.result['email_address']);
+						$("#dateOfBirth").val(data.result['date_of_birth']);
+						$("#gender").val(data.result['gender']);
+						$("#maritalStatus").val(data.result['marital_status']);
+						$("#nationality").val(data.result['nationality']);
+					}
 				},
 				error: function(request, status, err)
 				{
@@ -20,26 +31,6 @@ var TrainingAddNewHire = function() {
 			});
 		}
 	}
-
-	// filter.addEventListener('change',filterChanged);
-
-	// function _show_candidate_information(str){
-	// 	if (str == ""){
-	// 		document.getElementById("txtHint").innerHTML = "";
-	// 		return;
-	// 	} else {
-	// 		if (window.XMLHttpRequest){
-	// 			xmlhttp = new XMLHttpRequest();
-	// 		}
-	// 	}
-	// 	xmlhttp.onreadystatechange = function() {
-	// 		if (this.readyState == 4 && this.status == 200) {
-	// 			document.getElementById("txtHint").innerHTML = this.responseText;
-	// 		}
-	// 	};
-	// 	xmlhttp.open("GET", "showCandidateInformation.php?query=" + str, true);
-	// 	xmlhttp.send();
-	// }
 
 	function _init(){
 		$(function() {
@@ -51,8 +42,7 @@ var TrainingAddNewHire = function() {
 
 	return {
 		init : _init,
-		check_for_candidate_information : _check_for_candidate_information,
-		// show_candidate_information : _show_candidate_information
+		check_for_candidate_information : _check_for_candidate_information
 	}
 }();
 TrainingAddNewHire.init();

@@ -20,8 +20,6 @@
           <td>:</td>
           <td>
             <select id="candidateName" data-url="<?php echo $this->createUrl('training/checkForCandidateInformation') ?>" name="candidateName" required>
-            <!-- <select id="candidateName" onchange="show_candidate_information(this.value)" name="candidateName" required> -->
-            <!-- <select id="candidateName" name="candidateName" required> -->
               <option value="">Candidate names</option>
               <?php foreach($arrRecords as $intIndex => $objRecord){ ?>
                 <option value="<?php echo $objRecord->full_name ?>">
@@ -32,15 +30,50 @@
           </td>
         </tr>
         <tr>
-          <td><?php echo Yii::t('app', 'id_no'); ?></td>
+          <td><?php echo Yii::t('app', 'Full Name'); ?></td>
           <td>:</td>
-          <td><input type="text" /></td>
+          <td><input id="fullName" type="text" /></td>
         </tr>
-        <tr id="labelGroup">
-          <td>
-            <div id="txtHint"><b>Person info will be listed here.</b></div>
-          </td>
+        <tr>
+          <td><?php echo Yii::t('app', 'ID No'); ?></td>
+          <td>:</td>
+          <td><input id="idNo" type="text" /></td>
         </tr>
+        <tr>
+          <td><?php echo Yii::t('app', 'Address'); ?></td>
+          <td>:</td>
+          <td><input id="address" type="text" /></td>
+        </tr>
+        <tr>
+          <td><?php echo Yii::t('app', 'Contact no'); ?></td>
+          <td>:</td>
+          <td><input id="contactNo" type="text" /></td>
+        </tr>
+        <tr>
+          <td><?php echo Yii::t('app', 'Email address'); ?></td>
+          <td>:</td>
+          <td><input id="emailAddress" type="text" /></td>
+        </tr>
+        <tr>
+          <td><?php echo Yii::t('app', 'Date of birth'); ?></td>
+          <td>:</td>
+          <td><input id="dateOfBirth" type="text" /></td>
+        </tr>
+        <tr>
+          <td><?php echo Yii::t('app', 'Gender'); ?></td>
+          <td>:</td>
+          <td><input id="gender" type="text" /></td>
+        </tr> 
+        <tr>
+          <td><?php echo Yii::t('app', 'Marital status'); ?></td>
+          <td>:</td>
+          <td><input id="maritalStatus" type="text" /></td>
+        </tr>
+        <tr>
+          <td><?php echo Yii::t('app', 'Nationality'); ?></td>
+          <td>:</td>
+          <td><input id="nationality" type="text" /></td>
+        </tr>         
         <tr>
           <td>
             <div class="row buttons">
