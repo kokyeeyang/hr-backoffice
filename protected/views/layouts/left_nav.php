@@ -34,6 +34,7 @@
 		<li class="dropdown"><a class="top_level_item" href="javascript:void(0);"><div class="icon icon-people"></div> <?php echo Yii::t('app', 'Training'); ?></a>
 			<ul>
 				<li><a href="<?php echo $this->createUrl('training/addNewHire'); ?>"><?php echo Yii::t('app', 'Add new hires'); ?></a></li>
+				<li><a href="<?php echo $this->createUrl('training/showAllHiresForOnboarding'); ?>"><?php echo Yii::t('app', 'Onboarding checklist'); ?></a></li>
 			</ul>
 		</li>		
 		<li class="dropdown"><a class="top_level_item" href="javascript:void(0);"><div class="icon icon-key"></div> <?php echo Yii::t('app', 'Whitelist Ip'); ?></a>

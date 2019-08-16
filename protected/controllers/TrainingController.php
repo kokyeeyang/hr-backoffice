@@ -47,37 +47,32 @@ class TrainingController extends Controller
 		Yii::app()->end();
 	}
 
-	public function actionShowCandidateInformation(){
-		$candidateName = intval($_GET['query']);
+	public function actionSaveNewHire(){
+		$objModel = new EmploymentNewHire;
+		$jobId = EmploymentCandidate::model()->queryForCandidateJobId($this->getParam('full_name', ''));
 
-		$sql = 'SELECT ' . 'full_name, id_no, address, contact_no, email_address, date_of_birth, gender, marital_status, nationality ';
-		$sql .= 'FROM ' . 'employment_candidate';
-		$sql .= 'WHERE ' . 'full_name = ' . '"' . $candidateName . '"';
-		$objConnection 	= Yii::app()->db;
-		$objCommand		= $objConnection->createCommand($sql);
-		$arrData		= $objCommand->queryRow();
+		$objModel->full_name = $this->getParam('full_name', '');
+		$objModel->id_no = $this->getParam('id_no', '');
+		$objModel->address = $this->getParam('address', '');
+		$objModel->contact_no = $this->getParam('contact_no', '');
+		$objModel->email_address = $this->getParam('email_address', '');
+		$objModel->date_of_birth = $this->getParam('date_of_birth', '');
+		$objModel->gender = $this->getParam('gender', '');
+		$objModel->job_title = $this->getParam('job_title', '');
+		$objModel->marital_status = $this->getParam('marital_status', '');
+		$objModel->nationality = $this->getParam('nationality', '');
+		$objModel->department = EmploymentJobOpening::model()->queryForCandidateDepartment($jobId);
+		$objModel->save();
 
-		if (!empty($arrData['full_name, id_no, address, contact_no, email_address, date_of_birth, gender, job_title, marital_status, nationality'])){
-			echo "<table>
-			<tr>
-			<th>Full name</th>
-			<th>ID No</th>
-			<th>Address</th>
-			<th>Contact No</th>
-			<th>Email address</th>
-			<th>Date of birth</th>
-			<th>Gender</th>
-			<th>Job title</th>
-			<th>Marital status</th>
-			<th>Nationality</th>
-			";
-			while ($row = $arrData){
-				echo "<tr>";
-				echo "<td>" . $row['full_name'] . "</td>";
-			}
-			echo "</table>";
-		} else {
-			return 'no data found';
-		}
+		//delete from candidate list once person is confirmed to be hired
+		$deleteCandidate = EmploymentCandidate::model()->deleteSelectedCandidate($this->getParam('id_no', ''));
+
+		$this->redirect(array('showAllCandidates'));
+
 	}
+
+	public function actionShowAllHiresForOnboarding() {
+		return $this->render("showAllHiresforOnboarding");
+	}
+
 }

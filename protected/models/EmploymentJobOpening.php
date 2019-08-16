@@ -77,6 +77,24 @@ class EmploymentJobOpening extends AppActiveRecord
 		}
 	}
 
+	public function queryForCandidateDepartment($jobId){
+		$sql = 'SELECT department 
+		
+						FROM ' . self::$tableName . '
+
+						WHERE id = ' . $jobId;
+
+		$objConnection = Yii::app()->db;
+		$objCommand = $objConnection->createCommand($sql);
+		$arrData = $objCommand->queryRow();
+
+		if (!empty($arrData['department'])){
+			foreach($arrData as $objData){
+				return $objData;
+			}
+		}
+	}
+
 	public static function model($className=__CLASS__){
 		return parent::model($className);
 	}

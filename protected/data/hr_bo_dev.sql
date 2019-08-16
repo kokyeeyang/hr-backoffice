@@ -303,3 +303,7 @@ CREATE TABLE employment_new_hire (
   `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/* Yee Yang 16/08/2019 */
+ALTER TABLE employment_new_hire
+  ADD COLUMN `department` varchar(50) NULL AFTER `nationality`; 

@@ -179,6 +179,24 @@ class EmploymentCandidate extends AppActiveRecord
 		} else {
 			return false;
 		}
+	}
+
+	public function queryForCandidateJobId($candidateName){
+		$sql = 'SELECT job_id 
+		
+						FROM ' . self::$tableName . '
+
+						WHERE full_name = ' . $candidateName;
+
+		$objConnection = Yii::app()->db;
+		$objCommand = $objConnection->createCommand($sql);
+		$arrData = $objCommand->queryRow();
+
+		if (!empty($arrData['job_id'])){
+			foreach($arrData as $objData){
+				return $objData;
+			}
+		}
 	}	
 
 	public static function model($className=__CLASS__){
