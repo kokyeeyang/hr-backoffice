@@ -71,9 +71,11 @@ class TrainingController extends Controller
 				//delete from candidate list once person is confirmed to be hired
 				$deleteCandidate = EmploymentCandidate::model()->deleteSelectedCandidate($idNoArray);
 
-				//insert a new row for each confirmed hire
+				//insert a new row for each confirmed hire to keep track of onboarding checklist
 				$trainingObjModel = new EmploymentOnboardingChecklist;
-
+				$trainingObjModel->full_name = $this->getParam('full_name', '');
+				$trainingObjModel->id_no = 	$this->getParam('id_no', '');
+				$trainingObjModel->save;
 
 				$this->redirect(array('showAllHiresForOnboarding'));
 			} else if($jobId == false || $jobId == '' || $jobId === 'undefined'){
@@ -93,7 +95,7 @@ class TrainingController extends Controller
 	}
 
 	public function actionViewSelectedHire($candidateId) {
-		
+
 		return $this->render("viewOnboardingChecklist");
 	}
 
