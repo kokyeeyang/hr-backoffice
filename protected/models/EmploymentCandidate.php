@@ -165,6 +165,22 @@ class EmploymentCandidate extends AppActiveRecord
 		return $base64EncodedCandidateId;
 	}
 
+	public static function checkForCandidateInformation($candidateName){
+		$sql = 'SELECT full_name, id_no, address, contact_no, email_address, date_of_birth, gender, marital_status, nationality ';
+		$sql .= 'FROM ' . 'employment_candidate ';
+		$sql .= 'WHERE ' . 'full_name = ' . '"' . $candidateName . '"';
+
+		$objConnection 	= Yii::app()->db;
+		$objCommand		= $objConnection->createCommand($sql);
+		$arrData		= $objCommand->queryRow();
+
+		if (!empty($arrData['full_name'])){
+			return $arrData;
+		} else {
+			return false;
+		}
+	}	
+
 	public static function model($className=__CLASS__){
 		return parent::model($className);
 	}

@@ -11,8 +11,7 @@ var TrainingAddNewHire = function() {
 				},
 				dataType: 'json',
 				success: function(data){
-					if((typeof data.result) !== 'undefined' && data.result != false){
-						alert(data.result['address']);
+					if((typeof data.result) !== 'undefined' && data.result != false && data.result != ''){
 						$("#fullName").val(data.result['full_name']);
 						$("#idNo").val(data.result['id_no']);
 						$("#address").val(data.result['address']);
@@ -22,6 +21,16 @@ var TrainingAddNewHire = function() {
 						$("#gender").val(data.result['gender']);
 						$("#maritalStatus").val(data.result['marital_status']);
 						$("#nationality").val(data.result['nationality']);
+					} else if ((typeof data.result) === 'undefined' || data.result == false || data.result == ''){
+						$("#fullName").val('');
+						$("#idNo").val('');
+						$("#address").val('');
+						$("#contactNo").val('');
+						$("#emailAddress").val('');
+						$("#dateOfBirth").val('');
+						$("#gender").val('');
+						$("#maritalStatus").val('');
+						$("#nationality").val('');						
 					}
 				},
 				error: function(request, status, err)

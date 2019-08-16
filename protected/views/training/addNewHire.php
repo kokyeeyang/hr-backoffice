@@ -20,7 +20,7 @@
           <td>:</td>
           <td>
             <select id="candidateName" data-url="<?php echo $this->createUrl('training/checkForCandidateInformation') ?>" name="candidateName" required>
-              <option value="">Candidate names</option>
+              <option value="candidate-name">Candidate names</option>
               <?php foreach($arrRecords as $intIndex => $objRecord){ ?>
                 <option value="<?php echo $objRecord->full_name ?>">
                   <?php echo $objRecord->full_name ?>

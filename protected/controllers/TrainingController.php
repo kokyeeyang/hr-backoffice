@@ -40,7 +40,7 @@ class TrainingController extends Controller
 		$aResult['result'] = false;
 		if(Yii::app()->request->isAjaxRequest){
 			$candidateName = $this->getParam('candidateName', '');
-			$aResult['result'] = EmploymentNewHire::model()->checkForCandidateInformation($candidateName);
+			$aResult['result'] = EmploymentCandidate::model()->checkForCandidateInformation($candidateName);
 		}
 
 		echo(json_encode($aResult));
