@@ -76,12 +76,21 @@
         </tr>         
         <tr>
           <td>
-            <div class="row buttons">
+           <!--  <div class="row buttons" id="saveButton">
               <?php echo CHtml::submitButton($objModel->isNewRecord ? 'Submit' : 'Save'); ?>
-            </div>
+            </div> -->
+            <input type="submit" id="saveButton" value="Save">
           </td>
         </tr>
       </table>
     </form>
   </div>
+</div>
+
+<div id="registration-common-msg">
+  <div id="msg-select-candidate-save" data-msg="<?php echo Yii::t('app', 'Please select a candidate!'); ?>"><!-- Dialog Buttons Label --></div>
+</div>
+
+<div id="registration-common-msg">
+  <div id="msg-confirm-candidate-save" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to confirm this candidate as a new hire? He/her will be removed from the candidate list.'); ?>"><!-- Dialog Buttons Label --></div>
 </div>

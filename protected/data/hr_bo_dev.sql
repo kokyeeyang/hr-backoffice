@@ -307,3 +307,28 @@ CREATE TABLE employment_new_hire (
 /* Yee Yang 16/08/2019 */
 ALTER TABLE employment_new_hire
   ADD COLUMN `department` varchar(50) NULL AFTER `nationality`; 
+
+CREATE TABLE employment_onboarding_checklist (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `full_name` varchar(50) NOT NULL,
+  `id_no` varchar(40) NOT NULL,
+  `offer_letter` bool NULL DEFAULT '0',
+  `induction_form` bool NULL DEFAULT '0',
+  `insurance_form` bool NULL DEFAULT '0',
+  `workplace_guideline` bool NULL DEFAULT '0',
+  `necessary_documents` bool NULL DEFAULT '0',
+  `access_card` bool NULL DEFAULT '0',
+  `personal_particulars` bool NULL DEFAULT '0',
+  `organization_chart` bool NULL DEFAULT '0',
+  `introduction_sessions` bool NULL DEFAULT '0',
+  `understanding_of_role` bool NULL DEFAULT '0',
+  `important_sites` bool NULL DEFAULT '0',
+  `hours` bool NULL DEFAULT '0',
+  `employment_conditions` bool NULL DEFAULT '0',
+  `training_schedule` bool NULL DEFAULT '0',
+  `good_conduct_certificate` bool NULL DEFAULT '0',
+  `communications_door_access` bool NULL DEFAULT '0',
+  `live_chats` bool NULL DEFAULT '0',
+  `payroll_panda` bool NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

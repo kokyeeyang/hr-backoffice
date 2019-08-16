@@ -48,31 +48,53 @@ class TrainingController extends Controller
 	}
 
 	public function actionSaveNewHire(){
-		$objModel = new EmploymentNewHire;
-		$jobId = EmploymentCandidate::model()->queryForCandidateJobId($this->getParam('full_name', ''));
+		if ($this->getParam('full_name', '') != ''){
+			$objModel = new EmploymentNewHire;
+			$jobId = EmploymentCandidate::model()->queryForCandidateJobId($this->getParam('full_name', ''));
 
-		$objModel->full_name = $this->getParam('full_name', '');
-		$objModel->id_no = $this->getParam('id_no', '');
-		$objModel->address = $this->getParam('address', '');
-		$objModel->contact_no = $this->getParam('contact_no', '');
-		$objModel->email_address = $this->getParam('email_address', '');
-		$objModel->date_of_birth = $this->getParam('date_of_birth', '');
-		$objModel->gender = $this->getParam('gender', '');
-		$objModel->job_title = $this->getParam('job_title', '');
-		$objModel->marital_status = $this->getParam('marital_status', '');
-		$objModel->nationality = $this->getParam('nationality', '');
-		$objModel->department = EmploymentJobOpening::model()->queryForCandidateDepartment($jobId);
-		$objModel->save();
+			if ($jobId != false && $jobId != '' && $jobId !== 'undefined'){
+				$objModel->full_name = $this->getParam('full_name', '');
+				$objModel->id_no = $this->getParam('id_no', '');
+				$objModel->address = $this->getParam('address', '');
+				$objModel->contact_no = $this->getParam('contact_no', '');
+				$objModel->email_address = $this->getParam('email_address', '');
+				$objModel->date_of_birth = $this->getParam('date_of_birth', '');
+				$objModel->gender = $this->getParam('gender', '');
+				$objModel->job_title = EmploymentJobOpening::model()->queryForCandidateJob($jobId);
+				$objModel->marital_status = $this->getParam('marital_status', '');
+				$objModel->nationality = $this->getParam('nationality', '');
+				$objModel->department = EmploymentJobOpening::model()->queryForCandidateDepartment($jobId);
 
-		//delete from candidate list once person is confirmed to be hired
-		$deleteCandidate = EmploymentCandidate::model()->deleteSelectedCandidate($this->getParam('id_no', ''));
+				$objModel->save();
 
-		$this->redirect(array('showAllCandidates'));
+				$idNoArray = [$this->getParam('id_no', '')];
+				//delete from candidate list once person is confirmed to be hired
+				$deleteCandidate = EmploymentCandidate::model()->deleteSelectedCandidate($idNoArray);
+
+				//insert a new row for each confirmed hire
+				$trainingObjModel = new EmploymentOnboardingChecklist;
+
+
+				$this->redirect(array('showAllHiresForOnboarding'));
+			} else if($jobId == false || $jobId == '' || $jobId === 'undefined'){
+				echo '<script language="javascript">';
+				echo 'alert("There are no candidates with this name.")';
+				echo '</script>';
+				return false;
+			}
+		} 
 
 	}
 
 	public function actionShowAllHiresForOnboarding() {
-		return $this->render("showAllHiresforOnboarding");
+		$hireArrRecords = EmploymentNewHire::model()->findAll();
+
+		return $this->render("showAllHiresForOnboarding", array('hireArrRecords'=>$hireArrRecords));
+	}
+
+	public function actionViewSelectedHire($candidateId) {
+		
+		return $this->render("viewOnboardingChecklist");
 	}
 
 }

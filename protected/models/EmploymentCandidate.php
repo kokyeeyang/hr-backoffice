@@ -186,7 +186,7 @@ class EmploymentCandidate extends AppActiveRecord
 		
 						FROM ' . self::$tableName . '
 
-						WHERE full_name = ' . $candidateName;
+						WHERE full_name = ' . '"' . $candidateName . '"';
 
 		$objConnection = Yii::app()->db;
 		$objCommand = $objConnection->createCommand($sql);

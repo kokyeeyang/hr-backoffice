@@ -41,17 +41,35 @@ var TrainingAddNewHire = function() {
 		}
 	}
 
+	function _check_if_candidate_is_selected(objElement, objEvent){
+		if($('#nationality').val() == ''){
+			alert($('#msg-select-candidate-save').attr('data-msg'));
+			objEvent.preventDefault();
+		}else if($('#nationality').val() != ''){
+			if (confirm($('#msg-confirm-candidate-save').attr('data-msg'))){
+				$('form#newHireForm').submit();
+			}else {
+				objEvent.preventDefault();
+			};
+		}
+	}
+
 	function _init(){
 		$(function() {
 			$('select#candidateName').on('change', function(objEvent) {
 				TrainingAddNewHire.check_for_candidate_information(this, objEvent);
+			});
+
+			$('#saveButton').on('click', function(objEvent) {
+				TrainingAddNewHire.check_if_candidate_is_selected(this, objEvent);
 			});
 		});
 	}
 
 	return {
 		init : _init,
-		check_for_candidate_information : _check_for_candidate_information
+		check_for_candidate_information : _check_for_candidate_information,
+		check_if_candidate_is_selected : _check_if_candidate_is_selected
 	}
 }();
-TrainingAddNewHire.init();
+TrainingAddNewHire.init();																																																																																																					
