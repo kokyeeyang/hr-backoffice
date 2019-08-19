@@ -53,6 +53,20 @@ class EmploymentOnboardingChecklist extends AppActiveRecord
 	}	
 
 	public function queryForCandidateOnboardingChecklist($candidateId){
-		$sql = 'SELECT ';
+		$sql = 'SELECT * 
+
+						FROM ' . self::$tableName . '
+
+						WHERE id_no = ' . '"' . $candidateId . '"';
+var_dump($sql);exit;
+
+		$objConnection = Yii::app()->db;
+		$objCommand = $objConnection->createCommand($sql);
+		$arrData = $objCommand->queryRow();
+		if (!empty($arrData)){
+			return $arrData;
+		} else {
+			return false;
+		}
 	}
 }

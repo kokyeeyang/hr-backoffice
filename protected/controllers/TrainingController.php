@@ -9,7 +9,7 @@ class TrainingController extends Controller
 	}
 
 	public function accessRules()
-	{
+  {
 		return array(
 			array(
 				'allow',  // allow all users to perform the RoleHelper's returned actions
@@ -25,8 +25,28 @@ class TrainingController extends Controller
 				'deny',  // deny all other users access
 				'users'=>array('*'),
 			),
-		);	
-	}	
+		);
+  }
+
+	/**
+	 * This is the action to handle external exceptions.
+	 */
+	public function actionError()
+	{
+		if($error=Yii::app()->errorHandler->error)
+		{
+			if(Yii::app()->request->isAjaxRequest){
+				
+				if(Yii::app()->user->isGuest === false){
+					echo $error['message'];
+				} // - end: if
+				Yii::app()->end();
+			}
+			else{
+				$this->render('error', $error);
+			}
+		}
+	}
 
 	public function actionAddNewHire() {
 		$objModel = new EmploymentNewHire;
@@ -96,9 +116,10 @@ class TrainingController extends Controller
 	}
 
 	public function actionViewSelectedOnboardingChecklist($candidateId) {
-
-		// $onboardingChecklistArrRecords = 
-		$this->render("viewSelectedOnboardingChecklist");
+		var_dump("hello");exit;
+		// $onboardingChecklistArrRecords = EmploymentOnboardingChecklist::model()->queryForCandidateOnboardingChecklist($candidateId);
+		// $onboardingChecklistArrRecords = EmploymentOnboardingChecklist::model()->findAll($candidateId);
+		$this->render("viewSelectedOnboardingChecklist", array('onboardingChecklistArrRecords' => $onboardingChecklistArrRecords));
 	}
 
 }

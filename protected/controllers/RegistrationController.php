@@ -570,5 +570,17 @@ class RegistrationController extends Controller
 		Captcha::genCaptcha();
 	}
 
+	public function actionConfirmCandidate($candidateId){
+		$candidateCondition = 'id_no = "' . $candidateId . '"';
+		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
+
+		foreach($candidateArrRecords as $candidateObjRecord){
+			$candidateObjRecord->candidate_status = "1";
+			$candidateObjRecord->update();
+		}
+
+		$this->redirect(array('showAllCandidates'));
+	}
+
 
 }

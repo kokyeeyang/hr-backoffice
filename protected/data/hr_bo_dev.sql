@@ -332,3 +332,6 @@ CREATE TABLE employment_onboarding_checklist (
   `payroll_panda` bool NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE employment_candidate 
+  ADD `candidate_status` bool NULL DEFAULT '0' AFTER `finding_method`;

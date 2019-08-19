@@ -13,6 +13,10 @@ var RegistrationShowAllCandidates = function() {
 		$('#candidate-list').attr('action', $(objElement).attr('data-view-url')).submit();
 	}
 
+	function _confirm_selected_candidate(objElement, objEvent){
+		$('#candidate-list').attr('action', $(objElement).attr('data-confirm-url')).submit();
+	}
+
 	function _init() {
 		$(function() {
 			$('#deleteJobOpeningButton').on('click', function(objEvent){
@@ -30,13 +34,18 @@ var RegistrationShowAllCandidates = function() {
 		  	RegistrationShowAllCandidates.view_selected_candidate(this, objEvent);
 		  });
 
+		  $('input[name=confirmCandidateButton]').on('click', function(objEvent){
+		  	RegistrationShowAllCandidates.confirm_selected_candidate(this, objEvent);
+		  });
+
 		});
 	}
 
   return {
   	init : _init,
   	check_if_deletion_is_selected : _check_if_deletion_is_selected,
-  	view_selected_candidate : _view_selected_candidate
+  	view_selected_candidate : _view_selected_candidate,
+  	confirm_selected_candidate : _confirm_selected_candidate
   }
 
 }();

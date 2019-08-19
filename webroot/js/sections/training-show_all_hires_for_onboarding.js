@@ -1,6 +1,8 @@
 var RegistrationShowAllHiresForOnboarding = function(){
 	function _view_selected_onboarding_checklist(objElement, objEvent){
+		console.log('hello');
 		$('#hire-list').attr('action', $(objElement).attr('data-view-url')).submit();
+		// $('#candidate-list').attr('action', $(objElement).attr('data-view-url')).submit();
 	}
 
 	function _init(){
