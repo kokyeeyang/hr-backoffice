@@ -94,7 +94,7 @@
 						<div class="sort_wrapper_inner">
 							<div class="sort_label_wrapper">
 								<div class="sort_label">
-									<?php echo Yii::t('app', 'View this candidate'); ?>
+									<?php echo Yii::t('app', 'View this onboarding checklist'); ?>
 								</div>
 							</div>
 						</div>
@@ -124,7 +124,7 @@
 							<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $objRecord->id_no ?>">
 						</td>
 						<td>
-							<input type="button" data-view-url="<?php echo $this->createUrl('training/viewSelectedHire', array('id' => $objRecord->id_no)); ?>" name="editHireButton" id="viewSelectedHireButton" value="<?php echo Yii::t('app', 'View'); ?>">
+							<input type="button" data-view-url="<?php echo $this->createUrl('training/viewSelectedOnboardingChecklist', array('id' => $objRecord->id_no)); ?>" name="editChecklistButton" id="viewSelectedChecklistButton" value="<?php echo Yii::t('app', 'View'); ?>">
 							</div>
 						</td>
 					</tr>

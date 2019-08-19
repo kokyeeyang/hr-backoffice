@@ -51,4 +51,8 @@ class EmploymentOnboardingChecklist extends AppActiveRecord
 	{
 		return parent::model($className);
 	}	
+
+	public function queryForCandidateOnboardingChecklist($candidateId){
+		
+	}
 }

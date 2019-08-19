@@ -94,7 +94,7 @@ class TrainingController extends Controller
 		return $this->render("showAllHiresForOnboarding", array('hireArrRecords'=>$hireArrRecords));
 	}
 
-	public function actionViewSelectedHire($candidateId) {
+	public function actionViewSelectedOnboardingChecklist($candidateId) {
 
 		return $this->render("viewOnboardingChecklist");
 	}
