@@ -10,7 +10,7 @@ class EmploymentOnboardingChecklist extends AppActiveRecord
 
 	public function rules(){
 		return [
-			['full_name, id_no, offer_letter, induction_form, insurance_form, workplace_guideline, necessary_documents, access_card, personal_particulars, organization_chart, introduction_sessions, understanding_of_role, important_sites, hours, employment_conditions, training_schedule, good_conduct_certificate, communications_door_access, live_chats, payroll_panda']
+			['full_name, id_no, offer_letter, induction_form, insurance_form, workplace_guideline, necessary_documents, access_card, personal_particulars, organization_chart, introduction_sessions, understanding_of_role, important_sites, hours, employment_conditions, training_schedule, good_conduct_certificate, communications_door_access, live_chats, payroll_panda', 'required']
 		];
 	}
 
@@ -53,6 +53,6 @@ class EmploymentOnboardingChecklist extends AppActiveRecord
 	}	
 
 	public function queryForCandidateOnboardingChecklist($candidateId){
-		
+		$sql = 'SELECT ';
 	}
 }

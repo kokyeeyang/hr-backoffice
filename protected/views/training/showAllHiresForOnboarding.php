@@ -15,7 +15,7 @@
 			$objForm = $this->beginWidget(
 				'CActiveForm', 
 				array(
-					'id'=>'candidate-list',
+					'id'=>'hire-list',
 					'action'=>$this->CreateUrl('training/showAllHiresForOnboarding'),
 					// Please note: When you enable ajax validation, make sure the corresponding
 					// controller action is handling ajax validation correctly.
