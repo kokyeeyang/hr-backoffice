@@ -98,7 +98,7 @@ class TrainingController extends Controller
 	public function actionViewSelectedOnboardingChecklist($candidateId) {
 
 		// $onboardingChecklistArrRecords = 
-		return $this->render("viewOnboardingChecklist");
+		$this->render("viewSelectedOnboardingChecklist");
 	}
 
 }

@@ -10,5 +10,11 @@ var RegistrationShowAllHiresForOnboarding = function(){
 			});
 		});
 	}
+
+	return {
+		init : _init,
+		view_selected_onboarding_checklist : _view_selected_onboarding_checklist
+	}
+
 }();
 RegistrationShowAllHiresForOnboarding.init();
