@@ -570,8 +570,8 @@ class RegistrationController extends Controller
 		Captcha::genCaptcha();
 	}
 
-	public function actionConfirmCandidate($candidateId){
-		$candidateCondition = 'id_no = "' . $candidateId . '"';
+	public function actionConfirmCandidate($id){
+		$candidateCondition = 'id_no = "' . $id . '"';
 		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
 
 		foreach($candidateArrRecords as $candidateObjRecord){

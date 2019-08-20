@@ -150,3 +150,6 @@
 <div id="registration-common-msg">
 	<div id="msg-confirm-registration-delete" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to delete the selected candidates?'); ?>"><!-- Dialog Buttons Label --></div>
 </div>
+<div id="registration-common-msg">
+	<div id="msg-confirm-candidate" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to confirm this candidate as an employee?'); ?>"><!-- Dialog Buttons Label --></div>
+</div>

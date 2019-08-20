@@ -209,17 +209,14 @@ class EmploymentCandidate extends AppActiveRecord
 		$objConnection = Yii::app()->db;
 		$objCommand = $objConnection->createCommand($sql);
 		$arrData = $objCommand->queryRow();
-		// if (!empty($arrData['candidate_status'])){
-			foreach($arrData as $objData){
-				// var_dump($arrData);
-				if($objData == "0"){
-					return "Interview stage";
-				} else if($objData == "1"){
-					return "Confirmed";
-				}
-			}
-		// }
 
+		foreach($arrData as $objData){
+			if($objData == "0"){
+				return "Interview stage";
+			} else if($objData == "1"){
+				return "Confirmed";
+			}
+		}
 	}	
 
 	public static function model($className=__CLASS__){

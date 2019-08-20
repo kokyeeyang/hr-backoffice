@@ -14,7 +14,11 @@ var RegistrationShowAllCandidates = function() {
 	}
 
 	function _confirm_selected_candidate(objElement, objEvent){
-		$('#candidate-list').attr('action', $(objElement).attr('data-confirm-url')).submit();
+		if (confirm($('#msg-confirm-candidate').attr('data-msg'))){
+			$('#candidate-list').attr('action', $(objElement).attr('data-confirm-url')).submit();
+		} else {
+			return false;
+		}
 	}
 
 	function _init() {
@@ -36,6 +40,7 @@ var RegistrationShowAllCandidates = function() {
 
 		  $('input[name=confirmCandidateButton]').on('click', function(objEvent){
 		  	RegistrationShowAllCandidates.confirm_selected_candidate(this, objEvent);
+
 		  });
 
 		});

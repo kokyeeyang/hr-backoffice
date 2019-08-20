@@ -8,3 +8,134 @@
     </div>
   </div>
 </div>
+
+<div class="common_content_wrapper admin_list">
+	<div class="common_content_inner_wrapper">
+		<?php 
+			$objForm = $this->beginWidget(
+				'CActiveForm', 
+				array(
+					'id'=>'hire-list',
+					'action'=>$this->CreateUrl('training/showAllHiresForOnboarding'),
+					// Please note: When you enable ajax validation, make sure the corresponding
+					// controller action is handling ajax validation correctly.
+					// There is a call to performAjaxValidation() commented in generated controller code.
+					// See class documentation of CActiveForm for details on this.
+					'enableAjaxValidation'=>false,
+				)
+			); 
+		?>
+		<h4 class="widget_title"><?php echo Yii::t('app', 'Interview Candidates List'); ?>
+		<input type="text" value="" placeholder="<?php echo Yii::t('app', 'Filter results'); ?>" name="label_filter" id="label_filter" style="width:30%"/>
+		</h4> 
+		<table class="widget_table grid">
+			<thead>
+				<tr>
+					<th>
+						<div class="sort_wrapper_inner">
+							<div class="sort_label_wrapper">
+								<div class="sort_label">
+									<?php echo Yii::t('app', 'Induction Element'); ?>
+								</div>
+								</div>
+							</div>
+						</div>
+					</th>
+					<th>
+						<div class="sort_wrapper_inner">
+							<div class="sort_label_wrapper">
+								<div class="sort_label">
+									<?php echo Yii::t('app', 'Responsibility'); ?>
+								</div>
+							</div>
+						</div>
+					</th>
+					<th>
+						<div class="sort_wrapper_inner">
+							<div class="sort_label_wrapper">
+								<div class="sort_label">
+									<?php echo Yii::t('app', 'Date'); ?>
+								</div>
+							</div>
+						</div>
+					</th>
+					<th>
+						<div class="sort_wrapper_inner">
+							<div class="sort_label_wrapper">
+								<div class="sort_label">
+								</div>
+							</div>
+						</div>
+					</th>
+					<th>
+						<div class="sort_wrapper_inner">
+							<div class="sort_label_wrapper">
+								<div class="sort_label">
+								</div>
+							</div>
+						</div>
+					</th>
+					<th>
+						<div class="sort_wrapper_inner">
+							<div class="sort_label_wrapper">
+								<div class="sort_label">
+								</div>
+							</div>
+						</div>
+					</th>
+					<th>
+						<div class="sort_wrapper_inner">
+							<div class="sort_label_wrapper">
+								<div class="sort_label">
+									<input type="button" title="<?php echo Yii::t('app', 'Delete this entry'); ?>" id="deleteJobOpeningButton" value="Delete selected entries" data-delete-url="<?php echo $this->createUrl('registration/deleteSelectedCandidates') ?>">
+								</div>
+							</div>
+						</div>
+					</th>
+					<th>
+						<div class="sort_wrapper_inner">
+							<div class="sort_label_wrapper">
+								<div class="sort_label">
+									<?php echo Yii::t('app', 'Signature'); ?>
+								</div>
+							</div>
+						</div>
+					</th>
+				</tr>
+			</thead>
+			<tbody id="data_table">
+				<?php
+				// if(isset($hireArrRecords[0])){
+				// 	foreach($hireArrRecords as $intIndex => $objRecord){
+				?>
+					<tr>
+						<td>
+						</td>
+						<td>
+						</td>
+						<td>
+						</td>
+						<td>
+							<?php //echo $objRecord->full_name ?>
+						</td>
+						<td>
+						</td>
+						<td>
+						</td>
+						<td>
+							<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php //echo $objRecord->id_no ?>">
+						</td>
+						<td>
+							<input type="checkbox" name="signatureCheckBox[]" class="signatureCheckBox" value="<?php //echo $objRecord->id_no ?>">
+							</div>
+						</td>
+					</tr>
+				<?php 
+				// 	}
+				// } 
+				?>
+			</tbody>
+		</table>  
+	<?php $this->endWidget(); ?> 	
+	</div>
+</div>

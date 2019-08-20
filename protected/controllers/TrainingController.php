@@ -110,16 +110,15 @@ class TrainingController extends Controller
 	}
 
 	public function actionShowAllHiresForOnboarding() {
-		$hireArrRecords = EmploymentNewHire::model()->findAll();
-
+		$candidateCondition = 'candidate_status = 1';
+		$hireArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
 		return $this->render("showAllHiresForOnboarding", array('hireArrRecords'=>$hireArrRecords));
 	}
 
-	public function actionViewSelectedOnboardingChecklist($candidateId) {
-		var_dump("hello");exit;
+	public function actionViewSelectedOnboardingChecklist($id) {
 		// $onboardingChecklistArrRecords = EmploymentOnboardingChecklist::model()->queryForCandidateOnboardingChecklist($candidateId);
 		// $onboardingChecklistArrRecords = EmploymentOnboardingChecklist::model()->findAll($candidateId);
-		$this->render("viewSelectedOnboardingChecklist", array('onboardingChecklistArrRecords' => $onboardingChecklistArrRecords));
+		$this->render("viewSelectedOnboardingChecklist");
 	}
 
 }
