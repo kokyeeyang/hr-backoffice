@@ -79,6 +79,17 @@ var RegistrationAddCandidate = function() {
 				}
 			});
 
+			var illnessDescriptionLine = document.getElementById("typeOfIllness");
+
+			$("input[name=illness]").click(function() {
+				if($("input[name=illness]:checked").val() == "1"){
+					illnessDescriptionLine.style.display = "block";
+				}else if($("input[name=illness]:checked").val() == "0"){
+					illnessDescriptionLine.style.display = "none";
+					illnessDescriptionLine.val('');
+				}
+			});
+
 			$("input[name=agreeTerms]").on('click',function() {
 				if ($("input[name=findingMethod]:checked").val() == "others" && $("input[name=otherFindingMethod]").val() == "") {
 					alert($("#msg-search-method").attr('data-msg'));
@@ -113,6 +124,13 @@ var RegistrationAddCandidate = function() {
 					if(sagaosFamily.val() == "" || sagaosContactName.val() == ""){
 						alert($("#msg-has-relative").attr('data-msg'));
 						sagaosFamilyLine.focus();
+					}
+				}
+
+				if ($("input[name=illness]:checked").val()=="1"){
+					if(illnessDescriptionLine.val() == ""){
+						alert($("#msg-describe-illness").attr('data-msg'));
+						illnessDescriptionLine.focus();
 					}
 				}
 

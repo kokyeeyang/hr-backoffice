@@ -244,6 +244,7 @@ class RegistrationController extends Controller
 		$generalQuestionObjModel = new EmploymentGeneralQuestion;
 		$generalQuestionObjModel->candidate_id = $candidateObjModel->id_no;
 		$generalQuestionObjModel->has_physical_ailment = $this->getParam('illness','');
+		$generalQuestionObjModel->has_physical_ailment = $this->getParam('typeOfIllness','');
 		$generalQuestionObjModel->has_been_convicted = $this->getParam('criminalOffenseRadio','');
 		$generalQuestionObjModel->offense = strtoupper($this->getParam('criminalOffenseInput',''));
 		$generalQuestionObjModel->convicted_date = $this->getParam('convictedDate','');
@@ -536,6 +537,7 @@ class RegistrationController extends Controller
 		foreach($generalQuestionArrRecords as $generalQuestionObjRecord){
 			$generalQuestionObjRecord->candidate_id = $this->getParam('idNo', '');
 			$generalQuestionObjRecord->has_physical_ailment = $this->getParam('illness','');
+			$generalQuestionObjRecord->ailment_description = $this->getParam('typeOfIllness','');
 			$generalQuestionObjRecord->has_been_convicted = $this->getParam('criminalOffenseRadio','');
 			$generalQuestionObjRecord->offense = $this->getParam('criminalOffenseInput','');
 			$generalQuestionObjRecord->convicted_date = $this->getParam('convictedDate','');

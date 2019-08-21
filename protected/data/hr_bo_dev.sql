@@ -335,3 +335,7 @@ CREATE TABLE employment_onboarding_checklist (
 
 ALTER TABLE employment_candidate 
   ADD `candidate_status` bool NULL DEFAULT '0' AFTER `finding_method`;
+
+/* Added by YY 21/08/19 */
+ALTER TABLE employment_general_question
+  ADD `ailment_description` varchar(50) NULL AFTER `has_physical_ailment`;

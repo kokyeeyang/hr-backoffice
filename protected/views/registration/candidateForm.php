@@ -235,6 +235,7 @@
               <div class="general_lables">
                 a) <?php echo Yii::t('app', 'Are you suffering from any physical disabilities or have ever been seriously ill'); ?>? 
                 <span class="required" style="color:red;">*</span>
+                <input type="text" name="typeOfIllness" id="typeOfIllness" title="Briefly describe" style="display:none;"><br><br>
               </div>
               <div class="general_lables2">
                 <label for="illnessYes"><input type="radio" name="illness" value="1" id="illnessYes" required> Yes</label>
@@ -398,4 +399,7 @@
 </div>
 <div id="registration-common-msg">
   <div id="msg-has-relative" data-msg="<?php echo Yii::t('app', 'Please state name of relative or friend'); ?>"><!-- Dialog Buttons Label --></div>
+</div>
+<div id="registration-common-msg">
+  <div id="msg-describe-illness" data-msg="<?php echo Yii::t('app', 'Please state or briefly describe your illness'); ?>"><!-- Dialog Buttons Label --></div>
 </div>

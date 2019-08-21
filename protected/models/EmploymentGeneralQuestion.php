@@ -22,6 +22,7 @@ class EmploymentGeneralQuestion extends AppActiveRecord
 		return [
 			'candidate_id' => Yii::t('app', 'candidate_id'),
 			'has_physical_ailment' => Yii::t('app', 'has_physical_ailment'),
+			'ailment_description' => Yii::t('app', 'ailment_description'),
 			'has_been_convicted' => Yii::t('app', 'has_been_convicted'),
 			'offense' => Yii::t('app', 'offense'),
 			'convicted_date' => Yii::t('app', 'convicted_date'),
