@@ -203,6 +203,7 @@ var RegistrationViewSelectedCandidate = function() {
 
 			});
 
+			//to add an extra referee section
 			var extraRefereeSection1 = document.getElementById("extraReferee1");
 			var extraRefereeSection2 = document.getElementById("extraReferee2");
 			var flag = 1;
