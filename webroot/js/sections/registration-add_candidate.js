@@ -86,7 +86,7 @@ var RegistrationAddCandidate = function() {
 					illnessDescriptionLine.style.display = "block";
 				}else if($("input[name=illness]:checked").val() == "0"){
 					illnessDescriptionLine.style.display = "none";
-					illnessDescriptionLine.val('');
+					$("input[name=typeOfIllness]").val('');
 				}
 			});
 

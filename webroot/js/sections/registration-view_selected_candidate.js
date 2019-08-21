@@ -10,6 +10,8 @@ var RegistrationViewSelectedCandidate = function() {
 
 			var sagaosFamilyLine = document.getElementById("sagaosFamilyInput");
 			var sagaosContactNameLine = document.getElementById("sagaosContactName");
+			var illnessDescriptionLine = document.getElementById("typeOfIllness");
+			var terminationReason = document.getElementById("terminationReason");
 
 			$(document).ready(function() {
 				//if user checked others box, then remove disabled attribute for the input line
@@ -50,6 +52,28 @@ var RegistrationViewSelectedCandidate = function() {
 					$("input[name=sagaosFamilyInput]").val('');
 					$("input[name=sagaosContactNameInput]").val('');
 				}
+
+				if ($("input[name=illness]:checked").val() == "1"){
+					illnessDescriptionLine.style.display = "block";
+				} else {
+					illnessDescriptionLine.style.display = "none";
+					$("#typeOfIllness").val('');
+				}
+
+				if ($("input[name=terminatedBefore]:checked").val() == "1") {
+					terminationReason.style.display = "block";
+				} else {
+					terminationReason.style.display = "none";
+					$("#terminationReason").val('');
+				}
+
+				if ($("input[name=consent]:checked").val() == "0") {
+					noReferenceLine.style.display = "block";
+				} else {
+					//user give consent
+					noReferenceLine.style.display = "none";
+					$("input[name=noReferenceReason]").val('');
+				}
 			});
 
 			$("input[name=findingMethod]").click(function() {
@@ -69,7 +93,6 @@ var RegistrationViewSelectedCandidate = function() {
 				}
 			});
 
-			var terminationReason = document.getElementById("terminationReason");
 			$(document).ready(function() {
 				//if user checked others box, then remove disabled attribute for the input line
 				if ($("input[name=terminatedBefore]:checked").val() == "1") {
@@ -116,6 +139,16 @@ var RegistrationViewSelectedCandidate = function() {
 					sagaosContactName.style.display = "none";
 					$("input[name=sagaosFamilyInput]").val('');
 					$("input[name=sagaosContactNameInput]").val('');
+				}
+			});
+
+
+			$("input[name=illness]").click(function() {
+				if($("input[name=illness]:checked").val() == "1"){
+					illnessDescriptionLine.style.display = "block";
+				}else if($("input[name=illness]:checked").val() == "0"){
+					illnessDescriptionLine.style.display = "none";
+					$("input[name=typeOfIllness]").val('');
 				}
 			});
 

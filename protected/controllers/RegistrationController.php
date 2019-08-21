@@ -135,7 +135,7 @@ class RegistrationController extends Controller
 		$candidateObjModel->nationality = strtoupper($this->getParam('nationality', ''));
 		$candidateObjModel->job_id = $jobId;
 		$candidateObjModel->terminated_before = $this->getParam('terminatedBefore', '');
-		$candidateObjModel->termination_reason = strtoupper($this->getParam('terminatedDetails', ''));
+		$candidateObjModel->termination_reason = strtoupper($this->getParam('terminationDetails', ''));
 		$candidateObjModel->reference_consent = $this->getParam('consent', '');
 		$candidateObjModel->refuse_reference_reason = strtoupper($this->getParam('noReferenceReason', ''));
 		$candidateObjModel->candidate_agree_terms = $this->getParam('agreeTerms','');
@@ -244,7 +244,7 @@ class RegistrationController extends Controller
 		$generalQuestionObjModel = new EmploymentGeneralQuestion;
 		$generalQuestionObjModel->candidate_id = $candidateObjModel->id_no;
 		$generalQuestionObjModel->has_physical_ailment = $this->getParam('illness','');
-		$generalQuestionObjModel->has_physical_ailment = $this->getParam('typeOfIllness','');
+		$generalQuestionObjModel->ailment_description = $this->getParam('typeOfIllness','');
 		$generalQuestionObjModel->has_been_convicted = $this->getParam('criminalOffenseRadio','');
 		$generalQuestionObjModel->offense = strtoupper($this->getParam('criminalOffenseInput',''));
 		$generalQuestionObjModel->convicted_date = $this->getParam('convictedDate','');
@@ -435,7 +435,7 @@ class RegistrationController extends Controller
 			$candidateObjRecord['gender'] = $this->getParam('gender', '');
 			$candidateObjRecord['nationality'] = $this->getParam('nationality', '');
 			$candidateObjRecord['terminated_before'] = $this->getParam('terminatedBefore', '');
-			$candidateObjRecord['termination_reason'] = $this->getParam('terminatedDetails', '');
+			$candidateObjRecord['termination_reason'] = $this->getParam('terminationDetails', '');
 			$candidateObjRecord['reference_consent'] = $this->getParam('consent', '');
 			$candidateObjRecord['refuse_reference_reason'] = $this->getParam('noReferenceReason', '');
 			$candidateObjRecord['candidate_agree_terms'] = $this->getParam('agreeTerms','');

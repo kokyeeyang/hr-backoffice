@@ -93,8 +93,8 @@
                 </span>
               </div>
               <div class="lables2">
-                <label for="male"><input type="radio" name="gender" value="male" id="male" required><span>Male</span></label>
-                <label for="female"><input type="radio" name="gender" value="female" id="female" required> <span>Female </span></label>
+                <label for="male"><input type="radio" name="gender" value="MALE" id="male" required><span>Male</span></label>
+                <label for="female"><input type="radio" name="gender" value="FEMALE" id="female" required> <span>Female </span></label>
               </div>
             </div>
             <div class="lable_block">

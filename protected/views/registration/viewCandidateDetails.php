@@ -96,8 +96,8 @@
                 </span>
               </div>
               <div class="lables2">
-                <input type="radio" name="gender" value="male" id="male" <?php echo($candidateObjRecord->gender == 'MALE')?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="male"><span>Male </span></label>          
-                <input type="radio" name="gender" value="female" id="female" <?php echo($candidateObjRecord->gender == 'FEMALE')?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="female"><span>Female </span></label>
+                <input type="radio" name="gender" value="MALE" id="male" <?php echo($candidateObjRecord->gender == 'MALE')?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="male"><span>Male </span></label>          
+                <input type="radio" name="gender" value="FEMALE" id="female" <?php echo($candidateObjRecord->gender == 'FEMALE')?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="female"><span>Female </span></label>
               </div>
             </div>
             <div class="lable_block">
@@ -483,7 +483,7 @@
                 <div class="lables">
                   <?php echo Yii::t('app', 'Can we make references to your employment records with your previous employers/companies'); ?>?<br>
                   <?php echo Yii::t('app', 'If no, please give reasons'); ?><br>
-                  <input type="text" name="noReferenceReason" id="noReference" value="<?php echo($candidateObjRecord->reference_consent == 0)?'$candidateObjRecord->refuse_reference_reason':'' ?>" style="display:none" <?php echo $access ?>><br><br>
+                  <input type="text" name="noReferenceReason" id="noReference" value="<?php echo($candidateObjRecord->reference_consent == 0)?$candidateObjRecord->refuse_reference_reason:'' ?>" style="display:none" <?php echo $access ?>><br><br>
                 </div>
                 <div class="lables2">
                   <input type="radio" name="consent" value="1" id="referenceYes" <?php echo($candidateObjRecord->reference_consent == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="referenceYes">Yes<br></label>
@@ -504,6 +504,7 @@
               <div class="general_lables">
                 a) <?php echo Yii::t('app', 'Are you suffering from any physical disabilities or have ever been seriously ill'); ?>?
                 <span class="required" style="color:red;">*</span>
+                 <input type="text" name="typeOfIllness" id="typeOfIllness" value="<?php echo($generalQuestionObjRecord->ailment_description == null)?'':$generalQuestionObjRecord->ailment_description; ?>" title="Briefly describe" style="display:none"><br><br>
               </div>
               <div class="general_lables2">
                 <input type="radio" name="illness" value="1" id="illnessYes" <?php echo($generalQuestionObjRecord->has_physical_ailment == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="illnessYes">Yes</label>
@@ -518,9 +519,9 @@
                 <span class="required" style="color:red;">*</span>
                 <br>
                 <?php echo Yii::t('app', 'If yes, please state offence and date of conviction and discharge'); ?>
-               <input type="text" name="criminalOffenseInput" style="display: none;" id="criminalOffenseInput" class="crimeBox" placeholder="Offence" <?php echo $access ?>>
-               <input type="date" name="convictedDate" style="display: none;" id="convictedDate" class="crimeBox" title="Convicted date" <?php echo $access ?>>
-               <input type="date" name="dischargeDate" style="display: none;" id="dischargeDate" class="crimeBox" title="Date of discharge" <?php echo $access ?>>
+               <input type="text" name="criminalOffenseInput" style="display: none;" id="criminalOffenseInput" class="crimeBox" placeholder="Offence" value="<?php echo($generalQuestionObjRecord->offense == null)?'':$generalQuestionObjRecord->offense; ?>" <?php echo $access ?>>
+               <input type="date" name="convictedDate" value="<?php echo($generalQuestionObjRecord->convicted_date == "0000-00-00 00:00:00")?'':substr($generalQuestionObjRecord->convicted_date, 0,10); ?>" style="display: none;" id="convictedDate" class="crimeBox" title="Convicted date" <?php echo $access ?>>
+               <input type="date" name="dischargeDate" value="<?php echo($generalQuestionObjRecord->convicted_date == "0000-00-00 00:00:00")?'':substr($generalQuestionObjRecord->date_of_discharge, 0,10); ?>" style="display: none;" id="dischargeDate" class="crimeBox" title="Date of discharge" <?php echo $access ?>>
               </div>
               <div class="general_lables2">
                 <input type="radio" name="criminalOffenseRadio" value="1" id="convictedYes" <?php echo($generalQuestionObjRecord->has_been_convicted == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="convictedYes">Yes</label>
@@ -534,8 +535,8 @@
                 c) <?php echo Yii::t('app', 'Do you have any relatives or friends working in SagaOS or its subsidiaries? If so, please state name and relationship'); ?>? 
                  <span class="required" style="color:red;">*</span>
                  <br>
-                 <input type="text" name="sagaosContactNameInput" style="display: none; margin-bottom:5px; margin-top:5px;" id="sagaosContactName" placeholder="Contact name" <?php echo $access ?>>
-                 <input type="text" name="sagaosFamilyInput" style="display: none;" id="sagaosFamilyInput" placeholder="Relationship with him/her" <?php echo $access ?>><br>
+                 <input type="text" name="sagaosContactNameInput" style="display: none; margin-bottom:5px; margin-top:5px;" id="sagaosContactName" value="<?php echo($generalQuestionObjRecord->company_contact_name == null)?'':$generalQuestionObjRecord->company_contact_name; ?>" placeholder="Contact name" <?php echo $access ?>>
+                 <input type="text" name="sagaosFamilyInput" style="display: none;" id="sagaosFamilyInput" value="<?php echo($generalQuestionObjRecord->relationship_with_candidate == null)?'':$generalQuestionObjRecord->relationship_with_candidate; ?>" placeholder="Relationship with him/her" <?php echo $access ?>><br>
               </div>
               <div class="general_lables2">
                 <input type="radio" name="sagaosRelative" value="1" id="relativeYes" <?php echo($generalQuestionObjRecord->has_company_contact == 1)?'checked="checked"':'' ?> required <?php echo $access ?>> <label for="relativeYes">Yes</label><br>
