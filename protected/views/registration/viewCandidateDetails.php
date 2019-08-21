@@ -502,7 +502,7 @@
           <div class="general_grid_block">
             <div class="general_lable_block">
               <div class="general_lables">
-                a) <?php echo Yii::t('app', 'Are you suffering from any physical disabilities or have ever been seriously ill'); ?>?
+                a) <?php echo Yii::t('app', 'Are you suffering from any physical disabilities or have ever been diagnosed with any illnesses?'); ?>?
                 <span class="required" style="color:red;">*</span>
                  <input type="text" name="typeOfIllness" id="typeOfIllness" value="<?php echo($generalQuestionObjRecord->ailment_description == null)?'':$generalQuestionObjRecord->ailment_description; ?>" title="Briefly describe" style="display:none"><br><br>
               </div>
