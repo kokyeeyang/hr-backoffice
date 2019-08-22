@@ -95,6 +95,20 @@ class EmploymentJobOpening extends AppActiveRecord
 		}
 	}
 
+	public function queryForDistinctDepartment(){
+		$sql = 'SELECT DISTINCT department
+
+		        FROM ' . self::$tableName;
+
+		$objConnection = Yii::app()->db;
+		$objCommand = $objConnection->createCommand($sql);
+		$arrData = $objCommand->queryRow();
+
+		if (!empty($arrData['department'])){
+			return $arrData;
+		}
+	}
+
 	public static function model($className=__CLASS__){
 		return parent::model($className);
 	}

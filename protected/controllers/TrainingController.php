@@ -121,4 +121,10 @@ class TrainingController extends Controller
 		$this->render("viewSelectedOnboardingChecklist");
 	}
 
+	public function actionShowTrainingSchedules(){
+		$departments = EmploymentJobOpening::model()->queryForDistinctDepartment();
+
+		$this->render("showHiresForTraining", array('departments'=>$departments));
+	}
+
 }
