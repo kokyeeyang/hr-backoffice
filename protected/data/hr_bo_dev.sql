@@ -339,3 +339,23 @@ ALTER TABLE employment_candidate
 /* Added by YY 21/08/19 */
 ALTER TABLE employment_general_question
   ADD `ailment_description` varchar(50) NULL AFTER `has_physical_ailment`;
+
+CREATE TABLE training_onboarding_checklist_category (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category` varchar(50) NOT NULL,
+  `description` varchar(40) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE training_onboarding_checklist (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `key` varchar(50) NOT NULL,
+  `category` varchar(40) NOT NULL,
+  `responsibility` varchar(30) NOT NULL,
+  `candidate_id` varchar(40) NOT NULL,
+  `completed` bool NULL DEFAULT '0',
+  `completed_date` varchar(40) NOT NULL,
+  `created_date` varchar(40) NOT NULL,
+  `created_by` varchar(40) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

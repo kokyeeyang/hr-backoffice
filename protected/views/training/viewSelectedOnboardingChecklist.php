@@ -26,7 +26,7 @@
 			); 
 		?>
 		<h4 class="widget_title"><?php echo Yii::t('app', 'Interview Candidates List'); ?>
-		<input type="text" value="" placeholder="<?php echo Yii::t('app', 'Filter results'); ?>" name="label_filter" id="label_filter" style="width:30%"/>
+		<!-- <input type="text" value="" placeholder="<?php // echo Yii::t('app', 'Filter results'); ?>" name="label_filter" id="label_filter" style="width:30%"/> -->
 		</h4> 
 		<table class="widget_table grid">
 			<thead>
