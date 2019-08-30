@@ -115,6 +115,12 @@ class TrainingController extends Controller
 		return $this->render("showAllHiresForOnboarding", array('hireArrRecords'=>$hireArrRecords));
 	}
 
+	public function actionEditOnboardingItems() {
+		$onboardingItemArrRecords = TrainingOnboardingItems::model()->findAll();
+		var_dump($onboardingItemArrRecords);exit;
+		return $this->render("editOnboardingItems", array('onboardingItemArrRecords'=>$onboardingItemArrRecords));
+	}
+
 	public function actionViewSelectedOnboardingChecklist($id) {
 		// $onboardingChecklistArrRecords = EmploymentOnboardingChecklist::model()->queryForCandidateOnboardingChecklist($candidateId);
 		// $onboardingChecklistArrRecords = EmploymentOnboardingChecklist::model()->findAll($candidateId);

@@ -349,13 +349,54 @@ CREATE TABLE training_onboarding_checklist_category (
 
 CREATE TABLE training_onboarding_checklist (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `key` varchar(50) NOT NULL,
+  `onboarding_item_id` varchar(50) NOT NULL,
   `category` varchar(40) NOT NULL,
   `responsibility` varchar(30) NOT NULL,
   `candidate_id` varchar(40) NOT NULL,
   `completed` bool NULL DEFAULT '0',
   `completed_date` varchar(40) NOT NULL,
-  `created_date` varchar(40) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` varchar(40) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO training_onboarding_checklist_category (category, description)
+VALUES ("A", "Introduction and Welcome"),
+("B", "Organizational Structure"),
+("C", "Job Description"),
+("D", "Site Specific Information"),
+("E", "Conditions of Employment"),
+("F", "On-the-Job Training"),
+("G", "Good Conduct Policy"),
+("H", "Payroll Panda"),
+("I", "Access Creation");
+
+CREATE TABLE training_onboarding_items (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `onboarding_item` varchar(300) NOT NULL,
+  `category` varchar(50) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(40) NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO training_onboarding_items (onboarding_item, category)
+VALUES ("Offer letter", "A"),
+("Induction form", "A"),
+("Insurance form", "A"),
+("Work place guideline", "A"),
+("Application form (ic,certs, resume, passport photo, payslip)", "A"),
+("Access card", "A"),
+("Personal particular form", "A"),
+("Organization chart", "B"),
+("Introduce to their immediate team & other departments", "B"),
+("Employee understand the key objectives of their role and how their role fits in to the wider organization", "C"),
+("Washrooms, pantry, entry and exit points, public transport, parking (if applicable) etc", "D"),
+("Office hours, lunch hours etc", "D"),
+("Employee understand their conditions of employment(Probation period, visa regulations if applicable etc", "E"),
+("Training schedule", "F"),
+("Application for good conduct certification online : http://ekonsular.kln.gov.my/", "G"),
+("User training", "H"),
+("Email account, Asana, Bit8, Skype groups, Dropbox, Door access", "I"),
+("Live chats", "I"),
+("Payroll panda", "I");

@@ -36,4 +36,8 @@ class TrainingOnboardingChecklist extends AppActiveRecord {
 		return array(
 		);
 	}
+
+	public function generateOnboardingChecklist(){
+		
+	}
 }
