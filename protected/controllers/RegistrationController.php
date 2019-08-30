@@ -581,6 +581,7 @@ class RegistrationController extends Controller
 			$candidateObjRecord->update();
 		}
 
+		
 		$this->redirect(array('showAllCandidates'));
 	}
 

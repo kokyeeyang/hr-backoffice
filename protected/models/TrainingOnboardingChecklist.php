@@ -21,7 +21,6 @@ class TrainingOnboardingChecklist extends AppActiveRecord {
 		return [
 			'key' => Yii::t('app', 'key'),
 			'category' => Yii::t('app', 'category'),
-			'responsibility' => Yii::t('app', 'responsibility'),
 			'candidate_id' => Yii::t('app', 'candidate_id'),
 			'completed' => Yii::t('app', 'completed'),
 			'completed_date' => Yii::t('app', 'completed_date'),
@@ -38,6 +37,7 @@ class TrainingOnboardingChecklist extends AppActiveRecord {
 	}
 
 	public function generateOnboardingChecklist(){
-		
+		$sql = "INSERT INTO " . $tableName;
+		$sql .= "VALUES ";
 	}
 }

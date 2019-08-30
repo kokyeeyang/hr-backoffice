@@ -3,7 +3,7 @@
     <div class="breadcrumb-top"><?php echo Yii::t('app', 'Edit '); ?></div>
     <div class="breadcrumb-bottom breadcrumb-bottom-chart">
       <div class="title">
-        <span><?php echo Yii::t('app', 'Add new White List Ip'); ?></span>
+        <span><?php echo Yii::t('app', 'Edit onboarding items'); ?></span>
       </div>
     </div>
   </div>
@@ -15,23 +15,19 @@
     </h4>
     <form method="post" enctype="multipart/form-data" id="editForm" name="editForm" action="<?php echo $this->createUrl('training/saveOnboardingItems') ?>" >
       <table style="line-height: 32px;padding-left: 10px;font-size: 15px;">
+        <?php foreach($onboardingItemArrRecords as $onboardingItemObjRecord){ ?>
         <tr>
           <td>
-            <input type="text" value="" name="label" id="label" required/>
+            <input type="text" value="<?php echo $onboardingItemObjRecord->onboarding_item; ?>" name="onboardingItem" id="onboardingItem" required/>
+          <br/>
           </td>
         </tr>
-        <tr>
-          <td></td>
-        </tr>
-        <tr id="labelGroup">
-          <td>
-          </td>
-        </tr>
+        <?php } ?>
         <tr>
           <td>
-            <div class="row buttons">
-              <?php echo CHtml::submitButton($objModel->isNewRecord ? 'Submit' : 'Save'); ?>
-            </div>
+            <!-- <div class="row buttons">
+              <?php // echo CHtml::submitButton($objModel->isNewRecord ? 'Submit' : 'Save'); ?>
+            </div> -->
           </td>
         </tr>
       </table>

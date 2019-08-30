@@ -117,7 +117,6 @@ class TrainingController extends Controller
 
 	public function actionEditOnboardingItems() {
 		$onboardingItemArrRecords = TrainingOnboardingItems::model()->findAll();
-		var_dump($onboardingItemArrRecords);exit;
 		return $this->render("editOnboardingItems", array('onboardingItemArrRecords'=>$onboardingItemArrRecords));
 	}
 
