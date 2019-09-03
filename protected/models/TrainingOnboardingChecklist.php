@@ -19,8 +19,7 @@ class TrainingOnboardingChecklist extends AppActiveRecord {
 
 	public function attributeLabels(){
 		return [
-			'key' => Yii::t('app', 'key'),
-			'category' => Yii::t('app', 'category'),
+			'onboarding_item_id' => Yii::t('app', 'onboarding_item_id'),
 			'candidate_id' => Yii::t('app', 'candidate_id'),
 			'completed' => Yii::t('app', 'completed'),
 			'completed_date' => Yii::t('app', 'completed_date'),
@@ -36,8 +35,13 @@ class TrainingOnboardingChecklist extends AppActiveRecord {
 		);
 	}
 
+	public static function model($className=__CLASS__){
+		return parent::model($className);
+	}
+
 	public function generateOnboardingChecklist(){
 		$sql = "INSERT INTO " . $tableName;
 		$sql .= "VALUES ";
 	}
+
 }

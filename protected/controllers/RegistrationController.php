@@ -581,7 +581,15 @@ class RegistrationController extends Controller
 			$candidateObjRecord->update();
 		}
 
-		
+		$onboardingItemIds = TrainingOnboardingItems::model()->obtainItemIds();
+		foreach($onboardingItemIds as $iKey => $onboardingItemId){
+			$onboardingChecklistObjModel = new TrainingOnboardingChecklist;
+			$onboardingChecklistObjModel->onboarding_item_id = implode(" ",$onboardingItemId);
+			$onboardingChecklistObjModel->candidate_id = $id;
+			$onboardingChecklistObjModel->created_by = Yii::app()->user->id;
+			$onboardingChecklistObjModel->save();
+		}
+
 		$this->redirect(array('showAllCandidates'));
 	}
 

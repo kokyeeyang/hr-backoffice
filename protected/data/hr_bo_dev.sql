@@ -350,12 +350,11 @@ CREATE TABLE training_onboarding_checklist_category (
 CREATE TABLE training_onboarding_checklist (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `onboarding_item_id` varchar(50) NOT NULL,
-  `category` varchar(40) NOT NULL,
   `candidate_id` varchar(40) NOT NULL,
   `completed` bool NULL DEFAULT '0',
-  `completed_date` varchar(40) NOT NULL,
+  `completed_date` varchar(40) NULL,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_by` varchar(40) NOT NULL,
+  `created_by` varchar(40) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -393,7 +392,7 @@ VALUES ("Offer letter", "A", "HR"),
 ("Employee understand the key objectives of their role and how their role fits in to the wider organization", "C", "Line manager"),
 ("Washrooms, pantry, entry and exit points, public transport, parking (if applicable) etc", "D", "HR"),
 ("Office hours, lunch hours etc", "D", "HR"),
-("Employee understand their conditions of employment(Probation period, visa regulations if applicable etc", "E", "HR"),
+("Employee understand their conditions of employment(Probation period, visa regulations if applicable etc)", "E", "HR"),
 ("Training schedule", "F", "HR"),
 ("Application for good conduct certification online : http://ekonsular.kln.gov.my/", "G", "HR"),
 ("User training", "H", "HR"),

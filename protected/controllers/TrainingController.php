@@ -121,15 +121,19 @@ class TrainingController extends Controller
 	}
 
 	public function actionViewSelectedOnboardingChecklist($id) {
-		// $onboardingChecklistArrRecords = EmploymentOnboardingChecklist::model()->queryForCandidateOnboardingChecklist($candidateId);
-		// $onboardingChecklistArrRecords = EmploymentOnboardingChecklist::model()->findAll($candidateId);
-		$this->render("viewSelectedOnboardingChecklist");
+		$onboardingChecklistArrRecords = TrainingOnboardingChecklist::model()->findAll($id); 
+
+		$this->render("viewSelectedOnboardingChecklist", array('id'=>$id, 'onboardingChecklistArrRecords'=>$onboardingChecklistArrRecords));
 	}
 
 	public function actionShowTrainingSchedules(){
 		$departments = EmploymentJobOpening::model()->queryForDistinctDepartment();
 
 		$this->render("showHiresForTraining", array('departments'=>$departments));
+	}
+
+	public function actionSaveOnboardingChecklist(){
+		
 	}
 
 }

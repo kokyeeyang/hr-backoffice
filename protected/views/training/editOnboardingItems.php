@@ -21,8 +21,11 @@
             <input type="text" value="<?php echo $onboardingItemObjRecord->onboarding_item; ?>" name="onboardingItem" id="onboardingItem" required/>
           <br/>
           </td>
-        </tr>
+          <td>
+            <input type="text" value="<?php echo $onboardingItemObjRecord->responsibility; ?>" name="itemResponsibility" id="itemResponsibility" required/>
+          </td>
         <?php } ?>
+        </tr>
         <tr>
           <td>
             <!-- <div class="row buttons">

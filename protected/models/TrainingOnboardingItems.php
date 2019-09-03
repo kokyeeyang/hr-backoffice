@@ -39,4 +39,51 @@ class TrainingOnboardingItems extends AppActiveRecord {
 		return parent::model($className);
 	}	
 
+	public function obtainItemIds(){
+		$sql = 'SELECT id ';
+		$sql .= 'FROM ' . self::$tableName;
+
+		$objConnection 	= Yii::app()->db;
+		$objCommand		= $objConnection->createCommand($sql);
+		$arrData		= $objCommand->queryAll();
+
+		if (!empty($arrData)){
+			return $arrData; 
+		} else {
+			return false;
+		} 
+	}
+
+	public function queryForOnboardingItem($id){
+		$sql = 'SELECT onboarding_item ';
+		$sql .= ' FROM ' . self::$tableName;
+		$sql .= ' WHERE ' . 'id = ' . '"' . $id . '"';
+
+		$objConnection 	= Yii::app()->db;
+		$objCommand		= $objConnection->createCommand($sql);
+		$arrData		= $objCommand->queryRow();
+
+		if (!empty($arrData)){
+			return implode(" ", $arrData); 
+		} else {
+			return false;
+		} 
+	}
+
+	public function queryForResponsibility($id){
+		$sql = 'SELECT responsibility ';
+		$sql .= ' FROM ' . self::$tableName;
+		$sql .= ' WHERE ' . 'id = ' . '"' . $id . '"';
+
+		$objConnection 	= Yii::app()->db;
+		$objCommand		= $objConnection->createCommand($sql);
+		$arrData		= $objCommand->queryRow();
+
+		if (!empty($arrData)){
+			return implode(" ", $arrData); 
+		} else {
+			return false;
+		} 
+	}	
+
 }
