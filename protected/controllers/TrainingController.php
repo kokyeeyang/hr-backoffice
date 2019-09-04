@@ -133,7 +133,15 @@ class TrainingController extends Controller
 	}
 
 	public function actionSaveOnboardingChecklist(){
-		
+		$completedItemIds = $this->getParam('completedCheckBox', '');
+
+		if($completedItemIds != ''){
+			foreach($completedItemIds as $completedItemId){
+				TrainingOnboardingChecklist::model()->updateOnboardingChecklist($completedItemId);
+			}
+
+			$this->redirect(array('showAllHiresForOnboarding'));
+		}
 	}
 
 }

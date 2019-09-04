@@ -39,9 +39,22 @@ class TrainingOnboardingChecklist extends AppActiveRecord {
 		return parent::model($className);
 	}
 
-	public function generateOnboardingChecklist(){
-		$sql = "INSERT INTO " . $tableName;
-		$sql .= "VALUES ";
+	public function updateOnboardingChecklist($completedItemId){
+
+		$completedStatus = 1;
+
+		if($itemId == ''){
+			$completedStatus = 0;
+		}
+
+		$sql = "UPDATE " . $tableName;
+		$sql .= " SET completed = " . $completedStatus . ", completed_date" . date("Y-m-d");
+		$sql .= " WHERE onboarding_item_id = " . $completedItemId;
+
+		$objConnection 	= Yii::app()->db;
+		$objCommand		= $objConnection->createCommand($sql);
+		$arrData		= $objCommand->queryRow();
+
 	}
 
 }

@@ -118,7 +118,7 @@
 						<td>
 						</td>
 						<td>
-							<input type="checkbox" name="signatureCheckBox[]" class="signatureCheckBox" value="<?php echo $objRecord->onboarding_item_id ?>" <?php echo($objRecord->completed == 1)?'checked="checked"':'' ?>>
+							<input type="checkbox" name="completedCheckBox[]" class="completedCheckBox" value="<?php echo $objRecord->onboarding_item_id ?>" <?php echo($objRecord->completed == 1)?'checked="checked"':'' ?>>
 						</td>
 					</tr>
 				<?php 
@@ -127,9 +127,13 @@
 				?>
 			</tbody>
 			<tbody id="data_table">
-				<input type="button" name="saveChecklistButton" id="viewSelectedChecklistButton" value="<?php echo Yii::t('app', 'Save'); ?>">
+				<input type="button" name="saveChecklistButton" id="saveChecklistButton" data-save-url="training/saveOnboardingChecklist" value="<?php echo Yii::t('app', 'Save'); ?>">
 			</tbody>
 		</table>  
 	<?php $this->endWidget(); ?> 	
 	</div>
+</div>
+
+<div id="training-common-msg">
+	<div id="msg-update-checklist" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to save this checklist?'); ?>"><!-- Dialog Buttons Label --></div>
 </div>
