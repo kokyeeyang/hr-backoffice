@@ -132,16 +132,20 @@ class TrainingController extends Controller
 		$this->render("showHiresForTraining", array('departments'=>$departments));
 	}
 
-	public function actionSaveOnboardingChecklist(){
+	public function actionSaveOnboardingChecklist($id){
 		$completedItemIds = $this->getParam('completedCheckBox', '');
 
 		if($completedItemIds != ''){
-			foreach($completedItemIds as $completedItemId){
-				TrainingOnboardingChecklist::model()->updateOnboardingChecklist($completedItemId);
-			}
-
-			$this->redirect(array('showAllHiresForOnboarding'));
+			TrainingOnboardingChecklist::model()->updateOnboardingChecklist($completedItemIds, $id);
+		} else if ($completedItemIds == ''){
+			TrainingOnboardingChecklist::model()->revertOnboardingChecklist($id);
 		}
+
+		$this->redirect(array('showAllHiresForOnboarding'));
+	}
+
+	public function actionSaveOnboardingItems(){
+
 	}
 
 }

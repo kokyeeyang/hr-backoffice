@@ -16,7 +16,8 @@ var TrainingUpdateOnboardingChecklist = function() {
 	}
 
 	return {
-		init : _init
+		init : _init,
+		save_checklist : _save_checklist
 	}
 
 }();

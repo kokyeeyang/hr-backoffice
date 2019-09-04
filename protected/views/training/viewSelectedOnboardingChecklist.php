@@ -16,7 +16,7 @@
 				'CActiveForm', 
 				array(
 					'id'=>'onboarding-checklist',
-					'action'=>$this->CreateUrl('training/saveOnboardingChecklist'),
+					// 'action'=>$this->CreateUrl('training/saveOnboardingChecklist'),
 					// Please note: When you enable ajax validation, make sure the corresponding
 					// controller action is handling ajax validation correctly.
 					// There is a call to performAjaxValidation() commented in generated controller code.
@@ -127,7 +127,7 @@
 				?>
 			</tbody>
 			<tbody id="data_table">
-				<input type="button" name="saveChecklistButton" id="saveChecklistButton" data-save-url="training/saveOnboardingChecklist" value="<?php echo Yii::t('app', 'Save'); ?>">
+				<input type="button" name="saveChecklistButton" id="saveChecklistButton" data-save-url="<?php echo $this->createUrl('saveOnboardingChecklist',array('id' => $objRecord->candidate_id)) ?>" value="<?php echo Yii::t('app', 'Save'); ?>">
 			</tbody>
 		</table>  
 	<?php $this->endWidget(); ?> 	

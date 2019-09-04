@@ -18,19 +18,19 @@
         <?php foreach($onboardingItemArrRecords as $onboardingItemObjRecord){ ?>
         <tr>
           <td>
-            <input type="text" value="<?php echo $onboardingItemObjRecord->onboarding_item; ?>" name="onboardingItem" id="onboardingItem" required/>
+            <input type="text" value="<?php echo $onboardingItemObjRecord->onboarding_item; ?>" name="onboardingItem" id="<?php echo "item" . $onboardingItemObjRecord->id; ?>" required/>
           <br/>
           </td>
           <td>
-            <input type="text" value="<?php echo $onboardingItemObjRecord->responsibility; ?>" name="itemResponsibility" id="itemResponsibility" required/>
+            <input type="text" value="<?php echo $onboardingItemObjRecord->responsibility; ?>" name="itemResponsibility" id="<?php echo "responsibility" . $onboardingItemObjRecord->id; ?>" required/>
           </td>
         <?php } ?>
         </tr>
         <tr>
           <td>
-            <!-- <div class="row buttons">
-              <?php // echo CHtml::submitButton($objModel->isNewRecord ? 'Submit' : 'Save'); ?>
-            </div> -->
+            <div class="row buttons">
+              <?php echo CHtml::submitButton($onboardingItemObjRecord->isNewRecord ? 'Submit' : 'Save'); ?>
+            </div> 
           </td>
         </tr>
       </table>

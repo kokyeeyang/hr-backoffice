@@ -39,22 +39,38 @@ class TrainingOnboardingChecklist extends AppActiveRecord {
 		return parent::model($className);
 	}
 
-	public function updateOnboardingChecklist($completedItemId){
-
+	public function updateOnboardingChecklist($completedItemIds, $id){
 		$completedStatus = 1;
+		$completedDate = date("Y-m-d");
 
-		if($itemId == ''){
-			$completedStatus = 0;
+		foreach($completedItemIds as $completedItemId){
+			$sql = "UPDATE " . self::$tableName;
+			$sql .= " SET completed = " . $completedStatus . ", completed_date = " . "'". $completedDate . "'";
+			$sql .= " WHERE onboarding_item_id = " . $completedItemId;
+			$sql .= " AND candidate_id = " . "'" . $id . "'";
+
+			$objConnection 	= Yii::app()->db;
+			$objCommand		= $objConnection->createCommand($sql)->execute();
+
 		}
 
-		$sql = "UPDATE " . $tableName;
-		$sql .= " SET completed = " . $completedStatus . ", completed_date" . date("Y-m-d");
-		$sql .= " WHERE onboarding_item_id = " . $completedItemId;
+		$sql = "UPDATE " . self::$tableName;
+		$sql .= " SET completed = 0, completed_date = null";
+		$sql .= " WHERE onboarding_item_id NOT IN ('" . implode("', '" ,$completedItemIds) . "')";
+		$sql .= " AND candidate_id = " . "'" . $id . "'";
 
 		$objConnection 	= Yii::app()->db;
-		$objCommand		= $objConnection->createCommand($sql);
-		$arrData		= $objCommand->queryRow();
+		$objCommand		= $objConnection->createCommand($sql)->execute();
 
+	}
+
+	public function revertOnboardingChecklist($id){
+		$sql = "UPDATE " . self::$tableName;
+		$sql .= " SET completed = 0, completed_date = null";
+		$sql .= " WHERE candidate_id = " . "'" . $id . "'";
+
+		$objConnection 	= Yii::app()->db;
+		$objCommand		= $objConnection->createCommand($sql)->execute();
 	}
 
 }
