@@ -110,7 +110,7 @@ class TrainingController extends Controller
 	}
 
 	public function actionShowAllHiresForOnboarding() {
-		$candidateCondition = 'candidate_status = 1';
+		$candidateCondition = 'candidate_status = 6';
 		$hireArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
 		return $this->render("showAllHiresForOnboarding", array('hireArrRecords'=>$hireArrRecords));
 	}
@@ -142,10 +142,6 @@ class TrainingController extends Controller
 		}
 
 		$this->redirect(array('showAllHiresForOnboarding'));
-	}
-
-	public function actionSaveOnboardingItems(){
-
 	}
 
 }

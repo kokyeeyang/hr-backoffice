@@ -214,8 +214,18 @@ class EmploymentCandidate extends AppActiveRecord
 			if($objData == "0"){
 				return "Interview stage";
 			} else if($objData == "1"){
-				return "Confirmed";
-			}
+				return "Accepted";
+			} else if($objData == "2"){
+				return "Shortlisted";
+			} else if($objData == "3"){
+				return "No show";
+			} else if($objData == "4"){
+				return "Not suitable";
+			} else if($objData == "5"){
+				return "Rescheduled";
+			} else if($objData == "6"){
+				return "Accepted and generate onboarding checklist";
+			} 
 		}
 	}	
 

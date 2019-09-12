@@ -625,7 +625,7 @@
             </span>
             <span id="termsCheckBox">
               <div class="general_lables" style="width:40px;">
-                <input type="checkbox" name="agreeTerms" id="agreeTerms" style="float: left;"  value="1" <?php echo($candidateObjRecord->candidate_agree_terms == 1)?'checked="checked"':'' ?> <?php echo $access ?> required>
+                <input type="checkbox" name="agreeTerms" id="agreeTerms" style="float: left;"  value="1" <?php echo($candidateObjRecord->candidate_agree_terms == 1)?'checked="checked"':'' ?> <?php echo $access ?> disabled required>
               </div>
               <div class="general_lables2" style="margin-top: 12px; width: 300px;">
                 <label for="agreeTerms"><?php echo Yii::t('app', 'I have read and agree to the above terms.') ?></label>
@@ -636,7 +636,7 @@
           <div class="grid_block">
             <div class="lable_block">
               <div class="lables">
-                <input type="text" class="inputLine" name="signatureDate" value="<?php echo str_replace('00:00:00', '', $candidateObjRecord->candidate_signature_date) ?>" <?php echo $access ?>>
+                <input type="text" class="inputLine" name="signatureDate" value="<?php echo str_replace('00:00:00', '', $candidateObjRecord->candidate_signature_date) ?>" <?php echo $access ?> disabled>
                 <br>
                 <span>
                   <?php echo Yii::t('app', 'Date') ?>

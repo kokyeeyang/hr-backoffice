@@ -573,21 +573,27 @@ class RegistrationController extends Controller
 	}
 
 	public function actionConfirmCandidate($id){
+		$candidateStatus = $this->getParam('dropdown','');
 		$candidateCondition = 'id_no = "' . $id . '"';
 		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
 
 		foreach($candidateArrRecords as $candidateObjRecord){
-			$candidateObjRecord->candidate_status = "1";
+			$candidateObjRecord->candidate_status = $candidateStatus;
 			$candidateObjRecord->update();
 		}
 
-		$onboardingItemIds = TrainingOnboardingItems::model()->obtainItemIds();
-		foreach($onboardingItemIds as $iKey => $onboardingItemId){
-			$onboardingChecklistObjModel = new TrainingOnboardingChecklist;
-			$onboardingChecklistObjModel->onboarding_item_id = implode(" ",$onboardingItemId);
-			$onboardingChecklistObjModel->candidate_id = $id;
-			$onboardingChecklistObjModel->created_by = Yii::app()->user->id;
-			$onboardingChecklistObjModel->save();
+		$trainingOnboardingChecklistCondition = 'candidate_id = "' . $id . '"';
+		$duplicateCheck = TrainingOnboardingChecklist::model()->findAll($trainingOnboardingChecklistCondition);
+
+		if ($candidateStatus == "6" && $duplicateCheck == false){
+			$onboardingItemIds = TrainingOnboardingItems::model()->obtainItemIds();
+			foreach($onboardingItemIds as $iKey => $onboardingItemId){
+				$onboardingChecklistObjModel = new TrainingOnboardingChecklist;
+				$onboardingChecklistObjModel->onboarding_item_id = implode(" ",$onboardingItemId);
+				$onboardingChecklistObjModel->candidate_id = $id;
+				$onboardingChecklistObjModel->created_by = Yii::app()->user->id;
+				$onboardingChecklistObjModel->save();
+			}
 		}
 
 		$this->redirect(array('showAllCandidates'));

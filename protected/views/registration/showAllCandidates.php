@@ -128,7 +128,16 @@
 							<?php echo EmploymentCandidate::model()->queryForCandidateStatus($objRecord->id_no); ?>
 						</td>
 						<td>
-							<input type="button" data-confirm-url="<?php echo $this->createUrl('registration/confirmCandidate', array('id' => $objRecord->id_no)); ?>" name="confirmCandidateButton" value="<?php echo Yii::t('app', 'Confirm'); ?>">
+							<!-- <input type="button" data-confirm-url="<?php //echo $this->createUrl('registration/confirmCandidate', array('id' => $objRecord->id_no)); ?>" name="confirmCandidateButton" value="<?php// echo Yii::t('app', 'Confirm'); ?>"> -->
+							<select name="dropdown" data-confirm-url="<?php echo $this->createUrl('registration/confirmCandidate', array('id' => $objRecord->id_no)); ?>" size=1>
+								<option value="" selected disabled hidden>Choose here</option>
+						    <option value="1">Accepted</option>
+						    <option value="2">Shortlisted</option>
+						    <option value="3">No Show</option>
+						    <option value="4">Not Suitable</option>
+						    <option value="5">Rescheduled</option>
+						    <option value="6">Accepted and generate onboarding checklist</option>
+							</select>
 						</td>
 						<td>
 							<input type="button" data-view-url="<?php echo $this->createUrl('registration/viewSelectedCandidate', array('id' => $objRecord->id_no)); ?>" name="editCandidateButton" id="viewSelectedCandidateButton" value="<?php echo Yii::t('app', 'View'); ?>">
@@ -151,5 +160,5 @@
 	<div id="msg-confirm-registration-delete" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to delete the selected candidates?'); ?>"><!-- Dialog Buttons Label --></div>
 </div>
 <div id="registration-common-msg">
-	<div id="msg-confirm-candidate" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to confirm this candidate as an employee?'); ?>"><!-- Dialog Buttons Label --></div>
+	<div id="msg-confirm-candidate" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to change this candidate\'s status?'); ?>"><!-- Dialog Buttons Label --></div>
 </div>
