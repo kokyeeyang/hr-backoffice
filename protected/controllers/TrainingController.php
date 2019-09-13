@@ -134,14 +134,23 @@ class TrainingController extends Controller
 
 	public function actionSaveOnboardingChecklist($id){
 		$completedItemIds = $this->getParam('completedCheckBox', '');
+		$uncompletedItemIds = $this->getParam('uncompletedCheckBox', '');
 
 		if($completedItemIds != ''){
+			// $completedStatus = TrainingOnboardingChecklist::model()->queryForChangedItems($completedItemIds, $id, true);
+			// $uncompletedStatus = TrainingOnboardingChecklist::model()->queryForChangedItems($uncompletedItemIds, $id, false);
+			// var_dump($completedStatus);
+			// var_dump($uncompletedStatus);
 			TrainingOnboardingChecklist::model()->updateOnboardingChecklist($completedItemIds, $id);
 		} else if ($completedItemIds == ''){
 			TrainingOnboardingChecklist::model()->revertOnboardingChecklist($id);
 		}
 
 		$this->redirect(array('showAllHiresForOnboarding'));
+	}
+
+	public function actionCheckForCheckedState(){
+
 	}
 
 }

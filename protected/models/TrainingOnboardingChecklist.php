@@ -73,4 +73,36 @@ class TrainingOnboardingChecklist extends AppActiveRecord {
 		$objCommand		= $objConnection->createCommand($sql)->execute();
 	}
 
+	public function queryForChangedItems($itemIds, $id, $completedStatus){
+		if($completedStatus == true){
+			foreach($itemIds as $itemId){
+				$satisfied = 1;
+				$sql = "SELECT onboarding_item_id FROM " . self::$tableName;
+				// $sql .= " WHERE completed = " . $satisfied;
+				$sql .= " WHERE onboarding_item_id = " . $itemId;
+
+				$objConnection 	= Yii::app()->db;
+				$objCommand		= $objConnection->createCommand($sql);
+				$arrData		= $objCommand->queryRow();
+
+				return $arrData;
+			}
+				// var_dump($arrData);exit;
+		}else if($completedStatus == false){
+			foreach($itemIds as $itemId){
+				$satisfied = 0;
+				$sql = "SELECT onboarding_item_id FROM " . self::$tableName;
+				// $sql .= " WHERE completed == " . $satisfied;
+				$sql .= " WHERE onboarding_item_id = " . $itemId;
+
+				$objConnection 	= Yii::app()->db;
+				$objCommand		= $objConnection->createCommand($sql);
+				$arrData		= $objCommand->queryRow();
+
+				return $arrData;
+			}
+			// var_dump($arrData);exit;
+		} 
+	}
+
 }

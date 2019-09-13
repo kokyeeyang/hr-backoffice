@@ -118,7 +118,9 @@
 						<td>
 						</td>
 						<td>
-							<input type="checkbox" name="completedCheckBox[]" class="completedCheckBox" value="<?php echo $objRecord->onboarding_item_id ?>" <?php echo($objRecord->completed == 1)?'checked="checked"':'' ?>>
+							<!-- <input check-data-url="<?php //echo $this->createUrl('training/checkForCheckedState') ?>" input type="hidden"> -->
+							<input type="checkbox" name="completedCheckBox[]" class="completedCheckBox" id="<?php echo TrainingOnboardingItems::model()->queryForOnboardingItem($objRecord->onboarding_item_id); ?>" value="<?php echo $objRecord->onboarding_item_id ?>" <?php echo($objRecord->completed == 1)?'checked="checked"':'' ?>>
+							<input type="checkbox" name="uncompletedCheckBox[]" class="uncompletedCheckBox" id="<?php echo $objRecord->onboarding_item_id ?>" value="<?php echo $objRecord->onboarding_item_id ?>" <?php echo($objRecord->completed == 0)?'checked="checked"':'' ?>>
 						</td>
 					</tr>
 				<?php 
@@ -137,3 +139,9 @@
 <div id="training-common-msg">
 	<div id="msg-update-checklist" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to save this checklist?'); ?>"><!-- Dialog Buttons Label --></div>
 </div>
+
+<input id="checkedStatus" type="hidden" value="">
+
+<input id="uncheckedStatus" type="hidden" value="">
+
+<p id="demo"></p>
