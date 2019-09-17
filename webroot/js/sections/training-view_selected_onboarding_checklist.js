@@ -1,71 +1,46 @@
 var TrainingViewSelectedOnboardingChecklist = function() {
 	function _save_checklist(objElement, objEvent){
-		if (confirm($('#msg-confirm-candidate-save').attr('data-msg'))){
+		// if (confirm($('#msg-update-checklist').attr('data-msg'))){
+		if (confirm($('#checkedItems').attr('data-msg'))){
 			$('#onboarding-checklist').attr('action', $(objElement).attr('data-save-url')).submit();
 		} else {
 			objEvent.preventDefault();
 		}
 	}
 
-	// function _check_for_checked_state(objElement, objEvent, checkBoxesArray, checkBoxesState){
-	// 	$.ajax({
-	// 		type: 'post',
-	// 		url: $(objElement).attr('check-data-url'),
-	// 		data: {
-	// 			checked_state : $(objElement).val()
-	// 		},
-	// 		dataType: 'json',
-	// 		success: function(data){
-
-	// 		},
-	// 		error: function(request, status, err){
-	// 			alert('wrong');
-	// 		}
-	// 	});
-	// }
-
 	function _init(){
 		$(function() {
 			$('#saveChecklistButton').on('click', function(objEvent){
-				// alert(checkedCheckboxes);
-				alert(document.getElementById("demo").innerHTML);
 				TrainingViewSelectedOnboardingChecklist.save_checklist(this, objEvent);
 			});
 		});
 
 	}
-
+				
 	$(document).ready(function () {
+		var checkedCheckboxes = []; 
+		$(':input[id="saveChecklistButton"]').prop('disabled', true);
+
 		$(".completedCheckBox").change(function() {
+			$(':input[id="saveChecklistButton"]').prop('disabled', false);
 			if ($(this).is(":checked") == true){
-				var checkedCheckboxes = []; 
 				var checkedItem = $(this).attr("id");
-				// alert(checkedItemId);
-				checkedCheckboxes.push(checkedItem);
-				// $('#saveChecklistButton').on('click', function(objEvent){
-				// 	alert(checkedCheckboxes);
-				// });
-				$('checkedStatus').attr('value', checkedCheckboxes);
+				if (jQuery.inArray(checkedItem, checkedCheckboxes) === -1){
+					checkedCheckboxes.push(checkedItem);
+				}
 
-				alert("checked stuff = " + checkedCheckboxes);
-				document.getElementById("demo").innerHTML = checkedCheckboxes;
+				var confirmationMessage = "You have completed the following items : " + checkedCheckboxes + ". Are you sure that you want to proceed to saving?";
+				$("#checkedItems").attr("data-msg", confirmationMessage);
+			} else if ($(this).is(":checked") == false){
+				var itemToBeRemoved = $(this).attr("id");
 
-			}else if ($(this).is(":checked") == false){
-				var uncheckedCheckboxes = [];
-				var uncheckedItem = $(this).attr("id");
-				// alert(uncheckedItemId);
-				uncheckedCheckboxes.push(uncheckedItem);
-				$('uncheckedStatus').attr('value', checkedCheckboxes);
-				alert("wooo = " + uncheckedCheckboxes);
+				checkedCheckboxes = jQuery.grep(checkedCheckboxes, function(value) {
+					return value != itemToBeRemoved;
+				});
+
+				var confirmationMessage = "You have completed the following items : " + checkedCheckboxes + ". Are you sure that you want to proceed to saving?";
+				$("#checkedItems").attr("data-msg", confirmationMessage);
 			}
-
-			// $('#saveChecklistButton').on('click', function(objEvent){
-			// 	alert("unchecked stuff = " + uncheckedCheckboxes);
-
-			// 	alert("checked stuff = " + checkedCheckboxes);
-
-			// 	TrainingViewSelectedOnboardingChecklist.save_checklist(this, objEvent);
-			// });
 		});
 
 
@@ -76,8 +51,7 @@ var TrainingViewSelectedOnboardingChecklist = function() {
 			  individualCompleted.change(function() {
 		  		if(individualCompleted.attr("value") == individualUncompleted.attr("value")){
 				  	if(individualCompleted.is(":checked") == false){
-				  		// var checkedItemId = individualCompleted.attr("value");
-					  		console.log(individualUncompleted.attr("value"));
+					  		// console.log(individualUncompleted.attr("value"));
 					  		individualUncompleted.prop( "checked", true );
 				  	} else if(individualCompleted.is(":checked") == true){
 				  			individualUncompleted.prop( "checked", false );
@@ -91,7 +65,6 @@ var TrainingViewSelectedOnboardingChecklist = function() {
 	return {
 		init : _init,
 		save_checklist : _save_checklist
-		// check_for_checked_state : _check_for_checked_state
 	}
 
 }();

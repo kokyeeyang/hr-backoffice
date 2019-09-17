@@ -137,10 +137,6 @@ class TrainingController extends Controller
 		$uncompletedItemIds = $this->getParam('uncompletedCheckBox', '');
 
 		if($completedItemIds != ''){
-			// $completedStatus = TrainingOnboardingChecklist::model()->queryForChangedItems($completedItemIds, $id, true);
-			// $uncompletedStatus = TrainingOnboardingChecklist::model()->queryForChangedItems($uncompletedItemIds, $id, false);
-			// var_dump($completedStatus);
-			// var_dump($uncompletedStatus);
 			TrainingOnboardingChecklist::model()->updateOnboardingChecklist($completedItemIds, $id);
 		} else if ($completedItemIds == ''){
 			TrainingOnboardingChecklist::model()->revertOnboardingChecklist($id);
