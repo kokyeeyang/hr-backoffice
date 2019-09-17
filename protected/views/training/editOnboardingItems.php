@@ -18,11 +18,11 @@
         <?php foreach($onboardingItemArrRecords as $onboardingItemObjRecord){ ?>
         <tr>
           <td>
-            <input type="text" value="<?php echo $onboardingItemObjRecord->onboarding_item; ?>" name="onboardingItem" id="<?php echo "item" . $onboardingItemObjRecord->id; ?>" required/>
+            <input type="text" value="<?php echo $onboardingItemObjRecord->onboarding_item; ?>" name="<?php echo "item" . $onboardingItemObjRecord->id; ?>" id="<?php echo "item" . $onboardingItemObjRecord->id; ?>" required/>
           <br/>
           </td>
           <td>
-            <input type="text" value="<?php echo $onboardingItemObjRecord->responsibility; ?>" name="itemResponsibility" id="<?php echo "responsibility" . $onboardingItemObjRecord->id; ?>" required/>
+            <input type="text" value="<?php echo $onboardingItemObjRecord->responsibility; ?>" name="<?php echo "responsibility" . $onboardingItemObjRecord->id; ?>" id="<?php echo "responsibility" . $onboardingItemObjRecord->id; ?>" required/>
           </td>
         <?php } ?>
         </tr>

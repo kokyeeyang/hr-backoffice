@@ -120,6 +120,10 @@ class TrainingController extends Controller
 		return $this->render("editOnboardingItems", array('onboardingItemArrRecords'=>$onboardingItemArrRecords));
 	}
 
+	public function actionSaveOnboardingItems(){
+		// TrainingOnboardingItems::model()->deleteAll();
+	}
+
 	public function actionViewSelectedOnboardingChecklist($id) {
 		$onboardingChecklistArrRecords = TrainingOnboardingChecklist::model()->findAll($id); 
 
@@ -145,8 +149,5 @@ class TrainingController extends Controller
 		$this->redirect(array('showAllHiresForOnboarding'));
 	}
 
-	public function actionCheckForCheckedState(){
-
-	}
 
 }
