@@ -643,13 +643,35 @@
                 </span>
               </div>
             </div>
-            <div class="lable_block" id="save_button">
+            <!-- <div class="lable_block" id="save_button">
               <div class="row buttons">
-                <?php echo CHtml::submitButton('Save'); ?>
+                <?php //echo CHtml::submitButton('Save'); ?>
               </div>
-            </div>
+            </div> -->
           </div>
           <?php } ?>
+        </fieldset>
+        <fieldset class="fieldset">
+          <legend class="legend">
+            7.<?php echo Yii::t('app', 'Additional remarks *For internal use only') ?>
+          </legend>
+          <textarea rows="8" cols="165" name="comment">Enter text here...</textarea>
+        </fieldset>
+        <fieldset class="fieldset">
+          <legend class="legend">
+            8.<?php echo Yii::t('app', 'General questions *For internal use only') ?>
+          </legend>
+          <textarea rows="8" cols="165" name="questions">Enter text here...</textarea>
+          <div class="lable_block" id="save_button">
+            <div class="row buttons">
+              <?php echo CHtml::submitButton('Save'); ?>
+            </div>
+          </div>
+          <div class="lable_block" id="offer_letter_button">
+            <div class="row buttons">
+              <?php echo CHtml::submitButton('Convert to offer letter'); ?>
+            </div>
+          </div>
         </fieldset>
       </div>
     </form>

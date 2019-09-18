@@ -397,5 +397,7 @@ VALUES ("Offer letter", "A", "HR"),
 ("Application for good conduct certification online : http://ekonsular.kln.gov.my/", "G", "HR"),
 ("User training", "H", "HR"),
 ("Email account, Asana, Bit8, Skype groups, Dropbox, Door access", "I", "Adrian"),
-("Live chats", "I", "Mahen"),
-("Payroll panda", "I", "HR");
+("Live chats", "I", "Mahen")          
+
+ALTER TABLE employment_job_opening
+  ADD `offer_letter` varchar(50) NULL AFTER `department`;

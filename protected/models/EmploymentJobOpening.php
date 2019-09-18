@@ -23,6 +23,7 @@ class EmploymentJobOpening extends AppActiveRecord
 			'job_title' => Yii::t('app', 'job_title'),
 			'department' => Yii::t('app', 'department'),
 			'interview_manager' => Yii::t('app', 'interview_manager'),
+			'offer_letter' => Yii::t('app', 'offer_letter'),
 			'link' => Yii::t('app', 'link'),
 		];
 	}

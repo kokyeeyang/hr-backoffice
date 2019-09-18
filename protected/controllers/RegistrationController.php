@@ -160,7 +160,7 @@ class RegistrationController extends Controller
 
 		if($resumePath != false && $coverLetterPath != false){
 			$moveResume = CommonHelper::moveDocumentToFileSystem($candidateObjModel->candidate_resume, "resume", $resumeFileType);
-			$moveCoverLetter = CommonHelper::moveDocumentToFileSystem($candidateObjModel->candidate_resume, "coverLetter", $coverLetterFileType);
+			$moveCoverLetter = CommonHelper::moveDocumentToFileSystem($candidateObjModel->candidate_cover_letter, "coverLetter", $coverLetterFileType);
 		}
 		
 		$candidateObjModel->save();
@@ -284,11 +284,20 @@ class RegistrationController extends Controller
 	}
 
 	public function actionSaveJobOpenings() {
+
+		$offerLetterPath = $_FILES["offer-letter"]["name"];
+		$offerLetterFileType = CommonHelper::getDocumentType($offerLetterPath);
+		$jobTitle = $this->getParam('jobTitle','');
+
 		$jobOpeningObjModel = new EmploymentJobOpening;
 		$jobOpeningObjModel->job_title = $this->getParam('jobTitle','');
 		$jobOpeningObjModel->department = $this->getParam('department','');
+		$jobOpeningObjModel->offer_letter = CommonHelper::setFileName($offerLetterPath, $jobTitle, $offerLetterFileType, "offer-letter");
 		$jobOpeningObjModel->interviewing_manager = $this->getParam('interviewManager','');
 
+		if($offerLetterPath != false){
+			CommonHelper::moveDocumentToFileSystem($jobOpeningObjModel->offer_letter, "offer-letter", $offerLetterFileType);
+		}
 		$jobOpeningObjModel->save();
 
 		if(!$error = $this->objError->getError()){

@@ -122,6 +122,7 @@ class TrainingController extends Controller
 
 	public function actionSaveOnboardingItems(){
 		// TrainingOnboardingItems::model()->deleteAll();
+		var_dump($_POST);exit;
 	}
 
 	public function actionViewSelectedOnboardingChecklist($id) {

@@ -7,6 +7,8 @@ class CommonHelper {
 				return "CANDIDATE_" . "RESUME_". EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
 			} else if ($documentType == "cover-letter"){
 				return "CANDIDATE_" . "COVER_LETTER_". EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
+			} else if ($documentType == "offer-letter"){
+				return "OFFER_LETTER_FOR_". $sanitizedIdNo . "_" . date("Y-m-d") . "." . $fileType;
 			} else {
 				return "CANDIDATE_" . EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
 			}
@@ -23,7 +25,8 @@ class CommonHelper {
 	public static function moveDocumentToFileSystem($documentName, $documentKind, $fileType){
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
 			$allowed = array("pdf" => "pdf", "docx" => "docx", "doc" => "doc", "xml" => "xml");
-			if(isset($_FILES['resume']) && $_FILES["resume"]["error"] == 0 && isset($_FILES['coverLetter']) && $_FILES["coverLetter"]["error"] == 0){
+			if(isset($_FILES['resume']) && $_FILES["resume"]["error"] == 0 && isset($_FILES['coverLetter']) && $_FILES["coverLetter"]["error"] == 0 && isset($_FILES['offer-letter']) && $_FILES["offer-letter"]["error"] == 0){
+			// if($_FILES["resume"]["error"] == 0 && $_FILES["coverLetter"]["error"] == 0 && $_FILES["offer-letter"]["error"] == 0){
 
 				if(!array_key_exists(strtolower($fileType), $allowed)){
 					die("Error: Please select a valid file format.");
@@ -33,6 +36,7 @@ class CommonHelper {
 					if(file_exists("document/". $documentKind . "/" . $documentName)){
 						echo $documentName . "already exists.";
 					} else {
+					var_dump($_FILES);exit;
 						move_uploaded_file($_FILES[$documentKind]["tmp_name"], getcwd() . "/documents/" . $documentKind . "/" . $documentName);
 					}
 				} else {

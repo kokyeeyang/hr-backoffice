@@ -40,6 +40,7 @@
           <td>
             <div class="row buttons">
               <?php echo CHtml::submitButton($objModel->isNewRecord ? 'Submit' : 'Save'); ?>
+              <input type="file" name="offer-letter" id="offer-letter" accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required/>
             </div>
           </td>
         </tr>
