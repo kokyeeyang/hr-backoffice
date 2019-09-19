@@ -137,6 +137,7 @@
 						    <option value="4">Not Suitable</option>
 						    <option value="5">Rescheduled</option>
 						    <option value="6" title="This will generate onboarding checklist for this candidate">Offer letter signed</option>
+						    <option value="7">Offer letter generated</option>
 							</select>
 						</td>
 						<td>

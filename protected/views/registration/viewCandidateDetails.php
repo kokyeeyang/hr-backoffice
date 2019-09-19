@@ -668,10 +668,7 @@
             </div>
           </div>
           <div class="lable_block" id="offer_letter_button">
-            <!-- <div class="row buttons">
-              <?php //echo CHtml::submitButton('Convert to offer letter'); ?>
-            </div> -->
-            <input type="button" id="generateOfferEmail" value="<?php echo Yii::t('app', 'Convert to offer'); ?>" data-offer-url="<?php echo $this->createUrl('registration/generateOfferEmail', array('jobId' => $candidateObjRecord->job_id, 'candidateName' => $candidateObjRecord->full_name)); ?>">
+            <input type="button" id="generateOfferEmail" value="<?php echo Yii::t('app', 'Convert to offer'); ?>" data-offer-url="<?php echo $this->createUrl('registration/generateOfferEmail', array('jobId' => $candidateObjRecord->job_id, 'candidateName' => $candidateObjRecord->full_name, 'candidateId' => $candidateObjRecord->id_no)); ?>">
           </div>
         <?php } ?>
         </fieldset>

@@ -226,7 +226,9 @@ class EmploymentCandidate extends AppActiveRecord
 				return "Rescheduled";
 			} else if($objData == "6"){
 				return "Offer letter signed";
-			} 
+			} else if($objData == "7"){
+				return "Offer letter generated";
+			}
 		}
 	}	
 

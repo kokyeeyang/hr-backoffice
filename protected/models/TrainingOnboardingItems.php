@@ -77,7 +77,7 @@ class TrainingOnboardingItems extends AppActiveRecord {
 
 		$objConnection 	= Yii::app()->db;
 		$objCommand		= $objConnection->createCommand($sql);
-		$arrData		= $objCommand->queryAll();
+		$arrData		= $objCommand->queryRow();
 
 		if (!empty($arrData)){
 			return implode(" ", $arrData); 

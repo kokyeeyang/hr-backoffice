@@ -345,11 +345,21 @@ class RegistrationController extends Controller
 		Yii::app()->end();
 	}
 
-	public function actionGenerateOfferEmail($jobId, $candidateName){
+	public function actionGenerateOfferEmail($jobId, $candidateName, $candidateId){
 		$aResult['candidateName'] = false;
+		// $jobOpeningIds = $this->getParam('deleteCheckBox', '');
 		$managerName = EmploymentJobOpening::model()->queryForCandidateInterviewingManager($jobId);
 		$jobTitle = EmploymentJobOpening::model()->queryForCandidateJobTitle($jobId);
 		$candidateEmail = EmploymentCandidate::model()->queryForCandidateEmail($candidateName);
+
+		$candidateStatus = 7;
+		$candidateCondition = 'id_no = "' . $candidateId . '"';
+		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
+
+		foreach($candidateArrRecords as $candidateObjRecord){
+			$candidateObjRecord->candidate_status = $candidateStatus;
+			$candidateObjRecord->update();
+		}
 
 		if(Yii::app()->request->isAjaxRequest){
 			$aResult['candidateName'] = $candidateName;
