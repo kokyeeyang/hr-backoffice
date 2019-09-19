@@ -1,5 +1,5 @@
 var RegistrationViewSelectedCandidate = function() {
-	function generate_offer_email(objElement, objEvent){
+	function _generate_offer_email(objElement, objEvent){
 		if($(objElement).val() != ''){
 			$.ajax({
 				type: 'post',
@@ -7,21 +7,27 @@ var RegistrationViewSelectedCandidate = function() {
 				data: {
 					candidate_name : $(objElement).val(),
 					manager : $(objElement).val(),
-					position : $(objElement).val()
+					position : $(objElement).val(),
+					candidate_email : $(objElement).val()
 				},
 
 				dataType: 'json',
 				success: function(data){
-					if(data != null && (typeof data.result) != 'undefined'){
-						var emailSubject = "Offer for the position of " + data.position;
-						var greetings = "Dear " + data.candidateName;
-						var emailBody1 = "We are pleased to offer you the position of " + data.position + ".";
+					if(data != null && (typeof data.candidateName) != 'undefined'){
+						var emailSubject = "Offer for the position of " + data.jobTitle;
+						var greetings = "Dear " + data.candidateName + ",";
+						var emailBody1 = "We are pleased to offer you the position of " + data.jobTitle + 
+														 " with SAGA OS SDN. BHD. (herein after referred to as \"the Company\") with effect from the ";
 
-						window.location.href = "mailto:?" + "subject=" + emailSubject 
+						window.location.href = "mailto:" + data.candidateEmail + "?subject=" + emailSubject + "&body="
+						+ greetings + "%0D%0A%0D%0A" + emailBody1; 
 
 					} else {
 						alert('there is an error when generating the email.');
 					}
+				},
+				error: function(request, status, err){
+					alert('something is wrong');
 				}
 			});
 		}

@@ -349,12 +349,14 @@ class RegistrationController extends Controller
 		$aResult['candidateName'] = false;
 		$managerName = EmploymentJobOpening::model()->queryForCandidateInterviewingManager($jobId);
 		$jobTitle = EmploymentJobOpening::model()->queryForCandidateJobTitle($jobId);
+		$candidateEmail = EmploymentCandidate::model()->queryForCandidateEmail($candidateName);
 
 		if(Yii::app()->request->isAjaxRequest){
 			$aResult['candidateName'] = $candidateName;
 			$aResult['manager'] = $managerName;
-			$position['jobTitle'] = $jobTitle;
-
+			$aResult['jobTitle'] = $jobTitle;
+			$aResult['candidateEmail'] = $candidateEmail;
+			
 			echo(json_encode($aResult));
 		}
 		Yii::app()->end();

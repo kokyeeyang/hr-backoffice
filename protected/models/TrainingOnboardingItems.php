@@ -77,13 +77,30 @@ class TrainingOnboardingItems extends AppActiveRecord {
 
 		$objConnection 	= Yii::app()->db;
 		$objCommand		= $objConnection->createCommand($sql);
-		$arrData		= $objCommand->queryRow();
+		$arrData		= $objCommand->queryAll();
 
 		if (!empty($arrData)){
 			return implode(" ", $arrData); 
 		} else {
 			return false;
 		} 
-	}	
+	}
+
+	// public function queryForHrResponsibility($currentUserPriv){
+	// 	$sql = 'SELECT responsibility ';
+	// 	$sql .= ' FROM ' . self::$tableName;
+	// 	$sql .= ' WHERE ' . 'responsibility = "' . $currentUserPriv . '"';
+
+	// 	$objConnection 	= Yii::app()->db;
+	// 	$objCommand		= $objConnection->createCommand($sql);
+	// 	$arrData		= $objCommand->queryAll();
+
+	// 	if (!empty($arrData)){
+	// 		return $arrData; 
+	// 	} else {
+	// 		return false;
+	// 	} 
+
+	// }	
 
 }

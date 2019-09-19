@@ -110,19 +110,18 @@
 						</td>
 						<td>
 							<?php echo TrainingOnboardingItems::model()->queryForResponsibility($objRecord->onboarding_item_id); ?>
+							<!-- <span class="required" style="display:<?php //echo $display; ?>">*</span> -->
 						</td>
 						<td>
 							<?php echo $objRecord->completed_date; ?>
 						</td>
 						<td>
-							<?php //echo $objRecord->full_name ?>
 						</td>
 						<td>
 						</td>
 						<td>
 						</td>
 						<td>
-							<!-- <input check-data-url="<?php //echo $this->createUrl('training/checkForCheckedState') ?>" input type="hidden"> -->
 							<input type="checkbox" name="completedCheckBox[]" class="completedCheckBox" id="<?php echo TrainingOnboardingItems::model()->queryForOnboardingItem($objRecord->onboarding_item_id); ?>" value="<?php echo $objRecord->onboarding_item_id ?>" <?php echo($objRecord->completed == 1)?'checked="checked"':'' ?>>
 							<input type="checkbox" name="uncompletedCheckBox[]" class="uncompletedCheckBox" id="<?php echo TrainingOnboardingItems::model()->queryForOnboardingItem($objRecord->onboarding_item_id); ?>" value="<?php echo $objRecord->onboarding_item_id ?>" <?php echo($objRecord->completed == 0)?'checked="checked"':'' ?> style="display:none;">
 						</td>

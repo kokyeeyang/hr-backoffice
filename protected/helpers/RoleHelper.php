@@ -12,7 +12,7 @@ class RoleHelper {
 
 				if($bolAuthenticated === true && isset(Yii::app()->user->priv) && in_array(Yii::app()->user->priv, ['admin', 'manager', 'hr'])){
 					// set the actions which only admin can access
-					$arrActionsList = array_merge($arrActionsList, ['showAllCandidates', 'addNewJobOpenings', 'saveJobOpenings', 'showAllJobOpenings', 'deleteSelectedJobOpenings', 'generateLink', 'generateEmail', 'deleteSelectedCandidates', 'viewSelectedCandidate', 'updateSelectedCandidate', 'confirmCandidate']);
+					$arrActionsList = array_merge($arrActionsList, ['showAllCandidates', 'addNewJobOpenings', 'saveJobOpenings', 'showAllJobOpenings', 'deleteSelectedJobOpenings', 'generateLink', 'generateEmail', 'deleteSelectedCandidates', 'viewSelectedCandidate', 'updateSelectedCandidate', 'confirmCandidate', 'generateOfferEmail']);
 				}	
 			break;
 

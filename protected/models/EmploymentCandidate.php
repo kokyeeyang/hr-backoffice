@@ -246,6 +246,24 @@ class EmploymentCandidate extends AppActiveRecord
 		}
 	}
 
+	public function queryForCandidateEmail($candidateName){
+		$sql = 'SELECT email_address 
+		
+						FROM ' . self::$tableName . '
+
+						WHERE full_name = ' . '"' . $candidateName . '"';
+
+		$objConnection = Yii::app()->db;
+		$objCommand = $objConnection->createCommand($sql);
+		$arrData = $objCommand->queryRow();
+
+		if (!empty($arrData['email_address'])){
+			foreach($arrData as $objData){
+				return $objData;
+			}
+		}
+	}
+
 	public static function model($className=__CLASS__){
 		return parent::model($className);
 	}
