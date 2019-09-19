@@ -114,4 +114,22 @@ class EmploymentJobOpening extends AppActiveRecord
 		return parent::model($className);
 	}
 
+	public function queryForCandidateJobTitle($jobId){
+		$sql = 'SELECT job_title 
+
+						FROM ' . self::$tableName . '
+						
+						WHERE id = ' . $jobId;
+
+		$objConnection = Yii::app()->db;
+		$objCommand = $objConnection->createCommand($sql);
+		$arrData = $objCommand->queryRow();
+
+		if (!empty($arrData['job_title'])){
+			foreach($arrData as $objData){
+				return $objData;
+			}
+		}
+	}	
+
 }

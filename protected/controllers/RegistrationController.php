@@ -342,7 +342,22 @@ class RegistrationController extends Controller
 
 			echo(json_encode($aResult));
 		}
-			Yii::app()->end();
+		Yii::app()->end();
+	}
+
+	public function actionGenerateOfferEmail($jobId, $candidateName){
+		$aResult['candidateName'] = false;
+		$managerName = EmploymentJobOpening::model()->queryForCandidateInterviewingManager($jobId);
+		$jobTitle = EmploymentJobOpening::model()->queryForCandidateJobTitle($jobId);
+
+		if(Yii::app()->request->isAjaxRequest){
+			$aResult['candidateName'] = $candidateName;
+			$aResult['manager'] = $managerName;
+			$position['jobTitle'] = $jobTitle;
+
+			echo(json_encode($aResult));
+		}
+		Yii::app()->end();
 	}
 
 	public function actionDeleteSelectedJobOpenings(){
@@ -450,7 +465,13 @@ class RegistrationController extends Controller
 			$candidateObjRecord['candidate_agree_terms'] = $this->getParam('agreeTerms','');
 			$candidateObjRecord['candidate_signature_date'] = $this->getParam('signatureDate','');
 
+			if($this->getParam('comment','') != ''){
+				$candidateObjRecord['remarks'] = $this->getParam('comment','');
+				$candidateObjRecord->update();
+			}
+
 			$candidateObjRecord->update();
+
 		}
 
 		$schoolNames = $this->getParam('schoolName', '');
@@ -594,6 +615,7 @@ class RegistrationController extends Controller
 		$trainingOnboardingChecklistCondition = 'candidate_id = "' . $id . '"';
 		$duplicateCheck = TrainingOnboardingChecklist::model()->findAll($trainingOnboardingChecklistCondition);
 
+
 		if ($candidateStatus == "6" && $duplicateCheck == false){
 			$onboardingItemIds = TrainingOnboardingItems::model()->obtainItemIds();
 			foreach($onboardingItemIds as $iKey => $onboardingItemId){
@@ -604,6 +626,7 @@ class RegistrationController extends Controller
 				$onboardingChecklistObjModel->save();
 			}
 		}
+				
 
 		$this->redirect(array('showAllCandidates'));
 	}

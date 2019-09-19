@@ -1,4 +1,32 @@
 var RegistrationViewSelectedCandidate = function() {
+	function generate_offer_email(objElement, objEvent){
+		if($(objElement).val() != ''){
+			$.ajax({
+				type: 'post',
+				url: $(objElement).attr('data-offer-url'),
+				data: {
+					candidate_name : $(objElement).val(),
+					manager : $(objElement).val(),
+					position : $(objElement).val()
+				},
+
+				dataType: 'json',
+				success: function(data){
+					if(data != null && (typeof data.result) != 'undefined'){
+						var emailSubject = "Offer for the position of " + data.position;
+						var greetings = "Dear " + data.candidateName;
+						var emailBody1 = "We are pleased to offer you the position of " + data.position + ".";
+
+						window.location.href = "mailto:?" + "subject=" + emailSubject 
+
+					} else {
+						alert('there is an error when generating the email.');
+					}
+				}
+			});
+		}
+	}
+
 	function _init() {
 		$(function() {
 			var otherInputLine = document.getElementById("otherInputLine");
@@ -215,11 +243,16 @@ var RegistrationViewSelectedCandidate = function() {
 				}
 				flag ++;
 			});
+
+			$('input#generateOfferEmail').on('click', function(objEvent){
+				RegistrationViewSelectedCandidate.generate_offer_email(this, objEvent);
+			});
 		});
 	}
 
 	return {
-		init: _init
+		init : _init,
+		generate_offer_email : _generate_offer_email
 	}
 }();
 RegistrationViewSelectedCandidate.init();

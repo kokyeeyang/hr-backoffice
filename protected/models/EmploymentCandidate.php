@@ -44,7 +44,8 @@ class EmploymentCandidate extends AppActiveRecord
 			'reference_consent' => Yii::t('app', 'reference_consent'),
 			'refuse_reference_reason' => Yii::t('app', 'refuse_reference_reason'),
 			'candidate_signature' => Yii::t('app', 'candidate_signature'),
-			'candidate_signature_date' => Yii::t('app', 'candidate_signature_date')
+			'candidate_signature_date' => Yii::t('app', 'candidate_signature_date'),
+			'remarks' => Yii::t('app', 'remarks')
 		];
 	}
 
@@ -224,7 +225,7 @@ class EmploymentCandidate extends AppActiveRecord
 			} else if($objData == "5"){
 				return "Rescheduled";
 			} else if($objData == "6"){
-				return "Accepted and generate onboarding checklist";
+				return "Offer letter signed";
 			} 
 		}
 	}	

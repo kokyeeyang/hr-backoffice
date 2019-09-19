@@ -649,13 +649,13 @@
               </div>
             </div> -->
           </div>
-          <?php } ?>
         </fieldset>
         <fieldset class="fieldset">
           <legend class="legend">
             7.<?php echo Yii::t('app', 'Additional remarks *For internal use only') ?>
           </legend>
-          <textarea rows="8" cols="165" name="comment">Enter text here...</textarea>
+          <!-- <textarea rows="8" cols="165" name="comment">Enter text here...</textarea> -->
+          <textarea rows="8" cols="165" name="comment"><?php echo($candidateObjRecord->remarks != '')?$candidateObjRecord->remarks:'Please enter remarks here' ?></textarea>
         </fieldset>
         <fieldset class="fieldset">
           <legend class="legend">
@@ -668,10 +668,12 @@
             </div>
           </div>
           <div class="lable_block" id="offer_letter_button">
-            <div class="row buttons">
-              <?php echo CHtml::submitButton('Convert to offer letter'); ?>
-            </div>
+            <!-- <div class="row buttons">
+              <?php //echo CHtml::submitButton('Convert to offer letter'); ?>
+            </div> -->
+            <input type="button" id="generateOfferEmail" data-offer-url="<?php echo $this->createUrl('registration/generateOfferEmail', array('jobId' => $candidateObjRecord->job_id, 'candidateName' => $candidateObjRecord->full_name)); ?>">
           </div>
+        <?php } ?>
         </fieldset>
       </div>
     </form>

@@ -401,3 +401,6 @@ VALUES ("Offer letter", "A", "HR"),
 
 ALTER TABLE employment_job_opening
   ADD `offer_letter` varchar(50) NULL AFTER `department`;
+
+ALTER TABLE employment_candidate
+  ADD `remarks` varchar(400) NULL AFTER `candidate_signature_date`;

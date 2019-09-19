@@ -126,7 +126,8 @@ class TrainingController extends Controller
 	}
 
 	public function actionViewSelectedOnboardingChecklist($id) {
-		$onboardingChecklistArrRecords = TrainingOnboardingChecklist::model()->findAll($id); 
+		$candidateCondition = 'candidate_id = ' . $id;
+		$onboardingChecklistArrRecords = TrainingOnboardingChecklist::model()->findAll($candidateCondition); 
 
 		$this->render("viewSelectedOnboardingChecklist", array('id'=>$id, 'onboardingChecklistArrRecords'=>$onboardingChecklistArrRecords));
 	}
