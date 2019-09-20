@@ -672,6 +672,15 @@
               <?php //echo CHtml::submitButton('Convert to offer letter'); ?>
             </div> -->
             <input type="button" id="generateOfferEmail" value="<?php echo Yii::t('app', 'Convert to offer'); ?>" data-offer-url="<?php echo $this->createUrl('registration/generateOfferEmail', array('jobId' => $candidateObjRecord->job_id, 'candidateName' => $candidateObjRecord->full_name)); ?>">
+            <input type="button" id="changeCandidateStatus" data-change-url="<?php echo $this->createUrl('registration/changeCandidateStatus', array('candidateId' => $candidateObjRecord->id_no)); ?>" style="display:none;">
+            <input type="button" id="changeCandidateStatusToSigned" data-signed-url="<?php echo $this->createUrl('registration/changeCandidateStatusToSigned', array('candidateId' => $candidateObjRecord->id_no)); ?>" style="display:none;">
+            </label>
+          </div>
+          <div class="lable_block" id="send_email_checkbox">
+            <tr>
+              <input type="checkbox" name="sendEmailCheckbox" id="sendEmailCheckbox" value="1">
+              <label for="sendEmailCheckbox"><?php echo Yii::t('app', 'Check this if you want to send the candidate an email.'); ?></label>
+            </tr>
           </div>
         <?php } ?>
         </fieldset>
@@ -693,6 +702,9 @@
 </div>
 <div id="registration-common-msg">
   <div id="msg-has-relative" data-msg="<?php echo Yii::t('app', 'Please state name of relative or friend'); ?>"><!-- Dialog Buttons Label --></div>
+</div>
+<div id="registration-common-msg">
+  <div id="msg-confirm-offer-email" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to confirm this candidate?'); ?>"></div>
 </div>
 
 

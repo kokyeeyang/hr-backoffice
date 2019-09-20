@@ -399,8 +399,10 @@ VALUES ("Offer letter", "A", "HR"),
 ("Email account, Asana, Bit8, Skype groups, Dropbox, Door access", "I", "Adrian"),
 ("Live chats", "I", "Mahen")          
 
-ALTER TABLE employment_job_opening
-  ADD `offer_letter` varchar(50) NULL AFTER `department`;
-
 ALTER TABLE employment_candidate
   ADD `remarks` varchar(400) NULL AFTER `candidate_signature_date`;
+
+ALTER TABLE employment_job_opening 
+  ADD `is_managerial_position` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+  AFTER `interviewing_manager`;
+

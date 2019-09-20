@@ -280,24 +280,19 @@ class RegistrationController extends Controller
 
 	public function actionAddNewJobOpenings() {
 		$objModel = new EmploymentJobOpening;
+
 		$this->render("addNewJobOpenings", array('objModel' => $objModel));
 	}
 
 	public function actionSaveJobOpenings() {
-
-		$offerLetterPath = $_FILES["offer-letter"]["name"];
-		$offerLetterFileType = CommonHelper::getDocumentType($offerLetterPath);
 		$jobTitle = $this->getParam('jobTitle','');
 
 		$jobOpeningObjModel = new EmploymentJobOpening;
 		$jobOpeningObjModel->job_title = $this->getParam('jobTitle','');
-		$jobOpeningObjModel->department = $this->getParam('department','');
-		$jobOpeningObjModel->offer_letter = CommonHelper::setFileName($offerLetterPath, $jobTitle, $offerLetterFileType, "offer-letter");
+		$jobOpeningObjModel->department = $this->getParam('department-dropdown','');
+		$jobOpeningObjModel->is_managerial_position = $this->getParam('isManagerialCheckbox', '');
 		$jobOpeningObjModel->interviewing_manager = $this->getParam('interviewManager','');
 
-		if($offerLetterPath != false){
-			CommonHelper::moveDocumentToFileSystem($jobOpeningObjModel->offer_letter, "offer-letter", $offerLetterFileType);
-		}
 		$jobOpeningObjModel->save();
 
 		if(!$error = $this->objError->getError()){
@@ -629,6 +624,30 @@ class RegistrationController extends Controller
 			}
 		}
 				
+
+		$this->redirect(array('showAllCandidates'));
+	}
+
+	public function actionChangeCandidateStatus($candidateId){
+		$candidateCondition = 'id_no = "' . $candidateId . '"';
+		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
+
+		foreach($candidateArrRecords as $candidateObjRecord){
+			$candidateObjRecord->candidate_status = 7;
+			$candidateObjRecord->update();
+		}
+
+		$this->redirect(array('showAllCandidates'));
+	}
+
+	public function actionChangeCandidateStatusToSigned($candidateId){
+		$candidateCondition = 'id_no = "' . $candidateId . '"';
+		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
+
+		foreach($candidateArrRecords as $candidateObjRecord){
+			$candidateObjRecord->candidate_status = 6;
+			$candidateObjRecord->update();
+		}
 
 		$this->redirect(array('showAllCandidates'));
 	}

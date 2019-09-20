@@ -52,7 +52,7 @@
 						<div class="sort_wrapper_inner">
 							<div class="sort_label_wrapper">
 								<div class="sort_label">
-									<?php echo Yii::t('app', 'Job'); ?>
+									<?php echo Yii::t('app', 'Job Title'); ?>
 								</div>
 							</div>
 						</div>
@@ -61,7 +61,7 @@
 						<div class="sort_wrapper_inner">
 							<div class="sort_label_wrapper">
 								<div class="sort_label">
-									<?php echo Yii::t('app', 'Interviewer'); ?>
+									<?php echo Yii::t('app', 'Line manager'); ?>
 								</div>
 							</div>
 						</div>
@@ -92,15 +92,6 @@
 							</div>
 						</div>
 					</th>
-					<th>
-						<div class="sort_wrapper_inner">
-							<div class="sort_label_wrapper">
-								<div class="sort_label">
-									<?php echo Yii::t('app', 'View this candidate'); ?>
-								</div>
-							</div>
-						</div>
-					</th>
 				</tr>
 			</thead>
 			<tbody id="data_table">
@@ -109,8 +100,10 @@
 					foreach($candidateArrRecords as $intIndex => $objRecord){
 				?>
 					<tr>
-						<td>
-							<?php echo $objRecord->full_name; ?>
+						<td title="<?php echo Yii::t('app', 'Click here to view this candidate'); ?>">
+							<a href="<?php echo $this->createUrl('registration/viewSelectedCandidate', array('id' => $objRecord->id_no)); ?>">
+								<?php echo $objRecord->full_name; ?>
+							</a>
 						</td>
 						<td>
 							<?php echo substr($objRecord->created_date, 0, 10); ?>
@@ -137,10 +130,8 @@
 						    <option value="4">Not Suitable</option>
 						    <option value="5">Rescheduled</option>
 						    <option value="6" title="This will generate onboarding checklist for this candidate">Offer letter signed</option>
+						    <option value="7">Offer letter generated</option>
 							</select>
-						</td>
-						<td>
-							<input type="button" data-view-url="<?php echo $this->createUrl('registration/viewSelectedCandidate', array('id' => $objRecord->id_no)); ?>" name="editCandidateButton" id="viewSelectedCandidateButton" value="<?php echo Yii::t('app', 'View'); ?>">
 						</td>
 					</tr>
 				<?php 

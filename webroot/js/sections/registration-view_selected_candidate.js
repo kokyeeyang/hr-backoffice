@@ -13,6 +13,7 @@ var RegistrationViewSelectedCandidate = function() {
 
 				dataType: 'json',
 				success: function(data){
+
 					if(data != null && (typeof data.candidateName) != 'undefined'){
 						var emailSubject = "Offer for the position of " + data.jobTitle;
 						var greetings = "Dear " + data.candidateName + ",";
@@ -20,7 +21,9 @@ var RegistrationViewSelectedCandidate = function() {
 														 " with SAGA OS SDN. BHD. (herein after referred to as \"the Company\") with effect from the ";
 
 						window.location.href = "mailto:" + data.candidateEmail + "?subject=" + emailSubject + "&body="
-						+ greetings + "%0D%0A%0D%0A" + emailBody1; 
+						+ greetings + "%0D%0A%0D%0A" + emailBody1;
+
+						RegistrationViewSelectedCandidate.change_candidate_status(objElement, objEvent);
 
 					} else {
 						alert('there is an error when generating the email.');
@@ -31,6 +34,14 @@ var RegistrationViewSelectedCandidate = function() {
 				}
 			});
 		}
+	}
+
+	function _change_candidate_status(objElement, objEvent){
+		$('#candidateForm').attr('action', $('#changeCandidateStatus').attr('data-change-url')).submit();
+	}
+
+	function _change_candidate_status_to_signed(objElement, objEvent){
+		$('#candidateForm').attr('action', $('#changeCandidateStatusToSigned').attr('data-signed-url')).submit();
 	}
 
 	function _init() {
@@ -251,14 +262,20 @@ var RegistrationViewSelectedCandidate = function() {
 			});
 
 			$('input#generateOfferEmail').on('click', function(objEvent){
-				RegistrationViewSelectedCandidate.generate_offer_email(this, objEvent);
+				if(confirm($('#msg-confirm-offer-email').attr('data-msg')) && $("input[name=sendEmailCheckbox]:checked").val()=="1"){
+					RegistrationViewSelectedCandidate.generate_offer_email(this, objEvent);
+				} else if (confirm($('#msg-confirm-offer-email').attr('data-msg')) && $("input[name=sendEmailCheckbox]:checked").val()===undefined) {
+					RegistrationViewSelectedCandidate.change_candidate_status_to_signed(this, objEvent);
+				}
 			});
 		});
 	}
 
 	return {
 		init : _init,
-		generate_offer_email : _generate_offer_email
+		generate_offer_email : _generate_offer_email,
+		change_candidate_status : _change_candidate_status,
+		change_candidate_status_to_signed : _change_candidate_status_to_signed
 	}
 }();
 RegistrationViewSelectedCandidate.init();
