@@ -109,8 +109,8 @@
 							<?php echo TrainingOnboardingItems::model()->queryForOnboardingItem($objRecord->onboarding_item_id); ?>
 						</td>
 						<td>
-							<?php echo TrainingOnboardingItems::model()->queryForResponsibility($objRecord->onboarding_item_id); ?>
-							<!-- <span class="required" style="display:<?php //echo $display; ?>">*</span> -->
+							<span><?php echo TrainingOnboardingItems::model()->queryForResponsibility($objRecord->onboarding_item_id); ?></span>
+							<span class="required" style="display:<?php echo(TrainingOnboardingItems::model()->queryForResponsibility($objRecord->onboarding_item_id) == strtoupper(Yii::app()->user->priv))?'inline-block':'none'; ?>; color:red;" title="This is your responsibility">*</span>
 						</td>
 						<td>
 							<?php echo $objRecord->completed_date; ?>

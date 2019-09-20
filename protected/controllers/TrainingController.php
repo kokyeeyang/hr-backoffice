@@ -129,19 +129,25 @@ class TrainingController extends Controller
 		$candidateCondition = 'candidate_id = ' . $id;
 		$onboardingChecklistArrRecords = TrainingOnboardingChecklist::model()->findAll($candidateCondition);
 		$currentUserPriv = Yii::app()->user->priv;
+
+		if ($currentUserPriv == "HR"){
+			$displayHrResponsibility = "block";
+		} else {
+			$displayHrResponsibility = "none";
+		}
 		// $hrResponsibilities = TrainingOnboardingItems::model()->queryForHrResponsibility($currentUserPriv);
 
 		// foreach ($hrResponsibilities as $hrResponsibility){
 		// var_dump($hrResponsibilities);exit;
 		// }
 
-		if($hrResponsibility != ""){
-			$display = "block";
-		} else {
-			$display = "none";
-		}
+		// if($hrResponsibility != ""){
+		// 	$display = "block";
+		// } else {
+		// 	$display = "none";
+		// }
 
-		$this->render("viewSelectedOnboardingChecklist", array('id'=>$id, 'onboardingChecklistArrRecords'=>$onboardingChecklistArrRecords, 'display' => $display));
+		$this->render("viewSelectedOnboardingChecklist", array('id'=>$id, 'onboardingChecklistArrRecords'=>$onboardingChecklistArrRecords, 'displayHrResponsibility'=>$displayHrResponsibility));
 	}
 
 	public function actionShowTrainingSchedules(){
