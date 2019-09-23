@@ -655,13 +655,13 @@
             7.<?php echo Yii::t('app', 'Additional remarks *For internal use only') ?>
           </legend>
           <!-- <textarea rows="8" cols="165" name="comment">Enter text here...</textarea> -->
-          <textarea rows="8" cols="165" name="comment"><?php echo($candidateObjRecord->remarks != '')?$candidateObjRecord->remarks:'Please enter remarks here' ?></textarea>
+          <textarea rows="8" name="comment" style="width:100%"><?php echo($candidateObjRecord->remarks != '')?$candidateObjRecord->remarks:'Please enter remarks here' ?></textarea>
         </fieldset>
         <fieldset class="fieldset">
           <legend class="legend">
             8.<?php echo Yii::t('app', 'General questions *For internal use only') ?>
           </legend>
-          <textarea rows="8" cols="165" name="questions">Enter text here...</textarea>
+          <textarea rows="8" name="questions" style="width:100%">Enter text here...</textarea>
           <div class="lable_block" id="save_button">
             <div class="row buttons">
               <?php echo CHtml::submitButton('Save'); ?>

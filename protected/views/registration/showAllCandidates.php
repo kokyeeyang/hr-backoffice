@@ -61,6 +61,15 @@
 						<div class="sort_wrapper_inner">
 							<div class="sort_label_wrapper">
 								<div class="sort_label">
+									<?php echo Yii::t('app', 'Department'); ?>
+								</div>
+							</div>
+						</div>
+					</th>
+					<th>
+						<div class="sort_wrapper_inner">
+							<div class="sort_label_wrapper">
+								<div class="sort_label">
 									<?php echo Yii::t('app', 'Line manager'); ?>
 								</div>
 							</div>
@@ -115,6 +124,9 @@
 									<option value="<?php echo($jobTitleObjRecord['id']); ?>"><?php echo $jobTitleObjRecord['job_title']; ?></option>
 								<?php }?>
 							</select>
+						</td>
+						<td>
+							<?php echo EmploymentJobOpening::model()->queryForCandidateDepartment($objRecord->job_id); ?>
 						</td>
 						<td>
 							<?php echo EmploymentJobOpening::model()->queryForCandidateInterviewingManager($objRecord->job_id); ?>
