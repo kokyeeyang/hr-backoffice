@@ -5,16 +5,16 @@
         <img src="/images/alllanguages/sagaos_logo.png">
         <header><?php echo Yii::t('app', 'APPLICATION FOR EMPLOYMENT'); ?></header>
         <div id="upload">
-          <div class="upload-child">
+<!--           <div class="upload-child">
             <label for="pic">Please upload your photo (passport size)</label>
             <input type="file" name="pic" id="pic" accept="image/*">
-          </div>
+          </div> -->
           <div class="upload-child">
-            <label for="pic">Please upload your resume</label>
+            <label for="pic">Please upload your resume (optional)</label>
             <input type="file" name="resume" id="resume" accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
           </div>
           <div class="upload-child">
-            <label for="pic">Please upload your cover letter</label>
+            <label for="pic">Please upload your cover letter (optional)</label>
             <input type="file" name="coverLetter" id="coverLetter" accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
           </div>
         </div>

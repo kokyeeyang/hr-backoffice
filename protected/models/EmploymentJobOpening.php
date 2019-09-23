@@ -60,6 +60,20 @@ class EmploymentJobOpening extends AppActiveRecord
 		}
 	}
 
+	public function queryForAllJobs(){
+		$sql = 'SELECT id, job_title
+
+						FROM ' . self::$tableName;
+
+		$objConnection = Yii::app()->db;
+		$objCommand = $objConnection->createCommand($sql);
+		$arrData = $objCommand->queryAll();	
+
+		if (!empty($arrData)){
+			return $arrData;
+		}	
+	}
+
 	public function queryForCandidateInterviewingManager($jobId){
 		$sql = 'SELECT interviewing_manager 
 

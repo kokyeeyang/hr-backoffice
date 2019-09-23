@@ -4,11 +4,11 @@
       <div>
         <fieldset class="fieldset">
           <div id="mediaSection">
-            <div id="candidateImage" style="display:<?php echo $displayPhotoSection ?>;">
-              <a href="<?php echo $photoSource; ?>" title="Click here to download image" download>
-                <img src="<?php echo $photoSource; ?>" style="width:100px; height: 130px;">
+<!--             <div id="candidateImage" style="display:<?php //echo $displayPhotoSection ?>;">
+              <a href="<?php //echo $photoSource; ?>" title="Click here to download image" download>
+                <img src="<?php //echo $photoSource; ?>" style="width:100px; height: 130px;">
               </a>
-            </div>
+            </div> -->
             <div id="candidateResume" style="display:<?php echo $displayResumeSection ?>">
               <a href="<?php echo $resumeSource ?>" title="Click here to download resume" download>
                 <img src="/images/alllanguages/download-logo.png" class="candidateDocument">
@@ -668,10 +668,7 @@
             </div>
           </div>
           <div class="lable_block" id="offer_letter_button">
-            <!-- <div class="row buttons">
-              <?php //echo CHtml::submitButton('Convert to offer letter'); ?>
-            </div> -->
-            <input type="button" id="generateOfferEmail" value="<?php echo Yii::t('app', 'Convert to offer'); ?>" data-offer-url="<?php echo $this->createUrl('registration/generateOfferEmail', array('jobId' => $candidateObjRecord->job_id, 'candidateName' => $candidateObjRecord->full_name)); ?>">
+            <input type="button" id="generateOfferEmail" value="<?php echo Yii::t('app', 'Convert to offer'); ?>" data-offer-url="<?php echo $this->createUrl('registration/generateOfferEmail', array('jobId' => $candidateObjRecord->job_id, 'candidateName' => $candidateObjRecord->full_name, 'candidateId' => $candidateObjRecord->id_no)); ?>">
             <input type="button" id="changeCandidateStatus" data-change-url="<?php echo $this->createUrl('registration/changeCandidateStatus', array('candidateId' => $candidateObjRecord->id_no)); ?>" style="display:none;">
             <input type="button" id="changeCandidateStatusToSigned" data-signed-url="<?php echo $this->createUrl('registration/changeCandidateStatusToSigned', array('candidateId' => $candidateObjRecord->id_no)); ?>" style="display:none;">
             </label>

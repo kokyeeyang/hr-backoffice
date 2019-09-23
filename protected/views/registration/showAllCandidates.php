@@ -109,7 +109,12 @@
 							<?php echo substr($objRecord->created_date, 0, 10); ?>
 						</td>
 						<td>
-							<?php echo EmploymentJobOpening::model()->queryForCandidateJob($objRecord->job_id); ?>
+							<select name="position-dropdown" size=1 id="changeCandidatePosition" data-change-url="<?php echo $this->createUrl('registration/changeCandidatePosition', array('candidateId' => $objRecord->id_no)); ?>" title="Select here if you would like to change this candidate's applied for job">
+								 <option value="<?php echo($objRecord->job_id); ?>" selected disabled hidden><?php echo EmploymentJobOpening::model()->queryForCandidateJob($objRecord->job_id); ?></option>
+								<?php foreach($jobTitleArrRecords as $intIndex => $jobTitleObjRecord){ ?>
+									<option value="<?php echo($jobTitleObjRecord['id']); ?>"><?php echo $jobTitleObjRecord['job_title']; ?></option>
+								<?php }?>
+							</select>
 						</td>
 						<td>
 							<?php echo EmploymentJobOpening::model()->queryForCandidateInterviewingManager($objRecord->job_id); ?>
@@ -121,7 +126,6 @@
 							<?php echo EmploymentCandidate::model()->queryForCandidateStatus($objRecord->id_no); ?>
 						</td>
 						<td>
-							<!-- <input type="button" data-confirm-url="<?php //echo $this->createUrl('registration/confirmCandidate', array('id' => $objRecord->id_no)); ?>" name="confirmCandidateButton" value="<?php// echo Yii::t('app', 'Confirm'); ?>"> -->
 							<select name="dropdown" data-confirm-url="<?php echo $this->createUrl('registration/confirmCandidate', array('id' => $objRecord->id_no)); ?>" size=1>
 								<option value="" selected disabled hidden>Choose here</option>
 						    <option value="1">Accepted</option>
@@ -153,3 +157,7 @@
 <div id="registration-common-msg">
 	<div id="msg-confirm-candidate" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to change this candidate\'s status?'); ?>"><!-- Dialog Buttons Label --></div>
 </div>
+<div id="registration-common-msg">
+	<div id="msg-confirm-change" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to change this candidate\'s applied for job?'); ?>"><!-- Dialog Buttons Label --></div>
+</div>
+

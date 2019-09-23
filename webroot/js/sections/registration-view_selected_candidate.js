@@ -4,16 +4,10 @@ var RegistrationViewSelectedCandidate = function() {
 			$.ajax({
 				type: 'post',
 				url: $(objElement).attr('data-offer-url'),
-				data: {
-					candidate_name : $(objElement).val(),
-					manager : $(objElement).val(),
-					position : $(objElement).val(),
-					candidate_email : $(objElement).val()
-				},
+				data: {},
 
 				dataType: 'json',
 				success: function(data){
-
 					if(data != null && (typeof data.candidateName) != 'undefined'){
 						var emailSubject = "Offer for the position of " + data.jobTitle;
 						var greetings = "Dear " + data.candidateName + ",";

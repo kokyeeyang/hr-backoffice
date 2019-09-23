@@ -21,6 +21,14 @@ var RegistrationShowAllCandidates = function() {
 		}
 	}
 
+	function _change_candidate_position(objElement, objEvent){
+		if(confirm($('#msg-confirm-change').attr('data-msg'))){
+			$('#candidate-list').attr('action', $('#changeCandidatePosition').attr('data-change-url')).submit();
+		} else {
+			return false;
+		}
+	}
+
 	function _init() {
 		$(function() {
 			$('#deleteJobOpeningButton').on('click', function(objEvent){
@@ -47,6 +55,10 @@ var RegistrationShowAllCandidates = function() {
 		    RegistrationShowAllCandidates.confirm_selected_candidate(this, objEvent);
 			});
 
+		  $('select[name="position-dropdown"]').change(function(objEvent) {
+		    RegistrationShowAllCandidates.change_candidate_position(this, objEvent);
+			});
+
 		});
 	}
 
@@ -54,7 +66,8 @@ var RegistrationShowAllCandidates = function() {
   	init : _init,
   	check_if_deletion_is_selected : _check_if_deletion_is_selected,
   	view_selected_candidate : _view_selected_candidate,
-  	confirm_selected_candidate : _confirm_selected_candidate
+  	confirm_selected_candidate : _confirm_selected_candidate,
+  	change_candidate_position : _change_candidate_position
   }
 
 }();

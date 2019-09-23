@@ -275,7 +275,9 @@ class RegistrationController extends Controller
 
 		$candidateArrRecords = EmploymentCandidate::model()->findAll(array('order'=>'id ASC'));
 
-		$this->render("showAllCandidates", array('candidateArrRecords' => $candidateArrRecords, 'strSortKey' => $strSortKey));
+		$jobTitleArrRecords = EmploymentJobOpening::model()->queryForAllJobs();
+
+		$this->render("showAllCandidates", array('candidateArrRecords' => $candidateArrRecords, 'jobTitleArrRecords' => $jobTitleArrRecords, 'strSortKey' => $strSortKey));
 	}
 
 	public function actionAddNewJobOpenings() {
@@ -656,6 +658,18 @@ class RegistrationController extends Controller
 
 		foreach($candidateArrRecords as $candidateObjRecord){
 			$candidateObjRecord->candidate_status = 6;
+			$candidateObjRecord->update();
+		}
+
+		$this->redirect(array('showAllCandidates'));
+	}
+
+	public function actionChangeCandidatePosition($candidateId){
+		$candidateCondition = 'id_no = "' . $candidateId . '"';
+		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
+
+		foreach($candidateArrRecords as $candidateObjRecord){
+			$candidateObjRecord->job_id = $this->getParam('position-dropdown','');
 			$candidateObjRecord->update();
 		}
 
