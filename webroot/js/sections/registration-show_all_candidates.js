@@ -23,7 +23,7 @@ var RegistrationShowAllCandidates = function() {
 
 	function _change_candidate_position(objElement, objEvent){
 		if(confirm($('#msg-confirm-change').attr('data-msg'))){
-			$('#candidate-list').attr('action', $('#changeCandidatePosition').attr('data-change-url')).submit();
+			$('#candidate-list').attr('action', $(objElement).attr('data-change-url')).submit();
 		} else {
 			return false;
 		}
