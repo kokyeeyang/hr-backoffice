@@ -682,7 +682,6 @@ class RegistrationController extends Controller
 
 	public function actionCreateNewOfferLetter(){
 
-		var_dump("hello");exit;
 		//this is where we render the pdf for editting
 		$this->render('createNewOfferLetter');
 	}

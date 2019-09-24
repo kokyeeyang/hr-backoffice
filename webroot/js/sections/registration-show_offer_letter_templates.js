@@ -1,6 +1,6 @@
 var RegistrationShowOfferLetterTemplates = function(){
 	function _generate_offer_letter(objElement, objEvent){
-		$('#showOfferLetterTemplates').attr('action', $(objElement).attr('data-create-letter-url')).submit();
+		$('#showOfferLetterTemplates').attr('action', $(objElement).attr('data-create-url')).submit();
 	}
 
 	function _init() {
@@ -16,3 +16,4 @@ var RegistrationShowOfferLetterTemplates = function(){
 		generate_offer_letter : _generate_offer_letter
 	}
 }();
+RegistrationShowOfferLetterTemplates.init();

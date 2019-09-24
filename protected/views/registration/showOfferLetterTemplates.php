@@ -20,7 +20,7 @@
     		<tr>
           <td>
             <!-- <div class="row buttons"> -->
-              <input type="button" id="generateOfferLetter" value="<?php echo Yii::t('app', 'Create new offer letter'); ?>" data-create-letter-url="<?php echo $this->createUrl('registration/createNewOfferLetter'); ?>">
+              <input type="button" id="generateOfferLetter" value="<?php echo Yii::t('app', 'Create new offer letter'); ?>" data-create-url="<?php echo $this->createUrl('registration/createNewOfferLetter'); ?>">
             <!-- </div> -->
           </td>
         </tr>
