@@ -135,17 +135,6 @@ class TrainingController extends Controller
 		} else {
 			$displayHrResponsibility = "none";
 		}
-		// $hrResponsibilities = TrainingOnboardingItems::model()->queryForHrResponsibility($currentUserPriv);
-
-		// foreach ($hrResponsibilities as $hrResponsibility){
-		// var_dump($hrResponsibilities);exit;
-		// }
-
-		// if($hrResponsibility != ""){
-		// 	$display = "block";
-		// } else {
-		// 	$display = "none";
-		// }
 
 		$this->render("viewSelectedOnboardingChecklist", array('id'=>$id, 'onboardingChecklistArrRecords'=>$onboardingChecklistArrRecords, 'displayHrResponsibility'=>$displayHrResponsibility));
 	}

@@ -1,6 +1,6 @@
 <div class="breadcrumb">
   <div class="breadcrumb_wrapper">
-    <div class="breadcrumb-top"><?php echo Yii::t('app', 'Training Schedules'); ?></div>
+    <div class="breadcrumb-top"><?php echo Yii::t('app', 'Offer letter templates'); ?></div>
     <div class="breadcrumb-bottom breadcrumb-bottom-chart">
       <div class="title">
         <span><?php echo Yii::t('app', 'Offer letter templates'); ?></span>
@@ -13,17 +13,17 @@
   <div class="common_content_inner_wrapper">
     <h4 class="widget_title"><?php echo Yii::t('app', 'Choose a template'); ?>
     </h4>
-    <!-- <form method="post" enctype="multipart/form-data" id="whiteListForm" name="whiteListForm" action="<?php //echo $this->createUrl('registration/saveJobOpenings') ?>" > -->
+    <form method="post" enctype="multipart/form-data" id="showOfferLetterTemplates" name="showOfferLetterTemplates">
     	<table style="line-height: 32px;padding-left: 10px;font-size: 15px;">
     		<div>
     		</div>
-    		<!-- <tr>
+    		<tr>
           <td>
             <div class="row buttons">
-              <?php //echo CHtml::submitButton($objModel->isNewRecord ? 'Submit' : 'Save'); ?>
+              <input type="button" id="generateOfferLetter" value="<?php echo Yii::t('app', 'Create new offer letter'); ?>" data-create-letter-url="<?php echo $this->createUrl('registration/createNewOfferLetter'); ?>">
             </div>
           </td>
-        </tr> -->
+        </tr>
     	</table>
     <!-- </form> -->
   </div>

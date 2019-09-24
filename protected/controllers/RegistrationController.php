@@ -673,12 +673,18 @@ class RegistrationController extends Controller
 			$candidateObjRecord->update();
 		}
 
-		$this->redirect(array('showAllCandidates'));
+		$this->render('showAllCandidates');
 	}
 
 	public function actionShowOfferLetterTemplates(){
-		
-		$this->redirect(array('showOfferLetterTemplates'));
+		$this->render('showOfferLetterTemplates');
+	}
+
+	public function actionCreateNewOfferLetter(){
+
+		var_dump("hello");exit;
+		//this is where we render the pdf for editting
+		$this->render('createNewOfferLetter');
 	}
 
 
