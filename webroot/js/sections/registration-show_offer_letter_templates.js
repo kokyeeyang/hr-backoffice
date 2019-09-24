@@ -5,7 +5,7 @@ var RegistrationShowOfferLetterTemplates = function(){
 
 	function _init() {
 		$(function() {
-			$('#generateOfferLetter').on('click', function(objEvent){
+			$('input#generateOfferLetter').on('click', function(objEvent){
 				RegistrationShowOfferLetterTemplates.generate_offer_letter(this, objEvent);
 			});
 		});
