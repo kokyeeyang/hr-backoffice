@@ -676,5 +676,10 @@ class RegistrationController extends Controller
 		$this->redirect(array('showAllCandidates'));
 	}
 
+	public function actionShowOfferLetterTemplates(){
+		
+		$this->redirect(array('showOfferLetterTemplates'));
+	}
+
 
 }
