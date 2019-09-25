@@ -283,7 +283,9 @@ class RegistrationController extends Controller
 	public function actionAddNewJobOpenings() {
 		$objModel = new EmploymentJobOpening;
 
-		$this->render("addNewJobOpenings", array('objModel' => $objModel));
+		$allManagers = Admin::model()->queryForManagers(); 
+
+		$this->render("addNewJobOpenings", array('objModel' => $objModel, 'allManagers' => $allManagers));
 	}
 
 	public function actionSaveJobOpenings() {
@@ -681,7 +683,7 @@ class RegistrationController extends Controller
 	}
 
 	public function actionCreateNewOfferLetter(){
-
+		
 		//this is where we render the pdf for editting
 		$this->render('createNewOfferLetter');
 	}

@@ -17,7 +17,7 @@ class Admin extends AppActiveRecord
 	const INACTIVE				= 0;
 	
 	static $tableName			= DB_TBL_PREFIX.'admin';
-	static $arrPriv				= ['admin' => 'Administrator', 'manager' => 'Manager', 'hr' => 'HR'];
+	static $arrPriv				= ['admin' => 'Administrator', 'manager' => 'Manager', 'hr' => 'HR', 'normaluser' => 'Normal User'];
 	
 	/**
 	 * @return string the associated database table name
@@ -312,6 +312,22 @@ class Admin extends AppActiveRecord
 				$access = 'disabled';
 				return $access;
 			}
+		}
+	}
+
+	public static function queryForManagers(){
+		$sql = 'SELECT ' . self::$tableName . '_display_name';
+		$sql .= ' FROM ' . self::$tableName;
+		$sql .= ' WHERE ' . self::$tableName . '_priv != "normaluser"';
+
+		$objConnection 	= Yii::app()->db;
+		$objCommand		= $objConnection->createCommand($sql);
+		$arrData		= $objCommand->queryAll();
+
+		if($arrData != null){
+			return $arrData;
+		} else {
+			return false;
 		}
 	}
 

@@ -255,7 +255,31 @@ var RegistrationViewSelectedCandidate = function() {
 				flag ++;
 			});
 
-			$('input#generateOfferEmail').on('click', function(objEvent){
+			$("input[name=expectedSalary]").keyup(function(){
+				$("input[name=offerLetterExpectedSalary]").val(this.value);
+			});
+
+			$("input[name=offerLetterExpectedSalary]").keyup(function(){
+				$("input[name=expectedSalary]").val(this.value);
+			});
+
+			$("input[name=idNo]").keyup(function(){
+				$("input[name=offerLetterIdNo]").val(this.value);
+			});
+
+			$("input[name=offerLetterIdNo]").keyup(function(){
+				$("input[name=idNo]").val(this.value);
+			});
+
+			$("input[name=offerLetterFullName").keyup(function(){
+				$("input[name=fullName]").val(this.value);
+			});
+
+			$("input[name=fullName").keyup(function(){
+				$("input[name=offerLetterFullName]").val(this.value);
+			});
+
+			$("input#generateOfferEmail").on('click', function(objEvent){
 				if(confirm($('#msg-confirm-offer-email').attr('data-msg')) && $("input[name=sendEmailCheckbox]:checked").val()=="1"){
 					RegistrationViewSelectedCandidate.generate_offer_email(this, objEvent);
 				} else if (confirm($('#msg-confirm-offer-email').attr('data-msg')) && $("input[name=sendEmailCheckbox]:checked").val()===undefined) {

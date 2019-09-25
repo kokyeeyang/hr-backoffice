@@ -662,6 +662,51 @@
             8.<?php echo Yii::t('app', 'General questions *For internal use only') ?>
           </legend>
           <textarea rows="8" name="questions" style="width:100%">Enter text here...</textarea>
+        <?php } ?>
+        </fieldset>
+        <fieldset class="fieldset">
+          <legend class="legend">
+            9.<?php echo Yii::t('app', 'Confirm offer letter details') ?>
+          </legend>
+          
+          <?php foreach($candidateArrRecords as $candidateObjRecord){ ?>
+          <div class="lable_block">
+            <div class="lables">
+              <span><?php  echo Yii::t('app', 'Full name'); ?>:</span><br>
+            </div>
+            <div class="lables2">
+              <input type="text" name="offerLetterFullName" value="<?php echo $candidateObjRecord->full_name; ?>">
+            </div>
+          </div>
+          <div class="lable_block">
+            <div class="lables">
+              <span><?php  echo Yii::t('app', 'ID No'); ?>:</span><br>
+            </div>
+            <div class="lables2">
+              <input type="text" name="offerLetterIdNo" value="<?php echo $candidateObjRecord->id_no; ?>">
+            </div>
+          </div>
+          <div class="lable_block">
+            <div class="lables">
+              <span><?php  echo Yii::t('app', 'Role'); ?>:</span><br>
+            </div>
+            <div class="lables2">
+              <input type="text" name="offerLetterRole" value="<?php echo EmploymentJobOpening::model()->queryForCandidateJob($candidateObjRecord->job_id); ?>" disabled>
+            </div>
+          </div>
+          <?php } ?>
+          <?php foreach($generalQuestionArrRecords as $generalQuestionObjRecord){ ?>
+          <div class="lable_block">
+            <div class="lables">
+              <span><?php  echo Yii::t('app', 'Salary offered to candidate'); ?>:</span><br>
+            </div>
+            <div class="lables2">
+              <input type="text" name="offerLetterExpectedSalary" value="<?php echo $generalQuestionObjRecord->expected_salary; ?>">
+            </div>
+          </div>
+          <?php } ?>
+
+  
           <div class="lable_block" id="save_button">
             <div class="row buttons">
               <?php echo CHtml::submitButton('Save'); ?>
@@ -671,7 +716,6 @@
             <input type="button" id="generateOfferEmail" value="<?php echo Yii::t('app', 'Convert to offer'); ?>" data-offer-url="<?php echo $this->createUrl('registration/generateOfferEmail', array('jobId' => $candidateObjRecord->job_id, 'candidateName' => $candidateObjRecord->full_name, 'candidateId' => $candidateObjRecord->id_no)); ?>">
             <input type="button" id="changeCandidateStatus" data-change-url="<?php echo $this->createUrl('registration/changeCandidateStatus', array('candidateId' => $candidateObjRecord->id_no)); ?>" style="display:none;">
             <input type="button" id="changeCandidateStatusToSigned" data-signed-url="<?php echo $this->createUrl('registration/changeCandidateStatusToSigned', array('candidateId' => $candidateObjRecord->id_no)); ?>" style="display:none;">
-            </label>
           </div>
           <div class="lable_block" id="send_email_checkbox">
             <tr>
@@ -679,7 +723,7 @@
               <label for="sendEmailCheckbox"><?php echo Yii::t('app', 'Check this if you want to send the candidate an email.'); ?></label>
             </tr>
           </div>
-        <?php } ?>
+          <!-- <textarea rows="8" cols="165" name="comment">Enter text here...</textarea> -->
         </fieldset>
       </div>
     </form>

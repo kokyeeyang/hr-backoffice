@@ -46,7 +46,12 @@
     			<td><?php echo Yii::t('app', 'Line manager'); ?></td>
     			<td>:</td>
     			<td>
-    				<input type="text" name="interviewManager"/>
+    				<!-- <input type="text" name="interviewManager"/> -->
+            <select name="interviewManager" size=1>
+              <?php foreach ($allManagers as $manager) { ?>
+                <option value="<?php echo $manager['admin_display_name'] ?>"><?php echo $manager['admin_display_name']; ?></option>
+              <?php } ?>
+            </select>
     			</td>
     		</tr>
     		<tr>
