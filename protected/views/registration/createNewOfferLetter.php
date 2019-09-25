@@ -170,12 +170,23 @@
 							Signed:_______________________
 							<br/><br/>
 							<div>
-								<!-- <div style="display:inline-block;">Name: John Dickinson  </div>                      
-								<div style="display:inline-block;">Position: Director  </div>                            
-								<div style="display:inline-block;">Dated: <?php //echo $dateToday; ?></div> -->
 								<div class="director" style="margin-right: 120px; margin-left:40px ; display:inline-block;">Name: John Dickinson</div>
 								<div class="director" style="margin: 120px; display:inline-block;">Position: Director</div>
 								<div class="director" style="margin: 120px; display:inline-block;">Dated: <?php echo $dateToday; ?></div>
+							</div>
+							<div style="margin-left:40px; margin-right:40px">
+								For and on behalf of the Company
+								<div style="border-bottom: 3px solid black;"></div>
+							</div>
+							<div class="acknowledgement" style="text-align: center; margin-top:5px; margin-left:570px; margin-right:570px; border-bottom: 1px solid black;"><b> ACKNOWLEDGEMENT </b></title>
+							</div>	
+							I %%Candidate name%% agree to the employment within the Company and accept the stipulated terms and conditions of employment and confirm that I have received a copy of this letter of Appointment.
+							<br/><br/>
+							Signed: ____________________________________ 
+							<div>
+								<div class="director" style="margin-right: 120px; margin-left:40px ; display:inline-block;">Name: %%Candidate Name%%</div>
+								<div class="director" style="margin: 120px; display:inline-block;">Dated: </div>
+								<div class="director" style="margin: 120px; display:inline-block;"></div>
 							</div>
 						</p>
 					</textarea>
