@@ -1,10 +1,11 @@
-<script type="text/javascript" src="tinymce/tinymce.min.js"></script>
+<!-- <script type="text/javascript" src="tinymce/TinyMCEe.min.js"></script> -->
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
  tinymce.init({
    selector: 'textarea#editor',  //Change this value according to your HTML
    auto_focus: 'element1',
-   width: "700",
-   height: "200"
+   width: "400",
+   height: "100"
  }); 
  
  </script>
@@ -20,7 +21,7 @@
 </div>
 <div class="common_content_wrapper admin_login_log_list">
   <div class="common_content_inner_wrapper">
-    <h4 class="widget_title"><?php //echo Yii::t('app', 'Add a new offer letter template'); ?>
+    <h4 class="widget_title"><?php echo Yii::t('app', 'Add a new offer letter template'); ?>
     </h4>
     <form method="post" enctype="multipart/form-data" id="createOfferLetterForm" name="createOfferLetterForm" action="<?php echo $this->createUrl('registration/saveOfferLetterTemplate') ?>" >
     	<table style="line-height: 32px;padding-left: 10px;font-size: 15px;">
@@ -40,58 +41,37 @@
     		</tr>
     		<tr>
 	    		<textarea id="basic-example">
-					  <p style="text-align: center;">
-					    <img title="TinyMCE Logo" src="//www.tiny.cloud/images/glyph-tinymce@2x.png" alt="TinyMCE Logo" width="110" height="97" />
+					  <p style="text-align: left; margin:40px;">
+					    <img src="/images/alllanguages/sagaos_logo.png">
 					  </p>
+						<p style="text-align: left; margin:40px;">
+							<b>PRIVATE & CONFIDENTIAL</b>
+							<br/><br/>
+							<input type="text" name="offerLetterDate" value="<?php echo $dateToday; ?>">
+							<br/><br/>
+							IC No: <input type="text" name="offerLetterIC" value="%%Candidate ID%%">
+							<br/><br/>
+							Address: <input type="text" name="offerLetterAddress" value="%%Candidate Address%%" style="width: 15px;">
+							<br/><br/>
+							LETTER OF APPOINTMENT - <input type="text" name="offerLetterIC" value="%%Candidate name%%">
+							<br/>
+						</p>
+						<p style="margin:40px;">
+							We are pleased to offer you employment as Online Customer Support Agent with SAGAOS SDN. BHD. (herein after referred to as "the Company") with effect from the <input type="text" name="candidateOfferDate" value="%%Candidate Offer date%%">.
 
-					  <h2 style="text-align: center;">Welcome to the TinyMCE editor demo!</h2>
+							The Company reserves the right to introduce, modify, amend or annul any terms and conditions at any time during its operations. Any such changes shall be notified by issuance of circulars, memorandums or other instructions by whatever means from time to time, will form part of the terms and conditions of employment.
+							<br/><br/>
+							You will be reporting to <input type="text" name="candidateSuperior" value="%%Candidate's superior%%">.  
+						</p>
+						<p style="margin:40px;">
+							The terms and conditions of your appointment are as follows:
+							<div style="padding-left:60px;"><b> 1)Commencement </b></div>
+								The date of commencement is provisionally set as the <input type="text" name="candidateStartDate" value="%%Candidate's start date%%">.
 
-					  <h2>Got questions or need help?</h2>
+								Your official working hours shall not exceed (48) forty-eight hours per calendar week until and unless consent is given by Employee to work additional hours. 
 
-					  <ul>
-					    <li>Our <a href="https://www.tiny.cloud/docs/">documentation</a> is a great resource for learning how to configure TinyMCE.</li>
-					    <li>Have a specific question? Visit the <a href="https://community.tiny.cloud/forum/" target="_blank">Community Forum</a>.</li>
-					    <li>We also offer enterprise grade support as part of <a href="https://www.tiny.cloud/pricing">TinyMCE Enterprise</a>.</li>
-					  </ul>
-
-					  <h2>A simple table to play with</h2>
-
-					  <table style="text-align: center;">
-					    <thead>
-					      <tr>
-					        <th>Product</th>
-					        <th>Cost</th>
-					        <th>Really?</th>
-					      </tr>
-					    </thead>
-					    <tbody>
-					      <tr>
-					        <td>TinyMCE</td>
-					        <td>Free</td>
-					        <td>YES!</td>
-					      </tr>
-					      <tr>
-					        <td>Plupload</td>
-					        <td>Free</td>
-					        <td>YES!</td>
-					      </tr>
-					    </tbody>
-					  </table>
-
-					  <h2>Found a bug?</h2>
-
-					  <p>
-					    If you think you have found a bug please create an issue on the <a href="https://github.com/tinymce/tinymce/issues">GitHub repo</a> to report it to the developers.
-					  </p>
-
-					  <h2>Finally ...</h2>
-
-					  <p>
-					    Don't forget to check out our other product <a href="http://www.plupload.com" target="_blank">Plupload</a>, your ultimate upload solution featuring HTML5 upload support.
-					  </p>
-					  <p>
-					    Thanks for supporting TinyMCE! We hope it helps you and your users create great content.<br>All the best from the TinyMCE team.
-					  </p>
+								You will initially be employed for a probation (qualifying) period of 3 months. This period is agreed as reasonable having regard to the nature and circumstances of your employment. After successful completion of the Probationary Period, the Company shall confirm to the Employee in writing about such successful completion of the Probationary Period. The said probationary period may be reduced or extended at the discretion of the Company.
+						</p>
 					</textarea>
 	    	</tr>
     	</table>

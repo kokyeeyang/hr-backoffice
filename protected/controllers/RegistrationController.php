@@ -684,8 +684,9 @@ class RegistrationController extends Controller
 
 	public function actionCreateNewOfferLetter(){
 		
-		//this is where we render the pdf for editting
-		$this->render('createNewOfferLetter');
+		$dateToday = date("dS F Y");
+		// $dateToday = date("dS") . " of " . date("F Y");
+		$this->render('createNewOfferLetter', array('dateToday'=>$dateToday));
 	}
 
 
