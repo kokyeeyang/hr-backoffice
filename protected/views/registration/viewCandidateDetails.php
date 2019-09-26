@@ -661,7 +661,30 @@
           <legend class="legend">
             8.<?php echo Yii::t('app', 'General questions *For internal use only') ?>
           </legend>
-          <textarea rows="8" name="questions" style="width:100%">Enter text here...</textarea>
+          <div class="label_block">
+            <div class="lables">
+              <span><?php  echo Yii::t('app', ''); ?>:</span>
+            </div>
+            <div class="lables2">
+              <input type="text" name="" value="">
+            </div>
+          </div>
+          <div class="label_block">
+            <div class="lables">
+              <span><?php  echo Yii::t('app', ''); ?>:</span>
+            </div>
+            <div class="lables2">
+              <input type="text" name="" value="">
+            </div>
+          </div>
+          <div class="label_block">
+            <div class="lables">
+              <span><?php  echo Yii::t('app', ''); ?>:</span>
+            </div>
+            <div class="lables2">
+              <input type="text" name="" value="">
+            </div>
+          </div>
         <?php } ?>
         </fieldset>
         <fieldset class="fieldset">

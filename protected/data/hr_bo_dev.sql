@@ -406,3 +406,32 @@ ALTER TABLE employment_job_opening
   ADD `is_managerial_position` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
   AFTER `interviewing_manager`;
 
+CREATE TABLE employment_offer_letter_templates (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `offer_letter_title` varchar(300) NOT NULL,
+  `offer_letter_description` varchar(300) NOT NULL,
+  `offer_letter_content` text NOT NULL,
+  `department` varchar(50) NOT NULL,
+  `is_managerial` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(40) NULL,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(40) NULL,
+   PRIMARY KEY (`id`) 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE employment_interview_questions (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `candidate_id` varchar(40) NOT NULL,
+  `suitable_experience` varchar(500) NULL,
+  `aspirations` varchar(500) NULL,
+  `passion` varchar(500) NULL,
+  `background` varchar(500) NULL,
+  `commute` varchar(200) NULL,
+  `experience` varchar(500) NULL,
+  `leave_reason` varchar(500) NULL,
+  `notice_period` varchar(200) NULL,
+  `interviewing_with_other_companies` varchar(300) NULL,
+  `family_status` varchar(500) NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

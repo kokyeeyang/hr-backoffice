@@ -36,7 +36,6 @@ class CommonHelper {
 					if(file_exists("document/". $documentKind . "/" . $documentName)){
 						echo $documentName . "already exists.";
 					} else {
-					var_dump($_FILES);exit;
 						move_uploaded_file($_FILES[$documentKind]["tmp_name"], getcwd() . "/documents/" . $documentKind . "/" . $documentName);
 					}
 				} else {

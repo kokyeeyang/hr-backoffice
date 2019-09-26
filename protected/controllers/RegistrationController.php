@@ -689,5 +689,26 @@ class RegistrationController extends Controller
 		$this->render('createNewOfferLetter', array('dateToday'=>$dateToday));
 	}
 
+	public function actionSaveOfferLetterTemplate(){
+
+		// var_dump($this->getParam('offer-letter-template', ''));exit;
+
+		$offerLetterTitle = $this->getParam('offerLetterTitle', '') != null ? $this->getParam('offerLetterTitle', '') : "Untitled";
+		$offerLetterDescription = $this->getParam('offerLetterDescription', '') != null ? $this->getParam('offerLetterDescription', '') : "Unspecified";
+
+		$offerLetterContent = $this->getParam('offer-letter-template', '');
+
+		$newFile = fopen('offerLetter' . $offerLetterTitle . ".php", "w+");
+		// fwrite($newFile, $offerLetterTitle . "\n");
+		fwrite($newFile, $offerLetterContent . "\n");
+		// fwrite($newFile, $offerLetterC)
+		var_dump($_FILES);exit;
+		fclose($newFile);
+		// var_dump($_POST);exit;
+
+
+
+	}
+
 
 }
