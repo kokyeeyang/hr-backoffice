@@ -597,7 +597,6 @@ class RegistrationController extends Controller
 		}
 
 		$recordStatus = EmploymentInterviewQuestions::model()->queryForExistingInterviewQuestions($candidateId);
-
 		if($recordStatus == "update record"){
 			$interviewQuestionsArrRecords = EmploymentInterviewQuestions::model()->findAll($otherCondition);
 			foreach($interviewQuestionsArrRecords as $interviewQuestionsObjRecord){
@@ -613,7 +612,8 @@ class RegistrationController extends Controller
 				$interviewQuestionsObjRecord->interviewing_with_other_companies = $this->getParam('interviewing_with_other_companies','');
 				$interviewQuestionsObjRecord->family_status = $this->getParam('family_status','');
 				$interviewQuestionsObjRecord->update();
-			} else if ($recordStatus == "new record"){
+			}
+		} else if ($recordStatus == "new record"){
 				$interviewQuestionsObjModel = new EmploymentInterviewQuestions;
 				$interviewQuestionsObjModel->candidate_id = $this->getParam('idNo', '');
 				$interviewQuestionsObjModel->suitable_experience = $this->getParam('suitable_experience','');
@@ -627,9 +627,8 @@ class RegistrationController extends Controller
 				$interviewQuestionsObjModel->interviewing_with_other_companies = $this->getParam('interviewing_with_other_companies','');
 				$interviewQuestionsObjModel->family_status = $this->getParam('family_status','');
 				$interviewQuestionsObjModel->save();
-			} else {
-				echo ('Something is wrong');
-			}
+		} else {
+			echo 'Something is wrong';
 		}
 
 		$this->redirect(array('showAllCandidates'));

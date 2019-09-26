@@ -29,13 +29,19 @@ class EmploymentInterviewQuestions extends AppActiveRecord {
 		];
 	}	
 
+	public function relations(){
+		// NOTE: you may need to adjust the relation name and the related
+		// class name for the relations automatically generated below.
+		return array(
+		);
+	}
+
 	public function queryForExistingInterviewQuestions($candidateId){
 		$sql = 'SELECT candidate_id 
 
 						FROM ' . self::$tableName . '
 
 						WHERE candidate_id = ' . $candidateId;
-
 		$objConnection = Yii::app()->db;
 		$objCommand = $objConnection->createCommand($sql);
 		$arrData = $objCommand->queryRow();
