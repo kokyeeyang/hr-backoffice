@@ -28,4 +28,22 @@ class EmploymentInterviewQuestions extends AppActiveRecord {
 			'family_status' => Yii::t('app', 'family_status')
 		];
 	}	
+
+	public function queryForExistingInterviewQuestions($candidateId){
+		$sql = 'SELECT candidate_id 
+
+						FROM ' . self::$tableName . '
+
+						WHERE candidate_id = ' . $candidateId;
+
+		$objConnection = Yii::app()->db;
+		$objCommand = $objConnection->createCommand($sql);
+		$arrData = $objCommand->queryRow();
+
+		if (!empty($arrData['candidate_id'])){
+			return 'update record';
+		} else {
+			return 'new record';
+		}
+	}
 }

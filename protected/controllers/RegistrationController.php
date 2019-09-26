@@ -479,7 +479,7 @@ class RegistrationController extends Controller
 			if($this->getParam('comment','') != ''){
 				$candidateObjRecord['remarks'] = $this->getParam('comment','');
 				$candidateObjRecord->update();
-			}
+			} 
 
 			$candidateObjRecord->update();
 
@@ -596,6 +596,41 @@ class RegistrationController extends Controller
 			$generalQuestionObjRecord->update();
 		}
 
+		$recordStatus = EmploymentInterviewQuestions::model()->queryForExistingInterviewQuestions($candidateId);
+
+		if($recordStatus == "update record"){
+			$interviewQuestionsArrRecords = EmploymentInterviewQuestions::model()->findAll($otherCondition);
+			foreach($interviewQuestionsArrRecords as $interviewQuestionsObjRecord){
+				$interviewQuestionsObjRecord->candidate_id = $this->getParam('idNo', '');
+				$interviewQuestionsObjRecord->suitable_experience = $this->getParam('suitable_experience','');
+				$interviewQuestionsObjRecord->aspirations = $this->getParam('aspirations','');
+				$interviewQuestionsObjRecord->passion = $this->getParam('passion','');
+				$interviewQuestionsObjRecord->background = $this->getParam('background','');
+				$interviewQuestionsObjRecord->commute = $this->getParam('commute','');
+				$interviewQuestionsObjRecord->experience = $this->getParam('experience','');
+				$interviewQuestionsObjRecord->leave_reason = $this->getParam('leave_reason','');
+				$interviewQuestionsObjRecord->notice_period = $this->getParam('notice_period','');
+				$interviewQuestionsObjRecord->interviewing_with_other_companies = $this->getParam('interviewing_with_other_companies','');
+				$interviewQuestionsObjRecord->family_status = $this->getParam('family_status','');
+				$interviewQuestionsObjRecord->update();
+			} else if ($recordStatus == "new record"){
+				$interviewQuestionsObjModel = new EmploymentInterviewQuestions;
+				$interviewQuestionsObjModel->candidate_id = $this->getParam('idNo', '');
+				$interviewQuestionsObjModel->suitable_experience = $this->getParam('suitable_experience','');
+				$interviewQuestionsObjModel->aspirations = $this->getParam('aspirations','');
+				$interviewQuestionsObjModel->passion = $this->getParam('passion','');
+				$interviewQuestionsObjModel->background = $this->getParam('background','');
+				$interviewQuestionsObjModel->commute = $this->getParam('commute','');
+				$interviewQuestionsObjModel->experience = $this->getParam('experience','');
+				$interviewQuestionsObjModel->leave_reason = $this->getParam('leave_reason','');
+				$interviewQuestionsObjModel->notice_period = $this->getParam('notice_period','');
+				$interviewQuestionsObjModel->interviewing_with_other_companies = $this->getParam('interviewing_with_other_companies','');
+				$interviewQuestionsObjModel->family_status = $this->getParam('family_status','');
+				$interviewQuestionsObjModel->save();
+			} else {
+				echo ('Something is wrong');
+			}
+		}
 
 		$this->redirect(array('showAllCandidates'));
 	}

@@ -661,28 +661,88 @@
           <legend class="legend">
             8.<?php echo Yii::t('app', 'General questions *For internal use only') ?>
           </legend>
-          <div class="label_block">
-            <div class="lables">
-              <span><?php  echo Yii::t('app', ''); ?>:</span>
+          <div class="grid_block">
+            <div class="label_block">
+              <div class="lables">
+                <span><?php  echo Yii::t('app', 'Job Experience'); ?>:</span>
+              </div>
+              <div class="lables2">
+                <textarea name="suitable_experience" rows="3" cols="35"></textarea>
+              </div>
             </div>
-            <div class="lables2">
-              <input type="text" name="" value="">
+            <div class="label_block">
+              <div class="lables">
+                <span><?php  echo Yii::t('app', 'Aspirations'); ?>:</span>
+              </div>
+              <div class="lables2">
+                <textarea name="aspirations" rows="3" cols="35"></textarea>
+              </div>
+            </div>
+            <div class="label_block">
+              <div class="lables">
+                <span><?php  echo Yii::t('app', 'Passion'); ?>:</span>
+              </div>
+              <div class="lables2">
+                <textarea name="passion" rows="3" cols="35"></textarea>
+              </div>
+            </div>
+            <div class="label_block">
+              <div class="lables">
+                <span><?php  echo Yii::t('app', 'Background'); ?>:</span>
+              </div>
+              <div class="lables2">
+                <textarea name="background" rows="3" cols="35"></textarea>
+              </div>
+            </div>
+            <div class="label_block">
+              <div class="lables">
+                <span><?php  echo Yii::t('app', 'How do you commute to work?'); ?>:</span>
+              </div>
+              <div class="lables2">
+                <textarea name="commute" rows="3" cols="35"></textarea>
+              </div>
             </div>
           </div>
-          <div class="label_block">
-            <div class="lables">
-              <span><?php  echo Yii::t('app', ''); ?>:</span>
+          <div class="grid_block">
+            <div class="label_block">
+              <div class="lables">
+                <span><?php  echo Yii::t('app', 'Experience'); ?>:</span>
+              </div>
+              <div class="lables2">
+                <textarea name="experience" rows="3" cols="35"></textarea>
+              </div>
             </div>
-            <div class="lables2">
-              <input type="text" name="" value="">
+            <div class="label_block">
+              <div class="lables">
+                <span><?php  echo Yii::t('app', 'Reason for leaving last company?'); ?>:</span>
+              </div>
+              <div class="lables2">
+                <textarea name="leave_reason" rows="3" cols="35"></textarea>
+              </div>
             </div>
-          </div>
-          <div class="label_block">
-            <div class="lables">
-              <span><?php  echo Yii::t('app', ''); ?>:</span>
+            <div class="label_block">
+              <div class="lables">
+                <span><?php  echo Yii::t('app', 'Current company\'s notice period?'); ?>:</span>
+              </div>
+              <div class="lables2">
+                <textarea name="notice_period" rows="3" cols="35"></textarea>
+              </div>
             </div>
-            <div class="lables2">
-              <input type="text" name="" value="">
+            <div class="label_block">
+              <div class="lables">
+                <span><?php  echo Yii::t('app', 'Interviewing for other positions?'); ?>:</span>
+              </div>
+              <div class="lables2">
+                <textarea name="interviewing_with_other_companies" rows="3" cols="35"></textarea>
+              </div>
+            </div>
+            <div class="label_block">
+              <div class="lables">
+                <span><?php  echo Yii::t('app', 'Family status (parents, siblings?)'); ?>:</span>
+              </div>
+              <div class="lables2">
+                <textarea name="family_status" rows="3" cols="35"></textarea>
+              </div>
             </div>
           </div>
         <?php } ?>
@@ -728,8 +788,6 @@
             </div>
           </div>
           <?php } ?>
-
-  
           <div class="lable_block" id="save_button">
             <div class="row buttons">
               <?php echo CHtml::submitButton('Save'); ?>
