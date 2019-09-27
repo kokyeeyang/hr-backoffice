@@ -713,7 +713,10 @@ class RegistrationController extends Controller
 	}
 
 	public function actionShowOfferLetterTemplates(){
-		$this->render('showOfferLetterTemplates');
+		// $candidateArrRecords = EmploymentCandidate::model()->findAll(array('order'=>'id ASC'));
+		$offerLetterArrRecords = EmploymentOfferLetterTemplates::model()->findAll(['order'=>'id ASC']);
+		// var_dump($offerLetterArrRecords);exit;
+		$this->render('showOfferLetterTemplates', ['offerLetterArrRecords'=>$offerLetterArrRecords]);
 	}
 
 	public function actionCreateNewOfferLetter(){
@@ -725,25 +728,26 @@ class RegistrationController extends Controller
 
 	public function actionSaveOfferLetterTemplate(){
 
-		// var_dump($this->getParam('offer-letter-template', ''));exit;
-
 		$offerLetterTitle = $this->getParam('offerLetterTitle', '') != null ? $this->getParam('offerLetterTitle', '') : "Untitled";
 		$offerLetterDescription = $this->getParam('offerLetterDescription', '') != null ? $this->getParam('offerLetterDescription', '') : "Unspecified";
 
-		$offerLetterContent = $this->getParam('offer-letter-template', '');
+		$currentUserId = Yii::app()->user->id;
 
-		var_dump($offerLetterContent);exit;
+		$offerLetterDepartmentArray = $this->getParam('department', '');
+		$offerLetterDepartments = implode(",", $offerLetterDepartmentArray);
 
-		$newFile = fopen('offerLetter' . $offerLetterTitle . ".php", "w+");
-		// fwrite($newFile, $offerLetterTitle . "\n");
-		fwrite($newFile, $offerLetterContent . "\n");
-		// fwrite($newFile, $offerLetterC)
-		var_dump($_FILES);exit;
-		fclose($newFile);
-		// var_dump($_POST);exit;
+		$offerLetterObjModel = new EmploymentOfferLetterTemplates;
+		$offerLetterObjModel->offer_letter_title = $offerLetterTitle;
+		$offerLetterObjModel->offer_letter_description = $this->getParam('offerLetterDescription', '');
 
+		$offerLetterObjModel->department = $offerLetterDepartments;
 
+		$offerLetterObjModel->is_managerial = $this->getParam('offerLetterIsManagerial', '');
+		$offerLetterObjModel->offer_letter_content = $this->getParam('offer-letter-template', '');
+		$offerLetterObjModel->created_by = $currentUserId; 
+		$offerLetterObjModel->save();
 
+		$this->redirect('showOfferLetterTemplates');
 	}
 
 

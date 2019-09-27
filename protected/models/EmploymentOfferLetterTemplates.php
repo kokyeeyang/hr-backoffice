@@ -20,6 +20,7 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 			'offer_letter_content' => Yii::t('app', 'offer_letter_content'),
 			'department' => Yii::t('app', 'department'),
 			'is_managerial' => Yii::t('app', 'is_managerial'),
+			'offer_letter_content' => Yii::t('app', 'offer_letter_content'),
 			'created_date' => Yii::t('app', 'created_date'),
 			'created_by' => Yii::t('app', 'created_by'),
 			'modified_date' => Yii::t('app', 'modified_date'),
@@ -37,4 +38,23 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 	public static function model($className=__CLASS__){
 		return parent::model($className);
 	}	
+
+	public function queryForOfferLetterIsManagerial($templateId){
+		$sql = 'SELECT is_managerial 
+
+						FROM ' . self::$tableName .
+
+						' WHERE id=' . $templateId;
+
+		$objConnection = Yii::app()->db;
+		$objCommand = $objConnection->createCommand($sql);
+		$arrData = $objCommand->queryRow();
+
+		if ($arrData['is_managerial'] == "0"){
+			return 'Non manager role';
+		} else if ($arrData['is_managerial'] == "1"){
+			return 'Managerial role';
+		}
+
+	}
 }
