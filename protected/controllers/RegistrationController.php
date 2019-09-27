@@ -732,6 +732,8 @@ class RegistrationController extends Controller
 
 		$offerLetterContent = $this->getParam('offer-letter-template', '');
 
+		var_dump($offerLetterContent);exit;
+
 		$newFile = fopen('offerLetter' . $offerLetterTitle . ".php", "w+");
 		// fwrite($newFile, $offerLetterTitle . "\n");
 		fwrite($newFile, $offerLetterContent . "\n");
