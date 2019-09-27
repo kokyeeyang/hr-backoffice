@@ -3,6 +3,12 @@
 	input[type='checkbox'] {
 		width: 20px;
 	} 
+
+	div #offer-letter-input {
+		height: 80px;
+		margin-bottom: 30px;
+	}
+
 </style>
 
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
@@ -31,16 +37,18 @@
     </h4>
     <form method="post" enctype="multipart/form-data" id="createOfferLetterForm" name="createOfferLetterForm" action="<?php echo $this->createUrl('registration/saveOfferLetterTemplate') ?>">
     	<div id="offer-letter-input" style="margin-bottom:10px; margin-top: 10px;">
-	    	<td><?php echo Yii::t('app', 'Offer Letter Title'); ?> </td>
-  			<td>:</td>
-  			<td>
-  				<input type="text" name="offerLetterTitle"/>
-  			</td>
-  			<td><?php echo Yii::t('app', 'Description'); ?> </td>
-  			<td>:</td>
-  			<td>
-  				<input type="text" name="offerLetterDescription"/>
-  			</td>
+    		<tr>
+		    	<td><?php echo Yii::t('app', 'Offer Letter Title'); ?> </td>
+	  			<td>:</td>
+	  			<td>
+	  				<input type="text" name="offerLetterTitle"/>
+	  			</td>
+	  			<td><?php echo Yii::t('app', 'Description'); ?> </td>
+	  			<td>:</td>
+	  			<td>
+	  				<textarea name="offerLetterDescription"/ rows="3"></textarea>
+	  			</td>
+	  		</tr>
   		</div>
     	<table style="line-height: 32px;padding-left: 10px;font-size: 15px; margin-bottom:10px;">
     		<textarea id="offer-letter-template" name="offer-letter-template">

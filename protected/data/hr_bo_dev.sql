@@ -433,5 +433,9 @@ CREATE TABLE employment_interview_questions (
   `notice_period` varchar(200) NULL,
   `interviewing_with_other_companies` varchar(300) NULL,
   `family_status` varchar(500) NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(40) NULL,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(40) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

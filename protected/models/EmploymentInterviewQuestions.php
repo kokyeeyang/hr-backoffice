@@ -25,7 +25,11 @@ class EmploymentInterviewQuestions extends AppActiveRecord {
 			'leave_reason' => Yii::t('app', 'leave_reason'),
 			'notice_period' => Yii::t('app', 'notice_period'),
 			'interviewing_with_other_companies' => Yii::t('app', 'interviewing_with_other_companies'),
-			'family_status' => Yii::t('app', 'family_status')
+			'family_status' => Yii::t('app', 'family_status'),
+			'created_date' => Yii::t('app', 'created_date'),
+			'created_by' => Yii::t('app', 'created_by'),
+			'modified_date' => Yii::t('app', 'modified_date'),
+			'modified_by' => Yii::t('app', 'modified_by')
 		];
 	}	
 
@@ -34,6 +38,10 @@ class EmploymentInterviewQuestions extends AppActiveRecord {
 		// class name for the relations automatically generated below.
 		return array(
 		);
+	}
+
+	public static function model($className=__CLASS__){
+		return parent::model($className);
 	}
 
 	public function queryForExistingInterviewQuestions($candidateId){

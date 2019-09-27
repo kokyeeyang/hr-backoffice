@@ -661,13 +661,14 @@
           <legend class="legend">
             8.<?php echo Yii::t('app', 'General questions *For internal use only') ?>
           </legend>
+          <?php foreach($interviewQuestionsArrRecords as $interviewQuestionsObjRecord){ ?>
           <div class="grid_block">
             <div class="label_block">
               <div class="lables">
                 <span><?php  echo Yii::t('app', 'Job Experience'); ?>:</span>
               </div>
               <div class="lables2">
-                <textarea name="suitable_experience" rows="3" cols="35"></textarea>
+                <textarea name="suitable_experience" rows="3" cols="35"><?php echo $interviewQuestionsObjRecord->suitable_experience; ?></textarea>
               </div>
             </div>
             <div class="label_block">
@@ -675,7 +676,7 @@
                 <span><?php  echo Yii::t('app', 'Aspirations'); ?>:</span>
               </div>
               <div class="lables2">
-                <textarea name="aspirations" rows="3" cols="35"></textarea>
+                <textarea name="aspirations" rows="3" cols="35"><?php echo $interviewQuestionsObjRecord->aspirations; ?></textarea>
               </div>
             </div>
             <div class="label_block">
@@ -683,7 +684,7 @@
                 <span><?php  echo Yii::t('app', 'Passion'); ?>:</span>
               </div>
               <div class="lables2">
-                <textarea name="passion" rows="3" cols="35"></textarea>
+                <textarea name="passion" rows="3" cols="35"><?php echo $interviewQuestionsObjRecord->passion; ?></textarea>
               </div>
             </div>
             <div class="label_block">
@@ -691,7 +692,7 @@
                 <span><?php  echo Yii::t('app', 'Background'); ?>:</span>
               </div>
               <div class="lables2">
-                <textarea name="background" rows="3" cols="35"></textarea>
+                <textarea name="background" rows="3" cols="35"><?php echo $interviewQuestionsObjRecord->background; ?></textarea>
               </div>
             </div>
             <div class="label_block">
@@ -699,7 +700,7 @@
                 <span><?php  echo Yii::t('app', 'How do you commute to work?'); ?>:</span>
               </div>
               <div class="lables2">
-                <textarea name="commute" rows="3" cols="35"></textarea>
+                <textarea name="commute" rows="3" cols="35"><?php echo $interviewQuestionsObjRecord->commute; ?></textarea>
               </div>
             </div>
           </div>
@@ -709,7 +710,7 @@
                 <span><?php  echo Yii::t('app', 'Experience'); ?>:</span>
               </div>
               <div class="lables2">
-                <textarea name="experience" rows="3" cols="35"></textarea>
+                <textarea name="experience" rows="3" cols="35"><?php echo $interviewQuestionsObjRecord->experience; ?></textarea>
               </div>
             </div>
             <div class="label_block">
@@ -717,7 +718,7 @@
                 <span><?php  echo Yii::t('app', 'Reason for leaving last company?'); ?>:</span>
               </div>
               <div class="lables2">
-                <textarea name="leave_reason" rows="3" cols="35"></textarea>
+                <textarea name="leave_reason" rows="3" cols="35"><?php echo $interviewQuestionsObjRecord->leave_reason; ?></textarea>
               </div>
             </div>
             <div class="label_block">
@@ -725,7 +726,7 @@
                 <span><?php  echo Yii::t('app', 'Current company\'s notice period?'); ?>:</span>
               </div>
               <div class="lables2">
-                <textarea name="notice_period" rows="3" cols="35"></textarea>
+                <textarea name="notice_period" rows="3" cols="35"><?php echo $interviewQuestionsObjRecord->notice_period; ?></textarea>
               </div>
             </div>
             <div class="label_block">
@@ -733,7 +734,7 @@
                 <span><?php  echo Yii::t('app', 'Interviewing for other positions?'); ?>:</span>
               </div>
               <div class="lables2">
-                <textarea name="interviewing_with_other_companies" rows="3" cols="35"></textarea>
+                <textarea name="interviewing_with_other_companies" rows="3" cols="35"><?php echo $interviewQuestionsObjRecord->interviewing_with_other_companies; ?></textarea>
               </div>
             </div>
             <div class="label_block">
@@ -741,17 +742,17 @@
                 <span><?php  echo Yii::t('app', 'Family status (parents, siblings?)'); ?>:</span>
               </div>
               <div class="lables2">
-                <textarea name="family_status" rows="3" cols="35"></textarea>
+                <textarea name="family_status" rows="3" cols="35"><?php echo $interviewQuestionsObjRecord->family_status; ?></textarea>
               </div>
             </div>
           </div>
+          <?php } ?>
         <?php } ?>
         </fieldset>
         <fieldset class="fieldset">
           <legend class="legend">
             9.<?php echo Yii::t('app', 'Confirm offer letter details') ?>
           </legend>
-          
           <?php foreach($candidateArrRecords as $candidateObjRecord){ ?>
           <div class="lable_block">
             <div class="lables">

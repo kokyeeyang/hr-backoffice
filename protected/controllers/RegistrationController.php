@@ -262,6 +262,20 @@ class RegistrationController extends Controller
 		$generalQuestionObjModel->save();
 		//
 
+		$interviewQuestionObjModel = new EmploymentInterviewQuestions;
+		$interviewQuestionsObjModel->candidate_id = $sanitizedIdNo;
+		$interviewQuestionsObjModel->suitable_experience = null;
+		$interviewQuestionsObjModel->aspirations = null;
+		$interviewQuestionsObjModel->passion = null;
+		$interviewQuestionsObjModel->background = null;
+		$interviewQuestionsObjModel->commute = null;
+		$interviewQuestionsObjModel->experience = null;
+		$interviewQuestionsObjModel->leave_reason = null;
+		$interviewQuestionsObjModel->notice_period = null;
+		$interviewQuestionsObjModel->interviewing_with_other_companies = null;
+		$interviewQuestionsObjModel->family_status = null;
+		$interviewQuestionsObjModel->modified_by = $currentUserId;
+
 		//delete token from database once candidate has submitted application
 		$tokenString = explode('token=', $queryString);
 		$usedToken = $tokenString[1];
@@ -395,6 +409,7 @@ class RegistrationController extends Controller
 		$candidateCondition = 'id_no = "' . $candidateId . '"';
 		$otherCondition = 'candidate_id = "' . $candidateId . '"';
 		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
+		$interviewQuestionsArrRecords = EmploymentInterviewQuestions::model()->findAll($otherCondition);
 		$educationArrRecords = EmploymentEducation::model()->findAll($otherCondition);
 		$generalQuestionArrRecords = EmploymentGeneralQuestion::model()->findAll($otherCondition);
 		$jobExperienceArrRecords = EmploymentJobExperience::model()->findAll($otherCondition);
@@ -425,8 +440,8 @@ class RegistrationController extends Controller
 		$currentAdminId = Yii::app()->user->id;
 		//this is to allow editing only for hr and admin
 		$access = Admin::model()->checkForAdminPrivilege($currentAdminId, 'registration');
-
-		$this->render('viewCandidateDetails', array('candidateArrRecords'=>$candidateArrRecords, 'educationArrRecords'=>$educationArrRecords, 'generalQuestionArrRecords'=>$generalQuestionArrRecords, 'jobExperienceArrRecords'=>$jobExperienceArrRecords, 'refereeArrRecords'=>$refereeArrRecords, 'candidateId' => $candidateId, 'access' => $access, 'photoSource'=>$photoSource, 'displayPhotoSection'=>$displayPhotoSection, 'displayCoverLetterSection'=>$displayCoverLetterSection, 'resumeSource'=>$resumeSource, 'coverLetterSource'=>$coverLetterSource, 'displayResumeSection'=>$displayResumeSection));
+// var_dump($interviewQuestionsArrRecords);exit;
+		$this->render('viewCandidateDetails', array('candidateArrRecords'=>$candidateArrRecords, 'educationArrRecords'=>$educationArrRecords, 'generalQuestionArrRecords'=>$generalQuestionArrRecords, 'jobExperienceArrRecords'=>$jobExperienceArrRecords, 'refereeArrRecords'=>$refereeArrRecords, 'interviewQuestionsArrRecords' => $interviewQuestionsArrRecords, 'candidateId' => $candidateId, 'access' => $access, 'photoSource'=>$photoSource, 'displayPhotoSection'=>$displayPhotoSection, 'displayCoverLetterSection'=>$displayCoverLetterSection, 'resumeSource'=>$resumeSource, 'coverLetterSource'=>$coverLetterSource, 'displayResumeSection'=>$displayResumeSection));
 		
 	}
 
@@ -596,39 +611,24 @@ class RegistrationController extends Controller
 			$generalQuestionObjRecord->update();
 		}
 
-		$recordStatus = EmploymentInterviewQuestions::model()->queryForExistingInterviewQuestions($candidateId);
-		if($recordStatus == "update record"){
-			$interviewQuestionsArrRecords = EmploymentInterviewQuestions::model()->findAll($otherCondition);
-			foreach($interviewQuestionsArrRecords as $interviewQuestionsObjRecord){
-				$interviewQuestionsObjRecord->candidate_id = $this->getParam('idNo', '');
-				$interviewQuestionsObjRecord->suitable_experience = $this->getParam('suitable_experience','');
-				$interviewQuestionsObjRecord->aspirations = $this->getParam('aspirations','');
-				$interviewQuestionsObjRecord->passion = $this->getParam('passion','');
-				$interviewQuestionsObjRecord->background = $this->getParam('background','');
-				$interviewQuestionsObjRecord->commute = $this->getParam('commute','');
-				$interviewQuestionsObjRecord->experience = $this->getParam('experience','');
-				$interviewQuestionsObjRecord->leave_reason = $this->getParam('leave_reason','');
-				$interviewQuestionsObjRecord->notice_period = $this->getParam('notice_period','');
-				$interviewQuestionsObjRecord->interviewing_with_other_companies = $this->getParam('interviewing_with_other_companies','');
-				$interviewQuestionsObjRecord->family_status = $this->getParam('family_status','');
-				$interviewQuestionsObjRecord->update();
-			}
-		} else if ($recordStatus == "new record"){
-				$interviewQuestionsObjModel = new EmploymentInterviewQuestions;
-				$interviewQuestionsObjModel->candidate_id = $this->getParam('idNo', '');
-				$interviewQuestionsObjModel->suitable_experience = $this->getParam('suitable_experience','');
-				$interviewQuestionsObjModel->aspirations = $this->getParam('aspirations','');
-				$interviewQuestionsObjModel->passion = $this->getParam('passion','');
-				$interviewQuestionsObjModel->background = $this->getParam('background','');
-				$interviewQuestionsObjModel->commute = $this->getParam('commute','');
-				$interviewQuestionsObjModel->experience = $this->getParam('experience','');
-				$interviewQuestionsObjModel->leave_reason = $this->getParam('leave_reason','');
-				$interviewQuestionsObjModel->notice_period = $this->getParam('notice_period','');
-				$interviewQuestionsObjModel->interviewing_with_other_companies = $this->getParam('interviewing_with_other_companies','');
-				$interviewQuestionsObjModel->family_status = $this->getParam('family_status','');
-				$interviewQuestionsObjModel->save();
-		} else {
-			echo 'Something is wrong';
+		$currentUserId = Yii::app()->user->id;
+
+		$interviewQuestionsArrRecords = EmploymentInterviewQuestions::model()->findAll($otherCondition);
+		foreach($interviewQuestionsArrRecords as $interviewQuestionsObjRecord){
+			$interviewQuestionsObjRecord->candidate_id = $this->getParam('idNo', '');
+			$interviewQuestionsObjRecord->suitable_experience = $this->getParam('suitable_experience','');
+			$interviewQuestionsObjRecord->aspirations = $this->getParam('aspirations','');
+			$interviewQuestionsObjRecord->passion = $this->getParam('passion','');
+			$interviewQuestionsObjRecord->background = $this->getParam('background','');
+			$interviewQuestionsObjRecord->commute = $this->getParam('commute','');
+			$interviewQuestionsObjRecord->experience = $this->getParam('experience','');
+			$interviewQuestionsObjRecord->leave_reason = $this->getParam('leave_reason','');
+			$interviewQuestionsObjRecord->notice_period = $this->getParam('notice_period','');
+			$interviewQuestionsObjRecord->interviewing_with_other_companies = $this->getParam('interviewing_with_other_companies','');
+			$interviewQuestionsObjRecord->family_status = $this->getParam('family_status','');
+			$interviewQuestionsObjRecord->modified_by = $currentUserId;
+
+			$interviewQuestionsObjRecord->update();
 		}
 
 		$this->redirect(array('showAllCandidates'));
