@@ -448,3 +448,6 @@ CREATE TABLE department (
   `created_by` varchar(40) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE admin 
+  ADD `admin_department` varchar(80) NULL AFTER `admin_priv`;

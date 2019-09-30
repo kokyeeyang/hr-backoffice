@@ -47,7 +47,7 @@
 							<div class="sort_wrapper_inner">
 								<div class="sort_label_wrapper">
 									<div class="sort_label">
-										<?php echo Yii::t('app', 'Line manager'); ?>
+										<?php echo Yii::t('app', 'Description'); ?>
 									</div>
 								</div>
 							</div>
@@ -56,22 +56,22 @@
 				</thead>
 				<tbody id="data_table">
 					<?php 
-					// if(isset($arrRecords[0])){
+					if(isset($departmentArr[0])){
 				  ?>
 				  <?php
-				  	// foreach($arrRecords as $intIndex => $objRecord){ 
+				  	foreach($departmentArr as $intIndex => $departmentObj){ 
 				  ?>
 						  <tr>
 						  	<td>
-						  		<?php //echo $objRecord ->department ?>
+						  		<?php echo $departmentObj->department_title ?>
 						  	</td>
 						  	<td>
-						  		<?php //echo $objRecord -> ip_address ?>
+						  		<?php echo $departmentObj->department_description ?>
 						  	</td>
 						  </tr>
 					<?php
-						// }
-					// }
+						}
+					}
 					?>
 				</tbody>
 			</table>

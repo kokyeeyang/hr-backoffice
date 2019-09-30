@@ -18,7 +18,8 @@ class Admin extends AppActiveRecord
 	
 	static $tableName			= DB_TBL_PREFIX.'admin';
 	static $arrPriv				= ['admin' => 'Administrator', 'manager' => 'Manager', 'hr' => 'HR', 'normaluser' => 'Normal User'];
-	
+	// static $departmentArray = Department::model()->findAll();
+
 	/**
 	 * @return string the associated database table name
 	 */

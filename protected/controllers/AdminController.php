@@ -80,6 +80,7 @@ class AdminController extends Controller
 				$strDisplayName 	= $this->getParam('admin_display_name', '', array('name' => Yii::t('app', 'Name'), 'required' => true));
 				$intStatus 			= (int)$this->getParam('admin_status', '', array('name' => Yii::t('app', 'Status'), 'required' => true));
 				$strPriv 			= $this->getParam('admin_priv', '', array('name' => Yii::t('app', 'Privilege'), 'required' => true));
+				$strDepartment 			= $this->getParam('admin_department', '', array('name' => Yii::t('app', 'Department'), 'required' => true));
 
 				if(empty(Admin::$arrPriv[$strPriv])){
 					$this->objError->addKeyError('admin_priv', Yii::t('app', 'Invalid privilege'));
@@ -96,6 +97,7 @@ class AdminController extends Controller
 														'admin_display_name' 		=> $strDisplayName, 
 														'admin_status' 				=> $intStatus, 
 														'admin_priv' 				=> $strPriv, 
+														'admin_department' 				=> $strDepartment, 
 														'admin_last_login' 			=> $this -> strCurrentDatetime,
 														'admin_modified_datetime'	=> $this -> strCurrentDatetime,
 														'admin_datetime'			=> $this -> strCurrentDatetime
@@ -167,6 +169,7 @@ class AdminController extends Controller
 				$strDisplayName 	= $this->getParam('admin_display_name', '', array('name' => Yii::t('app', 'Name'), 'required' => true));
 				$intStatus 			= (int)$this->getParam('admin_status', '', array('name' => Yii::t('app', 'Status'), 'required' => true));
 				$strPriv 			= $this->getParam('admin_priv', '', array('name' => Yii::t('app', 'Privilege'), 'required' => true));
+				$strDepartment 			= $this->getParam('admin_department', '', array('name' => Yii::t('app', 'Department'), 'required' => true));
 				$intPasswordLength 	= strlen($strPassword);
 				
 				if($strPassword !== '' && ($intPasswordLength < 6 || $intPasswordLength > 20)){
@@ -174,7 +177,10 @@ class AdminController extends Controller
 				}
 				else if(empty(Admin::$arrPriv[$strPriv])){
 					$this->objError->addKeyError('admin_priv', Yii::t('app', 'Invalid privilege'));
-				} // - end: if else
+				} else if (empty(Department::model()->queryForDepartment())){
+					$this->objError->addKeyError('admin_department', Yii::t('app', 'Invalid department'));
+				}
+				// - end: if else
 							
 				if(!$error = $this->objError->getError()){
 					
@@ -185,6 +191,7 @@ class AdminController extends Controller
 							$objModel-> admin_display_name 		= $strDisplayName;
 							$objModel-> admin_status 			= $intStatus;
 							$objModel-> admin_priv 				= $strPriv;
+							$objModel-> admin_department 				= $strDepartment;
 							$objModel-> admin_modified_datetime = $this -> strCurrentDatetime;
 							
 							if($strPassword !== ''){
@@ -336,7 +343,9 @@ class AdminController extends Controller
 
 	public function actionShowAllDepartments(){
 
-		$this->render('showAllDepartments');
+		$departmentArr = Department::model()->findAll();
+
+		$this->render('showAllDepartments', ['departmentArr' => $departmentArr]);
 	}
 
 	public function actionAddNewDepartment(){
@@ -345,6 +354,13 @@ class AdminController extends Controller
 	}
 
 	public function actionSaveDepartment(){
+
+		$newDepartmentObjModel = new Department;
+		$newDepartmentObjModel->department_title = strtoupper($this->getParam('new-department', ''));
+		$newDepartmentObjModel->department_description = $this->getParam('department-description', '');
+		$newDepartmentObjModel->created_by = Yii::app()->user->id;
+		$newDepartmentObjModel->save();
+
 		$this->redirect('showAllDepartments');
 	}
 }

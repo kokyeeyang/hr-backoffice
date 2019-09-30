@@ -5,7 +5,7 @@ This is the model class for table "departments"
 */
 
 class Department extends AppActiveRecord {
-	static $tableName = DB_TBL_PREFIX . 'departments';
+	static $tableName = DB_TBL_PREFIX . 'department';
 
 	public function tableName(){
 		return self::$tableName;
@@ -18,7 +18,7 @@ class Department extends AppActiveRecord {
 	}
 
 	public function attributeLabels(){
-		return [
+		return [																				
 			'department_title' => Yii::t('app', 'department_title'),
 			'department_description' => Yii::t('app', 'department_description')
 		];
@@ -29,5 +29,19 @@ class Department extends AppActiveRecord {
 		// class name for the relations automatically generated below.
 		return array(
 		);
+	}
+
+	public static function model($className=__CLASS__){
+		return parent::model($className);
+	}
+
+	public function queryForDepartments(){
+		$sql = 'SELECT department_title FROM ' . self::$tableName;
+
+		$objConnection = Yii::app()->db;
+		$objCommand = $objConnection->createCommand($sql);
+		$arrData = $objCommand->query();
+
+		return $arrData;
 	}
 }

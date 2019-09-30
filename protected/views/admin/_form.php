@@ -42,6 +42,21 @@
 				<td>: <?php echo $objForm->dropDownList($objModel,'admin_priv', Admin::$arrPriv); ?></td>
 			</tr>
 			<tr>
+				<!-- <td><?php //echo $objForm->labelEx($objModel,'admin_department'); ?></td> -->
+				<td> Departments </td>
+				<!-- <td>: <?php //echo $objForm->dropDownList($objModel,'admin_department', Department::model()->queryForDepartments()); ?></td> -->
+				<td>
+					: 
+					<select name="department-dropdown">
+						<?php $departmentArr = Department::model()->queryForDepartments(); 
+							foreach ($departmentArr as $departmentObj){
+						?>
+						<option value="<?php echo $departmentObj['department_title']; ?>"><?php echo $departmentObj['department_title']; ?></option>
+						<?php } ?>
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td colspan="2">
 				<?php
 				if(Yii::app()->controller->action->id == 'add'){ ?>

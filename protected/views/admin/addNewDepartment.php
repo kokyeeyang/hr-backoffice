@@ -28,19 +28,9 @@
           <td><textarea rows="4" name="department-description" id="department-description" required/></textarea></td>
           </td>
         </tr>
-        <!-- <tr id="labelGroup">
-          <td>
-            <?php echo Yii::t('app', 'Please give a brief description of your new department'); ?>
-          </td>
-          <td>:</td>
-          <td><input type="text" name="department-description" id="department-description" required/>
-          </td>
-        </tr> -->
         <tr>
           <td>
-            <div class="row buttons">
-              <?php //echo CHtml::submitButton($objModel->isNewRecord ? 'Submit' : 'Save'); ?>
-            </div>
+            <input type="submit" value="<?php echo Yii::t('app', 'Save') ?>">
           </td>
         </tr>
       </table>
