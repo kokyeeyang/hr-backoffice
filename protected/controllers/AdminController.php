@@ -333,4 +333,9 @@ class AdminController extends Controller
 				
 		return $this->renderPartial('list', array('strSortKey' => $strSortKey, 'arrRecords'=>$arrRecords, 'objPagination'=>$objPagination), true);	
 	}
+
+	public function showDepartments(){
+
+		$this->render('showAllDepartments');
+	}
 }
