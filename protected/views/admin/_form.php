@@ -53,6 +53,8 @@
 						<?php } ?>
 					</select>
 				</td>
+			<!-- 	<td><?php //echo $objForm->labelEx($objModel,'admin_department'); ?></td>
+				<td>: <?php //echo $objForm->dropDownList($objModel,'admin_priv', Admin::$arrPriv); ?></td> -->
 			</tr>
 			<tr>
 				<td colspan="2">
