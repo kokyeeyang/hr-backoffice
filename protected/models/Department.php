@@ -4,7 +4,7 @@
 This is the model class for table "departments"
 */
 
-class Departments extends AppActiveRecord {
+class Department extends AppActiveRecord {
 	static $tableName = DB_TBL_PREFIX . 'departments';
 
 	public function tableName(){
@@ -19,7 +19,7 @@ class Departments extends AppActiveRecord {
 
 	public function attributeLabels(){
 		return [
-			'department' => Yii::t('app', 'department'),
+			'department_title' => Yii::t('app', 'department_title'),
 			'department_description' => Yii::t('app', 'department_description')
 		];
 	}

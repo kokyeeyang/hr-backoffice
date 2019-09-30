@@ -440,9 +440,9 @@ CREATE TABLE employment_interview_questions (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE departments (
+CREATE TABLE department (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `department` varchar(80) NULL,
+  `department_title` varchar(80) NULL,
   `department_description` varchar(300) NULL,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` varchar(40) NULL,

@@ -339,12 +339,12 @@ class AdminController extends Controller
 		$this->render('showAllDepartments');
 	}
 
-	public function addNewDepartment(){
+	public function actionAddNewDepartment(){
 
 		$this->render('addNewDepartment');
 	}
 
-	public function saveDepartment(){
+	public function actionSaveDepartment(){
 		$this->redirect('showAllDepartments');
 	}
 }

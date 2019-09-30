@@ -3,7 +3,7 @@
     <div class="breadcrumb-top"><?php echo Yii::t('app', 'Add New Department'); ?></div>
     <div class="breadcrumb-bottom breadcrumb-bottom-chart">
       <div class="title">
-        <span><?php echo Yii::t('app', 'Add new deparment'); ?></span>
+        <span><?php echo Yii::t('app', 'Add new department'); ?></span>
       </div>
     </div>
   </div>
@@ -18,14 +18,14 @@
         <tr>
           <td><?php echo Yii::t('app', 'Please specify your department name'); ?> </td>
           <td>:</td>
-          <td><textarea rows="4" name="new-department" id="new-department" required/>
+          <td><input type="text" name="new-department" id="new-department" required/>
         </tr>
         <tr>
           <td>
             <?php echo Yii::t('app', 'Please give a brief description of your new department'); ?>
           </td>
           <td>:</td>
-          <td><input type="text" name="department-description" id="department-description" required/>
+          <td><textarea rows="4" name="department-description" id="department-description" required/></textarea></td>
           </td>
         </tr>
         <!-- <tr id="labelGroup">

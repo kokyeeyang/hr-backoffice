@@ -1,9 +1,9 @@
 <div class="breadcrumb">
 	<div class="breadcrumb_wrapper">
-		<div class="breadcrumb-top"><?php echo Yii::t('app', 'Show All White List Ips'); ?></div>
+		<div class="breadcrumb-top"><?php echo Yii::t('app', 'Show All Departments'); ?></div>
 		<div class="breadcrumb-bottom breadcrumb-bottom-key">
 			<div class="title">
-				<span><?php echo Yii::t('app', 'White List IPs'); ?></span>
+				<span><?php echo Yii::t('app', 'All departments'); ?></span>
 			</div>
 		</div>
 	</div>
@@ -27,7 +27,7 @@
 			<h4 class="widget_title"><?php echo Yii::t('app', 'Departments List'); ?>
 			</h4>
 			<a href="<?php echo $this->createUrl('admin/addNewDepartment'); ?>">
-				<input type="button" value="<?php echo Yii::t('app', 'Add new job opening'); ?>">
+				<input type="button" value="<?php echo Yii::t('app', 'Add new department'); ?>">
 			</a>
 			<?php echo CHtml::hiddenField('mode', 'department-list'); ?>
 			<?php //echo CHtml::hiddenField('sort_key', $strSortKey); ?>
