@@ -42,12 +42,10 @@
 				<td>: <?php echo $objForm->dropDownList($objModel,'admin_priv', Admin::$arrPriv); ?></td>
 			</tr>
 			<tr>
-				<!-- <td><?php //echo $objForm->labelEx($objModel,'admin_department'); ?></td> -->
 				<td> Departments </td>
-				<!-- <td>: <?php //echo $objForm->dropDownList($objModel,'admin_department', Department::model()->queryForDepartments()); ?></td> -->
 				<td>
 					: 
-					<select name="department-dropdown">
+					<select name="admin_department">
 						<?php $departmentArr = Department::model()->queryForDepartments(); 
 							foreach ($departmentArr as $departmentObj){
 						?>

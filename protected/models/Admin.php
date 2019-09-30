@@ -36,7 +36,7 @@ class Admin extends AppActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('admin_username, admin_password, admin_display_name, admin_status, admin_priv, admin_last_login, admin_modified_datetime, admin_datetime', 'required'),
+			array('admin_username, admin_password, admin_display_name, admin_status, admin_priv, admin_department, admin_last_login, admin_modified_datetime, admin_datetime', 'required'),
 			array('admin_username', 'length', 'max'=>16),
 			// No validation required(safe):
 			array('admin_login_retry_times', 'safe'),
