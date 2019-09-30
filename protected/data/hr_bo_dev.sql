@@ -32,7 +32,7 @@ CREATE TABLE `admin` (
   `admin_password` varchar(40) CHARACTER SET latin1 NOT NULL,
   `admin_display_name` varchar(50) NOT NULL,
   `admin_status` int(1) NOT NULL,
-  `admin_priv` enum('admin','manager','hr') NOT NULL,
+  `admin_priv` enum('admin','manager','hr', 'normal user') NOT NULL,
   `admin_login_retry_times` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
   `admin_last_login` datetime NOT NULL,
   `admin_modified_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -437,5 +437,14 @@ CREATE TABLE employment_interview_questions (
   `created_by` varchar(40) NULL,
   `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `modified_by` varchar(40) NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE departments (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `department` varchar(80) NULL,
+  `department_description` varchar(300) NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(40) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

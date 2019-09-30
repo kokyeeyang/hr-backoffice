@@ -20,6 +20,7 @@
 				<li><a class="btnGetAdminList" rel="<?php echo $this->createUrl('admin/list'); ?>" href="javascript:void(0);"><?php echo Yii::t('app', 'Users List'); ?></a></li>
 				<li><a class="btnGetAdminForm" rel="<?php echo $this->createUrl('admin/add'); ?>" href="javascript:void(0);"><?php echo Yii::t('app', 'Add User'); ?></a></li>
 				<li><a href="<?php echo $this->createUrl('registration/showOfferLetterTemplates'); ?>"><?php echo Yii::t('app', 'Choose template for offer letter'); ?></a></li>
+				<li><a href="<?php echo $this->createUrl('admin/showAllDepartments'); ?>"><?php echo Yii::t('app', 'Show all departments'); ?></a></li>
 			</ul>
 		</li>
 		<?php
