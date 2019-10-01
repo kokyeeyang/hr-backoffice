@@ -759,5 +759,4 @@ class RegistrationController extends Controller
 		$this->render('viewSelectedOfferLetter');
 	}
 
-
 }

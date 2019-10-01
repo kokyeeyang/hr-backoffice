@@ -342,15 +342,14 @@ class AdminController extends Controller
 	}
 
 	public function actionShowAllDepartments(){
-
 		$departmentArr = Department::model()->findAll();
 
 		$this->render('showAllDepartments', ['departmentArr' => $departmentArr]);
 	}
 
 	public function actionAddNewDepartment(){
-
-		$this->render('addNewDepartment');
+		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
+		$this->render('addEditDepartment', ['currentFunction'=>$currentFunction]);
 	}
 
 	public function actionSaveDepartment(){
@@ -362,5 +361,13 @@ class AdminController extends Controller
 		$newDepartmentObjModel->save();
 
 		$this->redirect('showAllDepartments');
+	}
+
+	public function actionViewSelectedDepartment($departmentId){
+		$departmentCondition = 'id = "' . $departmentId . '"';
+		$departmentArr = Department::model()->findAll($departmentCondition);
+		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
+		
+		$this->render('addEditDepartment', ['departmentArr' => $departmentArr, 'currentFunction'=>$currentFunction]);
 	}
 }

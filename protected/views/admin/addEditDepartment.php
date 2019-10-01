@@ -13,19 +13,35 @@
   <div class="common_content_inner_wrapper">
     <h4 class="widget_title"><?php echo Yii::t('app', 'Add New Department'); ?>
     </h4>
-    <form method="post" enctype="multipart/form-data" id="departmentForm" name="departmentForm" action="<?php echo $this->createUrl('admin/saveDepartment') ?>" >
+    <form method="post" enctype="multipart/form-data" id="departmentForm" name="departmentForm" action="<?php echo $currentFunction=='addNewDepartment'?$this->createUrl('admin/saveDepartment'):$this->createUrl('admin/updateDepartment') ?>" >
       <table style="line-height: 32px;padding-left: 10px;font-size: 15px;">
         <tr>
+          <?php 
+            if($currentFunction == 'addNewDepartment'){
+              $departmentArr = ['1', '2'];
+            }
+          ?>
           <td><?php echo Yii::t('app', 'Please specify your department name'); ?> </td>
           <td>:</td>
-          <td><input type="text" name="new-department" id="new-department" required/>
+          <?php 
+            if($currentFunction == 'addNewDepartment'){
+              $departmentArr = ['1'];
+            }
+          ?>
+          <?php foreach($departmentArr as $departmentObj){ ?>
+          <td><input type="text" name="new-department" id="new-department" value="<?php echo $currentFunction=='viewSelectedDepartment'?$departmentObj->department_title:''; ?>" required/>
         </tr>
         <tr>
           <td>
             <?php echo Yii::t('app', 'Please give a brief description of your new department'); ?>
           </td>
           <td>:</td>
-          <td><textarea rows="4" name="department-description" id="department-description" required/></textarea></td>
+          <td>
+            <textarea rows="4" name="department-description" id="department-description" cols="22" required/>
+              <?php echo $currentFunction=='viewSelectedDepartment'?$departmentObj->department_description:''; ?>
+            </textarea>
+          </td>
+          <?php } ?>
           </td>
         </tr>
         <tr>

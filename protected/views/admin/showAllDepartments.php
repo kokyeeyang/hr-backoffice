@@ -63,7 +63,9 @@
 				  ?>
 						  <tr>
 						  	<td>
-						  		<?php echo $departmentObj->department_title ?>
+						  		<a href="<?php echo $this->createUrl('admin/viewSelectedDepartment', ['departmentId' => $departmentObj->id]); ?>">
+							  		<?php echo $departmentObj->department_title ?>
+							  	</a>
 						  	</td>
 						  	<td>
 						  		<?php echo $departmentObj->department_description ?>
