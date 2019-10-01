@@ -25,10 +25,10 @@
 			); 
 		?>    	
 			<h4 class="widget_title"><?php echo Yii::t('app', 'Departments List'); ?>
+				<a href="<?php echo $this->createUrl('admin/addNewDepartment'); ?>">
+					<input type="button" value="<?php echo Yii::t('app', 'Add new department'); ?>">
+				</a>
 			</h4>
-			<a href="<?php echo $this->createUrl('admin/addNewDepartment'); ?>">
-				<input type="button" value="<?php echo Yii::t('app', 'Add new department'); ?>">
-			</a>
 			<?php echo CHtml::hiddenField('mode', 'department-list'); ?>
 			<?php //echo CHtml::hiddenField('sort_key', $strSortKey); ?>
 			<table class="widget_table grid">

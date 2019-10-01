@@ -368,6 +368,18 @@ class AdminController extends Controller
 		$departmentArr = Department::model()->findAll($departmentCondition);
 		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
 		
-		$this->render('addEditDepartment', ['departmentArr' => $departmentArr, 'currentFunction'=>$currentFunction]);
+		$this->render('addEditDepartment', ['departmentArr' => $departmentArr, 'currentFunction'=>$currentFunction, 'departmentId' => $departmentId]);
+	}
+
+	public function actionUpdateDepartment($departmentId){
+		$departmentCondition = 'id = "' . $departmentId . '"';
+		$departmentArr = Department::model()->findAll($departmentCondition);
+		foreach($departmentArr as $departmentObj){
+			$departmentObj->department_title = $this->getParam('new-department', '');
+			$departmentObj->department_description = $this->getParam('department-description', '');
+			$departmentObj->update();
+		}
+
+		$this->redirect('showAllDepartments');
 	}
 }

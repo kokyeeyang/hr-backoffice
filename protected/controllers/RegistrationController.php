@@ -711,7 +711,7 @@ class RegistrationController extends Controller
 			$candidateObjRecord->update();
 		}
 
-		$this->render('showAllCandidates');
+		$this->redirect('showAllCandidates');
 	}
 
 	public function actionShowOfferLetterTemplates(){
@@ -724,10 +724,10 @@ class RegistrationController extends Controller
 	public function actionCreateNewOfferLetter(){
 		
 		$dateToday = date("dS F Y");
-		// $departmentArr = Department::model()->findAll();
 		$departmentArr = Department::model()->queryForDepartments();
-		// $dateToday = date("dS") . " of " . date("F Y");
-		$this->render('createNewOfferLetter', array('dateToday'=>$dateToday, 'departmentArr' => $departmentArr));
+		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
+
+		$this->render('createEditOfferLetter', array('dateToday'=>$dateToday, 'departmentArr' => $departmentArr, 'currentFunction'=>$currentFunction));
 	}
 
 	public function actionSaveOfferLetterTemplate(){
@@ -754,9 +754,12 @@ class RegistrationController extends Controller
 		$this->redirect('showOfferLetterTemplates');
 	}
 
-	public function actionViewSelectedOfferLetter(){
+	public function actionViewSelectedOfferLetter($offerLetterId){
+		$offerLetterCondition = 'id = "' . $offerLetterId . '"';
+		$offerLetterArr = EmploymentOfferLetterTemplates::model()->findAll($offerLetterCondition);
+		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
 
-		$this->render('viewSelectedOfferLetter');
+		$this->render('viewSelectedOfferLetter', ['offerLetterArr'=>$offerLetterArr, 'currentFunction'=>$currentFunction]);
 	}
 
 }

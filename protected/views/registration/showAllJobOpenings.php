@@ -24,12 +24,11 @@
 				)
 			); 
 		?>
-		<a href="<?php echo $this->createUrl('registration/addNewJobOpenings'); ?>">
-			<input type="button" value="<?php echo Yii::t('app', 'Add new job opening'); ?>">
-		</a>
-
 		<h4 class="widget_title"><?php echo Yii::t('app', 'Job Openings List'); ?>
 			<input type="text" value="" placeholder="<?php echo Yii::t('app', 'Filter results'); ?>" name="label_filter" id="label_filter" style="width:30%"/>
+			<a href="<?php echo $this->createUrl('registration/addNewJobOpenings'); ?>">
+			<input type="button" value="<?php echo Yii::t('app', 'Add new job opening'); ?>">
+		</a>
 		</h4>
 		<?php echo CHtml::hiddenField('mode', 'jobopening-list'); ?>
 		<table class="widget_table grid">

@@ -13,14 +13,9 @@
   <div class="common_content_inner_wrapper">
     <h4 class="widget_title"><?php echo Yii::t('app', 'Add New Department'); ?>
     </h4>
-    <form method="post" enctype="multipart/form-data" id="departmentForm" name="departmentForm" action="<?php echo $currentFunction=='addNewDepartment'?$this->createUrl('admin/saveDepartment'):$this->createUrl('admin/updateDepartment') ?>" >
+    <form method="post" enctype="multipart/form-data" id="departmentForm" name="departmentForm" action="<?php echo $currentFunction=='addNewDepartment'?$this->createUrl('admin/saveDepartment'):$this->createUrl('admin/updateDepartment', ['departmentId' => $departmentId]); ?>" >
       <table style="line-height: 32px;padding-left: 10px;font-size: 15px;">
         <tr>
-          <?php 
-            if($currentFunction == 'addNewDepartment'){
-              $departmentArr = ['1', '2'];
-            }
-          ?>
           <td><?php echo Yii::t('app', 'Please specify your department name'); ?> </td>
           <td>:</td>
           <?php 
