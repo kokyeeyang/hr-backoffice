@@ -205,26 +205,10 @@
 					</p>
 				</textarea>
 	    	<div id="department-dropdown" style="margin-top: 10px; margin-bottom: 10px;">
-	    		<input type="checkbox" name="department[]" id="productDelivery" value="Product Delivery" class="department-dropdown">
-	    		<label for="productDelivery">Product Delivery</label>
-
-	    		<input type="checkbox" name="department[]" id="customerService" value="Customer Service" class="department-dropdown">
-	    		<label for="customerService">Customer Service</label>
-
-	    		<input type="checkbox" name="department[]" id="marketing" value="Marketing" class="department-dropdown">
-	    		<label for="marketing">Marketing</label>
-
-	    		<input type="checkbox" name="department[]" id="paymentSecurity" value="Payment & Securities" class="department-dropdown">
-	    		<label for="paymentSecurity">Payment & Securities</label>
-
-	    		<input type="checkbox" name="department[]" id="content" value="Content" class="department-dropdown">
-	    		<label for="content">Content</label>
-
-	    		<input type="checkbox" name="department[]" id="hr" value="HR" class="department-dropdown">
-	    		<label for="hr">HR</label>
-
-	    		<input type="checkbox" name="department[]" id="design" value="Design" class="department-dropdown">
-	    		<label for="design">Design</label>
+	    		<?php foreach($departmentArr as $iKey => $departmentObj){ ?>
+					<input type="checkbox" name="department[]" value="<?php echo $departmentObj['department_title']; ?>" class="department-dropdown" id="<?php echo $departmentObj['department_title']; ?>">
+					<label for="<?php echo $departmentObj['department_title']; ?>"><?php echo $departmentObj['department_title']; ?></label>
+					<?php } ?>
 	    	</div>
     		<input type="checkbox" name="offerLetterIsManagerial" id="offerLetterIsManagerial" value="1" class="department-dropdown">
     		<label for="offerLetterIsManagerial">Is for a managerial position</label>

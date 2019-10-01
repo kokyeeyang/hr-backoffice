@@ -297,9 +297,11 @@ class RegistrationController extends Controller
 	public function actionAddNewJobOpenings() {
 		$objModel = new EmploymentJobOpening;
 
-		$allManagers = Admin::model()->queryForManagers(); 
+		$allManagers = Admin::model()->queryForManagers();
 
-		$this->render("addNewJobOpenings", array('objModel' => $objModel, 'allManagers' => $allManagers));
+		$departmentArr = Department::model()->queryForDepartments(); 
+
+		$this->render("addNewJobOpenings", array('objModel' => $objModel, 'allManagers' => $allManagers, 'departmentArr' => $departmentArr));
 	}
 
 	public function actionSaveJobOpenings() {
@@ -722,8 +724,10 @@ class RegistrationController extends Controller
 	public function actionCreateNewOfferLetter(){
 		
 		$dateToday = date("dS F Y");
+		// $departmentArr = Department::model()->findAll();
+		$departmentArr = Department::model()->queryForDepartments();
 		// $dateToday = date("dS") . " of " . date("F Y");
-		$this->render('createNewOfferLetter', array('dateToday'=>$dateToday));
+		$this->render('createNewOfferLetter', array('dateToday'=>$dateToday, 'departmentArr' => $departmentArr));
 	}
 
 	public function actionSaveOfferLetterTemplate(){
@@ -748,6 +752,11 @@ class RegistrationController extends Controller
 		$offerLetterObjModel->save();
 
 		$this->redirect('showOfferLetterTemplates');
+	}
+
+	public function actionViewSelectedOfferLetter(){
+
+		$this->render('viewSelectedOfferLetter');
 	}
 
 
