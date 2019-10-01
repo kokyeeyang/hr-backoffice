@@ -725,6 +725,7 @@ class RegistrationController extends Controller
 		
 		$dateToday = date("dS F Y");
 		$departmentArr = Department::model()->queryForDepartments();
+
 		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
 
 		$this->render('createEditOfferLetter', array('dateToday'=>$dateToday, 'departmentArr' => $departmentArr, 'currentFunction'=>$currentFunction));
@@ -757,9 +758,32 @@ class RegistrationController extends Controller
 	public function actionViewSelectedOfferLetter($offerLetterId){
 		$offerLetterCondition = 'id = "' . $offerLetterId . '"';
 		$offerLetterArr = EmploymentOfferLetterTemplates::model()->findAll($offerLetterCondition);
+		$departmentArr = Department::model()->queryForDepartments();
 		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
 
-		$this->render('viewSelectedOfferLetter', ['offerLetterArr'=>$offerLetterArr, 'currentFunction'=>$currentFunction]);
+		$this->render('createEditOfferLetter', ['offerLetterArr'=>$offerLetterArr, 'currentFunction'=>$currentFunction, 'departmentArr'=>$departmentArr, 'offerLetterId'=>$offerLetterId]);
+	}
+
+	public function actionUpdateOfferLetterTemplate($offerLetterId){
+		$offerLetterCondition = 'id = "' . $offerLetterId . '"';
+		$offerLetterArr = EmploymentOfferLetterTemplates::model()->findAll($offerLetterCondition);
+
+		foreach($offerLetterArr as $offerLetterObj){
+			$offerLetterObj->offer_letter_title = $this->getParam('offerLetterTitle','');
+			$offerLetterObj->offer_letter_description = $this->getParam('offerLetterDescription','');
+			$offerLetterDepartmentArray = $this->getParam('department', '');
+
+			if($offerLetterDepartmentArray == ''){
+				$offerLetterObj->department = null;
+			}else{
+				$offerLetterObj->department = implode(",", $offerLetterDepartmentArray);
+			}
+			$offerLetterObj->is_managerial = $this->getParam('offerLetterIsManagerial', '');
+			$offerLetterObj->offer_letter_content = $this->getParam('offer-letter-template','');
+			$offerLetterObj->modified_by = Yii::app()->user->id;
+			$offerLetterObj->update();
+		}
+		$this->redirect('showOfferLetterTemplates');
 	}
 
 }

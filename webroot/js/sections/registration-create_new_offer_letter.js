@@ -19,6 +19,11 @@ var RegistrationCreateNewOfferLetter = function(){
 				RegistrationCreateNewOfferLetter.save_offer_letter_template(this, objEvent);
 			});
 
+			$('#copyOfferLetterButton').on('click', function(objEvent){
+				$('#offer-letter-template').select();
+				document.execCommand('copy');
+			});
+
 			tinymce.init({
 			  selector: 'textarea#offer-letter-template',
 			  content_style: 'textarea { margin: 50px; border: 5px solid red; padding: 3px; }',

@@ -35,35 +35,44 @@
   <div class="common_content_inner_wrapper">
     <h4 class="widget_title"><?php echo Yii::t('app', 'Add a new offer letter template'); ?>
     </h4>
-    <form method="post" enctype="multipart/form-data" id="createOfferLetterForm" name="createOfferLetterForm" action="<?php echo $this->createUrl('registration/saveOfferLetterTemplate') ?>">
+    <form method="post" enctype="multipart/form-data" id="createOfferLetterForm" name="createOfferLetterForm" action="<?php echo $currentFunction == "createNewOfferLetter"?$this->createUrl('registration/saveOfferLetterTemplate'):$this->createUrl('registration/updateOfferLetterTemplate',['offerLetterId'=>$offerLetterId]); ?>">
     	<div id="offer-letter-input" style="margin-bottom:10px; margin-top: 10px;">
     		<tr>
+    			<?php 
+    				if($currentFunction == "createNewOfferLetter"){
+    					$offerLetterArr = ['1'];
+    				}
+    			?>
 		    	<td><?php echo Yii::t('app', 'Offer Letter Title'); ?> </td>
 	  			<td>:</td>
+	  			<?php foreach($offerLetterArr as $offerLetterObj){ ?>
 	  			<td>
-	  				<input type="text" name="offerLetterTitle"/>
+	  				<input type="text" name="offerLetterTitle" value="<?php echo $currentFunction=="viewSelectedOfferLetter"?$offerLetterObj->offer_letter_title:''; ?>"/>
 	  			</td>
 	  			<td><?php echo Yii::t('app', 'Description'); ?> </td>
 	  			<td>:</td>
 	  			<td>
-	  				<textarea name="offerLetterDescription"/ rows="3"></textarea>
+	  				<textarea name="offerLetterDescription" rows="3"><?php echo $currentFunction=="viewSelectedOfferLetter"?$offerLetterObj->offer_letter_description:''; ?></textarea>
 	  			</td>
 	  		</tr>
   		</div>
     	<table style="line-height: 32px;padding-left: 10px;font-size: 15px; margin-bottom:10px;">
     		<textarea id="offer-letter-template" name="offer-letter-template">
-    			
+					<?php 
+						echo $currentFunction=="viewSelectedOfferLetter"?$offerLetterObj->offer_letter_content:'';
+					?>
 				</textarea>
 	    	<div id="department-dropdown" style="margin-top: 10px; margin-bottom: 10px;">
 	    		<?php foreach($departmentArr as $iKey => $departmentObj){ ?>
-					<input type="checkbox" name="department[]" value="<?php echo $departmentObj['department_title']; ?>" class="department-dropdown" id="<?php echo $departmentObj['department_title']; ?>">
-					<label for="<?php echo $departmentObj['department_title']; ?>"><?php echo $departmentObj['department_title']; ?></label>
+						<input type="checkbox" name="department[]" value="<?php echo $departmentObj['department_title']; ?>" class="department-dropdown" id="<?php echo $departmentObj['department_title']; ?>" <?php echo preg_match("/" . $departmentObj['department_title'] . "/", $offerLetterObj->department)?'checked':'' ?>>
+						<label for="<?php echo $departmentObj['department_title']; ?>"><?php echo $departmentObj['department_title']; ?></label>
+		    		<input type="checkbox" name="offerLetterIsManagerial" id="offerLetterIsManagerial" value="1" class="department-dropdown" <?php echo $offerLetterObj->is_managerial==1?'checked':'' ?>>
+		    		<label for="offerLetterIsManagerial">Is for a managerial position</label>
 					<?php } ?>
 	    	</div>
-    		<input type="checkbox" name="offerLetterIsManagerial" id="offerLetterIsManagerial" value="1" class="department-dropdown">
-    		<label for="offerLetterIsManagerial">Is for a managerial position</label>
+	    	<?php } ?>
     	</table>
-    	 <input type="button" id="saveOfferLetterButton" name="saveOfferLetterButton" value="<?php echo Yii::t('app', 'Save this as a template'); ?>">
+    	 <input type="button" id="copyOfferLetterButton" name="copyOfferLetterButton" value="<?php echo Yii::t('app', 'Copy this template'); ?>">
     </form>
   </div>
 </div>

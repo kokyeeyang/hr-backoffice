@@ -40,7 +40,7 @@ class Department extends AppActiveRecord {
 
 		$objConnection = Yii::app()->db;
 		$objCommand = $objConnection->createCommand($sql);
-		$arrData = $objCommand->query();
+		$arrData = $objCommand->queryAll();
 
 		return $arrData;
 	}
