@@ -52,6 +52,15 @@
 								</div>
 							</div>
 						</th>
+						<th>
+							<div class="sort_wrapper_inner">
+								<div class="sort_label_wrapper">
+									<div class="sort_label">
+										<input type="button" title="<?php echo Yii::t('app', 'Delete this entry'); ?>" id="deleteDepartmentButton" value="Delete selected entries" data-delete-url="<?php echo $this->createUrl('admin/deleteSelectedDepartments') ?>">
+									</div>
+								</div>
+							</div>
+						</th>
 					</tr>
 				</thead>
 				<tbody id="data_table">
@@ -69,6 +78,9 @@
 						  	</td>
 						  	<td>
 						  		<?php echo $departmentObj->department_description ?>
+						  	</td>
+						  	<td>
+						  		<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $departmentObj->id ?>">
 						  	</td>
 						  </tr>
 					<?php

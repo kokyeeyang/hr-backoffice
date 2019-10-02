@@ -35,44 +35,47 @@
   <div class="common_content_inner_wrapper">
     <h4 class="widget_title"><?php echo Yii::t('app', 'Add a new offer letter template'); ?>
     </h4>
-    <form method="post" enctype="multipart/form-data" id="createOfferLetterForm" name="createOfferLetterForm" action="<?php echo $currentFunction == "createNewOfferLetter"?$this->createUrl('registration/saveOfferLetterTemplate'):$this->createUrl('registration/updateOfferLetterTemplate',['offerLetterId'=>$offerLetterId]); ?>">
+    <form method="post" enctype="multipart/form-data" id="createOfferLetterForm" name="createOfferLetterForm" action="<?php echo $this->createUrl('registration/saveOfferLetterTemplate'); ?>">
     	<div id="offer-letter-input" style="margin-bottom:10px; margin-top: 10px;">
     		<tr>
-    			<?php 
-    				if($currentFunction == "createNewOfferLetter"){
-    					$offerLetterArr = ['1'];
-    				}
-    			?>
 		    	<td><?php echo Yii::t('app', 'Offer Letter Title'); ?> </td>
 	  			<td>:</td>
-	  			<?php foreach($offerLetterArr as $offerLetterObj){ ?>
+	  			<?php 
+          if (count($offerLetterArr) > 0) {
+            $offerLetterObj = $offerLetterArr[0];
+          }
+          var_dump($_SERVER['REQUEST_URI']); 
+          ?>
 	  			<td>
-	  				<input type="text" name="offerLetterTitle" value="<?php echo $currentFunction=="viewSelectedOfferLetter"?$offerLetterObj->offer_letter_title:''; ?>"/>
+	  				<input type="text" name="offerLetterTitle" id="offerLetterTitle" value="<?php echo $currentFunction=="viewSelectedOfferLetter"?$offerLetterObj->offer_letter_title:''; ?>"/>
 	  			</td>
 	  			<td><?php echo Yii::t('app', 'Description'); ?> </td>
 	  			<td>:</td>
 	  			<td>
-	  				<textarea name="offerLetterDescription" rows="3"><?php echo $currentFunction=="viewSelectedOfferLetter"?$offerLetterObj->offer_letter_description:''; ?></textarea>
+	  				<textarea name="offerLetterDescription" id="offerLetterDescription" rows="3"><?php echo $currentFunction=="viewSelectedOfferLetter"?$offerLetterObj->offer_letter_description:''; ?></textarea>
 	  			</td>
 	  		</tr>
   		</div>
     	<table style="line-height: 32px;padding-left: 10px;font-size: 15px; margin-bottom:10px;">
     		<textarea id="offer-letter-template" name="offer-letter-template">
 					<?php 
-						echo $currentFunction=="viewSelectedOfferLetter"?$offerLetterObj->offer_letter_content:'';
+						echo $offerLetterObj->offer_letter_content;
 					?>
 				</textarea>
 	    	<div id="department-dropdown" style="margin-top: 10px; margin-bottom: 10px;">
 	    		<?php foreach($departmentArr as $iKey => $departmentObj){ ?>
-						<input type="checkbox" name="department[]" value="<?php echo $departmentObj['department_title']; ?>" class="department-dropdown" id="<?php echo $departmentObj['department_title']; ?>" <?php echo preg_match("/" . $departmentObj['department_title'] . "/", $offerLetterObj->department)?'checked':'' ?>>
+            <?php $checkedStatus = preg_match("/" . $departmentObj['department_title'] . "/", $offerLetterObj->department)?'checked':'' ?>
+						<input type="checkbox" name="department[]" value="<?php echo $departmentObj['department_title']; ?>" class="department-dropdown" id="<?php echo $departmentObj['department_title']; ?>" <?php echo $checkedStatus; ?> >
 						<label for="<?php echo $departmentObj['department_title']; ?>"><?php echo $departmentObj['department_title']; ?></label>
-		    		<input type="checkbox" name="offerLetterIsManagerial" id="offerLetterIsManagerial" value="1" class="department-dropdown" <?php echo $offerLetterObj->is_managerial==1?'checked':'' ?>>
-		    		<label for="offerLetterIsManagerial">Is for a managerial position</label>
 					<?php } ?>
 	    	</div>
-	    	<?php } ?>
+    		<input type="checkbox" name="offerLetterIsManagerial" id="offerLetterIsManagerial" value="1" class="department-dropdown" <?php echo $offerLetterObj->is_managerial==1?'checked':'' ?>>
+    		<label for="offerLetterIsManagerial">Is for a managerial position</label>
     	</table>
-    	 <input type="button" id="copyOfferLetterButton" name="copyOfferLetterButton" value="<?php echo Yii::t('app', 'Copy this template'); ?>">
+    	 <input type="button" id="copyOfferLetterButton" name="copyOfferLetterButton" value="<?php echo Yii::t('app', 'Copy this template'); ?>" data-copy-url="<?php echo $this->createUrl('registration/copyOfferLetterTemplate'); ?>">
+       <input type="button" id="updateOfferLetterButton" name="updateOfferLetterButton" value="<?php echo Yii::t('app', 'Update this template'); ?>" data-update-url="<?php echo $this->createUrl('registration/updateOfferLetterTemplate',['offerLetterId'=>$offerLetterId]); ?>">
+       <input type="button" id="saveOfferLetterButton" name="saveOfferLetterButton" style="display:none;" value="<?php echo Yii::t('app', 'Save this template'); ?>" data-save-url="<?php echo $this->createUrl('registration/saveOfferLetterTemplate'); ?>">
+       <input type="hidden" id="copyTemplateUrl" name="copyTemplateUrl" value="">
     </form>
   </div>
 </div>

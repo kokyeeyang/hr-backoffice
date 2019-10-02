@@ -1,27 +1,39 @@
 var RegistrationViewSelectedOfferLetter = function(){
 	function _save_offer_letter_template(objElement, objEvent){
-		var editorContent = tinyMCE.activeEditor.getContent();
-		  $.post(url, { "editor-content" : tinyMCE.activeEditor.getContent() }, function(respond){
+		$('#createOfferLetterForm').attr('action', $('#updateOfferLetterButton').attr('data-update-url')).submit();
+	}
 
-       if ( respond == ''){
-          alert('Content saved to file');
-          return;
-      } else {
-          //Error message assumed
-          alert(respond);
-      }
-    });
+	function _refine_url(objElement, objEvent){
+	  var currURL= window.location.href; //get current address
+
+    //Get the URL between what's after '/' and befor '?' 
+    //1- get URL after'/registration/'
+    var afterDomain= currURL.substring(currURL.lastIndexOf('/registration/') + 1);
+    //2- get the part before '?'
+    var beforeQueryString= afterDomain.split("?")[0];  
+
+    return beforeQueryString;
+	}
+
+	function _copy_offer_letter_template(objElement, objEvent){
+		var copyOfferLetterUrl = RegistrationViewSelectedOfferLetter.refine_url();
+
+		$("#copyTemplateUrl").val(copyOfferLetterUrl);
+		$("#updateOfferLetterButton").hide();
+		$("#saveOfferLetterButton").show();
+
+		window.history.pushState("object or string", "Title", "/" + copyOfferLetterUrl);
+
 	}
 
 	function _init(){
 		$(function(){
-			$('#saveOfferLetterButton').on('click', function(objEvent){
-				RegistrationCreateNewOfferLetter.save_offer_letter_template(this, objEvent);
+			$('#updateOfferLetterButton').on('click', function(objEvent){
+				RegistrationViewSelectedOfferLetter.save_offer_letter_template(this, objEvent);
 			});
 
-			$('#copyOfferLetterButton').click(function(objEvent){
-				$('#offer-letter-template').select();
-				document.execCommand('copy');
+			$('#copyOfferLetterButton').on('click', function(objEvent){
+				RegistrationViewSelectedOfferLetter.copy_offer_letter_template(this, objEvent);
 			});
 
 			tinymce.init({
@@ -46,8 +58,9 @@ var RegistrationViewSelectedOfferLetter = function(){
 
 	return {
 		init : _init,
-		save_offer_letter_template : _save_offer_letter_template
-
+		save_offer_letter_template : _save_offer_letter_template,
+		copy_offer_letter_template : _copy_offer_letter_template,
+		refine_url : _refine_url
 	}
 }();
 RegistrationViewSelectedOfferLetter.init();

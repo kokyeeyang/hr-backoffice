@@ -35,7 +35,7 @@
   <div class="common_content_inner_wrapper">
     <h4 class="widget_title"><?php echo Yii::t('app', 'Add a new offer letter template'); ?>
     </h4>
-    <form method="post" enctype="multipart/form-data" id="createOfferLetterForm" name="createOfferLetterForm" action="<?php echo $currentFunction == "createNewOfferLetter"?$this->createUrl('registration/saveOfferLetterTemplate'):$this->createUrl('registration/updateOfferLetterTemplate',['offerLetterId'=>$offerLetterId]); ?>">
+    <form method="post" enctype="multipart/form-data" id="createOfferLetterForm" name="createOfferLetterForm" action="<?php echo $this->createUrl('registration/saveOfferLetterTemplate'):$this->createUrl('registration/updateOfferLetterTemplate',['offerLetterId'=>$offerLetterId]); ?>">
     	<div id="offer-letter-input" style="margin-bottom:10px; margin-top: 10px;">
     		<tr>
     			<?php 
@@ -62,10 +62,10 @@
 	    		<?php foreach($departmentArr as $iKey => $departmentObj){ ?>
 						<input type="checkbox" name="department[]" value="<?php echo $departmentObj['department_title']; ?>" class="department-dropdown" id="<?php echo $departmentObj['department_title']; ?>">
 						<label for="<?php echo $departmentObj['department_title']; ?>"><?php echo $departmentObj['department_title']; ?></label>
-		    		<input type="checkbox" name="offerLetterIsManagerial" id="offerLetterIsManagerial" value="1" class="department-dropdown">
-		    		<label for="offerLetterIsManagerial">Is for a managerial position</label>
 					<?php } ?>
 	    	</div>
+    		<input type="checkbox" name="offerLetterIsManagerial" id="offerLetterIsManagerial" value="1" class="department-dropdown">
+    		<label for="offerLetterIsManagerial">Is for a managerial position</label>
     	</table>
     	 <input type="button" id="copyOfferLetterButton" name="copyOfferLetterButton" value="<?php echo Yii::t('app', 'Copy this template'); ?>">
     </form>

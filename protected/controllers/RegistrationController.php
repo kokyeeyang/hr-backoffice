@@ -786,4 +786,12 @@ class RegistrationController extends Controller
 		$this->redirect('showOfferLetterTemplates');
 	}
 
+	public function actionCopyOfferLetterTemplate(){
+		if(Yii::app()->request->isAjaxRequest){
+
+		} else {
+			$this->render('error', $error);
+		}
+	}
+
 }
