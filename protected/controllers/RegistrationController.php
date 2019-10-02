@@ -728,7 +728,7 @@ class RegistrationController extends Controller
 
 		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
 
-		$this->render('createEditOfferLetter', array('dateToday'=>$dateToday, 'departmentArr' => $departmentArr, 'currentFunction'=>$currentFunction));
+		$this->render('createNewOfferLetter', array('dateToday'=>$dateToday, 'departmentArr' => $departmentArr, 'currentFunction'=>$currentFunction));
 	}
 
 	public function actionSaveOfferLetterTemplate(){
@@ -761,7 +761,7 @@ class RegistrationController extends Controller
 		$departmentArr = Department::model()->queryForDepartments();
 		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
 
-		$this->render('createEditOfferLetter', ['offerLetterArr'=>$offerLetterArr, 'currentFunction'=>$currentFunction, 'departmentArr'=>$departmentArr, 'offerLetterId'=>$offerLetterId]);
+		$this->render('editOfferLetter', ['offerLetterArr'=>$offerLetterArr, 'currentFunction'=>$currentFunction, 'departmentArr'=>$departmentArr, 'offerLetterId'=>$offerLetterId]);
 	}
 
 	public function actionUpdateOfferLetterTemplate($offerLetterId){
