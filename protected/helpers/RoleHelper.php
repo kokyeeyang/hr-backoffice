@@ -26,7 +26,7 @@ class RoleHelper {
 			case 'admin':
 				if($bolAuthenticated === true && isset(Yii::app()->user->priv) && in_array(Yii::app()->user->priv, ['admin'])){
 					// set the actions which only admin can access
-					$arrActionsList = array_merge($arrActionsList, ['list', 'add', 'edit', 'showAllDepartments', 'addNewDepartment', 'saveDepartment', 'viewSelectedDepartment', 'updateDepartment']);
+					$arrActionsList = array_merge($arrActionsList, ['list', 'add', 'edit', 'showAllDepartments', 'addNewDepartment', 'saveDepartment', 'viewSelectedDepartment', 'updateDepartment', 'deleteSelectedDepartments']);
 				}
 			break;
 

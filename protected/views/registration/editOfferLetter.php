@@ -21,6 +21,13 @@
  }); 
  
  </script>
+
+<?php 
+if (count($offerLetterArr) > 0) {
+  $offerLetterObj = $offerLetterArr[0];
+}
+?>
+
 <div class="breadcrumb">
   <div class="breadcrumb_wrapper">
     <div class="breadcrumb-top"><?php echo Yii::t('app', 'Add New Offer Letter Template'); ?></div>
@@ -40,12 +47,6 @@
     		<tr>
 		    	<td><?php echo Yii::t('app', 'Offer Letter Title'); ?> </td>
 	  			<td>:</td>
-	  			<?php 
-          if (count($offerLetterArr) > 0) {
-            $offerLetterObj = $offerLetterArr[0];
-          }
-          var_dump($_SERVER['REQUEST_URI']); 
-          ?>
 	  			<td>
 	  				<input type="text" name="offerLetterTitle" id="offerLetterTitle" value="<?php echo $currentFunction=="viewSelectedOfferLetter"?$offerLetterObj->offer_letter_title:''; ?>"/>
 	  			</td>
@@ -62,6 +63,7 @@
 						echo $offerLetterObj->offer_letter_content;
 					?>
 				</textarea>
+        <div id="department-title"><?php echo Yii::t('app', 'Departments'); ?> </div>
 	    	<div id="department-dropdown" style="margin-top: 10px; margin-bottom: 10px;">
 	    		<?php foreach($departmentArr as $iKey => $departmentObj){ ?>
             <?php $checkedStatus = preg_match("/" . $departmentObj['department_title'] . "/", $offerLetterObj->department)?'checked':'' ?>
@@ -72,10 +74,10 @@
     		<input type="checkbox" name="offerLetterIsManagerial" id="offerLetterIsManagerial" value="1" class="department-dropdown" <?php echo $offerLetterObj->is_managerial==1?'checked':'' ?>>
     		<label for="offerLetterIsManagerial">Is for a managerial position</label>
     	</table>
-    	 <input type="button" id="copyOfferLetterButton" name="copyOfferLetterButton" value="<?php echo Yii::t('app', 'Copy this template'); ?>" data-copy-url="<?php echo $this->createUrl('registration/copyOfferLetterTemplate'); ?>">
+    	 <!-- <input type="button" id="copyOfferLetterButton" name="copyOfferLetterButton" value="<?php //echo Yii::t('app', 'Copy this template'); ?>" data-copy-url="<?php //echo $this->createUrl('registration/viewSelectedOfferLetter'); ?>"> -->
+       <input type="button" id="copyOfferLetterButton" name="copyOfferLetterButton" value="<?php echo Yii::t('app', 'Copy this template'); ?>" data-copy-url="<?php echo $_SERVER['PHP_SELF']; ?>">
        <input type="button" id="updateOfferLetterButton" name="updateOfferLetterButton" value="<?php echo Yii::t('app', 'Update this template'); ?>" data-update-url="<?php echo $this->createUrl('registration/updateOfferLetterTemplate',['offerLetterId'=>$offerLetterId]); ?>">
        <input type="button" id="saveOfferLetterButton" name="saveOfferLetterButton" style="display:none;" value="<?php echo Yii::t('app', 'Save this template'); ?>" data-save-url="<?php echo $this->createUrl('registration/saveOfferLetterTemplate'); ?>">
-       <input type="hidden" id="copyTemplateUrl" name="copyTemplateUrl" value="">
     </form>
   </div>
 </div>

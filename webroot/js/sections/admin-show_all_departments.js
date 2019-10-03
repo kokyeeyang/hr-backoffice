@@ -1,6 +1,6 @@
 var AdminShowAllDepartments = function() {
 
-	function _check_if_deletion_is_selected(){
+	function _check_if_deletion_is_selected(objElement, objEvent){
 		if ($(".deleteCheckBox:checked").length <= 0){
 			alert($('#msg-select-department-delete').attr('data-msg'));
 		} else {
@@ -15,7 +15,7 @@ var AdminShowAllDepartments = function() {
 			$('#deleteDepartmentButton').on('click', function(objEvent){
 				AdminShowAllDepartments.check_if_deletion_is_selected(this, objEvent);
 			});
-		}
+		});
 	}
 
 	return {

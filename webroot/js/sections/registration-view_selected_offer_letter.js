@@ -16,13 +16,14 @@ var RegistrationViewSelectedOfferLetter = function(){
 	}
 
 	function _copy_offer_letter_template(objElement, objEvent){
-		var copyOfferLetterUrl = RegistrationViewSelectedOfferLetter.refine_url();
-
-		$("#copyTemplateUrl").val(copyOfferLetterUrl);
+		// var copyOfferLetterUrl = RegistrationViewSelectedOfferLetter.refine_url();
+		// location.reload();
+		$('#createOfferLetterForm').attr('action', $('#copyOfferLetterButton').attr('data-copy-url')).submit();
+		// $("#copyTemplateUrl").val(copyOfferLetterUrl);
 		$("#updateOfferLetterButton").hide();
 		$("#saveOfferLetterButton").show();
 
-		window.history.pushState("object or string", "Title", "/" + copyOfferLetterUrl);
+		// window.history.pushState("object or string", "Title", "/" + copyOfferLetterUrl);
 
 	}
 
