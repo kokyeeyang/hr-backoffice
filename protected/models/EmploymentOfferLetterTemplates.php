@@ -57,4 +57,25 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 		}
 
 	}
+
+	public function queryForOfferLetterTemplate($isManagerial,$department){
+
+		$sql = 'SELECT offer_letter_content 
+
+						FROM ' . self::$tableName .
+
+						' WHERE is_managerial=' . $isManagerial . 
+
+						' AND department LIKE "%' . $department . '%"';
+
+		$objConnection = Yii::app()->db;
+		$objCommand = $objConnection->createCommand($sql);
+		$arrData = $objCommand->queryRow();
+
+		if ($arrData['offer_letter_template'] != ''){
+			return $arrData;
+		} else {
+			return 'No suitable offer letter has been found. Please create one first.';
+		}
+	}
 }

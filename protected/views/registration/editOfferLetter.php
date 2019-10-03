@@ -63,7 +63,9 @@ if (count($offerLetterArr) > 0) {
 						echo $offerLetterObj->offer_letter_content;
 					?>
 				</textarea>
-        <div id="department-title"><?php echo Yii::t('app', 'Departments'); ?> </div>
+        <legend class="legend" title="<?php echo Yii::t('app', 'Which department(s) is this offer letter template for?'); ?>">
+          <?php echo Yii::t('app', 'Departments'); ?>
+        </legend>
 	    	<div id="department-dropdown" style="margin-top: 10px; margin-bottom: 10px;">
 	    		<?php foreach($departmentArr as $iKey => $departmentObj){ ?>
             <?php $checkedStatus = preg_match("/" . $departmentObj['department_title'] . "/", $offerLetterObj->department)?'checked':'' ?>
@@ -74,7 +76,7 @@ if (count($offerLetterArr) > 0) {
     		<input type="checkbox" name="offerLetterIsManagerial" id="offerLetterIsManagerial" value="1" class="department-dropdown" <?php echo $offerLetterObj->is_managerial==1?'checked':'' ?>>
     		<label for="offerLetterIsManagerial">Is for a managerial position</label>
     	</table>
-    	 <!-- <input type="button" id="copyOfferLetterButton" name="copyOfferLetterButton" value="<?php //echo Yii::t('app', 'Copy this template'); ?>" data-copy-url="<?php //echo $this->createUrl('registration/viewSelectedOfferLetter'); ?>"> -->
+    	 <!-- <input type="button" id="copyOfferLetterButton" name="copyOfferLetterButton" value="<?php //echo Yii::t('app', 'Copy this template'); ?>" data-copy-url="<?php //echo $this->createUrl('registration/viewSelectedOfferLetter',['offerLetterId'=>$offerLetterId]); ?>"> -->
        <input type="button" id="copyOfferLetterButton" name="copyOfferLetterButton" value="<?php echo Yii::t('app', 'Copy this template'); ?>" data-copy-url="<?php echo $_SERVER['PHP_SELF']; ?>">
        <input type="button" id="updateOfferLetterButton" name="updateOfferLetterButton" value="<?php echo Yii::t('app', 'Update this template'); ?>" data-update-url="<?php echo $this->createUrl('registration/updateOfferLetterTemplate',['offerLetterId'=>$offerLetterId]); ?>">
        <input type="button" id="saveOfferLetterButton" name="saveOfferLetterButton" style="display:none;" value="<?php echo Yii::t('app', 'Save this template'); ?>" data-save-url="<?php echo $this->createUrl('registration/saveOfferLetterTemplate'); ?>">

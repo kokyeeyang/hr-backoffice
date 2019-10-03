@@ -146,4 +146,20 @@ class EmploymentJobOpening extends AppActiveRecord
 		}
 	}	
 
+	public function queryForIsManagerial($jobId){
+		$sql = 'SELECT is_managerial_position
+
+						FROM ' . self::$tableName . '
+
+						WHERE id = ' . $jobId;
+
+		$objConnection = Yii::app()->db;
+		$objCommand = $objConnection->createCommand($sql);
+		$arrData = $objCommand->queryRow();
+
+		if (!empty($arrData['is_managerial_position'])){
+			return $arrData;
+		}
+	}
+
 }

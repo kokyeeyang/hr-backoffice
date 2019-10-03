@@ -366,6 +366,21 @@ class RegistrationController extends Controller
 		$jobTitle = EmploymentJobOpening::model()->queryForCandidateJobTitle($jobId);
 		$candidateEmail = EmploymentCandidate::model()->queryForCandidateEmail($candidateName);
 
+		//we need department name, is_managerial_role for the job that candidate applied for
+
+		//to query whether the job candidate is applying for is managerial or not
+		$isManagerial = EmploymentJobOpening::model()->queryForIsManagerial($jobId);
+
+		//to query what department the job belongs to
+		$department = EmploymentJobOpening::model()->queryForCandidateDepartment($jobId);
+		// var_dump($department);exit;
+
+		//pick out the offer letter template based on $isManagerial and $department
+		$offerLetterTemplate = EmploymentOfferLetterTemplates::model()->queryForOfferLetterTemplate($isManagerial, $department);
+
+		//write offer letter template with all the html tags into a word file, and then convert it to pdf
+		
+
 		$candidateStatus = 7;
 		$candidateCondition = 'id_no = "' . $candidateId . '"';
 		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);

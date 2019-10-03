@@ -777,7 +777,7 @@
           <?php foreach($generalQuestionArrRecords as $generalQuestionObjRecord){ ?>
           <div class="lable_block">
             <div class="lables">
-              <span><?php  echo Yii::t('app', 'Salary offered to candidate'); ?>:</span><br>
+              <span><?php echo Yii::t('app', 'Salary offered to candidate'); ?>:</span><br>
             </div>
             <div class="lables2">
               <input type="text" name="offerLetterExpectedSalary" value="<?php echo $generalQuestionObjRecord->expected_salary; ?>">
@@ -795,12 +795,9 @@
             <input type="button" id="changeCandidateStatusToSigned" data-signed-url="<?php echo $this->createUrl('registration/changeCandidateStatusToSigned', array('candidateId' => $candidateObjRecord->id_no)); ?>" style="display:none;">
           </div>
           <div class="lable_block" id="send_email_checkbox">
-            <tr>
-              <input type="checkbox" name="sendEmailCheckbox" id="sendEmailCheckbox" value="1">
-              <label for="sendEmailCheckbox"><?php echo Yii::t('app', 'Check this if you want to send the candidate an email.'); ?></label>
-            </tr>
+            <input type="checkbox" name="sendEmailCheckbox" id="sendEmailCheckbox" value="1">
+            <label for="sendEmailCheckbox" title="<?php echo Yii::t('app', 'Check this if you want to send the candidate an email'); ?>"><?php echo Yii::t('app', 'Send an email'); ?></label>
           </div>
-          <!-- <textarea rows="8" cols="165" name="comment">Enter text here...</textarea> -->
         </fieldset>
       </div>
     </form>

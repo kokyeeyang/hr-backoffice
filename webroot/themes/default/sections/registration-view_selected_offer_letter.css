@@ -1,3 +1,10 @@
-div #department-title {
-	border-bottom: black;
+.legend {
+  margin-top: 4px;
+  padding: 5px 10px;
+  background-color: #DF9920;
+  color: white;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  width: 5%;
 }
