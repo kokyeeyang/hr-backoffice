@@ -37,7 +37,7 @@ var RegistrationViewSelectedOfferLetter = function(){
 			});
 
 			tinymce.init({
-			  selector: 'textarea#offer-letter-template',
+			  selector: 'textarea#offerLetterTemplate',
 			  content_style: 'textarea { margin: 50px; border: 5px solid red; padding: 3px; }',
 			  height: 500,
 			  menubar: false,

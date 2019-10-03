@@ -31,17 +31,10 @@
     			<td>:</td>
     			<td>
     				<!-- <input type="text" name="department"/> -->
-            <select name="department-dropdown" size=1>
+            <select name="departmentDropdown" size=1>
               <option value="" selected disabled hidden>Choose here</option>
               <?php foreach($departmentArr as $iKey => $departmentObj){ ?>
               <option value="<?php echo $departmentObj['department_title']; ?>"><?php echo $departmentObj['department_title']; ?></option>
-
-              <!-- <option value="HR"><?php //echo Yii::t('app', 'HR'); ?></option>
-              <option value="MARKETING"><?php //echo Yii::t('app', 'MARKETING'); ?></option>
-              <option value="IT"><?php //echo Yii::t('app', 'IT'); ?></option>
-              <option value="P&S"><?php //echo Yii::t('app', 'P&S'); ?></option>
-              <option value="CS"><?php //echo Yii::t('app', 'CS'); ?></option>
-              <option value="DESIGN"><?php //echo Yii::t('app', 'DESIGN'); ?></option> -->
             <?php } ?>
             </select>
     			</td>
@@ -50,7 +43,6 @@
     			<td><?php echo Yii::t('app', 'Line manager'); ?></td>
     			<td>:</td>
     			<td>
-    				<!-- <input type="text" name="interviewManager"/> -->
             <select name="interviewManager" size=1>
               <?php foreach ($allManagers as $manager) { ?>
                 <option value="<?php echo $manager['admin_display_name'] ?>"><?php echo $manager['admin_display_name']; ?></option>
@@ -62,7 +54,6 @@
           <td>
             <div class="row buttons">
               <?php echo CHtml::submitButton($objModel->isNewRecord ? 'Submit' : 'Save'); ?>
-              <!-- <input type="file" name="offer-letter" id="offer-letter" accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required/> -->
             </div>
           </td>
         </tr>

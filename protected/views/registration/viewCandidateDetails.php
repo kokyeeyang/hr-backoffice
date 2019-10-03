@@ -4,11 +4,6 @@
       <div>
         <fieldset class="fieldset">
           <div id="mediaSection">
-<!--             <div id="candidateImage" style="display:<?php //echo $displayPhotoSection ?>;">
-              <a href="<?php //echo $photoSource; ?>" title="Click here to download image" download>
-                <img src="<?php //echo $photoSource; ?>" style="width:100px; height: 130px;">
-              </a>
-            </div> -->
             <div id="candidateResume" style="display:<?php echo $displayResumeSection ?>">
               <a href="<?php echo $resumeSource ?>" title="Click here to download resume" download>
                 <img src="/images/alllanguages/download-logo.png" class="candidateDocument">
@@ -668,7 +663,7 @@
                 <span><?php  echo Yii::t('app', 'Job Experience'); ?>:</span>
               </div>
               <div class="lables2">
-                <textarea name="suitable_experience" rows="3" cols="35"><?php echo $interviewQuestionsObjRecord->suitable_experience; ?></textarea>
+                <textarea name="suitableExperience" rows="3" cols="35"><?php echo $interviewQuestionsObjRecord->suitable_experience; ?></textarea>
               </div>
             </div>
             <div class="label_block">
@@ -718,7 +713,7 @@
                 <span><?php  echo Yii::t('app', 'Reason for leaving last company?'); ?>:</span>
               </div>
               <div class="lables2">
-                <textarea name="leave_reason" rows="3" cols="35"><?php echo $interviewQuestionsObjRecord->leave_reason; ?></textarea>
+                <textarea name="leaveReason" rows="3" cols="35"><?php echo $interviewQuestionsObjRecord->leave_reason; ?></textarea>
               </div>
             </div>
             <div class="label_block">
@@ -726,7 +721,7 @@
                 <span><?php  echo Yii::t('app', 'Current company\'s notice period?'); ?>:</span>
               </div>
               <div class="lables2">
-                <textarea name="notice_period" rows="3" cols="35"><?php echo $interviewQuestionsObjRecord->notice_period; ?></textarea>
+                <textarea name="noticePeriod" rows="3" cols="35"><?php echo $interviewQuestionsObjRecord->notice_period; ?></textarea>
               </div>
             </div>
             <div class="label_block">
@@ -734,7 +729,7 @@
                 <span><?php  echo Yii::t('app', 'Interviewing for other positions?'); ?>:</span>
               </div>
               <div class="lables2">
-                <textarea name="interviewing_with_other_companies" rows="3" cols="35"><?php echo $interviewQuestionsObjRecord->interviewing_with_other_companies; ?></textarea>
+                <textarea name="interviewingWithOtherCompanies" rows="3" cols="35"><?php echo $interviewQuestionsObjRecord->interviewing_with_other_companies; ?></textarea>
               </div>
             </div>
             <div class="label_block">
@@ -742,7 +737,7 @@
                 <span><?php  echo Yii::t('app', 'Family status (parents, siblings?)'); ?>:</span>
               </div>
               <div class="lables2">
-                <textarea name="family_status" rows="3" cols="35"><?php echo $interviewQuestionsObjRecord->family_status; ?></textarea>
+                <textarea name="familyStatus" rows="3" cols="35"><?php echo $interviewQuestionsObjRecord->family_status; ?></textarea>
               </div>
             </div>
           </div>

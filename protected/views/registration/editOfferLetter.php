@@ -57,7 +57,7 @@
 	  		</tr>
   		</div>
     	<table style="line-height: 32px;padding-left: 10px;font-size: 15px; margin-bottom:10px;">
-    		<textarea id="offer-letter-template" name="offer-letter-template">
+    		<textarea id="offerLetterTemplate" name="offerLetterTemplate">
 					<?php 
 						echo $offerLetterObj->offer_letter_content;
 					?>

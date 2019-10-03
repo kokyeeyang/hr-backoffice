@@ -309,7 +309,7 @@ class RegistrationController extends Controller
 
 		$jobOpeningObjModel = new EmploymentJobOpening;
 		$jobOpeningObjModel->job_title = $this->getParam('jobTitle','');
-		$jobOpeningObjModel->department = $this->getParam('department-dropdown','');
+		$jobOpeningObjModel->department = $this->getParam('departmentDropdown','');
 		$jobOpeningObjModel->is_managerial_position = $this->getParam('isManagerialCheckbox', '');
 		$jobOpeningObjModel->interviewing_manager = $this->getParam('interviewManager','');
 
@@ -362,7 +362,6 @@ class RegistrationController extends Controller
 
 	public function actionGenerateOfferEmail($jobId, $candidateName, $candidateId){
 		$aResult['candidateName'] = false;
-		// $jobOpeningIds = $this->getParam('deleteCheckBox', '');
 		$managerName = EmploymentJobOpening::model()->queryForCandidateInterviewingManager($jobId);
 		$jobTitle = EmploymentJobOpening::model()->queryForCandidateJobTitle($jobId);
 		$candidateEmail = EmploymentCandidate::model()->queryForCandidateEmail($candidateName);
@@ -442,7 +441,6 @@ class RegistrationController extends Controller
 		$currentAdminId = Yii::app()->user->id;
 		//this is to allow editing only for hr and admin
 		$access = Admin::model()->checkForAdminPrivilege($currentAdminId, 'registration');
-// var_dump($interviewQuestionsArrRecords);exit;
 		$this->render('viewCandidateDetails', array('candidateArrRecords'=>$candidateArrRecords, 'educationArrRecords'=>$educationArrRecords, 'generalQuestionArrRecords'=>$generalQuestionArrRecords, 'jobExperienceArrRecords'=>$jobExperienceArrRecords, 'refereeArrRecords'=>$refereeArrRecords, 'interviewQuestionsArrRecords' => $interviewQuestionsArrRecords, 'candidateId' => $candidateId, 'access' => $access, 'photoSource'=>$photoSource, 'displayPhotoSection'=>$displayPhotoSection, 'displayCoverLetterSection'=>$displayCoverLetterSection, 'resumeSource'=>$resumeSource, 'coverLetterSource'=>$coverLetterSource, 'displayResumeSection'=>$displayResumeSection));
 		
 	}
@@ -618,16 +616,16 @@ class RegistrationController extends Controller
 		$interviewQuestionsArrRecords = EmploymentInterviewQuestions::model()->findAll($otherCondition);
 		foreach($interviewQuestionsArrRecords as $interviewQuestionsObjRecord){
 			$interviewQuestionsObjRecord->candidate_id = $this->getParam('idNo', '');
-			$interviewQuestionsObjRecord->suitable_experience = $this->getParam('suitable_experience','');
+			$interviewQuestionsObjRecord->suitable_experience = $this->getParam('suitableExperience','');
 			$interviewQuestionsObjRecord->aspirations = $this->getParam('aspirations','');
 			$interviewQuestionsObjRecord->passion = $this->getParam('passion','');
 			$interviewQuestionsObjRecord->background = $this->getParam('background','');
 			$interviewQuestionsObjRecord->commute = $this->getParam('commute','');
 			$interviewQuestionsObjRecord->experience = $this->getParam('experience','');
-			$interviewQuestionsObjRecord->leave_reason = $this->getParam('leave_reason','');
-			$interviewQuestionsObjRecord->notice_period = $this->getParam('notice_period','');
-			$interviewQuestionsObjRecord->interviewing_with_other_companies = $this->getParam('interviewing_with_other_companies','');
-			$interviewQuestionsObjRecord->family_status = $this->getParam('family_status','');
+			$interviewQuestionsObjRecord->leave_reason = $this->getParam('leaveReason','');
+			$interviewQuestionsObjRecord->notice_period = $this->getParam('noticePeriod','');
+			$interviewQuestionsObjRecord->interviewing_with_other_companies = $this->getParam('interviewingWithOtherCompanies','');
+			$interviewQuestionsObjRecord->family_status = $this->getParam('familyStatus','');
 			$interviewQuestionsObjRecord->modified_by = $currentUserId;
 
 			$interviewQuestionsObjRecord->update();
@@ -707,7 +705,7 @@ class RegistrationController extends Controller
 		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
 
 		foreach($candidateArrRecords as $candidateObjRecord){
-			$candidateObjRecord->job_id = $this->getParam('position-dropdown','');
+			$candidateObjRecord->job_id = $this->getParam('positionDropdown','');
 			$candidateObjRecord->update();
 		}
 
