@@ -92,3 +92,10 @@
 		<?php $this->endWidget(); ?>
 	</div>
 </div>
+<div id="registration-common-msg">
+	<div id="msg-confirm-department-delete" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to delete the selected departments?'); ?>"><!-- Dialog Buttons Label -->
+	</div>
+</div>
+<div id="registration-common-msg">
+	<div id="msg-select-department-delete" data-msg="<?php echo Yii::t('app', 'Please select a department that you would like to delete'); ?>"><!-- Dialog Buttons Label --></div>
+</div>

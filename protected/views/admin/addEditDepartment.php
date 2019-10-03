@@ -19,12 +19,10 @@
           <td><?php echo Yii::t('app', 'Please specify your department name'); ?> </td>
           <td>:</td>
           <?php 
-            if($currentFunction == 'addNewDepartment'){
-              $departmentArr = ['1'];
-            }
+            $departmentTitle = $currentFunction=='viewSelectedDepartment'?$departmentArr[0]->department_title:'';
+            $departmentDescription = $currentFunction=='viewSelectedDepartment'?$departmentArr[0]->department_description:'';
           ?>
-          <?php foreach($departmentArr as $departmentObj){ ?>
-          <td><input type="text" name="new-department" id="new-department" value="<?php echo $currentFunction=='viewSelectedDepartment'?$departmentObj->department_title:''; ?>" required/>
+          <td><input type="text" name="newDepartment" id="newDepartment" value="<?php echo $departmentTitle; ?>" required/>
         </tr>
         <tr>
           <td>
@@ -32,11 +30,10 @@
           </td>
           <td>:</td>
           <td>
-            <textarea rows="4" name="department-description" id="department-description" cols="22" required/>
-              <?php echo $currentFunction=='viewSelectedDepartment'?$departmentObj->department_description:''; ?>
+            <textarea rows="4" name="departmentDescription" id="departmentDescription" cols="22" required/>
+              <?php echo $departmentDescription; ?>
             </textarea>
           </td>
-          <?php } ?>
           </td>
         </tr>
         <tr>

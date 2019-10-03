@@ -355,8 +355,8 @@ class AdminController extends Controller
 	public function actionSaveDepartment(){
 
 		$newDepartmentObjModel = new Department;
-		$newDepartmentObjModel->department_title = strtoupper($this->getParam('new-department', ''));
-		$newDepartmentObjModel->department_description = $this->getParam('department-description', '');
+		$newDepartmentObjModel->department_title = strtoupper($this->getParam('newDepartment', ''));
+		$newDepartmentObjModel->department_description = $this->getParam('departmentDescription', '');
 		$newDepartmentObjModel->created_by = Yii::app()->user->id;
 		$newDepartmentObjModel->save();
 
@@ -367,6 +367,7 @@ class AdminController extends Controller
 		$departmentCondition = 'id = "' . $departmentId . '"';
 		$departmentArr = Department::model()->findAll($departmentCondition);
 		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
+		$departmentTitle = $currentFunction=='viewSelectedDepartment'?$departmentArr[0]->department_title:'';
 		
 		$this->render('addEditDepartment', ['departmentArr' => $departmentArr, 'currentFunction'=>$currentFunction, 'departmentId' => $departmentId]);
 	}
@@ -375,11 +376,20 @@ class AdminController extends Controller
 		$departmentCondition = 'id = "' . $departmentId . '"';
 		$departmentArr = Department::model()->findAll($departmentCondition);
 		foreach($departmentArr as $departmentObj){
-			$departmentObj->department_title = $this->getParam('new-department', '');
-			$departmentObj->department_description = $this->getParam('department-description', '');
+			$departmentObj->department_title = $this->getParam('newDepartment', '');
+			$departmentObj->department_description = $this->getParam('departmentDescription', '');
 			$departmentObj->update();
 		}
 
+		$this->redirect('showAllDepartments');
+	}
+
+	public function actionDeleteSelectedDepartments(){
+		$departmentIds = $this->getParam('deleteCheckBox', '');
+
+		if($departmentIds != ''){
+			$deleteDepartment = Department::model()->deleteSelectedDepartment($departmentIds);
+		}
 		$this->redirect('showAllDepartments');
 	}
 }

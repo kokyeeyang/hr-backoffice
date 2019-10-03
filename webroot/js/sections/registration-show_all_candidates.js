@@ -46,16 +46,11 @@ var RegistrationShowAllCandidates = function() {
 		  	RegistrationShowAllCandidates.view_selected_candidate(this, objEvent);
 		  });
 
-		  // $('input[name=confirmCandidateButton]').on('click', function(objEvent){
-		  // 	RegistrationShowAllCandidates.confirm_selected_candidate(this, objEvent);
-
-		  // });
-
 		  $('select[name="dropdown"]').change(function(objEvent) {
 		    RegistrationShowAllCandidates.confirm_selected_candidate(this, objEvent);
 			});
 
-		  $('select[name="position-dropdown"]').change(function(objEvent) {
+		  $('select[name="positionDropdown"]').change(function(objEvent) {
 		    RegistrationShowAllCandidates.change_candidate_position(this, objEvent);
 			});
 
