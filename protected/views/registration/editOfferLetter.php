@@ -30,17 +30,17 @@ if (count($offerLetterArr) > 0) {
 
 <div class="breadcrumb">
   <div class="breadcrumb_wrapper">
-    <div class="breadcrumb-top"><?php echo Yii::t('app', 'Add New Offer Letter Template'); ?></div>
+    <div class="breadcrumb-top"><?php echo Yii::t('app', 'Edit Offer Letter Template'); ?></div>
     <div class="breadcrumb-bottom breadcrumb-bottom-people">
       <div class="title">
-        <span><?php echo Yii::t('app', 'Add a new offer letter template'); ?></span>
+        <span><?php echo Yii::t('app', 'Edit offer letter template'); ?></span>
       </div>
     </div>
   </div>
 </div>
 <div class="common_content_wrapper admin_login_log_list">
   <div class="common_content_inner_wrapper">
-    <h4 class="widget_title"><?php echo Yii::t('app', 'Add a new offer letter template'); ?>
+    <h4 class="widget_title"><?php echo Yii::t('app', 'Edit this offer letter template'); ?>
     </h4>
     <form method="post" enctype="multipart/form-data" id="createOfferLetterForm" name="createOfferLetterForm" action="<?php echo $this->createUrl('registration/saveOfferLetterTemplate'); ?>">
     	<div id="offer-letter-input" style="margin-bottom:10px; margin-top: 10px;">
@@ -58,11 +58,7 @@ if (count($offerLetterArr) > 0) {
 	  		</tr>
   		</div>
     	<table style="line-height: 32px;padding-left: 10px;font-size: 15px; margin-bottom:10px;">
-    		<textarea id="offerLetterTemplate" name="offerLetterTemplate">
-					<?php 
-						echo $offerLetterObj->offer_letter_content;
-					?>
-				</textarea>
+    		<textarea id="offerLetterTemplate" name="offerLetterTemplate"><?php echo $offerLetterObj->offer_letter_content;?></textarea>
         <legend class="legend" title="<?php echo Yii::t('app', 'Which department(s) is this offer letter template for?'); ?>">
           <?php echo Yii::t('app', 'Departments'); ?>
         </legend>

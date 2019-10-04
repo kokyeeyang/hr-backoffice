@@ -793,7 +793,7 @@
             <input type="button" id="generateOfferEmail" value="<?php echo Yii::t('app', 'Convert to offer'); ?>" data-offer-url="<?php echo $this->createUrl('registration/generateOfferEmail', array('jobId' => $candidateObjRecord->job_id, 'candidateName' => $candidateObjRecord->full_name, 'candidateId' => $candidateObjRecord->id_no)); ?>">
             <input type="button" id="changeCandidateStatus" data-change-url="<?php echo $this->createUrl('registration/changeCandidateStatus', array('candidateId' => $candidateObjRecord->id_no)); ?>" style="display:none;">
             <input type="button" id="changeCandidateStatusToSigned" data-signed-url="<?php echo $this->createUrl('registration/changeCandidateStatusToSigned', array('candidateId' => $candidateObjRecord->id_no)); ?>" style="display:none;">
-            <input type="button" id="downloadPdf" data-download-url="<?php echo $this->createUrl('registration/downloadPdf', array('jobId' => $candidateObjRecord->job_id, 'candidateId' => $candidateObjRecord->id_no)); ?>" style="display:none;">
+            <input type="button" id="downloadPdf" data-download-url="<?php echo $this->createUrl('registration/downloadPdf',array('jobId' => $candidateObjRecord->job_id, 'candidateName' => $candidateObjRecord->full_name, 'candidateId' => $candidateObjRecord->id_no)); ?>" style="display:none;">
           </div>
           <div class="lable_block" id="send_email_checkbox">
             <input type="checkbox" name="sendEmailCheckbox" id="sendEmailCheckbox" value="1">

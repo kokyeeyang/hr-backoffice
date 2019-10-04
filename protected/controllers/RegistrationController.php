@@ -748,7 +748,7 @@ class RegistrationController extends Controller
 		$offerLetterObjModel->department = $offerLetterDepartments;
 
 		$offerLetterObjModel->is_managerial = $this->getParam('offerLetterIsManagerial', '');
-		$offerLetterObjModel->offer_letter_content = $this->getParam('offer-letter-template', '');
+		$offerLetterObjModel->offer_letter_content = $this->getParam('offerLetterTemplate', '');
 		$offerLetterObjModel->created_by = $currentUserId; 
 		$offerLetterObjModel->save();
 
@@ -786,7 +786,7 @@ class RegistrationController extends Controller
 		$this->redirect('showOfferLetterTemplates');
 	}
 
-	public function actionDownloadPdf($jobId, $candidateId){
+	public function actionDownloadPdf($jobId, $candidateName, $candidateId){
 		//to query whether the job candidate is applying for is managerial or not
 		$isManagerial = EmploymentJobOpening::model()->queryForIsManagerial($jobId);
 
@@ -799,6 +799,7 @@ class RegistrationController extends Controller
 
 		//pick out the offer letter template based on $isManagerial and $department
 		$offerLetterTemplate = EmploymentOfferLetterTemplates::model()->queryForOfferLetterTemplate($isManagerial, $department);
+
 		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);

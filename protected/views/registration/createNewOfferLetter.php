@@ -35,14 +35,9 @@
   <div class="common_content_inner_wrapper">
     <h4 class="widget_title"><?php echo Yii::t('app', 'Add a new offer letter template'); ?>
     </h4>
-    <form method="post" enctype="multipart/form-data" id="createOfferLetterForm" name="createOfferLetterForm" action="<?php echo $this->createUrl('registration/saveOfferLetterTemplate'):$this->createUrl('registration/updateOfferLetterTemplate',['offerLetterId'=>$offerLetterId]); ?>">
+    <form method="post" enctype="multipart/form-data" id="createOfferLetterForm" name="createOfferLetterForm" action="<?php echo $this->createUrl('registration/saveOfferLetterTemplate'); ?>">
     	<div id="offer-letter-input" style="margin-bottom:10px; margin-top: 10px;">
     		<tr>
-    			<?php 
-    				if($currentFunction == "createNewOfferLetter"){
-    					$offerLetterArr = ['1'];
-    				}
-    			?>
 		    	<td><?php echo Yii::t('app', 'Offer Letter Title'); ?> </td>
 	  			<td>:</td>
 	  			<td>
@@ -56,7 +51,7 @@
 	  		</tr>
   		</div>
     	<table style="line-height: 32px;padding-left: 10px;font-size: 15px; margin-bottom:10px;">
-    		<textarea id="offer-letter-template" name="offer-letter-template">
+    		<textarea id="offerLetterTemplate" name="offer-letter-template">
 				</textarea>
 	    	<div id="department-dropdown" style="margin-top: 10px; margin-bottom: 10px;">
 	    		<?php foreach($departmentArr as $iKey => $departmentObj){ ?>

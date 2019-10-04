@@ -31,6 +31,7 @@ var RegistrationViewSelectedCandidate = function() {
 	}
 
 	function _download_pdf(objElement, objEvent){
+		console.log("hello");
 		$('#candidateForm').attr('action', $('#downloadPdf').attr('data-download-url')).submit();
 	}
 
@@ -285,10 +286,11 @@ var RegistrationViewSelectedCandidate = function() {
 
 			$("input#generateOfferEmail").on('click', function(objEvent){
 				if(confirm($('#msg-confirm-offer-email').attr('data-msg')) && $("input[name=sendEmailCheckbox]:checked").val()=="1"){
-					RegistrationViewSelectedCandidate.download_pdf(this, objEvent);
 					RegistrationViewSelectedCandidate.generate_offer_email(this, objEvent);
+					RegistrationViewSelectedCandidate.download_pdf(this, objEvent);
 				} else if (confirm($('#msg-confirm-offer-email').attr('data-msg')) && $("input[name=sendEmailCheckbox]:checked").val()===undefined) {
 					RegistrationViewSelectedCandidate.change_candidate_status_to_signed(this, objEvent);
+					RegistrationViewSelectedCandidate.download_pdf(this, objEvent);
 				}
 			});
 		});
