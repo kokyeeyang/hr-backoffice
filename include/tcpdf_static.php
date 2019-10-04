@@ -1819,6 +1819,7 @@ class TCPDF_STATIC {
 			return false;
 		}
 		return fopen($filename, $mode);
+		// return fopen($_SERVER['DOCUMENT_ROOT'].$filename, $mode);
 	}
 
 	/**

@@ -2,7 +2,8 @@
 // NOTE: FRONTEND
 Yii::import('application.vendor.*');
 use yii\web\UploadedFile;
-require_once('tcpdf_include.php');
+require_once ('/var/www/portaldev.sagaos.com/tcpdf.php');
+require_once ('/var/www/portaldev.sagaos.com/config/tcpdf_config.php');
 
 class RegistrationController extends Controller
 {	
@@ -366,34 +367,6 @@ class RegistrationController extends Controller
 		$managerName = EmploymentJobOpening::model()->queryForCandidateInterviewingManager($jobId);
 		$jobTitle = EmploymentJobOpening::model()->queryForCandidateJobTitle($jobId);
 		$candidateEmail = EmploymentCandidate::model()->queryForCandidateEmail($candidateName);
-
-		//we need department name, is_managerial_role for the job that candidate applied for
-
-		//to query whether the job candidate is applying for is managerial or not
-		$isManagerial = EmploymentJobOpening::model()->queryForIsManagerial($jobId);
-
-		//to query what department the job belongs to
-		$department = EmploymentJobOpening::model()->queryForCandidateDepartment($jobId);
-		// var_dump($department);exit;
-
-		//pick out the offer letter template based on $isManagerial and $department
-		$offerLetterTemplate = EmploymentOfferLetterTemplates::model()->queryForOfferLetterTemplate($isManagerial, $department);
-
-		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
-		if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-	    require_once(dirname(__FILE__).'/lang/eng.php');
-	    $pdf->setLanguageArray($l);
-		}
-		$pdf->SetFont('helvetica', '', 9);
-		$pdf->AddPage();
-
-		$pdf->setHTML($offerLetterTemplate, true, 0, true, 0);
-		$pdf->lastPage();
-		// $pdf->Output("htmlout.pdf", 'I');
-		$pdf->Output($candidateName . 'offerletter.pdf', 'I');
 
 		$candidateStatus = 7;
 		$candidateCondition = 'id_no = "' . $candidateId . '"';
@@ -806,11 +779,41 @@ class RegistrationController extends Controller
 				$offerLetterObj->department = implode(",", $offerLetterDepartmentArray);
 			}
 			$offerLetterObj->is_managerial = $this->getParam('offerLetterIsManagerial', '');
-			$offerLetterObj->offer_letter_content = $this->getParam('offer-letter-template','');
+			$offerLetterObj->offer_letter_content = $this->getParam('offerLetterTemplate','');
 			$offerLetterObj->modified_by = Yii::app()->user->id;
 			$offerLetterObj->update();
 		}
 		$this->redirect('showOfferLetterTemplates');
+	}
+
+	public function actionDownloadPdf($jobId, $candidateId){
+		//to query whether the job candidate is applying for is managerial or not
+		$isManagerial = EmploymentJobOpening::model()->queryForIsManagerial($jobId);
+
+		if ($isManagerial == null){
+			$isManagerial = "0";
+		}
+
+		//to query what department the job belongs to
+		$department = EmploymentJobOpening::model()->queryForCandidateDepartment($jobId);
+
+		//pick out the offer letter template based on $isManagerial and $department
+		$offerLetterTemplate = EmploymentOfferLetterTemplates::model()->queryForOfferLetterTemplate($isManagerial, $department);
+		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+		if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+	    require_once(dirname(__FILE__).'/lang/eng.php');
+	    $pdf->setLanguageArray($l);
+		}
+		$pdf->SetFont('helvetica', '', 9);
+		$pdf->AddPage();
+
+		$pdf->writeHTML($offerLetterTemplate['offer_letter_content'], true, 0, true, 0);
+		$pdf->lastPage();
+
+		$pdf->Output($candidateName . ' offerletter.pdf', 'D');
 	}
 
 	public function actionCopyOfferLetterTemplate(){

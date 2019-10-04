@@ -158,7 +158,9 @@ class EmploymentJobOpening extends AppActiveRecord
 		$arrData = $objCommand->queryRow();
 
 		if (!empty($arrData['is_managerial_position'])){
-			return $arrData;
+			foreach ($arrData as $objData){
+				return $objData;
+			}
 		}
 	}
 

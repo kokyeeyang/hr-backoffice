@@ -30,6 +30,10 @@ var RegistrationViewSelectedCandidate = function() {
 		}
 	}
 
+	function _download_pdf(objElement, objEvent){
+		$('#candidateForm').attr('action', $('#downloadPdf').attr('data-download-url')).submit();
+	}
+
 	function _change_candidate_status(objElement, objEvent){
 		$('#candidateForm').attr('action', $('#changeCandidateStatus').attr('data-change-url')).submit();
 	}
@@ -281,6 +285,7 @@ var RegistrationViewSelectedCandidate = function() {
 
 			$("input#generateOfferEmail").on('click', function(objEvent){
 				if(confirm($('#msg-confirm-offer-email').attr('data-msg')) && $("input[name=sendEmailCheckbox]:checked").val()=="1"){
+					RegistrationViewSelectedCandidate.download_pdf(this, objEvent);
 					RegistrationViewSelectedCandidate.generate_offer_email(this, objEvent);
 				} else if (confirm($('#msg-confirm-offer-email').attr('data-msg')) && $("input[name=sendEmailCheckbox]:checked").val()===undefined) {
 					RegistrationViewSelectedCandidate.change_candidate_status_to_signed(this, objEvent);
@@ -293,7 +298,8 @@ var RegistrationViewSelectedCandidate = function() {
 		init : _init,
 		generate_offer_email : _generate_offer_email,
 		change_candidate_status : _change_candidate_status,
-		change_candidate_status_to_signed : _change_candidate_status_to_signed
+		change_candidate_status_to_signed : _change_candidate_status_to_signed,
+		download_pdf : _download_pdf
 	}
 }();
 RegistrationViewSelectedCandidate.init();
