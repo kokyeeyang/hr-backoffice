@@ -73,7 +73,8 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 		$arrData = $objCommand->queryRow();
 
 		if ($arrData['offer_letter_template'] != ''){
-			return $arrData;
+			// return $arrData;
+			return 'helooooooo';
 		} else {
 			return 'No suitable offer letter has been found. Please create one first.';
 		}

@@ -2,6 +2,7 @@
 // NOTE: FRONTEND
 Yii::import('application.vendor.*');
 use yii\web\UploadedFile;
+require_once('tcpdf_include.php');
 
 class RegistrationController extends Controller
 {	
@@ -378,8 +379,21 @@ class RegistrationController extends Controller
 		//pick out the offer letter template based on $isManagerial and $department
 		$offerLetterTemplate = EmploymentOfferLetterTemplates::model()->queryForOfferLetterTemplate($isManagerial, $department);
 
-		//write offer letter template with all the html tags into a word file, and then convert it to pdf
-		
+		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+		if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+	    require_once(dirname(__FILE__).'/lang/eng.php');
+	    $pdf->setLanguageArray($l);
+		}
+		$pdf->SetFont('helvetica', '', 9);
+		$pdf->AddPage();
+
+		$pdf->setHTML($offerLetterTemplate, true, 0, true, 0);
+		$pdf->lastPage();
+		// $pdf->Output("htmlout.pdf", 'I');
+		$pdf->Output($candidateName . 'offerletter.pdf', 'I');
 
 		$candidateStatus = 7;
 		$candidateCondition = 'id_no = "' . $candidateId . '"';
