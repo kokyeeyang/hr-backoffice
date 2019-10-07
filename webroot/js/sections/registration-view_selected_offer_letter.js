@@ -41,13 +41,50 @@ var RegistrationViewSelectedOfferLetter = function(){
 			  selector: 'textarea#offerLetterTemplate',
 			  content_style: 'textarea { margin: 50px; border: 5px solid red; padding: 3px; }',
 			  height: 500,
-			  menubar: false,
+			  menubar: "insert",
+	  		images_upload_url : 'upload.php',
+				automatic_uploads : false,
 			  plugins: [
 			    'advlist autolink lists link image charmap print preview anchor save',
 			    'searchreplace visualblocks code fullscreen',
-			    'insertdatetime media table paste code help wordcount'
+			    'insertdatetime media table paste code help wordcount image'
 			  ],
-			  toolbar: 'save undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | preview | ExportToDoc',
+			  toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | preview | ExportToDoc | image',
+			  // without images_upload_url set, Upload tab won't show up
+			  images_upload_url: 'postAcceptor.php',
+
+			  /* we override default upload handler to simulate successful upload*/
+			  images_upload_handler : function(blobInfo, success, failure) {
+					var xhr, formData;
+
+					xhr = new XMLHttpRequest();
+					xhr.withCredentials = false;
+					xhr.open('POST', 'upload.php');
+
+					xhr.onload = function() {
+						var json;
+
+						if (xhr.status != 200) {
+							failure('HTTP Error: ' + xhr.status);
+							return;
+						}
+
+						json = JSON.parse(xhr.responseText);
+
+						if (!json || typeof json.file_path != 'string') {
+							failure('Invalid JSON: ' + xhr.responseText);
+							return;
+						}
+
+						success(json.file_path);
+					};
+
+					formData = new FormData();
+					formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+					xhr.send(formData);
+				},	
+						  
 			  content_css: [
 			    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
 			    '//www.tiny.cloud/css/codepen.min.css'
