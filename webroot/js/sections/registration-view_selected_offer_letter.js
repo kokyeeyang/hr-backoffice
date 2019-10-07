@@ -47,42 +47,10 @@ var RegistrationViewSelectedOfferLetter = function(){
 			  plugins: [
 			    'advlist autolink lists link image charmap print preview anchor save',
 			    'searchreplace visualblocks code fullscreen',
-			    'insertdatetime media table paste code help wordcount image'
+			    'insertdatetime media table paste code help wordcount'
 			  ],
-			  toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | preview | ExportToDoc | image',
-
-			  /* we override default upload handler to simulate successful upload*/
-			  images_upload_handler : function(blobInfo, success, failure) {
-					var xhr, formData;
-
-					xhr = new XMLHttpRequest();
-					xhr.withCredentials = false;
-					xhr.open('POST', 'uploadImage');
-
-					xhr.onload = function() {
-						var json;
-
-						if (xhr.status != 200) {
-							failure('HTTP Error: ' + xhr.status);
-							return;
-						}
-
-						json = JSON.parse(xhr.responseText);
-
-						if (!json || typeof json.file_path != 'string') {
-							failure('Invalid JSON: ' + xhr.responseText);
-							return;
-						}
-
-						success(json.file_path);
-					};
-
-					formData = new FormData();
-					formData.append('file', blobInfo.blob(), blobInfo.filename());
-
-					xhr.send(formData);
-				},	
-
+			  toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | preview | ExportToDoc',
+		    paste_data_images: true,
 			  content_css: [
 			    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
 			    '//www.tiny.cloud/css/codepen.min.css'

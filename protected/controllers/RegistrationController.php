@@ -827,43 +827,4 @@ class RegistrationController extends Controller
 			$this->render('error', $error);
 		}
 	}
-
-	public function actionUploadImage(){
-		// $url = array(
-  //   "http://localhost"
-		// );
-
-		reset($_FILES);
-		$temp = current($_FILES);
-
-		if (is_uploaded_file($temp['tmp_name'])) {
-		  if (preg_match("/([^\w\s\d\-_~,;:\[\]\(\).])|([\.]{2,})/", $temp['name'])) {
-		      header("HTTP/1.1 400 Invalid file name,Bad request");
-		      return;
-		  }
-		  
-		  // Validating File extensions
-		  if (! in_array(strtolower(pathinfo($temp['name'], PATHINFO_EXTENSION)), array(
-		      "gif",
-		      "jpg",
-		      "png"
-		  ))) {
-		      header("HTTP/1.1 400 Not an Image");
-		      return;
-		  }
-
-		  // var_dump($_FILES);exit;
-		  
-		  // $fileName = "uploads/" . $temp['name'];
-		  $fileName = $_SERVER['DOCUMENT_ROOT'] . "themes/uploads/" . $temp['name'];
-		  // move_uploaded_file($temp['tmp_name'], $fileName);
-		  move_uploaded_file($_FILES["file"]["tmp_name"], getcwd() . "/themes/uploads/" . $_FILES["file"]["name"]);
-		  
-		  // Return JSON response with the uploaded file path.
-		  echo json_encode(array(
-	      'file_path' => $fileName
-		  ));
-		}
-	}
-
 }
