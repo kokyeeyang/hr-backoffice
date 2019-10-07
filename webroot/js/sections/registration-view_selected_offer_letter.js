@@ -42,7 +42,7 @@ var RegistrationViewSelectedOfferLetter = function(){
 			  content_style: 'textarea { margin: 50px; border: 5px solid red; padding: 3px; }',
 			  height: 500,
 			  menubar: "insert",
-	  		images_upload_url : 'upload.php',
+	  		images_upload_url : 'uploadImage',
 				automatic_uploads : false,
 			  plugins: [
 			    'advlist autolink lists link image charmap print preview anchor save',
@@ -50,8 +50,6 @@ var RegistrationViewSelectedOfferLetter = function(){
 			    'insertdatetime media table paste code help wordcount image'
 			  ],
 			  toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | preview | ExportToDoc | image',
-			  // without images_upload_url set, Upload tab won't show up
-			  images_upload_url: 'postAcceptor.php',
 
 			  /* we override default upload handler to simulate successful upload*/
 			  images_upload_handler : function(blobInfo, success, failure) {
@@ -59,7 +57,7 @@ var RegistrationViewSelectedOfferLetter = function(){
 
 					xhr = new XMLHttpRequest();
 					xhr.withCredentials = false;
-					xhr.open('POST', 'upload.php');
+					xhr.open('POST', 'uploadImage');
 
 					xhr.onload = function() {
 						var json;
@@ -84,7 +82,7 @@ var RegistrationViewSelectedOfferLetter = function(){
 
 					xhr.send(formData);
 				},	
-						  
+
 			  content_css: [
 			    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
 			    '//www.tiny.cloud/css/codepen.min.css'
