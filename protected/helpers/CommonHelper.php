@@ -66,6 +66,7 @@ class CommonHelper {
 
 		//perform moving of upload files here
 		$result = move_uploaded_file($_FILES["file"]["tmp_name"], $destinationFilePath . "/" . $fileName);
+		// var_dump($destinationFilePath . "/" . $fileName);exit;
 		$response['result'] = $result;
 
 		//if upload file some how fail on the server end

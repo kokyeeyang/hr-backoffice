@@ -857,17 +857,16 @@ class RegistrationController extends Controller
 
 	public function actionUploadOfferLetterImages() {
 
-	  // var_dump($_FILES["file"]["name"]);exit;
 	  reset ($_FILES);
 	  //only one array
 	  $uploadedFile = current($_FILES);
 	  $publicDestinationFilePath = OfferLetterEnum::IMAGE_PATH;
 	  $destinationFilePath = getcwd() . $publicDestinationFilePath;
+	  // $destinationFilePath = $_SERVER['SERVER_NAME'] . $publicDestinationFilePath;
 
 	  // var_dump($destinationFilePath);exit;
 	  $allowedFileExtensions = CommonEnum::IMAGE_FILE_EXTENSIONS;
 	  $fileExtension = CommonHelper::getDocumentType($uploadedFile["name"]);
-
 
 		//perform upload file here
 		$uploadFileResponse = CommonHelper::moveDocumentToFileSystem($destinationFilePath, $uploadedFile["name"], $fileExtension, $allowedFileExtensions, false);
@@ -880,6 +879,6 @@ class RegistrationController extends Controller
 
 	  // Use a location key to specify the path to the saved image resource.
 	  // { location : '/your/uploaded/image/file'}
-	  echo json_encode(array('location' => $publicDestinationFilePath));
+	  echo json_encode(array('location' => $publicDestinationFilePath.'/'.$uploadedFile["name"]));
 	}
 }
