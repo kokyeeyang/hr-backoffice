@@ -857,15 +857,20 @@ class RegistrationController extends Controller
 
 	public function actionUploadOfferLetterImages() {
 
+	  // var_dump($_FILES["file"]["name"]);exit;
 	  reset ($_FILES);
+	  //only one array
 	  $uploadedFile = current($_FILES);
 	  $publicDestinationFilePath = OfferLetterEnum::IMAGE_PATH;
 	  $destinationFilePath = getcwd() . $publicDestinationFilePath;
+
+	  // var_dump($destinationFilePath);exit;
 	  $allowedFileExtensions = CommonEnum::IMAGE_FILE_EXTENSIONS;
-	  $fileExtension = CommonHelper::getDocumentType($uploadedFile['name']);
-		
+	  $fileExtension = CommonHelper::getDocumentType($uploadedFile["name"]);
+
+
 		//perform upload file here
-		$uploadFileResponse = CommonHelper::moveDocumentToFileSystem($destinationFilePath, $uploadedFile['name'], $fileExtension, $allowedFileExtensions, false);
+		$uploadFileResponse = CommonHelper::moveDocumentToFileSystem($destinationFilePath, $uploadedFile["name"], $fileExtension, $allowedFileExtensions, false);
 
 	  //check the upload file response if it fail
 		if ($uploadFileResponse['result'] == false) {

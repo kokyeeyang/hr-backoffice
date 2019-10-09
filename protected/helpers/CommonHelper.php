@@ -45,7 +45,7 @@ class CommonHelper {
 		}
 
 	  // Sanitize input, need to find out more about what this does
-		if (preg_match("/([^\w\s\d\-_~,;:\[\]\(\).])|([\.]{2,})/", $_FILES['name'])) {
+		if (preg_match("/([^\w\s\d\-_~,;:\[\]\(\).])|([\.]{2,})/", $_FILES["file"]["name"])) {
 			$response['errorType'] = CommonEnum::ERROR_TYPE_HEADER;
 			$response['errorMessage'] = "HTTP/1.1 400 Invalid file name.";
 	  }
@@ -65,7 +65,7 @@ class CommonHelper {
 		}
 
 		//perform moving of upload files here
-		$result = move_uploaded_file($_FILES["tmp_name"], $destinationFilePath . "/" . $fileName);
+		$result = move_uploaded_file($_FILES["file"]["tmp_name"], $destinationFilePath . "/" . $fileName);
 		$response['result'] = $result;
 
 		//if upload file some how fail on the server end
@@ -77,7 +77,7 @@ class CommonHelper {
 		return $response;
 	}
 
-	public static handleErrorOutput($response) {
+	public static function handleErrorOutput($response) {
 		//only process if the result in the response is false
 		if ($response['result'] == true) {
 			return true;
