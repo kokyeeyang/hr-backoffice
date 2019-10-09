@@ -51,7 +51,7 @@
 	  		</tr>
   		</div>
     	<table style="line-height: 32px;padding-left: 10px;font-size: 15px; margin-bottom:10px;">
-    		<textarea id="offerLetterTemplate" name="offer-letter-template">
+    		<textarea id="offerLetterTemplate" name="offerLetterTemplate">
 				</textarea>
 	    	<div id="department-dropdown" style="margin-top: 10px; margin-bottom: 10px;">
 	    		<?php foreach($departmentArr as $iKey => $departmentObj){ ?>

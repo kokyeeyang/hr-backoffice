@@ -35,26 +35,57 @@ var RegistrationViewSelectedOfferLetter = function(){
 
 			$('#copyOfferLetterButton').on('click', function(objEvent){
 				RegistrationViewSelectedOfferLetter.copy_offer_letter_template(this, objEvent);
-			});
+				});
 
 			tinymce.init({
 			  selector: 'textarea#offerLetterTemplate',
 			  content_style: 'textarea { margin: 50px; border: 5px solid red; padding: 3px; }',
 			  height: 500,
 			  menubar: "insert",
-	  		images_upload_url : 'uploadImage',
+	  		images_upload_url : 'uploadOfferLetterImages',
 				automatic_uploads : false,
 			  plugins: [
 			    'advlist autolink lists link image charmap print preview anchor save',
 			    'searchreplace visualblocks code fullscreen',
 			    'insertdatetime media table paste code help wordcount'
 			  ],
-			  toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | preview | ExportToDoc',
+			  toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | preview | ExportToDoc | image',
 		    paste_data_images: true,
 			  content_css: [
 			    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
 			    '//www.tiny.cloud/css/codepen.min.css'
-			  ]
+			  ],
+
+			  images_upload_handler: function (blobInfo, success, failure) {
+			    var xhr, formData;
+
+			    xhr = new XMLHttpRequest();
+			    xhr.withCredentials = false;
+			    xhr.open('POST', 'uploadOfferLetterImages');
+
+			    xhr.onload = function() {
+			      var json;
+
+			      if (xhr.status != 200) {
+			        failure('HTTP Error: ' + xhr.status);
+			        return;
+			      }
+
+			      json = JSON.parse(xhr.responseText);
+
+			      if (!json || typeof json.location != 'string') {
+			        failure('Invalid JSON: ' + xhr.responseText);
+			        return;
+			      }
+
+			      success(json.location);
+			    };
+
+			    formData = new FormData();
+			    formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+			    xhr.send(formData);
+			  }
 			});
 		});
 

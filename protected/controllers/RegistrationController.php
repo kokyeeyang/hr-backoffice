@@ -749,6 +749,7 @@ class RegistrationController extends Controller
 
 		$offerLetterObjModel->is_managerial = $this->getParam('offerLetterIsManagerial', '');
 		$offerLetterObjModel->offer_letter_content = $this->getParam('offerLetterTemplate', '');
+		var_dump($offerLetterObjModel->offer_letter_content);exit;
 		$offerLetterObjModel->created_by = $currentUserId; 
 		$offerLetterObjModel->save();
 
@@ -802,9 +803,30 @@ class RegistrationController extends Controller
 
 		$sanitizedOfferLetterTemplate = htmlspecialchars_decode($offerLetterTemplate["offer_letter_content"]);
 
+		// $start = '<img src="data:image/png;base64,/';
+		// $start = '<img src="data:image/png;base64,';
+		// $end = '/>';
+
+		$imageStream = EmploymentOfferLetterTemplates::model()->getBetween($offerLetterTemplate["offer_letter_content"], $start, $end);
+
+		var_dump($offerLetterTemplate["offer_letter_content"]);exit;
+
+		// $pattern = sprintf(
+		//     '/%s(.+?)%s/ims',
+		//     preg_quote($start, '/'), preg_quote($end, '/')
+		// );
+
+		// if (preg_match($pattern, $offerLetterTemplate["offer_letter_content"], $matches)) {
+		//     list(, $match) = $matches;
+		//     // var_dump($match);exit;
+		// }
+
 		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+    //set image scale factor
+    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+    $pdf->setJPEGQuality ( 90 );	
 
 		if(@file_exists(dirname(_FILE_).'/lang.eng.php')){
 			require_once(dirname(_FILE_).'/lang.eng.php');
@@ -813,6 +835,11 @@ class RegistrationController extends Controller
 
 		$pdf->SetFont('helvetica', '', 9);
 		$pdf->AddPage();
+
+		//image stream that needs to be base64 decoded
+		// $imgdata = base64_decode($imageStream);
+		// The '@' character is used to indicate that follows an image data stream and not an image file name
+		// $pdf->Image('@'.$imgdata);
 
 		$pdf->writeHTML($sanitizedOfferLetterTemplate, true, false, true, false);
 		$pdf->lastPage();
@@ -826,5 +853,28 @@ class RegistrationController extends Controller
 		} else {
 			$this->render('error', $error);
 		}
+	}
+
+	public function actionUploadOfferLetterImages() {
+
+	  reset ($_FILES);
+	  $uploadedFile = current($_FILES);
+	  $publicDestinationFilePath = OfferLetterEnum::IMAGE_PATH;
+	  $destinationFilePath = getcwd() . $publicDestinationFilePath;
+	  $allowedFileExtensions = CommonEnum::IMAGE_FILE_EXTENSIONS;
+	  $fileExtension = CommonHelper::getDocumentType($uploadedFile['name']);
+		
+		//perform upload file here
+		$uploadFileResponse = CommonHelper::moveDocumentToFileSystem($destinationFilePath, $uploadedFile['name'], $fileExtension, $allowedFileExtensions, false);
+
+	  //check the upload file response if it fail
+		if ($uploadFileResponse['result'] == false) {
+	  	// Notify editor that the upload failed
+	  	CommonHelper::handleErrorOutput($response);
+	  }
+
+	  // Use a location key to specify the path to the saved image resource.
+	  // { location : '/your/uploaded/image/file'}
+	  echo json_encode(array('location' => $publicDestinationFilePath));
 	}
 }

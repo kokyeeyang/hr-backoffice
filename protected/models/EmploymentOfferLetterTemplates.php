@@ -78,4 +78,14 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 			return 'No suitable offer letter has been found. Please create one first.';
 		}
 	}
+
+	public function getBetween($string, $start, $end){
+		// $string = " ".$string;
+		$ini = strpos($string,$start);
+		var_dump($string);exit;
+		if ($ini == 0) return "";
+		$ini += strlen($start);   
+		$len = strpos($string,$end,$ini) - $ini;
+		return substr($string,$ini,$len);
+	}
 }

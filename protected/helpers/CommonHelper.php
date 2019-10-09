@@ -22,28 +22,86 @@ class CommonHelper {
 		return $fileType;
 	}
 
-	public static function moveDocumentToFileSystem($documentName, $documentKind, $fileType){
-		if($_SERVER["REQUEST_METHOD"] == "POST"){
-			$allowed = array("pdf" => "pdf", "docx" => "docx", "doc" => "doc", "xml" => "xml");
-			if(isset($_FILES['resume']) && $_FILES["resume"]["error"] == 0 && isset($_FILES['coverLetter']) && $_FILES["coverLetter"]["error"] == 0 && isset($_FILES['offer-letter']) && $_FILES["offer-letter"]["error"] == 0){
-			// if($_FILES["resume"]["error"] == 0 && $_FILES["coverLetter"]["error"] == 0 && $_FILES["offer-letter"]["error"] == 0){
+	public static function moveDocumentToFileSystem($destinationFilePath, $fileName, $fileType, $allowedFileExtensions, $checkIfFileExist = false) {
 
-				if(!array_key_exists(strtolower($fileType), $allowed)){
-					die("Error: Please select a valid file format.");
-				}
-
-				if(in_array($fileType, $allowed)){
-					if(file_exists("document/". $documentKind . "/" . $documentName)){
-						echo $documentName . "already exists.";
-					} else {
-						move_uploaded_file($_FILES[$documentKind]["tmp_name"], getcwd() . "/documents/" . $documentKind . "/" . $documentName);
-					}
-				} else {
-						echo "Error: There was a problem uploading your file. Please try again."; 
-				}
+		$response['result'] = false;
+		/*
+		// Disable for now as not impelementing same origin checking
+		if (isset($_SERVER['HTTP_ORIGIN'])) {
+			// same-origin requests won't set an origin. If the origin is set, it must be valid.
+			if (in_array($_SERVER['HTTP_ORIGIN'], $accepted_origins)) {
+				header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
 			} else {
-				echo "Error: " . $_FILES[$documentKind]["error"];
+				header("HTTP/1.1 403 Origin Denied");
+	  		return;
+	  	}
+	  }
+		*/
+
+		//determines if the file is transfer to the server successfully
+		if (!isset($_FILES) && $_FILES["error"] != 0) {
+			$response['errorType'] = CommonEnum::ERROR_TYPE_MESSAGE;
+			$response['errorMessage'] = "Error: " . $_FILES["error"];
+		}
+
+	  // Sanitize input, need to find out more about what this does
+		if (preg_match("/([^\w\s\d\-_~,;:\[\]\(\).])|([\.]{2,})/", $_FILES['name'])) {
+			$response['errorType'] = CommonEnum::ERROR_TYPE_HEADER;
+			$response['errorMessage'] = "HTTP/1.1 400 Invalid file name.";
+	  }
+
+		//determine if the uploaded file is within the allowed file extension
+		if (!in_array($fileType, $allowedFileExtensions)) {
+			$response['errorType'] = CommonEnum::ERROR_TYPE_MESSAGE;
+			$response['errorMessage'] = "Error: Please select a valid file format.";
+		}
+
+		//only check file exist if required
+		if ($checkIfFileExist == true) {
+			if (file_exists($destinationFilePath . "/" . $fileName)) {
+				$response['errorType'] = CommonEnum::ERROR_TYPE_MESSAGE;
+				$response['errorMessage'] = $fileName . "already exists.";
+			}
+		}
+
+		//perform moving of upload files here
+		$result = move_uploaded_file($_FILES["tmp_name"], $destinationFilePath . "/" . $fileName);
+		$response['result'] = $result;
+
+		//if upload file some how fail on the server end
+		if ($result == false) {
+			$response['errorType'] = CommonEnum::ERROR_TYPE_HEADER;
+			$response['errorMessage'] = "HTTP/1.1 500 Server Error";
+		}
+
+		return $response;
+	}
+
+	public static handleErrorOutput($response) {
+		//only process if the result in the response is false
+		if ($response['result'] == true) {
+			return true;
+		}
+
+		//ensure the errorType is set
+		if (isset($response['errorType'])) {
+
+			//determine the way to output the error
+			switch ($response['errorType']) {
+
+				case CommonEnum::ERROR_TYPE_MESSAGE:
+					//temporary echo it only, but proper way should be setting it or returning it if applicable
+					echo $response['errorMessage'];
+					break;
+
+				case CommonEnum::ERROR_TYPE_HEADER:
+					//directly header out the error here
+					header($response['errorMessage']);
+					//temporary don't know whether it is best to die or not
+					//die();
+					break;
 			}
 		}
 	}
+
 }

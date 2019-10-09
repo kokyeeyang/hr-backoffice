@@ -14,6 +14,7 @@ return array(
 		'application.models.*',
 		'application.components.*',
 		'application.helpers.*',
+		'application.enum.*',
 		'ext.YiiMailer.YiiMailer',
 	),
 
