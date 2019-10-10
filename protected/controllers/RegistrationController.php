@@ -143,26 +143,30 @@ class RegistrationController extends Controller
 		$candidateObjModel->candidate_agree_terms = $this->getParam('agreeTerms','');
 		$candidateObjModel->candidate_signature_date = $this->getParam('signatureDate','');
 
-		$filePicType = $_FILES["pic"]["type"];
+		// if ($_FILES != ''){}
+			$resumePath = $_FILES["resume"]["name"];
+			$coverLetterPath = $_FILES["coverLetter"]["name"];
+			//to find out what type of document is this
+			$resumeFileType = CommonHelper::getDocumentType($resumePath);
+			$coverLetterFileType = CommonHelper::getDocumentType($coverLetterPath);
+			$candidateObjModel->candidate_resume = CommonHelper::setFileName($resumePath, $sanitizedIdNo, $resumeFileType, "resume");
+			$candidateObjModel->candidate_cover_letter = CommonHelper::setFileName($coverLetterPath, $sanitizedIdNo, $coverLetterFileType, "cover-letter");
+		// }
+			//need to concat with id also to prevent candidates with same names from clashing
+			$resumeName = $_FILES["resume"]["name"] . $sanitizedIdNo;
+			$resumeS3Folder = S3_RESUMES_FOLDER;
+			$allowedFileExtensions = CommonEnum::DOCUMENT_FILE_EXTENSIONS;
 
-		$fileType = substr($filePicType,6);
-
-		$resumePath = $_FILES["resume"]["name"];
-		$coverLetterPath = $_FILES["coverLetter"]["name"];
-
-		$resumeFileType = CommonHelper::getDocumentType($resumePath);
-		$coverLetterFileType = CommonHelper::getDocumentType($coverLetterPath);
-		$candidateObjModel->candidate_image = CommonHelper::setFileName($filePicType, $sanitizedIdNo, $fileType, "image");
-		$candidateObjModel->candidate_resume = CommonHelper::setFileName($resumePath, $sanitizedIdNo, $resumeFileType, "resume");
-		$candidateObjModel->candidate_cover_letter = CommonHelper::setFileName($coverLetterPath, $sanitizedIdNo, $coverLetterFileType, "cover-letter");
-
-		if($filePicType != false){
-			$movePhoto = EmploymentCandidate::model()->movePhotoToFileSystemOrS3($candidateObjModel->candidate_image);
+		// if($filePicType != false){
+		// 	$movePhoto = EmploymentCandidate::model()->movePhotoToFileSystemOrS3($candidateObjModel->candidate_image);
+		// }
+		if($resumePath != false){ 
+			// $moveResume = CommonHelper::moveDocumentToS3($candidateObjModel->candidate_resume, "resume", $resumeFileType);
+			$moveResume = CommonHelper::moveDocumentToS3($resumeName, $resumeS3Folder, $resumeFileType, $allowedFileExtensions, false);
 		}
 
-		if($resumePath != false && $coverLetterPath != false){
-			$moveResume = CommonHelper::moveDocumentToFileSystem($candidateObjModel->candidate_resume, "resume", $resumeFileType);
-			$moveCoverLetter = CommonHelper::moveDocumentToFileSystem($candidateObjModel->candidate_cover_letter, "coverLetter", $coverLetterFileType);
+		if($coverLetterPath != false){
+			$moveCoverLetter = CommonHelper::moveDocumentToS3($candidateObjModel->candidate_cover_letter, "coverLetter", $coverLetterFileType);
 		}
 		
 		$candidateObjModel->save();
@@ -417,7 +421,8 @@ class RegistrationController extends Controller
 		$generalQuestionArrRecords = EmploymentGeneralQuestion::model()->findAll($otherCondition);
 		$jobExperienceArrRecords = EmploymentJobExperience::model()->findAll($otherCondition);
 		$refereeArrRecords = EmploymentReferee::model()->findAll($otherCondition);	
-		$photoSource = EmploymentCandidate::model()->showPhoto($candidateId);
+		//no longer require candidate to upload image
+		// $photoSource = EmploymentCandidate::model()->showPhoto($candidateId);
 		$resumeSource = EmploymentCandidate::model()->showDocument($candidateId, "candidate_resume");
 
 		$coverLetterSource = EmploymentCandidate::model()->showDocument($candidateId, "candidate_cover_letter");
@@ -434,16 +439,17 @@ class RegistrationController extends Controller
 			$displayCoverLetterSection = 'none';
 		}
 
-		if($photoSource != false){
-			$displayPhotoSection = 'inline-grid';
-		} else {
-			$displayPhotoSection = 'none';
-		}
+		//commented for now because candidate photo is not required
+		// if($photoSource != false){
+		// 	$displayPhotoSection = 'inline-grid';
+		// } else {
+		// 	$displayPhotoSection = 'none';
+		// }
 
 		$currentAdminId = Yii::app()->user->id;
 		//this is to allow editing only for hr and admin
 		$access = Admin::model()->checkForAdminPrivilege($currentAdminId, 'registration');
-		$this->render('viewCandidateDetails', array('candidateArrRecords'=>$candidateArrRecords, 'educationArrRecords'=>$educationArrRecords, 'generalQuestionArrRecords'=>$generalQuestionArrRecords, 'jobExperienceArrRecords'=>$jobExperienceArrRecords, 'refereeArrRecords'=>$refereeArrRecords, 'interviewQuestionsArrRecords' => $interviewQuestionsArrRecords, 'candidateId' => $candidateId, 'access' => $access, 'photoSource'=>$photoSource, 'displayPhotoSection'=>$displayPhotoSection, 'displayCoverLetterSection'=>$displayCoverLetterSection, 'resumeSource'=>$resumeSource, 'coverLetterSource'=>$coverLetterSource, 'displayResumeSection'=>$displayResumeSection));
+		$this->render('viewCandidateDetails', array('candidateArrRecords'=>$candidateArrRecords, 'educationArrRecords'=>$educationArrRecords, 'generalQuestionArrRecords'=>$generalQuestionArrRecords, 'jobExperienceArrRecords'=>$jobExperienceArrRecords, 'refereeArrRecords'=>$refereeArrRecords, 'interviewQuestionsArrRecords' => $interviewQuestionsArrRecords, 'candidateId' => $candidateId, 'access' => $access, 'displayCoverLetterSection'=>$displayCoverLetterSection, 'resumeSource'=>$resumeSource, 'coverLetterSource'=>$coverLetterSource, 'displayResumeSection'=>$displayResumeSection));
 		
 	}
 
@@ -749,7 +755,6 @@ class RegistrationController extends Controller
 
 		$offerLetterObjModel->is_managerial = $this->getParam('offerLetterIsManagerial', '');
 		$offerLetterObjModel->offer_letter_content = $this->getParam('offerLetterTemplate', '');
-		var_dump($offerLetterObjModel->offer_letter_content);exit;
 		$offerLetterObjModel->created_by = $currentUserId; 
 		$offerLetterObjModel->save();
 
@@ -803,24 +808,6 @@ class RegistrationController extends Controller
 
 		$sanitizedOfferLetterTemplate = htmlspecialchars_decode($offerLetterTemplate["offer_letter_content"]);
 
-		// $start = '<img src="data:image/png;base64,/';
-		// $start = '<img src="data:image/png;base64,';
-		// $end = '/>';
-
-		$imageStream = EmploymentOfferLetterTemplates::model()->getBetween($offerLetterTemplate["offer_letter_content"], $start, $end);
-
-		var_dump($offerLetterTemplate["offer_letter_content"]);exit;
-
-		// $pattern = sprintf(
-		//     '/%s(.+?)%s/ims',
-		//     preg_quote($start, '/'), preg_quote($end, '/')
-		// );
-
-		// if (preg_match($pattern, $offerLetterTemplate["offer_letter_content"], $matches)) {
-		//     list(, $match) = $matches;
-		//     // var_dump($match);exit;
-		// }
-
 		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
@@ -861,20 +848,18 @@ class RegistrationController extends Controller
 	  //only one array
 	  $uploadedFile = current($_FILES);
 	  $publicDestinationFilePath = OfferLetterEnum::IMAGE_PATH;
-	  $destinationFilePath = getcwd() . $publicDestinationFilePath;
-	  // $destinationFilePath = $_SERVER['SERVER_NAME'] . $publicDestinationFilePath;
+	  // $destinationFilePath = getcwd() . $publicDestinationFilePath;
 
-	  // var_dump($destinationFilePath);exit;
 	  $allowedFileExtensions = CommonEnum::IMAGE_FILE_EXTENSIONS;
 	  $fileExtension = CommonHelper::getDocumentType($uploadedFile["name"]);
-
+	  $s3Folder = S3_OFFER_LETTER_IMAGES_FOLDER;
 		//perform upload file here
-		$uploadFileResponse = CommonHelper::moveDocumentToFileSystem($destinationFilePath, $uploadedFile["name"], $fileExtension, $allowedFileExtensions, false);
+		$uploadFileResponse = CommonHelper::moveDocumentToS3($uploadedFile["name"], $s3Folder, $fileExtension, $allowedFileExtensions, false);
 
 	  //check the upload file response if it fail
 		if ($uploadFileResponse['result'] == false) {
 	  	// Notify editor that the upload failed
-	  	CommonHelper::handleErrorOutput($response);
+	  	CommonHelper::handleErrorOutput($uploadFileResponse);
 	  }
 
 	  // Use a location key to specify the path to the saved image resource.

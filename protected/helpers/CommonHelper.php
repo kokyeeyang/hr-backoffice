@@ -1,16 +1,25 @@
 <?php 
 class CommonHelper {
 
+	const OFFER_LETTER_IMAGES = "";
+
 	public static function setFileName($inputParam, $sanitizedIdNo, $fileType, $documentType){
 		if($inputParam != ''){
-			if($documentType == "resume"){
-				return "CANDIDATE_" . "RESUME_". EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
-			} else if ($documentType == "cover-letter"){
-				return "CANDIDATE_" . "COVER_LETTER_". EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
-			} else if ($documentType == "offer-letter"){
-				return "OFFER_LETTER_FOR_". $sanitizedIdNo . "_" . date("Y-m-d") . "." . $fileType;
-			} else {
-				return "CANDIDATE_" . EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
+			switch ($documentType){
+				case "resume" :
+					return "CANDIDATE_" . "RESUME_". EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
+					break;
+				
+				case "cover-letter" :
+					return "CANDIDATE_" . "COVER_LETTER_". EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
+					break;				
+				// if($documentType == "resume"){
+				// 	return "CANDIDATE_" . "RESUME_". EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
+				// } else if ($documentType == "cover-letter"){
+				// 	return "CANDIDATE_" . "COVER_LETTER_". EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
+				// } else {
+				// 	return "CANDIDATE_" . EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
+				// }
 			}
 		} else {
 			return false;
@@ -22,11 +31,11 @@ class CommonHelper {
 		return $fileType;
 	}
 
-	public static function moveDocumentToFileSystem($destinationFilePath, $fileName, $fileType, $allowedFileExtensions, $checkIfFileExist = false) {
+	public static function moveDocumentToS3($fileName, $s3Folder, $fileType, $allowedFileExtensions, $checkIfFileExist = false) {
 
 		$response['result'] = false;
 		/*
-		// Disable for now as not impelementing same origin checking
+		// Disable for now as not implementing same origin checking
 		if (isset($_SERVER['HTTP_ORIGIN'])) {
 			// same-origin requests won't set an origin. If the origin is set, it must be valid.
 			if (in_array($_SERVER['HTTP_ORIGIN'], $accepted_origins)) {
@@ -38,7 +47,7 @@ class CommonHelper {
 	  }
 		*/
 
-		//determines if the file is transfer to the server successfully
+		//determines if the file is transferred to the server successfully
 		if (!isset($_FILES) && $_FILES["error"] != 0) {
 			$response['errorType'] = CommonEnum::ERROR_TYPE_MESSAGE;
 			$response['errorMessage'] = "Error: " . $_FILES["error"];
@@ -65,8 +74,7 @@ class CommonHelper {
 		}
 
 		//perform moving of upload files here
-		$result = move_uploaded_file($_FILES["file"]["tmp_name"], $destinationFilePath . "/" . $fileName);
-		// var_dump($destinationFilePath . "/" . $fileName);exit;
+		$result = S3Helper::putObject($s3Folder.'/'.$fileName, $_FILES["file"]["tmp_name"]);
 		$response['result'] = $result;
 
 		//if upload file some how fail on the server end
