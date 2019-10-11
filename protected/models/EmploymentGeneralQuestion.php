@@ -36,6 +36,7 @@ class EmploymentGeneralQuestion extends AppActiveRecord
 			'commencement_date' => Yii::t('app', 'commencement_date'),
 			'good_conduct_consent' => Yii::t('app', 'good_conduct_consent'),
 			'expected_salary' => Yii::t('app', 'expected_salary'),
+			'probationary_salary' => Yii::t('app', 'probationary_salary'),
 		];
 	}
 

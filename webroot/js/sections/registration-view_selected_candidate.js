@@ -31,7 +31,6 @@ var RegistrationViewSelectedCandidate = function() {
 	}
 
 	function _download_pdf(objElement, objEvent){
-		console.log("hello");
 		$('#candidateForm').attr('action', $('#downloadPdf').attr('data-download-url')).submit();
 	}
 

@@ -617,6 +617,7 @@ class RegistrationController extends Controller
 			$generalQuestionObjRecord->commencement_date = $this->getParam('commencementDate','');
 			$generalQuestionObjRecord->good_conduct_consent = $this->getParam('goodConductConsent','');
 			$generalQuestionObjRecord->expected_salary = $this->getParam('expectedSalary','');
+			$generalQuestionObjRecord->probationary_salary = $this->getParam('offerLetterProbationarySalary','');
 
 			$generalQuestionObjRecord->update();
 		}
@@ -805,12 +806,16 @@ class RegistrationController extends Controller
 		//to query what department the job belongs to
 		$department = EmploymentJobOpening::model()->queryForCandidateDepartment($jobId);
 
+		//we do the search and replacing of words here
+		//we need candidate id, address, candidate address, candidate position, superior, probationary salary, normal salary and also candidate name
+
 		//pick out the offer letter template based on $isManagerial and $department
 		$offerLetterTemplate = EmploymentOfferLetterTemplates::model()->queryForOfferLetterTemplate($isManagerial, $department);
 
 		$sanitizedOfferLetterTemplate = htmlspecialchars_decode($offerLetterTemplate["offer_letter_content"]);
 
 		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
 		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
     //set image scale factor
@@ -825,15 +830,13 @@ class RegistrationController extends Controller
 		$pdf->SetFont('helvetica', '', 9);
 		$pdf->AddPage();
 
-		//image stream that needs to be base64 decoded
-		// $imgdata = base64_decode($imageStream);
-		// The '@' character is used to indicate that follows an image data stream and not an image file name
-		// $pdf->Image('@'.$imgdata);
-
+		$pdf->Image('tests/images/tcpdf_signature.png', 180, 60, 15, 15, 'PNG');
 		$pdf->writeHTML($sanitizedOfferLetterTemplate, true, false, true, false);
 		$pdf->lastPage();
 
-		$pdf->Output($candidateName . ' offerletter.pdf', 'D');
+		//it is previewing pdf for now to speed up testing, will turn back to 'D' once done
+		// $pdf->Output($candidateName . ' offerletter.pdf', 'D');
+		$pdf->Output($candidateName . ' offerletter.pdf', 'I');
 	}
 
 	public function actionCopyOfferLetterTemplate(){
@@ -856,7 +859,7 @@ class RegistrationController extends Controller
 	  $fileExtension = CommonHelper::getDocumentType($uploadedFile["name"]);
 	  $s3Folder = S3_OFFER_LETTER_IMAGES_FOLDER;
 		//perform upload file here
-		$uploadFileResponse = CommonHelper::moveDocumentToS3($uploadedFile["name"], $s3Folder, $fileExtension, $allowedFileExtensions, false);
+		$uploadFileResponse = CommonHelper::moveDocumentToS3($uploadedFile["name"], $uploadedFile["tmp_name"], $s3Folder, $fileExtension, $allowedFileExtensions, false);
 
 	  //check the upload file response if it fail
 		if ($uploadFileResponse['result'] == false) {
