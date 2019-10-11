@@ -143,30 +143,30 @@ class RegistrationController extends Controller
 		$candidateObjModel->candidate_agree_terms = $this->getParam('agreeTerms','');
 		$candidateObjModel->candidate_signature_date = $this->getParam('signatureDate','');
 
-		// if ($_FILES != ''){}
-			$resumePath = $_FILES["resume"]["name"];
-			$coverLetterPath = $_FILES["coverLetter"]["name"];
-			//to find out what type of document is this
-			$resumeFileType = CommonHelper::getDocumentType($resumePath);
-			$coverLetterFileType = CommonHelper::getDocumentType($coverLetterPath);
-			$candidateObjModel->candidate_resume = CommonHelper::setFileName($resumePath, $sanitizedIdNo, $resumeFileType, "resume");
-			$candidateObjModel->candidate_cover_letter = CommonHelper::setFileName($coverLetterPath, $sanitizedIdNo, $coverLetterFileType, "cover-letter");
-		// }
-			//need to concat with id also to prevent candidates with same names from clashing
-			$resumeName = $_FILES["resume"]["name"] . $sanitizedIdNo;
-			$resumeS3Folder = S3_RESUMES_FOLDER;
-			$allowedFileExtensions = CommonEnum::DOCUMENT_FILE_EXTENSIONS;
+		$resumePath = $_FILES["resume"]["name"];
+		$coverLetterPath = $_FILES["coverLetter"]["name"];
+		//to find out what type of document is this
+		$resumeFileType = CommonHelper::getDocumentType($resumePath);
+		$coverLetterFileType = CommonHelper::getDocumentType($coverLetterPath);
+		$candidateObjModel->candidate_resume = CommonHelper::setFileName($resumePath, $sanitizedIdNo, $resumeFileType, "resume");
+		$candidateObjModel->candidate_cover_letter = CommonHelper::setFileName($coverLetterPath, $sanitizedIdNo, $coverLetterFileType, "cover-letter");
 
-		// if($filePicType != false){
-		// 	$movePhoto = EmploymentCandidate::model()->movePhotoToFileSystemOrS3($candidateObjModel->candidate_image);
-		// }
+		$resumeName = $candidateObjModel->candidate_resume;
+		$resumeTmpName = $_FILES["resume"]["tmp_name"];
+		$resumeS3Folder = S3_RESUMES_FOLDER;
+		//specifies the allowed formats for resumes and cover letters
+		$allowedFileExtensions = CommonEnum::DOCUMENT_FILE_EXTENSIONS;
+
 		if($resumePath != false){ 
-			// $moveResume = CommonHelper::moveDocumentToS3($candidateObjModel->candidate_resume, "resume", $resumeFileType);
-			$moveResume = CommonHelper::moveDocumentToS3($resumeName, $resumeS3Folder, $resumeFileType, $allowedFileExtensions, false);
+			$moveResume = CommonHelper::moveDocumentToS3($resumeName, $resumeTmpName, $resumeS3Folder, $resumeFileType, $allowedFileExtensions, false);
 		}
 
+		$coverLetterName = $candidateObjModel->candidate_cover_letter;
+		$coverLetterTmpName = $_FILES["coverLetter"]["tmp_name"];
+		$coverLetterS3Folder = S3_COVER_LETTERS_FOLDER;
+
 		if($coverLetterPath != false){
-			$moveCoverLetter = CommonHelper::moveDocumentToS3($candidateObjModel->candidate_cover_letter, "coverLetter", $coverLetterFileType);
+			$moveResume = CommonHelper::moveDocumentToS3($coverLetterName, $coverLetterTmpName, $coverLetterS3Folder, $coverLetterFileType, $allowedFileExtensions, false);
 		}
 		
 		$candidateObjModel->save();
@@ -268,7 +268,7 @@ class RegistrationController extends Controller
 		$generalQuestionObjModel->save();
 		//
 
-		$interviewQuestionObjModel = new EmploymentInterviewQuestions;
+		$interviewQuestionsObjModel = new EmploymentInterviewQuestions;
 		$interviewQuestionsObjModel->candidate_id = $sanitizedIdNo;
 		$interviewQuestionsObjModel->suitable_experience = null;
 		$interviewQuestionsObjModel->aspirations = null;
@@ -280,7 +280,7 @@ class RegistrationController extends Controller
 		$interviewQuestionsObjModel->notice_period = null;
 		$interviewQuestionsObjModel->interviewing_with_other_companies = null;
 		$interviewQuestionsObjModel->family_status = null;
-		$interviewQuestionsObjModel->modified_by = $currentUserId;
+		$interviewQuestionsObjModel->modified_by = null;
 
 		//delete token from database once candidate has submitted application
 		$tokenString = explode('token=', $queryString);
@@ -420,9 +420,11 @@ class RegistrationController extends Controller
 		$educationArrRecords = EmploymentEducation::model()->findAll($otherCondition);
 		$generalQuestionArrRecords = EmploymentGeneralQuestion::model()->findAll($otherCondition);
 		$jobExperienceArrRecords = EmploymentJobExperience::model()->findAll($otherCondition);
-		$refereeArrRecords = EmploymentReferee::model()->findAll($otherCondition);	
+		$refereeArrRecords = EmploymentReferee::model()->findAll($otherCondition);
+
 		//no longer require candidate to upload image
 		// $photoSource = EmploymentCandidate::model()->showPhoto($candidateId);
+
 		$resumeSource = EmploymentCandidate::model()->showDocument($candidateId, "candidate_resume");
 
 		$coverLetterSource = EmploymentCandidate::model()->showDocument($candidateId, "candidate_cover_letter");

@@ -13,13 +13,6 @@ class CommonHelper {
 				case "cover-letter" :
 					return "CANDIDATE_" . "COVER_LETTER_". EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
 					break;				
-				// if($documentType == "resume"){
-				// 	return "CANDIDATE_" . "RESUME_". EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
-				// } else if ($documentType == "cover-letter"){
-				// 	return "CANDIDATE_" . "COVER_LETTER_". EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
-				// } else {
-				// 	return "CANDIDATE_" . EmploymentCandidate::model()->encryptCandidateId($sanitizedIdNo) . "_" . date("Y-m-d") . "." . $fileType;
-				// }
 			}
 		} else {
 			return false;
@@ -31,7 +24,7 @@ class CommonHelper {
 		return $fileType;
 	}
 
-	public static function moveDocumentToS3($fileName, $s3Folder, $fileType, $allowedFileExtensions, $checkIfFileExist = false) {
+	public static function moveDocumentToS3($fileName, $fileTmpName, $s3Folder, $fileType, $allowedFileExtensions, $checkIfFileExist = false) {
 
 		$response['result'] = false;
 		/*
@@ -54,7 +47,7 @@ class CommonHelper {
 		}
 
 	  // Sanitize input, need to find out more about what this does
-		if (preg_match("/([^\w\s\d\-_~,;:\[\]\(\).])|([\.]{2,})/", $_FILES["file"]["name"])) {
+		if (preg_match("/([^\w\s\d\-_~,;:\[\]\(\).])|([\.]{2,})/", $fileName)) {
 			$response['errorType'] = CommonEnum::ERROR_TYPE_HEADER;
 			$response['errorMessage'] = "HTTP/1.1 400 Invalid file name.";
 	  }
@@ -74,7 +67,7 @@ class CommonHelper {
 		}
 
 		//perform moving of upload files here
-		$result = S3Helper::putObject($s3Folder.'/'.$fileName, $_FILES["file"]["tmp_name"]);
+		$result = S3Helper::putObject($s3Folder.'/'.$fileName, $fileTmpName);
 		$response['result'] = $result;
 
 		//if upload file some how fail on the server end

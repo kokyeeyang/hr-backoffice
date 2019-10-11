@@ -8,15 +8,23 @@ class EmploymentCandidate extends AppActiveRecord
 {
 	static $tableName = DB_TBL_PREFIX . 'employment_candidate';
 
-	const S3_ADDRESS = "https://hrbo-prd.s3-ap-southeast-1.amazonaws.com/hrbo-prd/production/";
+	// switch(ENV_MODE){
+	// 	case "dev":
 
-	const S3_HRBO_PRODUCTION = "hrbo-prd/production/";
+	// 	break;
+
+	// 	case "prod":
+	// 		const S3_ADDRESS = "https://hrbo-prd.s3-ap-southeast-1.amazonaws.com/hrbo-prd/production/";
+	// 		const S3_HRBO_PRODUCTION = "hrbo-prd/production/";
+	// 		break;
+	// }
+
 
 	const SERVER_DIRECTORY = "/images/candidate/";
 
-	const DOCUMENT_RESUME_DIRECTORY = "/documents/resume/";
+	// const DOCUMENT_RESUME_DIRECTORY = "/documents/resume/";
 
-	const DOCUMENT_COVERLETTER_DIRECTORY = "/documents/coverLetter/";
+	// const DOCUMENT_COVERLETTER_DIRECTORY = "/documents/coverLetter/";
 
 	public function tableName(){
 		return self::$tableName;
@@ -69,17 +77,19 @@ class EmploymentCandidate extends AppActiveRecord
 			EmploymentReferee::model()->deleteAll($otherCondition);
 
 			//if production mode, then delete image from s3, if dev then delete from server
-			$specificFileName = substr($fileName, 69);
-			if($fileName != false){
-				if(ENV_MODE == "prod"){	
-					$deleteImage = S3Helper::deleteObject(EmploymentCandidate::S3_HRBO_PRODUCTION . $specificFileName);
-				} else {
-					$deleteImage = unlink(getcwd() . $fileName);
-				}
-			}
+			//commented out because candidate is not required to submit photos during form submission
+			// $specificFileName = substr($fileName, 69);
+			// if($fileName != false){
+			// 	if(ENV_MODE == "prod"){	
+			// 		$deleteImage = S3Helper::deleteObject(EmploymentCandidate::S3_HRBO_PRODUCTION . $specificFileName);
+			// 	} else {
+			// 		$deleteImage = unlink(getcwd() . $fileName);
+			// 	}
+			// }
 		}
 	}
 
+	//not used for now because candidate is not required to submit photos
 	public function movePhotoToFileSystemOrS3($candidateImageName){
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
 			$allowed = array("JPG" => "image/jpg", "JPEG" => "image/jpeg", "GIF" => "image/gif", "PNG" => "image/png", "JPG" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
@@ -150,10 +160,10 @@ class EmploymentCandidate extends AppActiveRecord
 
 		if (!empty($arrData[$documentType])){
 			if($documentType == "candidate_resume"){
-				$documentSource = EmploymentCandidate::DOCUMENT_RESUME_DIRECTORY . $arrData[$documentType];
+				$documentSource = S3_RESUMES_FOLDER . $arrData[$documentType];
 				return $documentSource;
 			} else if ($documentType == "candidate_cover_letter"){
-				$documentSource = EmploymentCandidate::DOCUMENT_COVERLETTER_DIRECTORY . $arrData[$documentType];
+				$documentSource = S3_COVER_LETTERS_FOLDER . $arrData[$documentType];
 				return $documentSource;
 			}
 		}
@@ -166,7 +176,7 @@ class EmploymentCandidate extends AppActiveRecord
 		return $base64EncodedCandidateId;
 	}
 
-	public static function checkForCandidateInformation($candidateName){
+	public function checkForCandidateInformation($candidateName){
 		$sql = 'SELECT full_name, id_no, address, contact_no, email_address, date_of_birth, gender, marital_status, nationality ';
 		$sql .= 'FROM ' . 'employment_candidate ';
 		$sql .= 'WHERE ' . 'full_name = ' . '"' . $candidateName . '"';
@@ -212,22 +222,31 @@ class EmploymentCandidate extends AppActiveRecord
 		$arrData = $objCommand->queryRow();
 
 		foreach($arrData as $objData){
-			if($objData == "0"){
-				return "Interview stage";
-			} else if($objData == "1"){
-				return "Accepted";
-			} else if($objData == "2"){
-				return "Shortlisted";
-			} else if($objData == "3"){
-				return "No show";
-			} else if($objData == "4"){
-				return "Not suitable";
-			} else if($objData == "5"){
-				return "Rescheduled";
-			} else if($objData == "6"){
-				return "Offer letter signed";
-			} else if($objData == "7"){
-				return "Offer letter generated";
+			switch($objData){
+				case "0":
+					return "Interview stage";
+					break;
+				case "1":
+					return "Accepted";
+					break;
+				case "2":
+					return "Shortlisted";
+					break;
+				case "3":
+					return "No show";
+					break;
+				case "4":
+					return "Not suitable";
+					break;
+				case "5":
+					return "Rescheduled";
+					break;
+				case "6":
+					return "Offer letter signed";
+					break;
+				case "7":
+					return "Offer letter generated";
+					break;
 			}
 		}
 	}	
