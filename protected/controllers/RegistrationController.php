@@ -871,4 +871,17 @@ class RegistrationController extends Controller
 	  // { location : '/your/uploaded/image/file'}
 	  echo json_encode(array('location' => $publicDestinationFilePath.'/'.$uploadedFile["name"]));
 	}
+
+	public function actionSearchAndReplaceTermsInOfferLetter($candidateId, $jobId){
+		$candidateAddress = EmploymentCandidate::model()->queryForCandidateInformation($candidateId, EmploymentCandidateEnum::ADDRESS);
+		$candidateName = EmploymentCandidate::model()->queryForCandidateInformation($candidateId,EmploymentCandidateEnum::FULL_NAME);
+		$salaryArr = EmploymentmentGeneralQuestion::model()->queryForSalary($candidateId);	
+		$expectedSalary = $salaryArr['expected_salary'];
+		$probationarySalary = $salaryArr['probationary_salary'];
+		$candidatePosition = EmploymentJobOpening::model()->queryForCandidateJob($jobId);
+		$candidateSuperior = EmploymentJobOpening::model()->queryForCandidateInterviewingManager($jobId);
+
+		//this is where we start to search and replace the terms inside the offer letter template
+
+	}
 }

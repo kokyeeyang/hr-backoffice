@@ -30,7 +30,7 @@
 			); 
 		?>
 		<?php ?>
-		<h4 class="widget_title"><?php echo Yii::t('app', 'Onboarding Checklist Items for '); ?> <?php echo(EmploymentCandidate::model()->queryForCandidateName($id)) ?>
+		<h4 class="widget_title"><?php echo Yii::t('app', 'Onboarding Checklist Items for '); ?> <?php echo(EmploymentCandidate::model()->queryForCandidateInformation($id, EmploymentCandidateEnum::ADDRESS)) ?>
 		<!-- <input type="text" value="" placeholder="<?php // echo Yii::t('app', 'Filter results'); ?>" name="label_filter" id="label_filter" style="width:30%"/> -->
 		</h4> 
 		<table class="widget_table grid">

@@ -251,16 +251,17 @@ class EmploymentCandidate extends AppActiveRecord
 		}
 	}	
 
-	public function queryForCandidateName($id){
-		$sql = 'SELECT full_name ';
-		$sql .= 'FROM ' . 'employment_candidate ';
+	public function queryForCandidateInformation($id, $queryCondition){
+		// $sql = 'SELECT full_name ';
+		$sql = 'SELECT ' . $queryCondition;
+		$sql .= 'FROM ' . self::$tableName;
 		$sql .= 'WHERE ' . 'id_no = ' . '"' . $id . '"';
 
 		$objConnection 	= Yii::app()->db;
 		$objCommand		= $objConnection->createCommand($sql);
 		$arrData		= $objCommand->queryRow();
 
-		if (!empty($arrData['full_name'])){
+		if (!empty($arrData)){
 			return implode(" ", $arrData);
 		} else {
 			return false;

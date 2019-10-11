@@ -42,6 +42,10 @@ var RegistrationViewSelectedCandidate = function() {
 		$('#candidateForm').attr('action', $('#changeCandidateStatusToSigned').attr('data-signed-url')).submit();
 	}
 
+	function _search_and_replace_terms_in_offer_letter(objElement, objEvent){
+		$('#candidateForm').attr('action', $('#searchAndReplaceTermsInOfferLetter').attr('data-search-replace-url')).submit();
+	}
+
 	function _init() {
 		$(function() {
 			var otherInputLine = document.getElementById("otherInputLine");
@@ -287,9 +291,11 @@ var RegistrationViewSelectedCandidate = function() {
 				if(confirm($('#msg-confirm-offer-email').attr('data-msg')) && $("input[name=sendEmailCheckbox]:checked").val()=="1"){
 					RegistrationViewSelectedCandidate.generate_offer_email(this, objEvent);
 					RegistrationViewSelectedCandidate.download_pdf(this, objEvent);
+					RegistrationViewSelectedCandidate.search_and_replace_terms_in_offer_letter();
 				} else if (confirm($('#msg-confirm-offer-email').attr('data-msg')) && $("input[name=sendEmailCheckbox]:checked").val()===undefined) {
 					RegistrationViewSelectedCandidate.change_candidate_status_to_signed(this, objEvent);
 					RegistrationViewSelectedCandidate.download_pdf(this, objEvent);
+					RegistrationViewSelectedCandidate.search_and_replace_terms_in_offer_letter();
 				}
 			});
 		});
