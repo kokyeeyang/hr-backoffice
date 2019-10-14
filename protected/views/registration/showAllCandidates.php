@@ -119,7 +119,8 @@
 						</td>
 						<td>
 							<select name="positionDropdown" size=1 class="changeCandidatePosition" data-change-url="<?php echo $this->createUrl('registration/changeCandidatePosition', array('candidateId' => $objRecord->id_no)); ?>" title="Select here if you would like to change this candidate's applied for job">
-								 <option value="<?php echo($objRecord->job_id); ?>" selected disabled hidden><?php echo EmploymentJobOpening::model()->queryForCandidateJob($objRecord->job_id); ?></option>
+								 <!-- <option value="<?php //echo($objRecord->job_id); ?>" selected disabled hidden><?php //echo EmploymentJobOpening::model()->queryForCandidateJob($objRecord->job_id); ?></option> -->
+								 <option value="<?php echo($objRecord->job_id); ?>" selected disabled hidden><?php echo EmploymentJobOpening::model()->queryForCandidateInformation($objRecord->job_id, EmploymentJobOpeningEnum::CANDIDATE_JOB, EmploymentJobOpeningEnum::ID); ?></option>
 								<?php foreach($jobTitleArrRecords as $intIndex => $jobTitleObjRecord){ ?>
 									<option value="<?php echo($jobTitleObjRecord['id']); ?>"><?php echo $jobTitleObjRecord['job_title']; ?></option>
 								<?php }?>
@@ -127,11 +128,11 @@
 						</td>
 						<td>
 							<?php //echo EmploymentJobOpening::model()->queryForCandidateDepartment($objRecord->job_id); ?>
-							<?php echo EmploymentJobOpening::model()->queryForCandidateInformation($objRecord->job_id, EmploymentJobOpeningEnum::DEPARTMENT); ?>
+							<?php echo EmploymentJobOpening::model()->queryForCandidateInformation($objRecord->job_id, EmploymentJobOpeningEnum::DEPARTMENT, EmploymentJobOpeningEnum::ID); ?>
 						</td>
 						<td>
 							<?php //echo EmploymentJobOpening::model()->queryForCandidateInterviewingManager($objRecord->job_id); ?>
-							<?php echo EmploymentJobOpening::model()->queryForCandidateInformation($objRecord->job_id, EmploymentJobOpeningEnum::INTERVIEWING_MANAGER); ?>
+							<?php echo EmploymentJobOpening::model()->queryForCandidateInformation($objRecord->job_id, EmploymentJobOpeningEnum::INTERVIEWING_MANAGER, EmploymentJobOpeningEnum::ID); ?>
 						</td>
 						<td>
 							<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $objRecord->id_no ?>">

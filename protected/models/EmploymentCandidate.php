@@ -64,6 +64,10 @@ class EmploymentCandidate extends AppActiveRecord
 		);
 	}
 
+	public static function model($className=__CLASS__){
+		return parent::model($className);
+	}
+
 	public function deleteSelectedCandidate($candidateIds){
 		foreach($candidateIds as $candidateId){
 			$candidateCondition = 'id_no = "' . $candidateId . '"';
@@ -127,28 +131,6 @@ class EmploymentCandidate extends AppActiveRecord
 		}
 	}
 
-	public function showPhoto($candidateId){
-		$sql = 'SELECT ' . 'candidate_image ';
-		$sql .= 'FROM ' . 'employment_candidate ';
-		$sql .= 'WHERE ' . 'id_no = "' . $candidateId . '"';
-
-		$objConnection 	= Yii::app()->db;
-		$objCommand		= $objConnection->createCommand($sql);
-		$arrData		= $objCommand->queryRow(); 
-
-		if (!empty($arrData['candidate_image'])){
-			if(ENV_MODE == "dev"){
-				$photoSource = EmploymentCandidate::SERVER_DIRECTORY . $arrData['candidate_image'];
-				return $photoSource;
-			} else {
-				$photoSource = EmploymentCandidate::S3_ADDRESS . $arrData['candidate_image'];
-				return $photoSource;
-			}	
-		} else {
-			return false;
-		}
-	}
-
 	public function showDocument($candidateId, $documentType){
 		$sql = 'SELECT ' . $documentType;
 		$sql .= ' FROM ' . 'employment_candidate ';
@@ -192,23 +174,41 @@ class EmploymentCandidate extends AppActiveRecord
 		}
 	}
 
-	public function queryForCandidateJobId($candidateName){
-		$sql = 'SELECT job_id 
+	// public function queryForCandidateJobId($candidateName){
+	// 	$sql = 'SELECT job_id 
 		
-						FROM ' . self::$tableName . '
+	// 					FROM ' . self::$tableName . '
 
-						WHERE full_name = ' . '"' . $candidateName . '"';
+	// 					WHERE full_name = ' . '"' . $candidateName . '"';
 
-		$objConnection = Yii::app()->db;
-		$objCommand = $objConnection->createCommand($sql);
-		$arrData = $objCommand->queryRow();
+	// 	$objConnection = Yii::app()->db;
+	// 	$objCommand = $objConnection->createCommand($sql);
+	// 	$arrData = $objCommand->queryRow();
 
-		if (!empty($arrData['job_id'])){
-			foreach($arrData as $objData){
-				return $objData;
-			}
-		}
-	}
+	// 	if (!empty($arrData['job_id'])){
+	// 		foreach($arrData as $objData){
+	// 			return $objData;
+	// 		}
+	// 	}
+	// }
+
+	// public function queryForCandidateEmail($candidateName){
+	// 	$sql = 'SELECT email_address 
+		
+	// 					FROM ' . self::$tableName . '
+
+	// 					WHERE full_name = ' . '"' . $candidateName . '"';
+
+	// 	$objConnection = Yii::app()->db;
+	// 	$objCommand = $objConnection->createCommand($sql);
+	// 	$arrData = $objCommand->queryRow();
+
+	// 	if (!empty($arrData['email_address'])){
+	// 		foreach($arrData as $objData){
+	// 			return $objData;
+	// 		}
+	// 	}
+	// }
 
 	public function queryForCandidateStatus($candidateId){
 		$sql = 'SELECT candidate_status
@@ -251,43 +251,22 @@ class EmploymentCandidate extends AppActiveRecord
 		}
 	}	
 
-	public function queryForCandidateInformation($id, $queryCondition){
-		// $sql = 'SELECT full_name ';
-		$sql = 'SELECT ' . $queryCondition;
+	// public function queryForCandidateInformation($queryString, $queryResult, $columnName){
+	public function queryForCandidateInformation($queryString, $queryResult, $columnName){
+		$sql = 'SELECT ' . $queryResult;
 		$sql .= 'FROM ' . self::$tableName;
-		$sql .= 'WHERE ' . 'id_no = ' . '"' . $id . '"';
+		//id_no or full_name
+		$sql .= 'WHERE ' . $columnName . '"' . $queryString . '"';
 
 		$objConnection 	= Yii::app()->db;
 		$objCommand		= $objConnection->createCommand($sql);
 		$arrData		= $objCommand->queryRow();
 
 		if (!empty($arrData)){
-			return implode(" ", $arrData);
+			return $arrData[$queryResult];
 		} else {
 			return false;
 		}
-	}
-
-	public function queryForCandidateEmail($candidateName){
-		$sql = 'SELECT email_address 
-		
-						FROM ' . self::$tableName . '
-
-						WHERE full_name = ' . '"' . $candidateName . '"';
-
-		$objConnection = Yii::app()->db;
-		$objCommand = $objConnection->createCommand($sql);
-		$arrData = $objCommand->queryRow();
-
-		if (!empty($arrData['email_address'])){
-			foreach($arrData as $objData){
-				return $objData;
-			}
-		}
-	}
-
-	public static function model($className=__CLASS__){
-		return parent::model($className);
 	}
 
 }

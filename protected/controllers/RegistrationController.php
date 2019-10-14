@@ -368,9 +368,12 @@ class RegistrationController extends Controller
 
 	public function actionGenerateOfferEmail($jobId, $candidateName, $candidateId){
 		$aResult['candidateName'] = false;
-		$managerName = EmploymentJobOpening::model()->queryForCandidateInterviewingManager($jobId);
-		$jobTitle = EmploymentJobOpening::model()->queryForCandidateJobTitle($jobId);
-		$candidateEmail = EmploymentCandidate::model()->queryForCandidateEmail($candidateName);
+		// $managerName = EmploymentJobOpening::model()->queryForCandidateInterviewingManager($jobId);
+		// $jobTitle = EmploymentJobOpening::model()->queryForCandidateJobTitle($jobId);
+		$managerName = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::INTERVIEWING_MANAGER, EmploymentJobOpeningEnum::ID);
+		$jobTitle = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::CANDIDATE_JOB, EmploymentJobOpeningEnum::ID);
+		// $candidateEmail = EmploymentCandidate::model()->queryForCandidateEmail($candidateName);
+		$candidateEmail = EmploymentCandidate::model()->queryForCandidateInformation($candidateName, EmploymentJobOpeningEnum::EMAIL_ADDRESS, EmploymentCandidateEnum::FULL_NAME);
 
 		$candidateStatus = 7;
 		$candidateCondition = 'id_no = "' . $candidateId . '"';
@@ -805,7 +808,8 @@ class RegistrationController extends Controller
 		}
 
 		//to query what department the job belongs to
-		$department = EmploymentJobOpening::model()->queryForCandidateDepartment($jobId);
+		// $department = EmploymentJobOpening::model()->queryForCandidateDepartment($jobId);
+		$department = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::DEPARTMENT, EmploymentJobOpeningEnum::);
 
 		//we do the search and replacing of words here
 		//we need candidate id, address, candidate address, candidate position, superior, probationary salary, normal salary and also candidate name
@@ -877,8 +881,8 @@ class RegistrationController extends Controller
 
 		//query for the candidate's information inside database
 
-		$candidateAddress = EmploymentCandidate::model()->queryForCandidateInformation($candidateId, EmploymentCandidateEnum::ADDRESS);
-		$candidateName = EmploymentCandidate::model()->queryForCandidateInformation($candidateId,EmploymentCandidateEnum::FULL_NAME);
+		$candidateAddress = EmploymentCandidate::model()->queryForCandidateInformation($candidateId, EmploymentCandidateEnum::ADDRESS, EmploymentCandidateEnum::ID);
+		$candidateName = EmploymentCandidate::model()->queryForCandidateInformation($candidateId,EmploymentCandidateEnum::FULL_NAME, EmploymentCandidateEnum::ID);
 		$salaryArr = EmploymentmentGeneralQuestion::model()->queryForSalary($candidateId);	
 		$expectedSalary = $salaryArr['expected_salary'];
 		$probationarySalary = $salaryArr['probationary_salary'];
@@ -888,10 +892,12 @@ class RegistrationController extends Controller
 		// $isManagerial = EmploymentJobOpening::model()->queryForIsManagerial($jobId);
 		// $department = EmploymentJobOpening::model()->queryForCandidateDepartment($jobId);
 
-		$candidatePosition = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::CANDIDATE_JOB);
-		$candidateSuperior = EmploymentJobOpening::model()->queryForCandidateInterviewingManager($jobId);
-		$isManagerial = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::IS_MANAGERIAL_POSITION);
-		$department = EmploymentJobOpening::model()->queryForCandidateDepartment($jobId);
+		$candidatePosition = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::CANDIDATE_JOB, EmploymentJobOpeningEnum::ID);
+		// $candidateSuperior = EmploymentJobOpening::model()->queryForCandidateInterviewingManager($jobId);
+		$candidateSuperior = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::INTERVIEWING_MANAGER, EmploymentJobOpeningEnum::ID);
+		$isManagerial = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::IS_MANAGERIAL_POSITION, EmploymentJobOpeningEnum::ID);
+		// $department = EmploymentJobOpening::model()->queryForCandidateDepartment($jobId);
+		$department = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::DEPARTMENT, EmploymentJobOpeningEnum::ID);
 
 		//look for thre
 		//this is where we start to search and replace the terms inside the offer letter template

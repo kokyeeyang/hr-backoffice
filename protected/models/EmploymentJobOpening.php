@@ -72,24 +72,21 @@ class EmploymentJobOpening extends AppActiveRecord
 		}	
 	}
 
-	public function queryForCandidateInterviewingManager($jobId){
-		$sql = 'SELECT interviewing_manager 
+	// public function queryForCandidateInterviewingManager($jobId){
+	// 	$sql = 'SELECT interviewing_manager 
 
-						FROM ' . self::$tableName . '
+	// 					FROM ' . self::$tableName . '
 						
-						WHERE id = ' . $jobId;
+	// 					WHERE id = ' . $jobId;
 
-		$objConnection = Yii::app()->db;
-		$objCommand = $objConnection->createCommand($sql);
-		$arrData = $objCommand->queryRow();
+	// 	$objConnection = Yii::app()->db;
+	// 	$objCommand = $objConnection->createCommand($sql);
+	// 	$arrData = $objCommand->queryRow();
 
-		if (!empty($arrData['interviewing_manager'])){
-			// foreach($arrData as $objData){
-			// 	return $objData;
-			// }
-			return $arrData['interviewing_manager'];
-		}
-	}
+	// 	if (!empty($arrData['interviewing_manager'])){
+	// 		return $arrData['interviewing_manager'];
+	// 	}
+	// }
 
 	public function queryForCandidateDepartment($jobId){
 		$sql = 'SELECT department 
@@ -125,25 +122,21 @@ class EmploymentJobOpening extends AppActiveRecord
 		return parent::model($className);
 	}
 
-	public function queryForCandidateInformation($jobId, $queryString){
-		$sql = 'SELECT ' . $queryString . '
+	public function queryForCandidateInformation($queryString, $queryResult, $columnName){
+		$sql = 'SELECT ' . $queryResult . '
 
 						FROM ' . self::$tableName . '
 						
-						WHERE id = ' . $jobId;
+						WHERE ' . $columnName . ' = ' . $queryString;
 
 		$objConnection = Yii::app()->db;
 		$objCommand = $objConnection->createCommand($sql);
 		$arrData = $objCommand->queryRow();
 
 		if (!empty($arrData)){
-			foreach($arrData as $objData){
-				return $objData[$queryString];
-			}
+			return $arrData[$queryResult];
 		}
 	}		
-
-
 
 	public function queryForIsManagerial($jobId){
 		$sql = 'SELECT is_managerial_position

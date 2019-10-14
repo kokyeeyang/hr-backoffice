@@ -770,7 +770,8 @@
               <span><?php  echo Yii::t('app', 'Role'); ?>:</span><br>
             </div>
             <div class="lables2">
-              <input type="text" name="offerLetterRole" value="<?php echo EmploymentJobOpening::model()->queryForCandidateJob($candidateObjRecord->job_id); ?>" disabled>
+              <!-- <input type="text" name="offerLetterRole" value="<?php //echo EmploymentJobOpening::model()->queryForCandidateJob($candidateObjRecord->job_id); ?>" disabled> -->
+              <input type="text" name="offerLetterRole" value="<?php echo EmploymentJobOpening::model()->queryForCandidateInformation($candidateObjRecord->job_id, EmploymentJobOpeningEnum::CANDIDATE_JOB, EmploymentJobOpeningEnum::ID); ?>" disabled>
             </div>
           </div>
           <?php } ?>
