@@ -4,8 +4,8 @@ var RegistrationViewSelectedCandidate = function() {
 			$.ajax({
 				type: 'post',
 				url: $(objElement).attr('data-offer-url'),
-				data: {},
-
+				data: {
+				},
 				dataType: 'json',
 				success: function(data){
 					if(data != null && (typeof data.candidateName) != 'undefined'){
@@ -20,7 +20,9 @@ var RegistrationViewSelectedCandidate = function() {
 						RegistrationViewSelectedCandidate.change_candidate_status(objElement, objEvent);
 
 					} else {
+						console.log(data);
 						alert('there is an error when generating the email.');
+						return false;
 					}
 				},
 				error: function(request, status, err){
@@ -40,10 +42,6 @@ var RegistrationViewSelectedCandidate = function() {
 
 	function _change_candidate_status_to_signed(objElement, objEvent){
 		$('#candidateForm').attr('action', $('#changeCandidateStatusToSigned').attr('data-signed-url')).submit();
-	}
-
-	function _search_and_replace_terms_in_offer_letter(objElement, objEvent){
-		$('#candidateForm').attr('action', $('#searchAndReplaceTermsInOfferLetter').attr('data-search-replace-url')).submit();
 	}
 
 	function _init() {
@@ -291,11 +289,9 @@ var RegistrationViewSelectedCandidate = function() {
 				if(confirm($('#msg-confirm-offer-email').attr('data-msg')) && $("input[name=sendEmailCheckbox]:checked").val()=="1"){
 					RegistrationViewSelectedCandidate.generate_offer_email(this, objEvent);
 					RegistrationViewSelectedCandidate.download_pdf(this, objEvent);
-					RegistrationViewSelectedCandidate.search_and_replace_terms_in_offer_letter();
 				} else if (confirm($('#msg-confirm-offer-email').attr('data-msg')) && $("input[name=sendEmailCheckbox]:checked").val()===undefined) {
 					RegistrationViewSelectedCandidate.change_candidate_status_to_signed(this, objEvent);
 					RegistrationViewSelectedCandidate.download_pdf(this, objEvent);
-					RegistrationViewSelectedCandidate.search_and_replace_terms_in_offer_letter();
 				}
 			});
 		});

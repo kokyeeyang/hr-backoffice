@@ -368,12 +368,9 @@ class RegistrationController extends Controller
 
 	public function actionGenerateOfferEmail($jobId, $candidateName, $candidateId){
 		$aResult['candidateName'] = false;
-		// $managerName = EmploymentJobOpening::model()->queryForCandidateInterviewingManager($jobId);
-		// $jobTitle = EmploymentJobOpening::model()->queryForCandidateJobTitle($jobId);
 		$managerName = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::INTERVIEWING_MANAGER, EmploymentJobOpeningEnum::ID);
 		$jobTitle = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::CANDIDATE_JOB, EmploymentJobOpeningEnum::ID);
-		// $candidateEmail = EmploymentCandidate::model()->queryForCandidateEmail($candidateName);
-		$candidateEmail = EmploymentCandidate::model()->queryForCandidateInformation($candidateName, EmploymentJobOpeningEnum::EMAIL_ADDRESS, EmploymentCandidateEnum::FULL_NAME);
+		$candidateEmail = EmploymentCandidate::model()->queryForCandidateInformation($candidateName, EmploymentCandidateEnum::EMAIL_ADDRESS, EmploymentCandidateEnum::FULL_NAME);
 
 		$candidateStatus = 7;
 		$candidateCondition = 'id_no = "' . $candidateId . '"';
@@ -800,8 +797,7 @@ class RegistrationController extends Controller
 
 	public function actionDownloadPdf($jobId, $candidateName, $candidateId){
 		//to query whether the job candidate is applying for is managerial or not
-		// $isManagerial = EmploymentJobOpening::model()->queryForIsManagerial($jobId);
-		$isManagerial = EmploymentJobOpening::model()->queryForIsManagerial($jobId, EmploymentJobOpeningEnum::IS_MANAGERIAL_POSITION);
+		$isManagerial = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::IS_MANAGERIAL_POSITION, EmploymentJobOpeningEnum::ID);
 
 		if ($isManagerial == null){
 			$isManagerial = "0";
@@ -809,7 +805,7 @@ class RegistrationController extends Controller
 
 		//to query what department the job belongs to
 		// $department = EmploymentJobOpening::model()->queryForCandidateDepartment($jobId);
-		$department = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::DEPARTMENT, EmploymentJobOpeningEnum::);
+		$department = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::DEPARTMENT, EmploymentJobOpeningEnum::ID);
 
 		//we do the search and replacing of words here
 		//we need candidate id, address, candidate address, candidate position, superior, probationary salary, normal salary and also candidate name
@@ -817,7 +813,10 @@ class RegistrationController extends Controller
 		//pick out the offer letter template based on $isManagerial and $department
 		$offerLetterTemplate = EmploymentOfferLetterTemplates::model()->queryForOfferLetterTemplate($isManagerial, $department);
 
-		$sanitizedOfferLetterTemplate = htmlspecialchars_decode($offerLetterTemplate["offer_letter_content"]);
+		// $sanitizedOfferLetterTemplate = htmlspecialchars_decode($offerLetterTemplate["offer_letter_content"]);
+
+		$finalOfferLetter = EmploymentOfferLetterTemplates::model()->searchAndReplaceOfferLetterTerms($candidateId, $jobId, $offerLetterTemplate);
+		$decodedFinalOfferLetter = htmlspecialchars_decode($finalOfferLetter["offer_letter_content"]);
 
 		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
@@ -836,7 +835,8 @@ class RegistrationController extends Controller
 		$pdf->AddPage();
 
 		$pdf->Image('tests/images/tcpdf_signature.png', 180, 60, 15, 15, 'PNG');
-		$pdf->writeHTML($sanitizedOfferLetterTemplate, true, false, true, false);
+		//insert offer letter template
+		$pdf->writeHTML($decodedFinalOfferLetter, true, false, true, false);
 		$pdf->lastPage();
 
 		//it is previewing pdf for now to speed up testing, will turn back to 'D' once done
@@ -877,30 +877,14 @@ class RegistrationController extends Controller
 	  echo json_encode(array('location' => $publicDestinationFilePath.'/'.$uploadedFile["name"]));
 	}
 
-	public function actionSearchAndReplaceTermsInOfferLetter($candidateId, $jobId){
+	public function actionDeleteSelectedOfferLetters(){
+		$offerLetterIds = $this->getParam('deleteCheckBox', '');
 
-		//query for the candidate's information inside database
-
-		$candidateAddress = EmploymentCandidate::model()->queryForCandidateInformation($candidateId, EmploymentCandidateEnum::ADDRESS, EmploymentCandidateEnum::ID);
-		$candidateName = EmploymentCandidate::model()->queryForCandidateInformation($candidateId,EmploymentCandidateEnum::FULL_NAME, EmploymentCandidateEnum::ID);
-		$salaryArr = EmploymentmentGeneralQuestion::model()->queryForSalary($candidateId);	
-		$expectedSalary = $salaryArr['expected_salary'];
-		$probationarySalary = $salaryArr['probationary_salary'];
-
-		// $candidatePosition = EmploymentJobOpening::model()->queryForCandidateJob($jobId);
-		// $candidateSuperior = EmploymentJobOpening::model()->queryForCandidateInterviewingManager($jobId);
-		// $isManagerial = EmploymentJobOpening::model()->queryForIsManagerial($jobId);
-		// $department = EmploymentJobOpening::model()->queryForCandidateDepartment($jobId);
-
-		$candidatePosition = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::CANDIDATE_JOB, EmploymentJobOpeningEnum::ID);
-		// $candidateSuperior = EmploymentJobOpening::model()->queryForCandidateInterviewingManager($jobId);
-		$candidateSuperior = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::INTERVIEWING_MANAGER, EmploymentJobOpeningEnum::ID);
-		$isManagerial = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::IS_MANAGERIAL_POSITION, EmploymentJobOpeningEnum::ID);
-		// $department = EmploymentJobOpening::model()->queryForCandidateDepartment($jobId);
-		$department = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::DEPARTMENT, EmploymentJobOpeningEnum::ID);
-
-		//look for thre
-		//this is where we start to search and replace the terms inside the offer letter template
-
+		if ($offerLetterIds != ''){
+			$deleteJobOpening = EmploymentOfferLetterTemplates::model()->deleteSelectedOfferLetterTemplates($jobOpeningIds);
+		} else {
+			echo "No offer letter template is found with this id";
+			$this->redirect("showOfferLetterTemplates");
+		}
 	}
-}
+}	

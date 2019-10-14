@@ -164,10 +164,10 @@
 </div>
 
 <div id="registration-common-msg">
-	<div id="msg-select-registration-delete" data-msg="<?php echo Yii::t('app', 'Please select a candidate that you would like to delete'); ?>"><!-- Dialog Buttons Label --></div>
+	<div id="msg-select-offerletter-delete" data-msg="<?php echo Yii::t('app', 'Please select a candidate that you would like to delete'); ?>"><!-- Dialog Buttons Label --></div>
 </div>
 <div id="registration-common-msg">
-	<div id="msg-confirm-registration-delete" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to delete the selected candidates?'); ?>"><!-- Dialog Buttons Label --></div>
+	<div id="msg-confirm-offerletter-delete" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to delete the selected candidates?'); ?>"><!-- Dialog Buttons Label --></div>
 </div>
 <div id="registration-common-msg">
 	<div id="msg-confirm-candidate" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to change this candidate\'s status?'); ?>"><!-- Dialog Buttons Label --></div>

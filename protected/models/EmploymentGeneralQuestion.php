@@ -53,14 +53,14 @@ class EmploymentGeneralQuestion extends AppActiveRecord
 
 	public function queryForSalary($candidateId){
 		$sql = 'SELECT expected_salary, probationary_salary';
-		$sql .= 'FROM ' . self::$tableName;
-		$sql .= 'WHERE ' . 'candidate_id = ' . '"' . $candidateId . '"';
+		$sql .= ' FROM ' . self::$tableName;
+		$sql .= ' WHERE ' . 'candidate_id = ' . '"' . $candidateId . '"';
 
 		$objConnection 	= Yii::app()->db;
 		$objCommand		= $objConnection->createCommand($sql);
 		$arrData		= $objCommand->queryRow();
 
-		if (!empty($arrData['expected_salary, probationary_salary'])){
+		if (!empty($arrData)){
 			return $arrData;
 		} else {
 			return false;

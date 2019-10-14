@@ -23,8 +23,7 @@ class EmploymentJobOpening extends AppActiveRecord
 			'job_title' => Yii::t('app', 'job_title'),
 			'department' => Yii::t('app', 'department'),
 			'interview_manager' => Yii::t('app', 'interview_manager'),
-			'is_managerial_position' => Yii::t('app', 'is_managerial_position'),
-			'link' => Yii::t('app', 'link')
+			'is_managerial_position' => Yii::t('app', 'is_managerial_position')
 		];
 	}
 
@@ -35,26 +34,14 @@ class EmploymentJobOpening extends AppActiveRecord
 		);
 	}
 
+	public static function model($className=__CLASS__){
+		return parent::model($className);
+	}
+
 	public function deleteSelectedJobOpening($jobOpeningIds){
 		foreach($jobOpeningIds as $jobOpeningId){
 			$condition = 'id = ' . $jobOpeningId;
 			EmploymentJobOpening::model()->deleteAll($condition);
-		}
-	}
-
-	public function queryForCandidateJob($jobId){
-		$sql = 'SELECT job_title 
-
-						FROM ' . self::$tableName . '
-						
-						WHERE id = ' . $jobId;
-
-		$objConnection = Yii::app()->db;
-		$objCommand = $objConnection->createCommand($sql);
-		$arrData = $objCommand->queryRow();
-
-		if (!empty($arrData['job_title'])){
-			return $arrData['job_title'];
 		}
 	}
 
@@ -72,38 +59,6 @@ class EmploymentJobOpening extends AppActiveRecord
 		}	
 	}
 
-	// public function queryForCandidateInterviewingManager($jobId){
-	// 	$sql = 'SELECT interviewing_manager 
-
-	// 					FROM ' . self::$tableName . '
-						
-	// 					WHERE id = ' . $jobId;
-
-	// 	$objConnection = Yii::app()->db;
-	// 	$objCommand = $objConnection->createCommand($sql);
-	// 	$arrData = $objCommand->queryRow();
-
-	// 	if (!empty($arrData['interviewing_manager'])){
-	// 		return $arrData['interviewing_manager'];
-	// 	}
-	// }
-
-	public function queryForCandidateDepartment($jobId){
-		$sql = 'SELECT department 
-		
-						FROM ' . self::$tableName . '
-
-						WHERE id = ' . $jobId;
-
-		$objConnection = Yii::app()->db;
-		$objCommand = $objConnection->createCommand($sql);
-		$arrData = $objCommand->queryRow();
-
-		if (!empty($arrData['department'])){
-			return $arrData['department'];
-		}
-	}
-
 	public function queryForDistinctDepartment(){
 		$sql = 'SELECT DISTINCT department
 
@@ -118,16 +73,12 @@ class EmploymentJobOpening extends AppActiveRecord
 		}
 	}
 
-	public static function model($className=__CLASS__){
-		return parent::model($className);
-	}
-
 	public function queryForCandidateInformation($queryString, $queryResult, $columnName){
 		$sql = 'SELECT ' . $queryResult . '
 
 						FROM ' . self::$tableName . '
 						
-						WHERE ' . $columnName . ' = ' . $queryString;
+						WHERE ' . $columnName . ' = "' . $queryString . '"';
 
 		$objConnection = Yii::app()->db;
 		$objCommand = $objConnection->createCommand($sql);

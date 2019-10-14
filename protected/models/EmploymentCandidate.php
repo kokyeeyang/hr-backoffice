@@ -8,23 +8,7 @@ class EmploymentCandidate extends AppActiveRecord
 {
 	static $tableName = DB_TBL_PREFIX . 'employment_candidate';
 
-	// switch(ENV_MODE){
-	// 	case "dev":
-
-	// 	break;
-
-	// 	case "prod":
-	// 		const S3_ADDRESS = "https://hrbo-prd.s3-ap-southeast-1.amazonaws.com/hrbo-prd/production/";
-	// 		const S3_HRBO_PRODUCTION = "hrbo-prd/production/";
-	// 		break;
-	// }
-
-
 	const SERVER_DIRECTORY = "/images/candidate/";
-
-	// const DOCUMENT_RESUME_DIRECTORY = "/documents/resume/";
-
-	// const DOCUMENT_COVERLETTER_DIRECTORY = "/documents/coverLetter/";
 
 	public function tableName(){
 		return self::$tableName;
@@ -174,42 +158,6 @@ class EmploymentCandidate extends AppActiveRecord
 		}
 	}
 
-	// public function queryForCandidateJobId($candidateName){
-	// 	$sql = 'SELECT job_id 
-		
-	// 					FROM ' . self::$tableName . '
-
-	// 					WHERE full_name = ' . '"' . $candidateName . '"';
-
-	// 	$objConnection = Yii::app()->db;
-	// 	$objCommand = $objConnection->createCommand($sql);
-	// 	$arrData = $objCommand->queryRow();
-
-	// 	if (!empty($arrData['job_id'])){
-	// 		foreach($arrData as $objData){
-	// 			return $objData;
-	// 		}
-	// 	}
-	// }
-
-	// public function queryForCandidateEmail($candidateName){
-	// 	$sql = 'SELECT email_address 
-		
-	// 					FROM ' . self::$tableName . '
-
-	// 					WHERE full_name = ' . '"' . $candidateName . '"';
-
-	// 	$objConnection = Yii::app()->db;
-	// 	$objCommand = $objConnection->createCommand($sql);
-	// 	$arrData = $objCommand->queryRow();
-
-	// 	if (!empty($arrData['email_address'])){
-	// 		foreach($arrData as $objData){
-	// 			return $objData;
-	// 		}
-	// 	}
-	// }
-
 	public function queryForCandidateStatus($candidateId){
 		$sql = 'SELECT candidate_status
 
@@ -251,12 +199,12 @@ class EmploymentCandidate extends AppActiveRecord
 		}
 	}	
 
-	// public function queryForCandidateInformation($queryString, $queryResult, $columnName){
+	//first param is the condition, second param is the result, and third is the colum name to query for
 	public function queryForCandidateInformation($queryString, $queryResult, $columnName){
 		$sql = 'SELECT ' . $queryResult;
-		$sql .= 'FROM ' . self::$tableName;
+		$sql .= ' FROM ' . self::$tableName;
 		//id_no or full_name
-		$sql .= 'WHERE ' . $columnName . '"' . $queryString . '"';
+		$sql .= ' WHERE ' . $columnName . ' = "' . $queryString . '"';
 
 		$objConnection 	= Yii::app()->db;
 		$objCommand		= $objConnection->createCommand($sql);

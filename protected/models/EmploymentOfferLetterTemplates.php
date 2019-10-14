@@ -79,13 +79,37 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 		}
 	}
 
-	public function getBetween($string, $start, $end){
-		// $string = " ".$string;
-		$ini = strpos($string,$start);
-		var_dump($string);exit;
-		if ($ini == 0) return "";
-		$ini += strlen($start);   
-		$len = strpos($string,$end,$ini) - $ini;
-		return substr($string,$ini,$len);
+	public function searchAndReplaceOfferLetterTerms($candidateId, $jobId, $sanitizedOfferLetterTemplate){
+		//query for the candidate's information inside database
+
+		$candidateAddress = EmploymentCandidate::model()->queryForCandidateInformation($candidateId, EmploymentCandidateEnum::ADDRESS, EmploymentCandidateEnum::ID_NO);
+		$candidateName = EmploymentCandidate::model()->queryForCandidateInformation($candidateId,EmploymentCandidateEnum::FULL_NAME, EmploymentCandidateEnum::ID_NO);
+		$salaryArr = EmploymentGeneralQuestion::model()->queryForSalary($candidateId);
+
+		//the terms to be inserted into the offer letter template
+		$regularSalary = $salaryArr['expected_salary'];
+		$probationarySalary = $salaryArr['probationary_salary'];
+		$candidatePosition = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::CANDIDATE_JOB, EmploymentJobOpeningEnum::ID);
+		$candidateSuperior = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::INTERVIEWING_MANAGER, EmploymentJobOpeningEnum::ID);
+		$isManagerial = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::IS_MANAGERIAL_POSITION, EmploymentJobOpeningEnum::ID);
+		$department = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::DEPARTMENT, EmploymentJobOpeningEnum::ID);
+
+		//now look for the offer letter template
+		$offerLetterTemplate = EmploymentOfferLetterTemplates::model()->queryForOfferLetterTemplate($isManagerial, $department);
+
+		//assign terms into an array
+		$offerLetterTerms = [$candidateName, $candidateAddress, $candidateId, $regularSalary, $probationarySalary, $candidatePosition, $candidateSuperior];
+		$termsToBeReplaced = [OfferLetterEnum::CANDIDATE_NAME, OfferLetterEnum::CANDIDATE_ADDRESS, OfferLetterEnum::CANDIDATE_ID, OfferLetterEnum::REGULAR_SALARY, OfferLetterEnum::PROBATIONARY_SALARY, OfferLetterEnum::CANDIDATE_POSITION, OfferLetterEnum::CANDIDATE_SUPERIOR];
+		//replace terms in offer letter(case-insensitive)
+		$finalOfferLetter = str_ireplace($termsToBeReplaced, $offerLetterTerms, $offerLetterTemplate);
+
+		return $finalOfferLetter;		
+	}
+
+	public function deleteSelectedOfferLetterTemplates($offerLetterTemplateIds){
+		foreach($offerLetterTemplateIds as $offerLetterTemplateId){
+			$condition = 'id = ' . $offerLetterTemplateId;
+			EmploymentOfferLetterTemplates::model()->deleteAll($condition);
+		}
 	}
 }

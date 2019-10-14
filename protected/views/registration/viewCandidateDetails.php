@@ -770,7 +770,6 @@
               <span><?php  echo Yii::t('app', 'Role'); ?>:</span><br>
             </div>
             <div class="lables2">
-              <!-- <input type="text" name="offerLetterRole" value="<?php //echo EmploymentJobOpening::model()->queryForCandidateJob($candidateObjRecord->job_id); ?>" disabled> -->
               <input type="text" name="offerLetterRole" value="<?php echo EmploymentJobOpening::model()->queryForCandidateInformation($candidateObjRecord->job_id, EmploymentJobOpeningEnum::CANDIDATE_JOB, EmploymentJobOpeningEnum::ID); ?>" disabled>
             </div>
           </div>
@@ -803,7 +802,6 @@
             <input type="button" id="changeCandidateStatus" data-change-url="<?php echo $this->createUrl('registration/changeCandidateStatus', array('candidateId' => $candidateObjRecord->id_no)); ?>" style="display:none;">
             <input type="button" id="changeCandidateStatusToSigned" data-signed-url="<?php echo $this->createUrl('registration/changeCandidateStatusToSigned', array('candidateId' => $candidateObjRecord->id_no)); ?>" style="display:none;">
             <input type="button" id="downloadPdf" data-download-url="<?php echo $this->createUrl('registration/downloadPdf',array('jobId' => $candidateObjRecord->job_id, 'candidateName' => $candidateObjRecord->full_name, 'candidateId' => $candidateObjRecord->id_no)); ?>" style="display:none;">
-            <input type="button" id="downloadPdf" data-search-replace-url="<?php echo $this->createUrl('registration/searchAndReplaceTermsInOfferLetter',array('candidateId' => $candidateObjRecord->id_no, 'jobId' => $candidateObjRecord->job_id)); ?>" style="display:none;">
           </div>
           <div class="lable_block" id="send_email_checkbox">
             <input type="checkbox" name="sendEmailCheckbox" id="sendEmailCheckbox" value="1">
