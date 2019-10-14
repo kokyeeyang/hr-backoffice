@@ -126,10 +126,12 @@
 							</select>
 						</td>
 						<td>
-							<?php echo EmploymentJobOpening::model()->queryForCandidateDepartment($objRecord->job_id); ?>
+							<?php //echo EmploymentJobOpening::model()->queryForCandidateDepartment($objRecord->job_id); ?>
+							<?php echo EmploymentJobOpening::model()->queryForCandidateInformation($objRecord->job_id, EmploymentJobOpeningEnum::DEPARTMENT); ?>
 						</td>
 						<td>
-							<?php echo EmploymentJobOpening::model()->queryForCandidateInterviewingManager($objRecord->job_id); ?>
+							<?php //echo EmploymentJobOpening::model()->queryForCandidateInterviewingManager($objRecord->job_id); ?>
+							<?php echo EmploymentJobOpening::model()->queryForCandidateInformation($objRecord->job_id, EmploymentJobOpeningEnum::INTERVIEWING_MANAGER); ?>
 						</td>
 						<td>
 							<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $objRecord->id_no ?>">

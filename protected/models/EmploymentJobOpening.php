@@ -54,9 +54,7 @@ class EmploymentJobOpening extends AppActiveRecord
 		$arrData = $objCommand->queryRow();
 
 		if (!empty($arrData['job_title'])){
-			foreach($arrData as $objData){
-				return $objData;
-			}
+			return $arrData['job_title'];
 		}
 	}
 
@@ -86,9 +84,10 @@ class EmploymentJobOpening extends AppActiveRecord
 		$arrData = $objCommand->queryRow();
 
 		if (!empty($arrData['interviewing_manager'])){
-			foreach($arrData as $objData){
-				return $objData;
-			}
+			// foreach($arrData as $objData){
+			// 	return $objData;
+			// }
+			return $arrData['interviewing_manager'];
 		}
 	}
 
@@ -104,9 +103,7 @@ class EmploymentJobOpening extends AppActiveRecord
 		$arrData = $objCommand->queryRow();
 
 		if (!empty($arrData['department'])){
-			foreach($arrData as $objData){
-				return $objData;
-			}
+			return $arrData['department'];
 		}
 	}
 
@@ -120,7 +117,7 @@ class EmploymentJobOpening extends AppActiveRecord
 		$arrData = $objCommand->queryRow();
 
 		if (!empty($arrData['department'])){
-			return $arrData;
+			return $arrData['department'];
 		}
 	}
 
@@ -128,8 +125,8 @@ class EmploymentJobOpening extends AppActiveRecord
 		return parent::model($className);
 	}
 
-	public function queryForCandidateJobTitle($jobId){
-		$sql = 'SELECT job_title 
+	public function queryForCandidateInformation($jobId, $queryString){
+		$sql = 'SELECT ' . $queryString . '
 
 						FROM ' . self::$tableName . '
 						
@@ -139,12 +136,14 @@ class EmploymentJobOpening extends AppActiveRecord
 		$objCommand = $objConnection->createCommand($sql);
 		$arrData = $objCommand->queryRow();
 
-		if (!empty($arrData['job_title'])){
+		if (!empty($arrData)){
 			foreach($arrData as $objData){
-				return $objData;
+				return $objData[$queryString];
 			}
 		}
-	}	
+	}		
+
+
 
 	public function queryForIsManagerial($jobId){
 		$sql = 'SELECT is_managerial_position
@@ -158,9 +157,7 @@ class EmploymentJobOpening extends AppActiveRecord
 		$arrData = $objCommand->queryRow();
 
 		if (!empty($arrData['is_managerial_position'])){
-			foreach ($arrData as $objData){
-				return $objData;
-			}
+			return $arrData['is_managerial_position'];
 		}
 	}
 

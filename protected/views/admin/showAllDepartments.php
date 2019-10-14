@@ -30,7 +30,6 @@
 				</a>
 			</h4>
 			<?php echo CHtml::hiddenField('mode', 'department-list'); ?>
-			<?php //echo CHtml::hiddenField('sort_key', $strSortKey); ?>
 			<table class="widget_table grid">
 				<thead>
 					<tr>
