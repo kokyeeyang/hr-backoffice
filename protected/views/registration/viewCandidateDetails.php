@@ -791,14 +791,6 @@
               <input type="text" name="offerLetterProbationarySalary" value="<?php echo $generalQuestionObjRecord->probationary_salary; ?>">
             </div>
           </div>
-          <div class="lable_block">
-            <div class="lables">
-              <span><?php echo Yii::t('app', 'Probationary salary'); ?>:</span><br>
-            </div>
-            <div class="lables2">
-              <input type="text" name="offerLetterProbationarySalary" value="<?php echo $generalQuestionObjRecord->probationary_salary; ?>">
-            </div>
-          </div>
           <?php } ?>
           <div class="buttons" style="margin-left: 400px; margin-right: 50px; width: 40%; border-left: 50px;">
             <div class="lable_block" id="save_button">
