@@ -800,7 +800,7 @@
             </div>
           </div>
           <?php } ?>
-          <div class="buttons">
+          <div class="buttons" style="margin-left: 400px; margin-right: 50px; width: 40%; border-left: 50px;">
             <div class="lable_block" id="save_button">
               <div class="row buttons">
                 <?php echo CHtml::submitButton('Save'); ?>
