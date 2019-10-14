@@ -881,7 +881,8 @@ class RegistrationController extends Controller
 		$offerLetterIds = $this->getParam('deleteCheckBox', '');
 
 		if ($offerLetterIds != ''){
-			$deleteJobOpening = EmploymentOfferLetterTemplates::model()->deleteSelectedOfferLetterTemplates($jobOpeningIds);
+			$deleteJobOpening = EmploymentOfferLetterTemplates::model()->deleteSelectedOfferLetterTemplates($offerLetterIds);
+			$this->redirect("showOfferLetterTemplates");
 		} else {
 			echo "No offer letter template is found with this id";
 			$this->redirect("showOfferLetterTemplates");

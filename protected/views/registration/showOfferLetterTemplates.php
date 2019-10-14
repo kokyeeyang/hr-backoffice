@@ -81,8 +81,8 @@
 </div>
 
 <div id="registration-common-msg">
-  <div id="msg-select-registration-delete" data-msg="<?php echo Yii::t('app', 'Please select an offer letter template that you would like to delete'); ?>"><!-- Dialog Buttons Label --></div>
+  <div id="msg-select-offerletter-delete" data-msg="<?php echo Yii::t('app', 'Please select an offer letter template that you would like to delete'); ?>"><!-- Dialog Buttons Label --></div>
 </div>
 <div id="registration-common-msg">
-  <div id="msg-confirm-registration-delete" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to delete the selected offer letter templates?'); ?>"><!-- Dialog Buttons Label --></div>
+  <div id="msg-confirm-offerletter-delete" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to delete the selected offer letter templates?'); ?>"><!-- Dialog Buttons Label --></div>
 </div>

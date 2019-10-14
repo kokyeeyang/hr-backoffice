@@ -19,7 +19,7 @@ var RegistrationShowOfferLetterTemplates = function(){
 				RegistrationShowOfferLetterTemplates.generate_offer_letter(this, objEvent);
 			});
 
-			$('#deleteJobOpeningButton').on('click', function(objEvent){
+			$('#deleteOfferLetterButton').on('click', function(objEvent){
 				RegistrationShowOfferLetterTemplates.check_if_deletion_is_selected(this, objEvent);
 			});
 		});
