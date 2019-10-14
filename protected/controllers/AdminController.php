@@ -348,8 +348,13 @@ class AdminController extends Controller
 	}
 
 	public function actionAddNewDepartment(){
-		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
-		$this->render('addEditDepartment', ['currentFunction'=>$currentFunction]);
+		$formAction = $this->createUrl('admin/saveDepartment');
+		$header = AdminEnum::ADD_DEPARTMENT;
+		$buttonTitle = AdminEnum::SAVE_BUTTON;
+		$departmentTitle = '';
+    $departmentDescription = '';
+
+		$this->render('addEditDepartment', ['formAction'=>$formAction, 'header'=>$header, 'buttonTitle'=>$buttonTitle, 'departmentTitle'=>$departmentTitle, 'departmentDescription'=>$departmentDescription]);
 	}
 
 	public function actionSaveDepartment(){
@@ -366,10 +371,13 @@ class AdminController extends Controller
 	public function actionViewSelectedDepartment($departmentId){
 		$departmentCondition = 'id = "' . $departmentId . '"';
 		$departmentArr = Department::model()->findAll($departmentCondition);
-		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
-		$departmentTitle = $currentFunction=='viewSelectedDepartment'?$departmentArr[0]->department_title:'';
+		$formAction = $this->createUrl('admin/updateDepartment', ['departmentId' => $departmentId]);
+		$header = AdminEnum::EDIT_DEPARTMENT;
+    $buttonTitle =  AdminEnum::UPDATE_BUTTON;
+    $departmentTitle = $departmentArr[0]->department_title;
+    $departmentDescription = $departmentArr[0]->department_description;
 		
-		$this->render('addEditDepartment', ['departmentArr' => $departmentArr, 'currentFunction'=>$currentFunction, 'departmentId' => $departmentId]);
+		$this->render('addEditDepartment', ['departmentArr' => $departmentArr, 'departmentId' => $departmentId, 'formAction'=>$formAction, 'header'=>$header, 'buttonTitle'=>$buttonTitle, 'departmentTitle'=>$departmentTitle, 'departmentDescription'=>$departmentDescription]);
 	}
 
 	public function actionUpdateDepartment($departmentId){

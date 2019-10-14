@@ -1,16 +1,3 @@
-<?php 
-  if ($currentFunction == 'addNewDepartment'){
-    $header = Yii::t('app', 'Add New Department');
-    $buttonTitle =  Yii::t('app', 'Save');
-    $departmentTitle = '';
-    $departmentDescription = '';
-  } else if ($currentFunction == 'viewSelectedDepartment'){
-    $header = Yii::t('app', 'Edit Department');
-    $buttonTitle =  Yii::t('app', 'Update');
-    $departmentTitle = $departmentArr[0]->department_title;
-    $departmentDescription = $departmentArr[0]->department_description;
-  }
-?>
 <div class="breadcrumb">
   <div class="breadcrumb_wrapper">
     <div class="breadcrumb-top">
@@ -30,7 +17,7 @@
   <div class="common_content_inner_wrapper">
     <h4 class="widget_title"><?php echo $header; ?>
     </h4>
-    <form method="post" enctype="multipart/form-data" id="departmentForm" name="departmentForm" action="<?php echo $currentFunction=='addNewDepartment'?$this->createUrl('admin/saveDepartment'):$this->createUrl('admin/updateDepartment', ['departmentId' => $departmentId]); ?>" >
+    <form method="post" enctype="multipart/form-data" id="departmentForm" name="departmentForm" action="<?php echo $formAction; ?>" >
       <table style="line-height: 32px;padding-left: 10px;font-size: 15px;">
         <tr>
           <td><?php echo Yii::t('app', 'Please specify your department name'); ?> </td>
