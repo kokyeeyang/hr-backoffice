@@ -791,21 +791,31 @@
               <input type="text" name="offerLetterProbationarySalary" value="<?php echo $generalQuestionObjRecord->probationary_salary; ?>">
             </div>
           </div>
-          <?php } ?>
-          <div class="lable_block" id="save_button">
-            <div class="row buttons">
-              <?php echo CHtml::submitButton('Save'); ?>
+          <div class="lable_block">
+            <div class="lables">
+              <span><?php echo Yii::t('app', 'Probationary salary'); ?>:</span><br>
+            </div>
+            <div class="lables2">
+              <input type="text" name="offerLetterProbationarySalary" value="<?php echo $generalQuestionObjRecord->probationary_salary; ?>">
             </div>
           </div>
-          <div class="lable_block" id="offer_letter_button">
-            <input type="button" id="generateOfferEmail" value="<?php echo Yii::t('app', 'Convert to offer'); ?>" data-offer-url="<?php echo $this->createUrl('registration/generateOfferEmail', array('jobId' => $candidateObjRecord->job_id, 'candidateName' => $candidateObjRecord->full_name, 'candidateId' => $candidateObjRecord->id_no)); ?>">
-            <input type="button" id="changeCandidateStatus" data-change-url="<?php echo $this->createUrl('registration/changeCandidateStatus', array('candidateId' => $candidateObjRecord->id_no)); ?>" style="display:none;">
-            <input type="button" id="changeCandidateStatusToSigned" data-signed-url="<?php echo $this->createUrl('registration/changeCandidateStatusToSigned', array('candidateId' => $candidateObjRecord->id_no)); ?>" style="display:none;">
-            <input type="button" id="downloadPdf" data-download-url="<?php echo $this->createUrl('registration/downloadPdf',array('jobId' => $candidateObjRecord->job_id, 'candidateName' => $candidateObjRecord->full_name, 'candidateId' => $candidateObjRecord->id_no)); ?>" style="display:none;">
-          </div>
-          <div class="lable_block" id="send_email_checkbox">
-            <input type="checkbox" name="sendEmailCheckbox" id="sendEmailCheckbox" value="1">
-            <label for="sendEmailCheckbox" title="<?php echo Yii::t('app', 'Check this if you want to send the candidate an email'); ?>"><?php echo Yii::t('app', 'Send an email'); ?></label>
+          <?php } ?>
+          <div class="buttons">
+            <div class="lable_block" id="save_button">
+              <div class="row buttons">
+                <?php echo CHtml::submitButton('Save'); ?>
+              </div>
+            </div>
+            <div class="lable_block" id="offer_letter_button">
+              <input type="button" id="generateOfferEmail" value="<?php echo Yii::t('app', 'Convert to offer'); ?>" data-offer-url="<?php echo $this->createUrl('registration/generateOfferEmail', array('jobId' => $candidateObjRecord->job_id, 'candidateName' => $candidateObjRecord->full_name, 'candidateId' => $candidateObjRecord->id_no)); ?>">
+              <input type="button" id="changeCandidateStatus" data-change-url="<?php echo $this->createUrl('registration/changeCandidateStatus', array('candidateId' => $candidateObjRecord->id_no)); ?>" style="display:none;">
+              <input type="button" id="changeCandidateStatusToSigned" data-signed-url="<?php echo $this->createUrl('registration/changeCandidateStatusToSigned', array('candidateId' => $candidateObjRecord->id_no)); ?>" style="display:none;">
+              <input type="button" id="downloadPdf" data-download-url="<?php echo $this->createUrl('registration/downloadPdf',array('jobId' => $candidateObjRecord->job_id, 'candidateName' => $candidateObjRecord->full_name, 'candidateId' => $candidateObjRecord->id_no)); ?>" style="display:none;">
+            </div>
+            <div class="lable_block" id="send_email_checkbox">
+              <input type="checkbox" name="sendEmailCheckbox" id="sendEmailCheckbox" value="1">
+              <label for="sendEmailCheckbox" title="<?php echo Yii::t('app', 'Check this if you want to send the candidate an email'); ?>"><?php echo Yii::t('app', 'Send an email'); ?></label>
+            </div>
           </div>
         </fieldset>
       </div>

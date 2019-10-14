@@ -154,3 +154,9 @@ img[class=candidateDocument] {
   height: 90px;
   padding: 20px;
 }
+
+div .buttons {
+  margin-left: 400px;
+  margin-right: 50px;
+  width: 40px;
+}
