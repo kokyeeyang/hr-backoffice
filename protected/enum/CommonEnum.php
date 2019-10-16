@@ -11,4 +11,6 @@ class CommonEnum {
 	const ERROR_TYPE_MESSAGE = 'message';
 	const ERROR_TYPE_HEADER = 'header';
 
+	const FILE_SYSTEM = 'file system';
+	const S3 = 'S3';
 }

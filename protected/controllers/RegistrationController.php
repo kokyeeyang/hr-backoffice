@@ -158,7 +158,7 @@ class RegistrationController extends Controller
 		$allowedFileExtensions = CommonEnum::DOCUMENT_FILE_EXTENSIONS;
 
 		if($resumePath != false){ 
-			$moveResume = CommonHelper::moveDocumentToS3($resumeName, $resumeTmpName, $resumeS3Folder, $resumeFileType, $allowedFileExtensions, false);
+			$moveResume = CommonHelper::moveDocumentToFileSystemOrS3($resumeName, $resumeTmpName, $resumeS3Folder, $resumeFileType, $allowedFileExtensions, CommonEnum::S3, false);
 		}
 
 		$coverLetterName = $candidateObjModel->candidate_cover_letter;
@@ -166,7 +166,7 @@ class RegistrationController extends Controller
 		$coverLetterS3Folder = S3_COVER_LETTERS_FOLDER;
 
 		if($coverLetterPath != false){
-			$moveResume = CommonHelper::moveDocumentToS3($coverLetterName, $coverLetterTmpName, $coverLetterS3Folder, $coverLetterFileType, $allowedFileExtensions, false);
+			$moveResume = CommonHelper::moveDocumentToFileSystemOrS3($coverLetterName, $coverLetterTmpName, $coverLetterS3Folder, $coverLetterFileType, $allowedFileExtensions, CommonEnum::S3, false);
 		}
 		
 		$candidateObjModel->save();
@@ -834,7 +834,8 @@ class RegistrationController extends Controller
 		$pdf->SetFont('helvetica', '', 9);
 		$pdf->AddPage();
 
-		$pdf->Image('tests/images/tcpdf_signature.png', 180, 60, 15, 15, 'PNG');
+		// $pdf->Image('tests/images/tcpdf_signature.png', 180, 60, 15, 15, 'PNG');
+		$pdf->Image('images/image_demo.jpg', 15, 140, 75, 113, 'JPG', 'http://www.tcpdf.org', '', true, 150, '', false, false, 1, false, false, false);
 		//insert offer letter template
 		$pdf->writeHTML($decodedFinalOfferLetter, true, false, true, false);
 		$pdf->lastPage();
@@ -862,9 +863,10 @@ class RegistrationController extends Controller
 
 	  $allowedFileExtensions = CommonEnum::IMAGE_FILE_EXTENSIONS;
 	  $fileExtension = CommonHelper::getDocumentType($uploadedFile["name"]);
-	  $s3Folder = S3_OFFER_LETTER_IMAGES_FOLDER;
+	  // $s3Folder = S3_OFFER_LETTER_IMAGES_FOLDER;
+	  $folderName = getcwd() . OfferLetterEnum::IMAGE_PATH;
 		//perform upload file here
-		$uploadFileResponse = CommonHelper::moveDocumentToS3($uploadedFile["name"], $uploadedFile["tmp_name"], $s3Folder, $fileExtension, $allowedFileExtensions, false);
+		$uploadFileResponse = CommonHelper::moveDocumentToFileSystemOrS3($uploadedFile["name"], $uploadedFile["tmp_name"], $folderName, $fileExtension, $allowedFileExtensions, CommonEnum::FILE_SYSTEM, false);
 
 	  //check the upload file response if it fail
 		if ($uploadFileResponse['result'] == false) {

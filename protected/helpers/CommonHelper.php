@@ -24,7 +24,7 @@ class CommonHelper {
 		return $fileType;
 	}
 
-	public static function moveDocumentToS3($fileName, $fileTmpName, $s3Folder, $fileType, $allowedFileExtensions, $checkIfFileExist = false) {
+	public static function moveDocumentToFileSystemOrS3($fileName, $fileTmpName, $folderName, $fileType, $allowedFileExtensions, $fileDestination, $checkIfFileExist = false) {
 
 		$response['result'] = false;
 		/*
@@ -67,7 +67,17 @@ class CommonHelper {
 		}
 
 		//perform moving of upload files here
-		$result = S3Helper::putObject($s3Folder.'/'.$fileName, $fileTmpName);
+		//only upload important files to S3
+		if ($fileDestination == CommonEnum::S3){
+			$result = S3Helper::putObject($folderName.'/'.$fileName, $fileTmpName);
+		} else if ($fileDestination == CommonEnum::FILE_SYSTEM){
+			$result = move_uploaded_file($fileTmpName, $folderName . "/" . $fileName);
+		}
+		// //perform moving of upload files here
+		// $result = move_uploaded_file($_FILES["file"]["tmp_name"], $destinationFilePath . "/" . $fileName);
+		// // var_dump($destinationFilePath . "/" . $fileName);exit;
+		// $response['result'] = $result;
+
 		$response['result'] = $result;
 
 		//if upload file some how fail on the server end
