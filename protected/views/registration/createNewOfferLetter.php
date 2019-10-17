@@ -63,6 +63,18 @@
     		<label for="offerLetterIsManagerial">Is for a managerial position</label>
     	</table>
     	 <input type="button" id="copyOfferLetterButton" name="copyOfferLetterButton" value="<?php echo Yii::t('app', 'Copy this template'); ?>">
+       <!-- <input type="button" id="saveOfferLetterButton" name="saveOfferLetterButton" value="<?php //echo Yii::t('app', 'Save this template'); ?>"> -->
+        <div class="lable_block" id="save_button">
+          <div class="row buttons">
+            <?php echo CHtml::submitButton('Submit Application'); ?>
+          </div>
+        </div>
     </form>
   </div>
+</div>
+<div id="registration-common-msg">
+  <div id="msg-confirm-save-template" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to save this offer letter template?'); ?>"></div>
+</div>
+<div id="registration-common-msg">
+  <div id="msg-department-reminder" data-msg="<?php echo Yii::t('app', 'Please state which department this template is for.'); ?>"></div>
 </div>

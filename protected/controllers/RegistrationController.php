@@ -748,7 +748,12 @@ class RegistrationController extends Controller
 		$currentUserId = Yii::app()->user->id;
 
 		$offerLetterDepartmentArray = $this->getParam('department', '');
-		$offerLetterDepartments = implode(",", $offerLetterDepartmentArray);
+
+		if ($offerLetterDepartmentArray != ''){
+			$offerLetterDepartments = implode(",", $offerLetterDepartmentArray);
+		} else {
+			$offerLetterDepartments = null;
+		}
 
 		$offerLetterObjModel = new EmploymentOfferLetterTemplates;
 		$offerLetterObjModel->offer_letter_title = $offerLetterTitle;
@@ -834,8 +839,37 @@ class RegistrationController extends Controller
 		$pdf->SetFont('helvetica', '', 9);
 		$pdf->AddPage();
 
+
 		// $pdf->Image('tests/images/tcpdf_signature.png', 180, 60, 15, 15, 'PNG');
-		$pdf->Image('images/image_demo.jpg', 15, 140, 75, 113, 'JPG', 'http://www.tcpdf.org', '', true, 150, '', false, false, 1, false, false, false);
+		// $pdf->Image('images/image_demo.jpg', 15, 140, 75, 113, 'JPG', 'http://www.tcpdf.org', '', true, 150, '', false, false, 1, false, false, false);
+
+		// $horizontal_alignments = array('L', 'C', 'R');
+		// $vertical_alignments = array('T', 'M', 'B');		
+
+		$horizontal_alignments = array('L');
+		$vertical_alignments = array('T');
+		//$x = x axis, $y = y-axis, $w = width, $h = height of picture
+		$x = 1;
+		$y = 11;
+		$w = 30;
+		$h = 14;
+
+		// test all combinations of alignments
+		//$i represents how many images will be printed out horizontally
+		for ($i = 0; $i < 1; ++$i) {
+		    $fitbox = $horizontal_alignments[$i].' ';
+		    $x = 15;
+	    	//$j represents how many images will be printed out vertically
+		    for ($j = 0; $j < 1; ++$j) {
+	        $fitbox[1] = $vertical_alignments[$j];
+	        $pdf->Rect($x, $y, $w, $h, 'F', array(), array(128,255,128));
+	        // $pdf->Rect($x, $y, $w, $h, 'F', array(), array(1000,666,500));
+	        $pdf->Image('images/offer_letter/jpegsystems-home.jpg', $x, $y, $w, $h, 'JPG', '', '', false, 300, '', false, false, 0, $fitbox, false, false);
+	        $x += 32; // new column
+		    }
+		    $y += 32; // new row
+		}
+
 		//insert offer letter template
 		$pdf->writeHTML($decodedFinalOfferLetter, true, false, true, false);
 		$pdf->lastPage();
@@ -863,7 +897,6 @@ class RegistrationController extends Controller
 
 	  $allowedFileExtensions = CommonEnum::IMAGE_FILE_EXTENSIONS;
 	  $fileExtension = CommonHelper::getDocumentType($uploadedFile["name"]);
-	  // $s3Folder = S3_OFFER_LETTER_IMAGES_FOLDER;
 	  $folderName = getcwd() . OfferLetterEnum::IMAGE_PATH;
 		//perform upload file here
 		$uploadFileResponse = CommonHelper::moveDocumentToFileSystemOrS3($uploadedFile["name"], $uploadedFile["tmp_name"], $folderName, $fileExtension, $allowedFileExtensions, CommonEnum::FILE_SYSTEM, false);
