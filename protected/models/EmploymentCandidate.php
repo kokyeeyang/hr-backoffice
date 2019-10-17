@@ -117,8 +117,8 @@ class EmploymentCandidate extends AppActiveRecord
 
 	public function showDocument($candidateId, $documentType){
 		$sql = 'SELECT ' . $documentType;
-		$sql .= ' FROM ' . 'employment_candidate ';
-		$sql .= 'WHERE ' . 'id_no = "' . $candidateId . '"';
+		$sql .= ' FROM ' . self::$tableName;
+		$sql .= ' WHERE ' . 'id_no = "' . $candidateId . '"';
 
 		$objConnection 	= Yii::app()->db;
 		$objCommand		= $objConnection->createCommand($sql);
@@ -144,8 +144,8 @@ class EmploymentCandidate extends AppActiveRecord
 
 	public function checkForCandidateInformation($candidateName){
 		$sql = 'SELECT full_name, id_no, address, contact_no, email_address, date_of_birth, gender, marital_status, nationality ';
-		$sql .= 'FROM ' . 'employment_candidate ';
-		$sql .= 'WHERE ' . 'full_name = ' . '"' . $candidateName . '"';
+		$sql .= 'FROM ' . self::$tableName;
+		$sql .= ' WHERE ' . 'full_name = ' . '"' . $candidateName . '"';
 
 		$objConnection 	= Yii::app()->db;
 		$objCommand		= $objConnection->createCommand($sql);
@@ -199,7 +199,7 @@ class EmploymentCandidate extends AppActiveRecord
 		}
 	}	
 
-	//first param is the condition, second param is the result, and third is the colum name to query for
+	//first param is the condition, second param is the result, and third is the column name to query for
 	public function queryForCandidateInformation($queryString, $queryResult, $columnName){
 		$sql = 'SELECT ' . $queryResult;
 		$sql .= ' FROM ' . self::$tableName;

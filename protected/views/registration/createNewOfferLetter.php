@@ -4,11 +4,6 @@
 		width: 20px;
 	} 
 
-	div #offer-letter-input {
-		height: 80px;
-		margin-bottom: 30px;
-	}
-
 </style>
 
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
@@ -36,7 +31,8 @@
     <h4 class="widget_title"><?php echo Yii::t('app', 'Add a new offer letter template'); ?>
     </h4>
     <form method="post" enctype="multipart/form-data" id="createOfferLetterForm" name="createOfferLetterForm" action="<?php echo $this->createUrl('registration/saveOfferLetterTemplate'); ?>">
-    	<div id="offer-letter-input" style="margin-bottom:10px; margin-top: 10px;">
+    	<div id="offer-letter-input">
+      <!-- <div id="offer-letter-input" style="margin-bottom:10px; margin-top: 10px;"> -->
     		<tr>
 		    	<td><?php echo Yii::t('app', 'Offer Letter Title'); ?> </td>
 	  			<td>:</td>
@@ -50,10 +46,11 @@
 	  			</td>
 	  		</tr>
   		</div>
-    	<table style="line-height: 32px;padding-left: 10px;font-size: 15px; margin-bottom:10px;">
+    	<!-- <table style="line-height: 32px;padding-left: 10px;font-size: 15px; margin-bottom:10px;"> -->
+      <table class="offer-letter-content">
     		<textarea id="offerLetterTemplate" name="offerLetterTemplate">
 				</textarea>
-	    	<div id="department-dropdown" style="margin-top: 10px; margin-bottom: 10px;">
+	    	<div id="department-dropdown">
 	    		<?php foreach($departmentArr as $iKey => $departmentObj){ ?>
 						<input type="checkbox" name="department[]" value="<?php echo $departmentObj['department_title']; ?>" class="department-dropdown" id="<?php echo $departmentObj['department_title']; ?>">
 						<label for="<?php echo $departmentObj['department_title']; ?>"><?php echo $departmentObj['department_title']; ?></label>
@@ -62,11 +59,12 @@
     		<input type="checkbox" name="offerLetterIsManagerial" id="offerLetterIsManagerial" value="1" class="department-dropdown">
     		<label for="offerLetterIsManagerial">Is for a managerial position</label>
     	</table>
-    	 <input type="button" id="copyOfferLetterButton" name="copyOfferLetterButton" value="<?php echo Yii::t('app', 'Copy this template'); ?>">
-       <!-- <input type="button" id="saveOfferLetterButton" name="saveOfferLetterButton" value="<?php //echo Yii::t('app', 'Save this template'); ?>"> -->
-        <div class="lable_block" id="save_button">
-          <div class="row buttons">
-            <?php echo CHtml::submitButton('Submit Application'); ?>
+        <div class="buttons">
+      	  <input type="button" id="copyOfferLetterButton" name="copyOfferLetterButton" value="<?php echo Yii::t('app', 'Copy this template'); ?>">
+          <div class="lable_block" id="saveOfferLetterButton">
+            <div class="row_buttons">
+              <?php echo CHtml::submitButton('Save this offer letter'); ?>
+            </div>
           </div>
         </div>
     </form>

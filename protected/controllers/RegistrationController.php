@@ -818,7 +818,15 @@ class RegistrationController extends Controller
 		//pick out the offer letter template based on $isManagerial and $department
 		$offerLetterTemplate = EmploymentOfferLetterTemplates::model()->queryForOfferLetterTemplate($isManagerial, $department);
 
-		// $sanitizedOfferLetterTemplate = htmlspecialchars_decode($offerLetterTemplate["offer_letter_content"]);
+		//this is where we get the photo
+		$imgTag = '../../images/offer_letter/';
+		$altTag = ' alt=';
+
+		$parsedPhoto = EmploymentOfferLetterTemplates::model()->getStringBetween($offerLetterTemplate["offer_letter_content"], $imgTag, $altTag);
+
+		$parsedPhotoAfterReplace = substr_replace($parsedPhoto, '', -6);
+
+		$photoFormat = substr($parsedPhotoAfterReplace, strrpos($parsedPhotoAfterReplace, '.') + 1);
 
 		$finalOfferLetter = EmploymentOfferLetterTemplates::model()->searchAndReplaceOfferLetterTerms($candidateId, $jobId, $offerLetterTemplate);
 		$decodedFinalOfferLetter = htmlspecialchars_decode($finalOfferLetter["offer_letter_content"]);
@@ -839,20 +847,13 @@ class RegistrationController extends Controller
 		$pdf->SetFont('helvetica', '', 9);
 		$pdf->AddPage();
 
-
-		// $pdf->Image('tests/images/tcpdf_signature.png', 180, 60, 15, 15, 'PNG');
-		// $pdf->Image('images/image_demo.jpg', 15, 140, 75, 113, 'JPG', 'http://www.tcpdf.org', '', true, 150, '', false, false, 1, false, false, false);
-
-		// $horizontal_alignments = array('L', 'C', 'R');
-		// $vertical_alignments = array('T', 'M', 'B');		
-
 		$horizontal_alignments = array('L');
 		$vertical_alignments = array('T');
 		//$x = x axis, $y = y-axis, $w = width, $h = height of picture
-		$x = 1;
-		$y = 11;
+		$x = 0;
+		$y = 18;
 		$w = 30;
-		$h = 14;
+		$h = 15;
 
 		// test all combinations of alignments
 		//$i represents how many images will be printed out horizontally
@@ -862,9 +863,7 @@ class RegistrationController extends Controller
 	    	//$j represents how many images will be printed out vertically
 		    for ($j = 0; $j < 1; ++$j) {
 	        $fitbox[1] = $vertical_alignments[$j];
-	        $pdf->Rect($x, $y, $w, $h, 'F', array(), array(128,255,128));
-	        // $pdf->Rect($x, $y, $w, $h, 'F', array(), array(1000,666,500));
-	        $pdf->Image('images/offer_letter/jpegsystems-home.jpg', $x, $y, $w, $h, 'JPG', '', '', false, 300, '', false, false, 0, $fitbox, false, false);
+	        $pdf->Image(OfferLetterEnum::IMAGE_PATH . '/' . $parsedPhotoAfterReplace, $x, $y, $w, $h, $photoFormat, '', '', false, 300, '', false, false, 0, $fitbox, false, false);
 	        $x += 32; // new column
 		    }
 		    $y += 32; // new row
@@ -875,8 +874,9 @@ class RegistrationController extends Controller
 		$pdf->lastPage();
 
 		//it is previewing pdf for now to speed up testing, will turn back to 'D' once done
-		// $pdf->Output($candidateName . ' offerletter.pdf', 'D');
-		$pdf->Output($candidateName . ' offerletter.pdf', 'I');
+		$pdf->Output($candidateName . ' offerletter.pdf', 'D');
+
+		$this->redirect("showOfferLetterTemplates");
 	}
 
 	public function actionCopyOfferLetterTemplate(){
@@ -893,11 +893,10 @@ class RegistrationController extends Controller
 	  //only one array
 	  $uploadedFile = current($_FILES);
 	  $publicDestinationFilePath = OfferLetterEnum::IMAGE_PATH;
-	  // $destinationFilePath = getcwd() . $publicDestinationFilePath;
 
 	  $allowedFileExtensions = CommonEnum::IMAGE_FILE_EXTENSIONS;
 	  $fileExtension = CommonHelper::getDocumentType($uploadedFile["name"]);
-	  $folderName = getcwd() . OfferLetterEnum::IMAGE_PATH;
+	  $folderName = getcwd() . '/' . OfferLetterEnum::IMAGE_PATH;
 		//perform upload file here
 		$uploadFileResponse = CommonHelper::moveDocumentToFileSystemOrS3($uploadedFile["name"], $uploadedFile["tmp_name"], $folderName, $fileExtension, $allowedFileExtensions, CommonEnum::FILE_SYSTEM, false);
 
@@ -909,7 +908,7 @@ class RegistrationController extends Controller
 
 	  // Use a location key to specify the path to the saved image resource.
 	  // { location : '/your/uploaded/image/file'}
-	  echo json_encode(array('location' => $publicDestinationFilePath.'/'.$uploadedFile["name"]));
+	  echo json_encode(array('location' => '/' . $publicDestinationFilePath.'/'.$uploadedFile["name"]));
 	}
 
 	public function actionDeleteSelectedOfferLetters(){

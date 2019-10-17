@@ -16,11 +16,15 @@ var RegistrationCreateNewOfferLetter = function(){
 	function _init(){
 		$(function(){
 			$('#saveOfferLetterButton').on('click', function(objEvent){
-				if(confirm($('#msg-confirm-save-template').attr('data-msg')) && $("input[name=department]:checked").val()!=""){
-					RegistrationCreateNewOfferLetter.save_offer_letter_template(this, objEvent);
-				} else if (confirm($('#msg-confirm-save-template').attr('data-msg')) && $("input[name=department]:checked").val()==""){
+				if ($(".department-dropdown:checked").length > 0){
+					if(confirm($('#msg-confirm-save-template').attr('data-msg'))){
+						RegistrationCreateNewOfferLetter.save_offer_letter_template(this, objEvent);
+					} else {
+						event.preventDefault();
+					}
+				} else if ($(".department-dropdown:checked").length <= 0){
 					alert($("#msg-department-reminder").attr('data-msg'));
-					$("input[name=department]").focus;
+					event.preventDefault();
 				}
 			});
 

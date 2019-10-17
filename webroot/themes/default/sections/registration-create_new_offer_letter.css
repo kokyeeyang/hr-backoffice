@@ -1,3 +1,33 @@
 input {
 	width : 160px;
 }
+
+div .buttons {
+	display: inline-flex;
+	padding-top:10px;
+}
+
+table .offer-letter-content {
+	line-height: 32px;
+	padding-left: 10px;
+	font-size: 15px; 
+	margin-bottom:10px;
+}
+
+div #department-dropdown {
+	margin-top: 10px; 
+	margin-bottom: 10px;
+}
+
+div #offer-letter-input {
+	margin-bottom:10px; 
+	margin-top: 10px;
+}
+
+input[type='checkbox'] {
+	width: 20px;
+} 
+
+div .row_buttons {
+	padding-left:20px;
+}

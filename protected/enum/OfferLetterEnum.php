@@ -1,7 +1,7 @@
 <?php
 
 class OfferLetterEnum {
-	const IMAGE_PATH = "/images/offer_letter";
+	const IMAGE_PATH = "images/offer_letter";
 	const CANDIDATE_ID = "%%Candidate ID%%";
 	const REGULAR_SALARY = "%%Candidate Regular Salary%%";
 	const PROBATIONARY_SALARY = "%%Candidate Probationary Salary%%";
