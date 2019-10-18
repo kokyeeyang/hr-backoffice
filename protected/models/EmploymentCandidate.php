@@ -57,23 +57,11 @@ class EmploymentCandidate extends AppActiveRecord
 			$candidateCondition = 'id_no = "' . $candidateId . '"';
 			$otherCondition = 'candidate_id = "' . $candidateId . '"';
 
-			$fileName = EmploymentCandidate::model()->showPhoto($candidateId);
 			EmploymentCandidate::model()->deleteAll($candidateCondition);
 			EmploymentEducation::model()->deleteAll($otherCondition);
 			EmploymentGeneralQuestion::model()->deleteAll($otherCondition);
 			EmploymentJobExperience::model()->deleteAll($otherCondition);
 			EmploymentReferee::model()->deleteAll($otherCondition);
-
-			//if production mode, then delete image from s3, if dev then delete from server
-			//commented out because candidate is not required to submit photos during form submission
-			// $specificFileName = substr($fileName, 69);
-			// if($fileName != false){
-			// 	if(ENV_MODE == "prod"){	
-			// 		$deleteImage = S3Helper::deleteObject(EmploymentCandidate::S3_HRBO_PRODUCTION . $specificFileName);
-			// 	} else {
-			// 		$deleteImage = unlink(getcwd() . $fileName);
-			// 	}
-			// }
 		}
 	}
 
@@ -172,28 +160,28 @@ class EmploymentCandidate extends AppActiveRecord
 		foreach($arrData as $objData){
 			switch($objData){
 				case "0":
-					return "Interview stage";
+					return EmploymentCandidateEnum::INTERVIEW_STAGE;
 					break;
 				case "1":
-					return "Accepted";
+					return EmploymentCandidateEnum::ACCEPTED;
 					break;
 				case "2":
-					return "Shortlisted";
+					return EmploymentCandidateEnum::SHORTLISTED;
 					break;
 				case "3":
-					return "No show";
+					return EmploymentCandidateEnum::NO_SHOW;
 					break;
 				case "4":
-					return "Not suitable";
+					return EmploymentCandidateEnum::NOT_SUITABLE;
 					break;
 				case "5":
-					return "Rescheduled";
+					return EmploymentCandidateEnum::RESCHEDULED;
 					break;
 				case "6":
-					return "Offer letter signed";
+					return EmploymentCandidateEnum::OFFER_LETTER_SIGNED;
 					break;
 				case "7":
-					return "Offer letter generated";
+					return EmploymentCandidateEnum::OFFER_LETTER_GENERATED;
 					break;
 			}
 		}

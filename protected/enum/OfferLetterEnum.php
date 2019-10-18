@@ -11,6 +11,7 @@ class OfferLetterEnum {
 	const CANDIDATE_NAME = "%%Candidate Name%%";
 	const COPY_MODE = "copy";
 	const EDIT_MODE = "edit";
+	const OFFER_LETTER_NOT_FOUND_WARNING = "<script type='text/javascript'>alert('No suitable offer letter has been found. Please create one first.');</script>";
 }
 
 ?>

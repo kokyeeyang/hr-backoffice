@@ -26,8 +26,15 @@ div #offer-letter-input {
 
 input[type='checkbox'] {
 	width: 20px;
-} 
+}
 
-div .row_buttons {
-	padding-left:15px;
+.legend {
+  margin-top: 4px;
+  padding: 5px 10px;
+  background-color: #DF9920;
+  color: white;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  width: 5%;
 }

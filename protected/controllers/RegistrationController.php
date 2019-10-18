@@ -416,14 +416,12 @@ class RegistrationController extends Controller
 		$candidateCondition = 'id_no = "' . $candidateId . '"';
 		$otherCondition = 'candidate_id = "' . $candidateId . '"';
 		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
+
 		$interviewQuestionsArrRecords = EmploymentInterviewQuestions::model()->findAll($otherCondition);
 		$educationArrRecords = EmploymentEducation::model()->findAll($otherCondition);
 		$generalQuestionArrRecords = EmploymentGeneralQuestion::model()->findAll($otherCondition);
 		$jobExperienceArrRecords = EmploymentJobExperience::model()->findAll($otherCondition);
 		$refereeArrRecords = EmploymentReferee::model()->findAll($otherCondition);
-
-		//no longer require candidate to upload image
-		// $photoSource = EmploymentCandidate::model()->showPhoto($candidateId);
 
 		$resumeSource = EmploymentCandidate::model()->showDocument($candidateId, "candidate_resume");
 
@@ -440,13 +438,6 @@ class RegistrationController extends Controller
 		}	else {
 			$displayCoverLetterSection = 'none';
 		}
-
-		//commented for now because candidate photo is not required
-		// if($photoSource != false){
-		// 	$displayPhotoSection = 'inline-grid';
-		// } else {
-		// 	$displayPhotoSection = 'none';
-		// }
 
 		$currentAdminId = Yii::app()->user->id;
 		//this is to allow editing only for hr and admin
@@ -801,7 +792,7 @@ class RegistrationController extends Controller
 		} else if ($mode == OfferLetterEnum::EDIT_MODE){
 			$this->render('editOfferLetter', ['offerLetterArr'=>$offerLetterArr, 'currentFunction'=>$currentFunction, 'departmentArr'=>$departmentArr, 'offerLetterId'=>$offerLetterId, 'mode'=>$mode]);
 		} else {
-			echo ('Invalid page');
+			throw new CHttpException(404,'The requested page does not exist.');
 		}
 
 	}
@@ -845,6 +836,10 @@ class RegistrationController extends Controller
 
 		//pick out the offer letter template based on $isManagerial and $department
 		$offerLetterTemplate = EmploymentOfferLetterTemplates::model()->queryForOfferLetterTemplate($isManagerial, $department);
+
+		if ($offerLetterTemplate == ''){
+			echo OfferLetterEnum::OFFER_LETTER_NOT_FOUND_WARNING;
+		}
 
 		$finalOfferLetter = EmploymentOfferLetterTemplates::model()->searchAndReplaceOfferLetterTerms($candidateId, $jobId, $offerLetterTemplate);
 		$decodedFinalOfferLetter = htmlspecialchars_decode($finalOfferLetter["offer_letter_content"]);

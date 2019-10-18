@@ -638,11 +638,6 @@
                 </span>
               </div>
             </div>
-            <!-- <div class="lable_block" id="save_button">
-              <div class="row buttons">
-                <?php //echo CHtml::submitButton('Save'); ?>
-              </div>
-            </div> -->
           </div>
         </fieldset>
         <fieldset class="fieldset">

@@ -46,10 +46,12 @@
 	  			</td>
 	  		</tr>
   		</div>
-    	<!-- <table style="line-height: 32px;padding-left: 10px;font-size: 15px; margin-bottom:10px;"> -->
       <table class="offer-letter-content">
     		<textarea id="offerLetterTemplate" name="offerLetterTemplate">
 				</textarea>
+        <legend class="legend" title="<?php echo Yii::t('app', 'Which department(s) is this offer letter template for?'); ?>">
+          <?php echo Yii::t('app', 'Departments'); ?>
+        </legend>
 	    	<div id="department-dropdown">
 	    		<?php foreach($departmentArr as $iKey => $departmentObj){ ?>
 						<input type="checkbox" name="department[]" value="<?php echo $departmentObj['department_title']; ?>" class="department-dropdown" id="<?php echo $departmentObj['department_title']; ?>">

@@ -287,12 +287,14 @@ var RegistrationViewSelectedCandidate = function() {
 			});
 
 			$("input#generateOfferEmail").on('click', function(objEvent){
-				if(confirm($('#msg-confirm-offer-email').attr('data-msg')) && $("input[name=sendEmailCheckbox]:checked").val()=="1"){
-					RegistrationViewSelectedCandidate.generate_offer_email(this, objEvent);
-				} else if (confirm($('#msg-confirm-offer-email').attr('data-msg')) && $("input[name=sendEmailCheckbox]:checked").val()===undefined) {
-					RegistrationViewSelectedCandidate.change_candidate_status_to_signed(this, objEvent);
-					RegistrationViewSelectedCandidate.download_pdf(this, objEvent);
-				}
+				if(confirm($('#msg-confirm-offer-email').attr('data-msg'))){
+					if($("input[name=sendEmailCheckbox]:checked").val()=="1"){
+						RegistrationViewSelectedCandidate.generate_offer_email(this, objEvent);
+					} else if ($("input[name=sendEmailCheckbox]:checked").val()===undefined){
+						RegistrationViewSelectedCandidate.change_candidate_status_to_signed(this, objEvent);
+						RegistrationViewSelectedCandidate.download_pdf(this, objEvent);
+					}
+				} 
 			});
 		});
 	}
