@@ -724,10 +724,9 @@ class RegistrationController extends Controller
 	}
 
 	public function actionShowOfferLetterTemplates(){
-		// $candidateArrRecords = EmploymentCandidate::model()->findAll(array('order'=>'id ASC'));
 		$offerLetterArrRecords = EmploymentOfferLetterTemplates::model()->findAll(['order'=>'id ASC']);
-		// var_dump($offerLetterArrRecords);exit;
-		$this->render('showOfferLetterTemplates', ['offerLetterArrRecords'=>$offerLetterArrRecords]);
+		$mode = OfferLetterEnum::EDIT_MODE;
+		$this->render('showOfferLetterTemplates', ['offerLetterArrRecords'=>$offerLetterArrRecords, 'mode'=>$mode]);
 	}
 
 	public function actionCreateNewOfferLetter(){
@@ -769,13 +768,30 @@ class RegistrationController extends Controller
 		$this->redirect('showOfferLetterTemplates');
 	}
 
-	public function actionViewSelectedOfferLetter($offerLetterId){
+	public function actionViewSelectedOfferLetter($offerLetterId, $mode){
 		$offerLetterCondition = 'id = "' . $offerLetterId . '"';
+
 		$offerLetterArr = EmploymentOfferLetterTemplates::model()->findAll($offerLetterCondition);
 		$departmentArr = Department::model()->queryForDepartments();
 		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
 
-		$this->render('editOfferLetter', ['offerLetterArr'=>$offerLetterArr, 'currentFunction'=>$currentFunction, 'departmentArr'=>$departmentArr, 'offerLetterId'=>$offerLetterId]);
+		if ($mode == OfferLetterEnum::COPY_MODE){
+			$offerLetterObj = new EmploymentOfferLetterTemplates;
+			$offerLetterObjModel->offer_letter_title = $offerLetterTitle;
+			$offerLetterObjModel->offer_letter_description = $this->getParam('offerLetterDescription', '');
+
+			$offerLetterObjModel->department = $offerLetterDepartments;
+
+			$offerLetterObjModel->is_managerial = $this->getParam('offerLetterIsManagerial', '');
+			$offerLetterObjModel->offer_letter_content = $this->getParam('offerLetterTemplate', '');
+			$offerLetterObjModel->created_by = $currentUserId; 
+			$offerLetterObjModel->save();
+
+			$this->redirect('showOfferLetterTemplates');
+		} else if ($mode == OfferLetterEnum::EDIT_MODE){
+			$this->render('editOfferLetter', ['offerLetterArr'=>$offerLetterArr, 'currentFunction'=>$currentFunction, 'departmentArr'=>$departmentArr, 'offerLetterId'=>$offerLetterId, 'mode'=>$mode]);
+		}
+
 	}
 
 	public function actionUpdateOfferLetterTemplate($offerLetterId){
@@ -818,16 +834,6 @@ class RegistrationController extends Controller
 		//pick out the offer letter template based on $isManagerial and $department
 		$offerLetterTemplate = EmploymentOfferLetterTemplates::model()->queryForOfferLetterTemplate($isManagerial, $department);
 
-		//this is where we get the photo
-		$imgTag = '../../images/offer_letter/';
-		$altTag = ' alt=';
-
-		$parsedPhoto = EmploymentOfferLetterTemplates::model()->getStringBetween($offerLetterTemplate["offer_letter_content"], $imgTag, $altTag);
-
-		$parsedPhotoAfterReplace = substr_replace($parsedPhoto, '', -6);
-
-		$photoFormat = substr($parsedPhotoAfterReplace, strrpos($parsedPhotoAfterReplace, '.') + 1);
-
 		$finalOfferLetter = EmploymentOfferLetterTemplates::model()->searchAndReplaceOfferLetterTerms($candidateId, $jobId, $offerLetterTemplate);
 		$decodedFinalOfferLetter = htmlspecialchars_decode($finalOfferLetter["offer_letter_content"]);
 
@@ -847,6 +853,17 @@ class RegistrationController extends Controller
 		$pdf->SetFont('helvetica', '', 9);
 		$pdf->AddPage();
 
+		//this is where we get the photo
+		$imgTag = '../../images/offer_letter/';
+		$altTag = ' alt=';
+
+		$parsedPhoto = EmploymentOfferLetterTemplates::model()->getStringBetween($offerLetterTemplate["offer_letter_content"], $imgTag, $altTag);
+
+		$parsedPhotoAfterReplace = substr_replace($parsedPhoto, '', -6);
+
+		$photoFormat = substr($parsedPhotoAfterReplace, strrpos($parsedPhotoAfterReplace, '.') + 1);
+
+		//this is where we first start inserting images
 		$horizontal_alignments = array('L');
 		$vertical_alignments = array('T');
 		//$x = x axis, $y = y-axis, $w = width, $h = height of picture
@@ -858,15 +875,15 @@ class RegistrationController extends Controller
 		// test all combinations of alignments
 		//$i represents how many images will be printed out horizontally
 		for ($i = 0; $i < 1; ++$i) {
-		    $fitbox = $horizontal_alignments[$i].' ';
-		    $x = 15;
-	    	//$j represents how many images will be printed out vertically
-		    for ($j = 0; $j < 1; ++$j) {
-	        $fitbox[1] = $vertical_alignments[$j];
-	        $pdf->Image(OfferLetterEnum::IMAGE_PATH . '/' . $parsedPhotoAfterReplace, $x, $y, $w, $h, $photoFormat, '', '', false, 300, '', false, false, 0, $fitbox, false, false);
-	        $x += 32; // new column
-		    }
-		    $y += 32; // new row
+	    $fitbox = $horizontal_alignments[$i].' ';
+	    $x = 15;
+    	//$j represents how many images will be printed out vertically
+	    for ($j = 0; $j < 1; ++$j) {
+        $fitbox[1] = $vertical_alignments[$j];
+        $pdf->Image(OfferLetterEnum::IMAGE_PATH . '/' . $parsedPhotoAfterReplace, $x, $y, $w, $h, $photoFormat, '', '', false, 300, '', false, false, 0, $fitbox, false, false);
+        $x += 32; // new column
+	    }
+	    $y += 32; // new row
 		}
 
 		//insert offer letter template

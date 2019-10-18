@@ -9,6 +9,8 @@ class OfferLetterEnum {
 	const CANDIDATE_SUPERIOR = "%%Candidate Superior%%";
 	const CANDIDATE_ADDRESS = "%%Candidate Address%%";
 	const CANDIDATE_NAME = "%%Candidate Name%%";
+	const COPY_MODE = "copy";
+	const EDIT_MODE = "edit";
 }
 
 ?>
