@@ -28,11 +28,6 @@ var RegistrationCreateNewOfferLetter = function(){
 				}
 			});
 
-			$('#copyOfferLetterButton').on('click', function(objEvent){
-				$('#offer-letter-template').select();
-				document.execCommand('copy');
-			});
-
 			tinymce.init({
 			  selector: 'textarea#offerLetterTemplate',
 			  content_style: 'textarea { margin: 50px; border: 5px solid red; padding: 3px; }',

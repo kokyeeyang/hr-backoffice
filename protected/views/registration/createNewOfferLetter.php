@@ -60,7 +60,6 @@
     		<label for="offerLetterIsManagerial">Is for a managerial position</label>
     	</table>
         <div class="buttons">
-      	  <input type="button" id="copyOfferLetterButton" name="copyOfferLetterButton" value="<?php echo Yii::t('app', 'Copy this template'); ?>">
           <div class="lable_block" id="saveOfferLetterButton">
             <div class="row_buttons">
               <?php echo CHtml::submitButton('Save this offer letter'); ?>

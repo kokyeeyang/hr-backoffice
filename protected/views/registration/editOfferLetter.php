@@ -74,7 +74,6 @@ if (count($offerLetterArr) > 0) {
     	</table>
        <input type="button" id="copyOfferLetterButton" name="copyOfferLetterButton" value="<?php echo Yii::t('app', 'Copy this template'); ?>" data-copy-url="<?php echo $this->createUrl('registration/viewSelectedOfferLetter', ['offerLetterId'=>$offerLetterId, 'mode'=>OfferLetterEnum::COPY_MODE]); ?>">
        <input type="button" id="updateOfferLetterButton" name="updateOfferLetterButton" value="<?php echo Yii::t('app', 'Update this template'); ?>" data-update-url="<?php echo $this->createUrl('registration/updateOfferLetterTemplate',['offerLetterId'=>$offerLetterId]); ?>">
-       <input type="button" id="saveOfferLetterButton" name="saveOfferLetterButton" style="display:none;" value="<?php echo Yii::t('app', 'Save this template'); ?>" data-save-url="<?php echo $this->createUrl('registration/saveOfferLetterTemplate'); ?>">
     </form>
   </div>
 </div>
