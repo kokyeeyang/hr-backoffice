@@ -72,12 +72,12 @@ if (count($offerLetterArr) > 0) {
     		<input type="checkbox" name="offerLetterIsManagerial" id="offerLetterIsManagerial" value="1" class="department-dropdown" <?php echo $offerLetterObj->is_managerial==1?'checked':'' ?>>
     		<label for="offerLetterIsManagerial">Is for a managerial position</label>
     	</table>
-    	 <!-- <input type="button" id="copyOfferLetterButton" name="copyOfferLetterButton" value="<?php //echo Yii::t('app', 'Copy this template'); ?>" data-copy-url="<?php //echo $this->createUrl('registration/viewSelectedOfferLetter',['offerLetterId'=>$offerLetterId]); ?>"> -->
-       <!-- <input type="button" id="copyOfferLetterButton" name="copyOfferLetterButton" value="<?php //echo Yii::t('app', 'Copy this template'); ?>" data-copy-url="<?php //echo $_SERVER['PHP_SELF']; ?>"> -->
        <input type="button" id="copyOfferLetterButton" name="copyOfferLetterButton" value="<?php echo Yii::t('app', 'Copy this template'); ?>" data-copy-url="<?php echo $this->createUrl('registration/viewSelectedOfferLetter', ['offerLetterId'=>$offerLetterId, 'mode'=>OfferLetterEnum::COPY_MODE]); ?>">
        <input type="button" id="updateOfferLetterButton" name="updateOfferLetterButton" value="<?php echo Yii::t('app', 'Update this template'); ?>" data-update-url="<?php echo $this->createUrl('registration/updateOfferLetterTemplate',['offerLetterId'=>$offerLetterId]); ?>">
        <input type="button" id="saveOfferLetterButton" name="saveOfferLetterButton" style="display:none;" value="<?php echo Yii::t('app', 'Save this template'); ?>" data-save-url="<?php echo $this->createUrl('registration/saveOfferLetterTemplate'); ?>">
-       <input type="hidden" name="copiedTemplate" value="<?php $_POST; ?>">
     </form>
   </div>
+</div>
+<div id="registration-common-msg">
+  <div id="msg-confirm-offerletter-duplicate" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to create a duplicate of this offer letter template?'); ?>"><!-- Dialog Buttons Label --></div>
 </div>

@@ -34,8 +34,12 @@ var RegistrationViewSelectedOfferLetter = function(){
 			});
 
 			$('#copyOfferLetterButton').on('click', function(objEvent){
-				RegistrationViewSelectedOfferLetter.copy_offer_letter_template(this, objEvent);
-				});
+				if(confirm($('#msg-confirm-offerletter-duplicate').attr('data-msg'))){
+					RegistrationViewSelectedOfferLetter.copy_offer_letter_template(this, objEvent);
+				} else {
+					event.preventDefault;
+				}
+			});
 
 			tinymce.init({
 			  selector: 'textarea#offerLetterTemplate',

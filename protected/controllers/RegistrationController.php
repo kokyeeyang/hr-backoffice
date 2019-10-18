@@ -776,9 +776,19 @@ class RegistrationController extends Controller
 		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
 
 		if ($mode == OfferLetterEnum::COPY_MODE){
-			$offerLetterObj = new EmploymentOfferLetterTemplates;
+			$offerLetterObjModel = new EmploymentOfferLetterTemplates;
+			$currentUserId = Yii::app()->user->id;
+			$offerLetterTitle = $this->getParam('offerLetterTitle', '') != null ? $this->getParam('offerLetterTitle', '') : "Untitled";
+			$offerLetterDescription = $this->getParam('offerLetterDescription', '') != null ? $this->getParam('offerLetterDescription', '') : "Unspecified";
 			$offerLetterObjModel->offer_letter_title = $offerLetterTitle;
 			$offerLetterObjModel->offer_letter_description = $this->getParam('offerLetterDescription', '');
+			$offerLetterDepartmentArray = $this->getParam('department', '');
+
+			if ($offerLetterDepartmentArray != ''){
+				$offerLetterDepartments = implode(",", $offerLetterDepartmentArray);
+			} else {
+				$offerLetterDepartments = null;
+			}
 
 			$offerLetterObjModel->department = $offerLetterDepartments;
 
@@ -790,6 +800,8 @@ class RegistrationController extends Controller
 			$this->redirect('showOfferLetterTemplates');
 		} else if ($mode == OfferLetterEnum::EDIT_MODE){
 			$this->render('editOfferLetter', ['offerLetterArr'=>$offerLetterArr, 'currentFunction'=>$currentFunction, 'departmentArr'=>$departmentArr, 'offerLetterId'=>$offerLetterId, 'mode'=>$mode]);
+		} else {
+			echo ('Invalid page');
 		}
 
 	}
