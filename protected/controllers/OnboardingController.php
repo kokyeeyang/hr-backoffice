@@ -1,6 +1,6 @@
 <?php 
 
-class OnboardingController extends OnboardingController
+class OnboardingController extends Controller
 {
 	public function filters() {
 		return array(
@@ -48,6 +48,6 @@ class OnboardingController extends OnboardingController
 	}
 
 	public function actionAddNewOnboardingItem(){
-		return $this->render("addNewOnboardingItem");
+		return $this->render("addEditOnboardingItem");
 	}
 }

@@ -13,7 +13,7 @@
   <div class="common_content_inner_wrapper">
     <h4 class="widget_title"><?php echo Yii::t('app', 'Add new job openings'); ?>
     </h4>
-    <form method="post" enctype="multipart/form-data" id="whiteListForm" name="whiteListForm" action="<?php echo $this->createUrl('registration/saveJobOpenings') ?>" >
+    <form method="post" enctype="multipart/form-data" id="jobOpeningForm" name="jobOpeningForm" action="<?php echo $this->createUrl('registration/saveJobOpenings') ?>" >
     	<table style="line-height: 32px;padding-left: 10px;font-size: 15px;">
     		<tr>
     			<td><?php echo Yii::t('app', 'Job title'); ?> </td>

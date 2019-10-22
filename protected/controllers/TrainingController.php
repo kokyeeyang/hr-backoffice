@@ -69,6 +69,7 @@ class TrainingController extends Controller
 
 	public function actionShowAllHiresForOnboarding() {
 		$candidateCondition = 'candidate_status = 6';
+		
 		$hireArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
 		return $this->render("showAllHiresForOnboarding", array('hireArrRecords'=>$hireArrRecords));
 	}
