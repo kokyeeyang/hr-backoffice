@@ -48,7 +48,7 @@ class TrainingController extends Controller
 		}
 	}
 
-	public function actionAddNewHire() {
+	public function actionAddNewHire(){
 		$objModel = new EmploymentNewHire;
 
 		$arrRecords = EmploymentCandidate::model()->findAll(array('order'=>'id ASC'));

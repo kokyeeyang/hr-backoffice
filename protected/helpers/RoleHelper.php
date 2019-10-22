@@ -50,6 +50,12 @@ class RoleHelper {
 					$arrActionsList = array_merge($arrActionsList, ['checkForCandidateInformation', 'addNewHire', 'saveNewHire', 'showAllHiresForOnboarding', 'viewSelectedHire', 'viewSelectedOnboardingChecklist', 'showTrainingSchedules', 'editOnboardingItems', 'saveOnboardingChecklist', 'saveOnboardingItems']);
 				}
 			break;
+
+			case 'onboarding':
+				if($bolAuthenticated === true && isset(Yii::app()->user->priv) && in_array(Yii::app()->user->priv, ['admin', 'manager', 'hr'])){
+					$arrActionsList = array_merge($arrActionsList, ['addNewOnboardingItem']);
+				}
+			break;
 		}
 		return $arrActionsList;
 	}

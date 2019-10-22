@@ -3,7 +3,7 @@
 		<li class="nav-header"><?php echo Yii::t('app', 'HR Back Office'); ?></li>
 		<li <?php if(Yii::app()->getController()->getId() == 'site'){ ?>class="active"<?php } ?>><a class="top_level_item" href="<?php echo $this->createUrl('site/welcome'); ?>"><div class="icon icon-home"></div><?php echo Yii::t('app', 'Home'); ?></a></li>
 		<?php
-		if(isset(Yii::app()->user->priv) && in_array(Yii::app()->user->priv, ['admin'])){
+		if(isset(Yii::app()->user->priv) && in_array(Yii::app()->user->priv, ['admin', 'hr'])){
 		?>
 		<li class="dropdown<?php if(Yii::app()->getController()->getId() == 'report'){ ?> active<?php } ?>"><a class="top_level_item" href="javascript:void(0);"><div class="icon icon-report"></div><?php echo Yii::t('app', 'Reports'); ?></a>
 			<ul>
@@ -13,7 +13,7 @@
 		<?php
 		} // - end: if
 
-		if(isset(Yii::app()->user->priv) && in_array(Yii::app()->user->priv, ['admin'])){ 
+		if(isset(Yii::app()->user->priv) && in_array(Yii::app()->user->priv, ['admin', 'hr'])){ 
 		?>
 		<li class="dropdown"><a class="top_level_item" href="javascript:void(0);"><div class="icon icon-key"></div> <?php echo Yii::t('app', 'Settings'); ?></a>
 			<ul>
@@ -36,6 +36,7 @@
 			<ul>
 				<li><a href="<?php echo $this->createUrl('training/showAllHiresForOnboarding'); ?>"><?php echo Yii::t('app', 'Onboarding checklist'); ?></a></li>
 				<li><a href="<?php echo $this->createUrl('training/editOnboardingItems'); ?>"><?php echo Yii::t('app', 'Edit Onboarding Items'); ?></a></li>
+				<li><a href="<?php echo $this->createUrl('onboarding/addNewOnboardingItem'); ?>"><?php echo Yii::t('app', 'Edit Onboarding Items'); ?></a></li>
 			</ul>
 		</li>
 		<li class="dropdown"><a class="top_level_item" href="javascript:void(0);"><div class="icon icon-people"></div> <?php echo Yii::t('app', 'Training'); ?></a>
