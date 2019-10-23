@@ -377,7 +377,7 @@ class AdminController extends Controller
     $departmentTitle = $departmentArr[0]->department_title;
     $departmentDescription = $departmentArr[0]->department_description;
 		
-		$this->render('addEditDepartment', ['departmentArr' => $departmentArr, 'departmentId' => $departmentId, 'formAction'=>$formAction, 'header'=>$header, 'buttonTitle'=>$buttonTitle, 'departmentTitle'=>$departmentTitle, 'departmentDescription'=>$departmentDescription]);
+		$this->render('departmentDetails', ['departmentArr' => $departmentArr, 'departmentId' => $departmentId, 'formAction'=>$formAction, 'header'=>$header, 'buttonTitle'=>$buttonTitle, 'departmentTitle'=>$departmentTitle, 'departmentDescription'=>$departmentDescription]);
 	}
 
 	public function actionUpdateDepartment($departmentId){

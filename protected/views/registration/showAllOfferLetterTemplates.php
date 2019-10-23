@@ -59,7 +59,7 @@
         <?php foreach($offerLetterArrRecords as $offerLetterObjRecord){ ?>
         <tr>
           <td>
-            <a href="<?php echo $this->createUrl('registration/viewSelectedOfferLetter', array('offerLetterId' => $offerLetterObjRecord->id, 'mode' => $mode)); ?>">
+            <a href="<?php echo $this->createUrl('registration/viewSelectedOfferLetter', array('offerLetterId' => $offerLetterObjRecord->id)); ?>">
             <?php echo $offerLetterObjRecord->offer_letter_title; ?>
             </a>
           </td>

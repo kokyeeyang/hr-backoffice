@@ -711,7 +711,7 @@ class RegistrationController extends Controller
 			$candidateObjRecord->update();
 		}
 
-		$this->redirect('showAllCandidates');
+		$this->redirect(['showAllCandidates']);
 	}
 
 	public function actionShowOfferLetterTemplates(){
@@ -723,11 +723,18 @@ class RegistrationController extends Controller
 	public function actionCreateNewOfferLetter(){
 		
 		$dateToday = date("dS F Y");
+		$header = Yii::t('app', 'Add New Offer Letter Template');
 		$departmentArr = Department::model()->queryForDepartments();
 
 		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
 
-		$this->render('createNewOfferLetter', array('dateToday'=>$dateToday, 'departmentArr' => $departmentArr, 'currentFunction'=>$currentFunction));
+		$offerLetterTitle = ""; 
+		$offerLetterDescription = "";
+		$offerLetterContent = "";
+		$offerLetterDepartment = "";
+		$offerLetterIsManagerial = "";
+
+		$this->render('offerLetterDetails', array('dateToday'=>$dateToday, 'departmentArr' => $departmentArr, 'currentFunction'=>$currentFunction, 'offerLetterTitle'=>$offerLetterTitle, 'offerLetterDescription'=>$offerLetterDescription, 'offerLetterContent'=>$offerLetterContent, 'offerLetterDepartment'=>$offerLetterDepartment, 'offerLetterIsManagerial'=>$offerLetterIsManagerial, 'header'=>$header));
 	}
 
 	public function actionSaveOfferLetterTemplate(){
@@ -756,45 +763,46 @@ class RegistrationController extends Controller
 		$offerLetterObjModel->created_by = $currentUserId; 
 		$offerLetterObjModel->save();
 
-		$this->redirect('showAllOfferLetterTemplates');
+		$this->redirect('showOfferLetterTemplates');
 	}
 
-	public function actionViewSelectedOfferLetter($offerLetterId, $mode){
+	// public function actionViewSelectedOfferLetter($offerLetterId=null, $mode){
+	public function actionViewSelectedOfferLetter($offerLetterId=null){
 		$offerLetterCondition = 'id = "' . $offerLetterId . '"';
-
-		$offerLetterArr = EmploymentOfferLetterTemplates::model()->findAll($offerLetterCondition);
+		$header = Yii::t('app', 'Edit offer letter template');
 		$departmentArr = Department::model()->queryForDepartments();
 		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
 
-		if ($mode == OfferLetterEnum::COPY_MODE){
-			$offerLetterObjModel = new EmploymentOfferLetterTemplates;
-			$currentUserId = Yii::app()->user->id;
-			$offerLetterTitle = $this->getParam('offerLetterTitle', '') != null ? $this->getParam('offerLetterTitle', '') : "Untitled";
-			$offerLetterDescription = $this->getParam('offerLetterDescription', '') != null ? $this->getParam('offerLetterDescription', '') : "Unspecified";
-			$offerLetterObjModel->offer_letter_title = $offerLetterTitle;
-			$offerLetterObjModel->offer_letter_description = $this->getParam('offerLetterDescription', '');
-			$offerLetterDepartmentArray = $this->getParam('department', '');
+		if(isset($_GET['offerLetterId']) && $offerLetterId != null){
+			$offerLetterArr = EmploymentOfferLetterTemplates::model()->findAll($offerLetterCondition);
 
-			if ($offerLetterDepartmentArray != ''){
-				$offerLetterDepartments = implode(",", $offerLetterDepartmentArray);
-			} else {
-				$offerLetterDepartments = null;
+			if($offerLetterArr == null){
+				throw new CHttpException(500,'Offer letter template does not exist with the requested id.');
 			}
 
-			$offerLetterObjModel->department = $offerLetterDepartments;
+			if (count($offerLetterArr) > 0) {
+			  $offerLetterObj = $offerLetterArr[0];
+			} 
 
-			$offerLetterObjModel->is_managerial = $this->getParam('offerLetterIsManagerial', '');
-			$offerLetterObjModel->offer_letter_content = $this->getParam('offerLetterTemplate', '');
-			$offerLetterObjModel->created_by = $currentUserId; 
-			$offerLetterObjModel->save();
+			$offerLetterTitle = $offerLetterObj->offer_letter_title;
+			$offerLetterDescription = $offerLetterObj->offer_letter_description;
+			$offerLetterContent = $offerLetterObj->offer_letter_content;
+			$offerLetterDepartment = $offerLetterObj->department;
+			$offerLetterIsManagerial = $offerLetterObj->is_managerial;
 
-			$this->redirect('showAllOfferLetterTemplates');
-		} else if ($mode == OfferLetterEnum::EDIT_MODE){
-			$this->render('editOfferLetter', ['offerLetterArr'=>$offerLetterArr, 'currentFunction'=>$currentFunction, 'departmentArr'=>$departmentArr, 'offerLetterId'=>$offerLetterId, 'mode'=>$mode]);
+			$this->render('offerLetterDetails', ['offerLetterObj'=>$offerLetterObj, 'offerLetterTitle'=>$offerLetterTitle, 'offerLetterDescription'=>$offerLetterDescription, 'offerLetterContent'=>$offerLetterContent, 'offerLetterDepartment'=>$offerLetterDepartment, 'offerLetterIsManagerial'=>$offerLetterIsManagerial, 'departmentArr'=>$departmentArr, 'offerLetterId'=>$offerLetterId,'header'=>$header]);
+
+		} else if (!isset($_GET['offerLetterId']) && $offerLetterId == null){
+			$offerLetterTitle = $this->getParam('offerLetterTitle', ''); 
+			$offerLetterDescription = $this->getParam('offerLetterDescription', '');
+			$offerLetterContent = $this->getParam('offerLetterTemplate','');
+			$offerLetterDepartment = implode(",", $this->getParam('department', ''));
+			$offerLetterIsManagerial = $this->getParam('offerLetterIsManagerial', '');
+
+			$this->render('offerLetterDetails', ['offerLetterTitle'=>$offerLetterTitle, 'offerLetterDescription'=>$offerLetterDescription, 'offerLetterContent'=>$offerLetterContent, 'offerLetterDepartment'=>$offerLetterDepartment, 'offerLetterIsManagerial'=>$offerLetterIsManagerial, 'departmentArr'=>$departmentArr, 'header'=>$header]);
 		} else {
 			throw new CHttpException(404,'The requested page does not exist.');
 		}
-
 	}
 
 	public function actionUpdateOfferLetterTemplate($offerLetterId){
@@ -816,7 +824,7 @@ class RegistrationController extends Controller
 			$offerLetterObj->modified_by = Yii::app()->user->id;
 			$offerLetterObj->update();
 		}
-		$this->redirect('showAllOfferLetterTemplates');
+		$this->redirect(['showOfferLetterTemplates']);
 	}
 
 	public function actionDownloadPdf($jobId, $candidateName, $candidateId){
@@ -900,7 +908,7 @@ class RegistrationController extends Controller
 		//it is previewing pdf for now to speed up testing, will turn back to 'D' once done
 		$pdf->Output($candidateName . ' offerletter.pdf', 'D');
 
-		$this->redirect("showAllOfferLetterTemplates");
+		$this->redirect("showOfferLetterTemplates");
 	}
 
 	public function actionCopyOfferLetterTemplate(){
@@ -940,10 +948,10 @@ class RegistrationController extends Controller
 
 		if ($offerLetterIds != ''){
 			$deleteJobOpening = EmploymentOfferLetterTemplates::model()->deleteSelectedOfferLetterTemplates($offerLetterIds);
-			$this->redirect("showAllOfferLetterTemplates");
+			$this->redirect("showOfferLetterTemplates");
 		} else {
 			echo "No offer letter template is found with this id";
-			$this->redirect("showAllOfferLetterTemplates");
+			$this->redirect("showOfferLetterTemplates");
 		}
 	}
 }	

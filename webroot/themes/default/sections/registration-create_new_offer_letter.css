@@ -38,3 +38,7 @@ input[type='checkbox'] {
   border-radius: 4px;
   width: 5%;
 }
+
+button #copyOfferLetterButton {
+	display: none;
+}
