@@ -177,7 +177,7 @@ class AdminController extends Controller
 				}
 				else if(empty(Admin::$arrPriv[$strPriv])){
 					$this->objError->addKeyError('admin_priv', Yii::t('app', 'Invalid privilege'));
-				} else if (empty(Department::model()->queryForDepartments())){
+				} else if (empty(Department::model()->queryForDepartmentDetails())){
 					$this->objError->addKeyError('admin_department', Yii::t('app', 'Invalid department'));
 				}
 				// - end: if else

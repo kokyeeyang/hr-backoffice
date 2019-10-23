@@ -305,7 +305,9 @@ class RegistrationController extends Controller
 
 		$allManagers = Admin::model()->queryForManagers();
 
-		$departmentArr = Department::model()->queryForDepartments(); 
+		// $departmentArr = Department::model()->queryForDepartments();
+		$departmentTitle = DepartmentEnum::DEPARTMENT_TITLE;
+		$departmentArr = Department::model()->queryForDepartmentDetails($departmentTitle); 
 
 		$this->render("jobOpeningDetails", array('objModel' => $objModel, 'allManagers' => $allManagers, 'departmentArr' => $departmentArr));
 	}
@@ -724,7 +726,8 @@ class RegistrationController extends Controller
 		
 		$dateToday = date("dS F Y");
 		$header = Yii::t('app', 'Add New Offer Letter Template');
-		$departmentArr = Department::model()->queryForDepartments();
+		$departmentTitle = DepartmentEnum::DEPARTMENT_TITLE;
+		$departmentArr = Department::model()->queryForDepartmentDetails($departmentTitle);
 
 		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
 
@@ -766,11 +769,11 @@ class RegistrationController extends Controller
 		$this->redirect('showOfferLetterTemplates');
 	}
 
-	// public function actionViewSelectedOfferLetter($offerLetterId=null, $mode){
 	public function actionViewSelectedOfferLetter($offerLetterId=null){
 		$offerLetterCondition = 'id = "' . $offerLetterId . '"';
 		$header = Yii::t('app', 'Edit offer letter template');
-		$departmentArr = Department::model()->queryForDepartments();
+		$departmentTitle = DepartmentEnum::DEPARTMENT_TITLE;
+		$departmentArr = Department::model()->queryForDepartmentDetails($departmentTitle);
 		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
 
 		if(isset($_GET['offerLetterId']) && $offerLetterId != null){
@@ -793,6 +796,7 @@ class RegistrationController extends Controller
 			$this->render('offerLetterDetails', ['offerLetterObj'=>$offerLetterObj, 'offerLetterTitle'=>$offerLetterTitle, 'offerLetterDescription'=>$offerLetterDescription, 'offerLetterContent'=>$offerLetterContent, 'offerLetterDepartment'=>$offerLetterDepartment, 'offerLetterIsManagerial'=>$offerLetterIsManagerial, 'departmentArr'=>$departmentArr, 'offerLetterId'=>$offerLetterId,'header'=>$header]);
 
 		} else if (!isset($_GET['offerLetterId']) && $offerLetterId == null){
+			// if offer letter id is not present, then it would be copying the offer letter template
 			$offerLetterTitle = $this->getParam('offerLetterTitle', ''); 
 			$offerLetterDescription = $this->getParam('offerLetterDescription', '');
 			$offerLetterContent = $this->getParam('offerLetterTemplate','');

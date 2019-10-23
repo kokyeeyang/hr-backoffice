@@ -46,10 +46,12 @@
 				<td>
 					: 
 					<select name="admin_department">
-						<?php $departmentArr = Department::model()->queryForDepartments(); 
+						$departmentId = DepartmentEnum::DEPARTMENT_ID;
+						<?php $departmentArr = Department::model()->queryForDepartmentDetails($departmentId); 
 							foreach ($departmentArr as $departmentObj){
 						?>
-						<option value="<?php echo $departmentObj['department_title']; ?>"><?php echo $departmentObj['department_title']; ?></option>
+						<!-- <option value="<?php //echo $departmentObj['department_title']; ?>"><?php //echo $departmentObj['department_title']; ?></option> -->
+						<option value="<?php echo $departmentObj['id']; ?>"><?php echo $departmentObj['department_title']; ?></option>
 						<?php } ?>
 					</select>
 				</td>

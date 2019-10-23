@@ -35,8 +35,8 @@ class Department extends AppActiveRecord {
 		return parent::model($className);
 	}
 
-	public function queryForDepartments(){
-		$sql = 'SELECT department_title FROM ' . self::$tableName;
+	public function queryForDepartmentDetails($queryResult){
+		$sql = 'SELECT ' . $queryResult . ' FROM ' . self::$tableName;
 
 		$objConnection = Yii::app()->db;
 		$objCommand = $objConnection->createCommand($sql);
