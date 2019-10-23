@@ -48,6 +48,6 @@ class OnboardingController extends Controller
 	}
 
 	public function actionAddNewOnboardingItem(){
-		return $this->render("addEditOnboardingItem");
+		return $this->render("onboardingItemDetails");
 	}
 }

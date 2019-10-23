@@ -11,7 +11,7 @@ var RegistrationViewSelectedCandidate = function() {
 					if(data != null && (typeof data.candidateName) != 'undefined'){
 						var emailSubject = "Offer for the position of " + data.jobTitle;
 						var greetings = "Hi " + data.candidateName + ",";
-						var emailBody1 = "Thank you for taking the time to attend the interview at SagaOS";
+						var emailBody1 = "Thank you for taking the time to attend the interview at SagaOS.";
 						var emailBody2 = "As discussed, please find the offer letter that is attached in this email for the position of " + data.jobTitle + 
 														 ". I would like to take this opportunity to congratulate you once again and welcome you aboard! ";
 						var emailBody3 = "Please revert back with the signed copy of the letter by";
@@ -21,6 +21,7 @@ var RegistrationViewSelectedCandidate = function() {
 						+ greetings + "%0D%0A%0D%0A" + emailBody1 + "%0D%0A%0D%0A" + emailBody2 + "%0D%0A%0D%0A" + emailBody3 
 						+ "%0D%0A%0D%0A" + emailBody4;
 
+						//changes candidate status to offer letter generated in the database
 						RegistrationViewSelectedCandidate.change_candidate_status(objElement, objEvent);
 						RegistrationViewSelectedCandidate.download_pdf(objElement, objEvent);
 

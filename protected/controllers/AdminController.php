@@ -354,7 +354,7 @@ class AdminController extends Controller
 		$departmentTitle = '';
     $departmentDescription = '';
 
-		$this->render('addEditDepartment', ['formAction'=>$formAction, 'header'=>$header, 'buttonTitle'=>$buttonTitle, 'departmentTitle'=>$departmentTitle, 'departmentDescription'=>$departmentDescription]);
+		$this->render('departmentDetails', ['formAction'=>$formAction, 'header'=>$header, 'buttonTitle'=>$buttonTitle, 'departmentTitle'=>$departmentTitle, 'departmentDescription'=>$departmentDescription]);
 	}
 
 	public function actionSaveDepartment(){

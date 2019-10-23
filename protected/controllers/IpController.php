@@ -45,7 +45,7 @@ class IpController extends Controller
 			}
 
 			$objModel = new WhitelistedIp();
-			$this->render('createNewWhitelistIp', array('durationArr' => $durationArr, 'currentIpAddress' => $currentIpAddress, 'labelName' => $labelName, 'objModel' => $objModel, 'display' => $display));
+			$this->render('whitelistIpDetails', array('durationArr' => $durationArr, 'currentIpAddress' => $currentIpAddress, 'labelName' => $labelName, 'objModel' => $objModel, 'display' => $display));
 		} 
 	}
 

@@ -307,7 +307,7 @@ class RegistrationController extends Controller
 
 		$departmentArr = Department::model()->queryForDepartments(); 
 
-		$this->render("addNewJobOpenings", array('objModel' => $objModel, 'allManagers' => $allManagers, 'departmentArr' => $departmentArr));
+		$this->render("jobOpeningDetails", array('objModel' => $objModel, 'allManagers' => $allManagers, 'departmentArr' => $departmentArr));
 	}
 
 	public function actionSaveJobOpenings() {
@@ -717,7 +717,7 @@ class RegistrationController extends Controller
 	public function actionShowOfferLetterTemplates(){
 		$offerLetterArrRecords = EmploymentOfferLetterTemplates::model()->findAll(['order'=>'id ASC']);
 		$mode = OfferLetterEnum::EDIT_MODE;
-		$this->render('showOfferLetterTemplates', ['offerLetterArrRecords'=>$offerLetterArrRecords, 'mode'=>$mode]);
+		$this->render('showAllOfferLetterTemplates', ['offerLetterArrRecords'=>$offerLetterArrRecords, 'mode'=>$mode]);
 	}
 
 	public function actionCreateNewOfferLetter(){
@@ -756,7 +756,7 @@ class RegistrationController extends Controller
 		$offerLetterObjModel->created_by = $currentUserId; 
 		$offerLetterObjModel->save();
 
-		$this->redirect('showOfferLetterTemplates');
+		$this->redirect('showAllOfferLetterTemplates');
 	}
 
 	public function actionViewSelectedOfferLetter($offerLetterId, $mode){
@@ -788,7 +788,7 @@ class RegistrationController extends Controller
 			$offerLetterObjModel->created_by = $currentUserId; 
 			$offerLetterObjModel->save();
 
-			$this->redirect('showOfferLetterTemplates');
+			$this->redirect('showAllOfferLetterTemplates');
 		} else if ($mode == OfferLetterEnum::EDIT_MODE){
 			$this->render('editOfferLetter', ['offerLetterArr'=>$offerLetterArr, 'currentFunction'=>$currentFunction, 'departmentArr'=>$departmentArr, 'offerLetterId'=>$offerLetterId, 'mode'=>$mode]);
 		} else {
@@ -816,7 +816,7 @@ class RegistrationController extends Controller
 			$offerLetterObj->modified_by = Yii::app()->user->id;
 			$offerLetterObj->update();
 		}
-		$this->redirect('showOfferLetterTemplates');
+		$this->redirect('showAllOfferLetterTemplates');
 	}
 
 	public function actionDownloadPdf($jobId, $candidateName, $candidateId){
@@ -900,7 +900,7 @@ class RegistrationController extends Controller
 		//it is previewing pdf for now to speed up testing, will turn back to 'D' once done
 		$pdf->Output($candidateName . ' offerletter.pdf', 'D');
 
-		$this->redirect("showOfferLetterTemplates");
+		$this->redirect("showAllOfferLetterTemplates");
 	}
 
 	public function actionCopyOfferLetterTemplate(){
@@ -940,10 +940,10 @@ class RegistrationController extends Controller
 
 		if ($offerLetterIds != ''){
 			$deleteJobOpening = EmploymentOfferLetterTemplates::model()->deleteSelectedOfferLetterTemplates($offerLetterIds);
-			$this->redirect("showOfferLetterTemplates");
+			$this->redirect("showAllOfferLetterTemplates");
 		} else {
 			echo "No offer letter template is found with this id";
-			$this->redirect("showOfferLetterTemplates");
+			$this->redirect("showAllOfferLetterTemplates");
 		}
 	}
 }	

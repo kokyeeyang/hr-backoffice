@@ -404,3 +404,28 @@ CREATE TABLE department (
 
 ALTER TABLE admin 
   ADD `admin_department` varchar(80) NULL AFTER `admin_priv`;
+
+CREATE TABLE onboarding_checklist_items (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(140) NULL,
+  `department_owner` int(11) NOT NULL,
+  `is_offloading_item` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `status` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `is_managerial` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(40) NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE onboarding_checklist_items_mapping (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `checklist_item_id` int(11) NOT NULL,
+  `checklist_template_id` int(11) NOT NULL,
+  `checklist_item_id` FOREIGN KEY REFERENCES `checklist_items`(id),
+  `checklist_template_id` FOREIGN KEY REFERENCES `checklist_template`(id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE onboarding_checklist_template (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
