@@ -421,11 +421,33 @@ CREATE TABLE onboarding_checklist_items_mapping (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `checklist_item_id` int(11) NOT NULL,
   `checklist_template_id` int(11) NOT NULL,
-  `checklist_item_id` FOREIGN KEY REFERENCES `checklist_items`(id),
-  `checklist_template_id` FOREIGN KEY REFERENCES `checklist_template`(id)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (checklist_item_id) REFERENCES onboarding_checklist_items(id),
+  FOREIGN KEY (checklist_template_id) REFERENCES onboarding_checklist_template(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE onboarding_checklist_template (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(160) NULL,
+  `description` varchar(160) NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(40) NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+ALTER TABLE admin
+  ADD FOREIGN KEY (admin_department) REFERENCES department(id);
+
+ALTER TABLE admin
+  MODIFY COLUMN admin_id int(11) NOT NULL AUTO_INCREMENT;
+
+CREATE TABLE onboarding_checklist_user_mapping (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `checklist_items_mapping_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(40) NULL,
+  PRIMARY KEY (`id`),  
+  FOREIGN KEY (user_id) REFERENCES admin(admin_id),
+  FOREIGN KEY (checklist_items_mapping_id) REFERENCES onboarding_checklist_items_mapping(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;

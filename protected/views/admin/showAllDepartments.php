@@ -29,6 +29,7 @@
 					<input type="button" value="<?php echo Yii::t('app', 'Add new department'); ?>">
 				</a>
 			</h4>
+			-- rewrite this table into a function --
 			<?php echo CHtml::hiddenField('mode', 'department-list'); ?>
 			<table class="widget_table grid">
 				<thead>

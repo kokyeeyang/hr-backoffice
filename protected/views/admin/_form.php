@@ -46,17 +46,17 @@
 				<td>
 					: 
 					<select name="admin_department">
+						<?php 
 						$departmentId = DepartmentEnum::DEPARTMENT_ID;
-						<?php $departmentArr = Department::model()->queryForDepartmentDetails($departmentId); 
-							foreach ($departmentArr as $departmentObj){
+						$departmentIdArr = Department::model()->queryForDepartmentDetails($departmentId); 
+						foreach ($departmentIdArr as $departmentIdObj){
+							$selectedStatus = $objModel->admin_department == $departmentIdObj['id']?"selected":"";
+							$departmentTitle = Department::model()->queryForDepartmentTitle($departmentIdObj['id']);
 						?>
-						<!-- <option value="<?php //echo $departmentObj['department_title']; ?>"><?php //echo $departmentObj['department_title']; ?></option> -->
-						<option value="<?php echo $departmentObj['id']; ?>"><?php echo $departmentObj['department_title']; ?></option>
+						<option value="<?php echo $departmentIdObj['id']; ?>" <?php echo $selectedStatus ?>><?php echo $departmentTitle['department_title']; ?></option>
 						<?php } ?>
 					</select>
 				</td>
-			<!-- 	<td><?php //echo $objForm->labelEx($objModel,'admin_department'); ?></td>
-				<td>: <?php //echo $objForm->dropDownList($objModel,'admin_priv', Admin::$arrPriv); ?></td> -->
 			</tr>
 			<tr>
 				<td colspan="2">

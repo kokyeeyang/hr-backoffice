@@ -45,6 +45,17 @@ class Department extends AppActiveRecord {
 		return $arrData;
 	}
 
+	public function queryForDepartmentTitle($id){
+    $sql = 'SELECT department_title FROM ' . self::$tableName;
+    $sql .= ' WHERE id=' . '"' . $id . '"';
+
+		$objConnection = Yii::app()->db;
+		$objCommand = $objConnection->createCommand($sql);
+		$arrData = $objCommand->queryRow();
+
+		return $arrData;
+	}
+
 	public function deleteSelectedDepartment($departmentIds){
 		foreach($departmentIds as $departmentId){
 			$condition = "id = $departmentId";

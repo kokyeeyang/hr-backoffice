@@ -177,9 +177,7 @@ class AdminController extends Controller
 				}
 				else if(empty(Admin::$arrPriv[$strPriv])){
 					$this->objError->addKeyError('admin_priv', Yii::t('app', 'Invalid privilege'));
-				} else if (empty(Department::model()->queryForDepartmentDetails())){
-					$this->objError->addKeyError('admin_department', Yii::t('app', 'Invalid department'));
-				}
+				} 
 				// - end: if else
 							
 				if(!$error = $this->objError->getError()){
@@ -368,7 +366,7 @@ class AdminController extends Controller
 		$this->redirect('showAllDepartments');
 	}
 
-	public function actionViewSelectedDepartment($departmentId){
+	public function actionViewSelectedDepartment(){
 		$departmentCondition = 'id = "' . $departmentId . '"';
 		$departmentArr = Department::model()->findAll($departmentCondition);
 		$formAction = $this->createUrl('admin/updateDepartment', ['departmentId' => $departmentId]);
@@ -381,11 +379,16 @@ class AdminController extends Controller
 	}
 
 	public function actionUpdateDepartment($departmentId){
+	//find out how to get param for $departmentid
+
+		// start:not needed 
 		$departmentCondition = 'id = "' . $departmentId . '"';
 		$departmentArr = Department::model()->findAll($departmentCondition);
 		foreach($departmentArr as $departmentObj){
+		// end:not needed 
 			$departmentObj->department_title = $this->getParam('newDepartment', '');
 			$departmentObj->department_description = $this->getParam('departmentDescription', '');
+			$departmentObj->id = $this->getParam('departmentDescription', '');
 			$departmentObj->update();
 		}
 

@@ -304,8 +304,6 @@ class RegistrationController extends Controller
 		$objModel = new EmploymentJobOpening;
 
 		$allManagers = Admin::model()->queryForManagers();
-
-		// $departmentArr = Department::model()->queryForDepartments();
 		$departmentTitle = DepartmentEnum::DEPARTMENT_TITLE;
 		$departmentArr = Department::model()->queryForDepartmentDetails($departmentTitle); 
 

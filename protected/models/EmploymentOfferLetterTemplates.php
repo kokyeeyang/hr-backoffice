@@ -58,6 +58,7 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 
 	}
 
+	//TODO: need to relook into thiS
 	public function queryForOfferLetterTemplate($isManagerial,$department){
 
 		$sql = 'SELECT offer_letter_content 
