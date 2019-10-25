@@ -110,7 +110,7 @@
 				?>
 					<tr>
 						<td title="<?php echo Yii::t('app', 'Click here to view this candidate'); ?>">
-							<a href="<?php echo $this->createUrl('registration/viewSelectedCandidate', array('id' => $objRecord->id_no)); ?>">
+							<a href="<?php echo $this->createUrl('registration/viewSelectedCandidate', array('candidateId' => $objRecord->id_no)); ?>">
 								<?php echo $objRecord->full_name; ?>
 							</a>
 						</td>
@@ -141,7 +141,7 @@
 							<?php echo EmploymentCandidate::model()->queryForCandidateStatus($objRecord->id_no); ?>
 						</td>
 						<td>
-							<select name="dropdown" data-confirm-url="<?php echo $this->createUrl('registration/confirmCandidate', array('id' => $objRecord->id_no)); ?>" size=1>
+							<select name="dropdown" data-confirm-url="<?php echo $this->createUrl('registration/confirmCandidate', array('candidateId' => $objRecord->id_no)); ?>" size=1>
 								<option value="" selected disabled hidden>Choose here</option>
 						    <option value="1">Accepted</option>
 						    <option value="2">Shortlisted</option>

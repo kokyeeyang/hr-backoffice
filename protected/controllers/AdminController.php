@@ -358,39 +358,34 @@ class AdminController extends Controller
 	public function actionSaveDepartment(){
 
 		$newDepartmentObjModel = new Department;
-		$newDepartmentObjModel->department_title = strtoupper($this->getParam('newDepartment', ''));
-		$newDepartmentObjModel->department_description = $this->getParam('departmentDescription', '');
+		$newDepartmentObjModel->title = $this->getParam('newDepartment', '');
+		$newDepartmentObjModel->description = $this->getParam('departmentDescription', '');
 		$newDepartmentObjModel->created_by = Yii::app()->user->id;
 		$newDepartmentObjModel->save();
 
 		$this->redirect('showAllDepartments');
 	}
 
-	public function actionViewSelectedDepartment(){
+	public function actionViewSelectedDepartment($departmentId){
 		$departmentCondition = 'id = "' . $departmentId . '"';
 		$departmentArr = Department::model()->findAll($departmentCondition);
 		$formAction = $this->createUrl('admin/updateDepartment', ['departmentId' => $departmentId]);
 		$header = AdminEnum::EDIT_DEPARTMENT;
     $buttonTitle =  AdminEnum::UPDATE_BUTTON;
-    $departmentTitle = $departmentArr[0]->department_title;
-    $departmentDescription = $departmentArr[0]->department_description;
+    $departmentTitle = $departmentArr[0]->title;
+    $departmentDescription = $departmentArr[0]->description;
 		
 		$this->render('departmentDetails', ['departmentArr' => $departmentArr, 'departmentId' => $departmentId, 'formAction'=>$formAction, 'header'=>$header, 'buttonTitle'=>$buttonTitle, 'departmentTitle'=>$departmentTitle, 'departmentDescription'=>$departmentDescription]);
 	}
 
 	public function actionUpdateDepartment($departmentId){
-	//find out how to get param for $departmentid
-
-		// start:not needed 
+		$departmentId = $this->getParam('departmentId', '', '', 'get');
 		$departmentCondition = 'id = "' . $departmentId . '"';
-		$departmentArr = Department::model()->findAll($departmentCondition);
-		foreach($departmentArr as $departmentObj){
-		// end:not needed 
-			$departmentObj->department_title = $this->getParam('newDepartment', '');
-			$departmentObj->department_description = $this->getParam('departmentDescription', '');
-			$departmentObj->id = $this->getParam('departmentDescription', '');
-			$departmentObj->update();
-		}
+
+		$departmentTitle = $this->getParam('newDepartment', '');
+		$departmentDescription = $this->getParam('departmentDescription', '');
+
+		Department::model()->updateAll(['title'=>$departmentTitle, 'description'=>$departmentDescription], $departmentCondition);	
 
 		$this->redirect('showAllDepartments');
 	}

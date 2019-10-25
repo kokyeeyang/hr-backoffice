@@ -53,7 +53,7 @@
 							$selectedStatus = $objModel->admin_department == $departmentIdObj['id']?"selected":"";
 							$departmentTitle = Department::model()->queryForDepartmentTitle($departmentIdObj['id']);
 						?>
-						<option value="<?php echo $departmentIdObj['id']; ?>" <?php echo $selectedStatus ?>><?php echo $departmentTitle['department_title']; ?></option>
+						<option value="<?php echo $departmentIdObj['id']; ?>" <?php echo $selectedStatus ?>><?php echo $departmentTitle['title']; ?></option>
 						<?php } ?>
 					</select>
 				</td>

@@ -45,7 +45,7 @@ var RegistrationShowAllJobOpenings = function() {
 				dataType: 'json',
 				success: function(data){
 					if(data != null && (typeof data.result) != 'undefined'){
-						var link = $('#site_url').attr('rel') + 'registration?JT=' + data.result + 'token=' + data.token;
+						var link = $('#site_url').attr('rel') + 'registration?JT=' + data.result + '%26token=' + data.token;
 						var emailSubject = 'Interview Invitation for the position of ' + data.jobTitleResult + ' at Saga OS';
 						var greeting = 'Hi ,';
 						var emailBody1 = 'Thank you for showing interest in the abovementioned position.'

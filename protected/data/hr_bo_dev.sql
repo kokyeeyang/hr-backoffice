@@ -451,3 +451,6 @@ CREATE TABLE onboarding_checklist_user_mapping (
   FOREIGN KEY (user_id) REFERENCES admin(admin_id),
   FOREIGN KEY (checklist_items_mapping_id) REFERENCES onboarding_checklist_items_mapping(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE department CHANGE department_title title varchar(80);
+ALTER TABLE department CHANGE department_description description varchar(300);

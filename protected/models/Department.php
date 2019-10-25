@@ -19,8 +19,8 @@ class Department extends AppActiveRecord {
 
 	public function attributeLabels(){
 		return [																				
-			'department_title' => Yii::t('app', 'department_title'),
-			'department_description' => Yii::t('app', 'department_description')
+			'title' => Yii::t('app', 'title'),
+			'description' => Yii::t('app', 'description')
 		];
 	}
 
@@ -46,7 +46,7 @@ class Department extends AppActiveRecord {
 	}
 
 	public function queryForDepartmentTitle($id){
-    $sql = 'SELECT department_title FROM ' . self::$tableName;
+    $sql = 'SELECT title FROM ' . self::$tableName;
     $sql .= ' WHERE id=' . '"' . $id . '"';
 
 		$objConnection = Yii::app()->db;

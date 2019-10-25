@@ -73,11 +73,11 @@
 						  <tr>
 						  	<td>
 						  		<a href="<?php echo $this->createUrl('admin/viewSelectedDepartment', ['departmentId' => $departmentObj->id]); ?>">
-							  		<?php echo $departmentObj->department_title ?>
+							  		<?php echo $departmentObj->title ?>
 							  	</a>
 						  	</td>
 						  	<td>
-						  		<?php echo $departmentObj->department_description ?>
+						  		<?php echo $departmentObj->description ?>
 						  	</td>
 						  	<td>
 						  		<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $departmentObj->id ?>">

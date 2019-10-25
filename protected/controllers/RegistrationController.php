@@ -88,18 +88,17 @@ class RegistrationController extends Controller
 	public function actionAddCandidate()
 	{
 		// put check job title applied for and token here
-		if ($_SERVER['QUERY_STRING'] != ''){
-			$queryString = explode('token=', $_SERVER['QUERY_STRING']);
-			$token = $queryString[1];
+		$token = $this->getParam('token', '', '', 'get');
+		$encryptedJobId = $this->getParam('JT', '', '', 'get');
+		if (isset($_GET['JT']) && isset($_GET['token'])){
 			$tokenPassed = EmploymentLinkToken::model()->verifyToken($token);
 			//if manage to find token inside database, then allow user to proceed to registration page
-			if($tokenPassed == true ){
+			if($tokenPassed == true){
 				$dateToday = date("Y-m-d");
 				$link = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 				$queryString = $_SERVER['QUERY_STRING'];
-				$encryptedJobId = substr($link, strpos($link, "=") + 1);
-				
-				$this->render('candidateForm', array('dateToday' => $dateToday, 'encryptedJobId' => $encryptedJobId, 'queryString' => $queryString));
+
+				$this->render('candidateForm', array('dateToday' => $dateToday, 'encryptedJobId' => $encryptedJobId, 'token' => $token));
 			} else {
 				exit('You have already submitted an application before.');
 			}
@@ -108,9 +107,10 @@ class RegistrationController extends Controller
 		}
 	}
 
-	public function actionSaveCandidate($queryString)
+	public function actionSaveCandidate($token)
 	{
 		//this is for saving candidate details into employment_candidate table
+
 		$encryptedJobId = $this->getParam('encryptedJobId', '');
 		$jobIdInSecretKey = base64_decode($encryptedJobId);
 		$jobId = substr($jobIdInSecretKey,9,1);
@@ -268,6 +268,7 @@ class RegistrationController extends Controller
 		$generalQuestionObjModel->save();
 		//
 
+		//TODO:: 
 		$interviewQuestionsObjModel = new EmploymentInterviewQuestions;
 		$interviewQuestionsObjModel->candidate_id = $sanitizedIdNo;
 		$interviewQuestionsObjModel->suitable_experience = null;
@@ -281,11 +282,11 @@ class RegistrationController extends Controller
 		$interviewQuestionsObjModel->interviewing_with_other_companies = null;
 		$interviewQuestionsObjModel->family_status = null;
 		$interviewQuestionsObjModel->modified_by = null;
+		//TODO::
 
 		//delete token from database once candidate has submitted application
-		$tokenString = explode('token=', $queryString);
-		$usedToken = $tokenString[1];
-		$deleteToken = EmploymentLinkToken::model()->deleteUsedToken($usedToken);
+		$token = $this->getParam('token', '', '', 'get');
+		$deleteToken = EmploymentLinkToken::model()->deleteUsedToken($token);
 
 		$this->render("redirectAfterRegister");
 	}
@@ -350,7 +351,8 @@ class RegistrationController extends Controller
 
 	public function actionGenerateEmail($jobId, $jobTitle){
 		$aResult['result'] = false;
-		$jobId = (int)$jobId;
+		$jobId = (int)$this->getParam('jobId', '', '', 'get');
+		$jobTitle = (int)$this->getParam('jobTitle', '', '', 'get');
 		$arrRecords = EmploymentJobOpening::model()->findAll(array('order'=>'id ASC'));
 		$token = EmploymentLinkToken::model()->generateRandomToken();
 
@@ -368,18 +370,16 @@ class RegistrationController extends Controller
 
 	public function actionGenerateOfferEmail($jobId, $candidateName, $candidateId){
 		$aResult['candidateName'] = false;
+		$jobId = $this->getParam('jobId', '', '', 'get');
+		$candidateName = $this->getParam('candidateName', '', '', 'get');
+		$candidateId = $this->getParam('candidateId', '', '', 'get');
 		$managerName = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::INTERVIEWING_MANAGER, EmploymentJobOpeningEnum::ID);
 		$jobTitle = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::CANDIDATE_JOB, EmploymentJobOpeningEnum::ID);
 		$candidateEmail = EmploymentCandidate::model()->queryForCandidateInformation($candidateName, EmploymentCandidateEnum::EMAIL_ADDRESS, EmploymentCandidateEnum::FULL_NAME);
-
 		$candidateStatus = 7;
 		$candidateCondition = 'id_no = "' . $candidateId . '"';
-		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
 
-		foreach($candidateArrRecords as $candidateObjRecord){
-			$candidateObjRecord->candidate_status = $candidateStatus;
-			$candidateObjRecord->update();
-		}
+		EmploymentCandidate::model()->updateAll(['candidate_status' => $candidateStatus], $candidateCondition);
 
 		if(Yii::app()->request->isAjaxRequest){
 			$aResult['candidateName'] = $candidateName;
@@ -411,17 +411,17 @@ class RegistrationController extends Controller
 		$this->redirect(array('showAllCandidates'));
 	}
 
-	public function actionViewSelectedCandidate($id){
-		$candidateId = $id;
+	public function actionViewSelectedCandidate($candidateId){
+		$candidateId = $this->getParam('candidateId', '', '', 'get');
 		$candidateCondition = 'id_no = "' . $candidateId . '"';
 		$otherCondition = 'candidate_id = "' . $candidateId . '"';
 		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
 
 		$interviewQuestionsArrRecords = EmploymentInterviewQuestions::model()->findAll($otherCondition);
 		$educationArrRecords = EmploymentEducation::model()->findAll($otherCondition);
-		$generalQuestionArrRecords = EmploymentGeneralQuestion::model()->findAll($otherCondition);
 		$jobExperienceArrRecords = EmploymentJobExperience::model()->findAll($otherCondition);
 		$refereeArrRecords = EmploymentReferee::model()->findAll($otherCondition);
+		$generalQuestionArrRecords = EmploymentGeneralQuestion::model()->findAll($otherCondition);
 
 		$resumeSource = EmploymentCandidate::model()->showDocument($candidateId, "candidate_resume");
 
@@ -447,59 +447,43 @@ class RegistrationController extends Controller
 	}
 
 	public function actionUpdateSelectedCandidate($candidateId){
-
+		$candidateId = $this->getParam('candidateId', '', '', 'get');
 		$candidateCondition = 'id_no = "' . $candidateId . '"';
 		$otherCondition = 'candidate_id = "' . $candidateId . '"';
 
-		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
+		// $candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
 		$educationArrRecords = EmploymentEducation::model()->findAll($otherCondition);
 		$jobExperienceArrRecords = EmploymentJobExperience::model()->findAll($otherCondition);
 		$refereeArrRecords = EmploymentReferee::model()->findAll($otherCondition);
 		$generalQuestionArrRecords = EmploymentGeneralQuestion::model()->findAll($otherCondition);
 
-		$schoolNames = $this->getParam('schoolName', '');
-		$startYears = $this->getParam('startYear', '');
-		$endYears = $this->getParam('endYear', '');
-		$qualifications = $this->getParam('qualification', '');
-		$grades = $this->getParam('cgpa', '');
-		
-		foreach($candidateArrRecords as $candidateObjRecord){
-			$candidateObjRecord['full_name'] = $this->getParam('fullName', '');
-			$candidateObjRecord['id_no'] = $this->getParam('idNo', '');
-			$candidateObjRecord['address'] = $this->getParam('address', '');
-			$candidateObjRecord['contact_no'] = $this->getParam('contactNo', '');
-			$candidateObjRecord['email_address'] = $this->getParam('emailAddress', '');
-			$candidateObjRecord['date_of_birth'] = $this->getParam('DOB', '');
-			$candidateObjRecord['marital_status'] = $this->getParam('maritalStatus', '');
-
-			if($this->getParam('findingMethod', '') == 'others'){
-				$candidateObjRecord['finding_method'] = 'OTHERS-' . strtoupper($this->getParam('otherFindingMethod', ''));
-				$candidateObjRecord->update();
-			}else if($this->getParam('findingMethod', '') == 'internal-referral'){
-				$candidateObjRecord['finding_method'] = 'INTERNAL-REFERRAL-' . strtoupper($this->getParam('referralFindingMethod', ''));
-				$candidateObjRecord->update();
-			} else {
-				$candidateObjRecord['finding_method'] = strtoupper($this->getParam('findingMethod', ''));
-				$candidateObjRecord->update();
-			}
-
-			$candidateObjRecord['gender'] = $this->getParam('gender', '');
-			$candidateObjRecord['nationality'] = $this->getParam('nationality', '');
-			$candidateObjRecord['terminated_before'] = $this->getParam('terminatedBefore', '');
-			$candidateObjRecord['termination_reason'] = $this->getParam('terminationDetails', '');
-			$candidateObjRecord['reference_consent'] = $this->getParam('consent', '');
-			$candidateObjRecord['refuse_reference_reason'] = $this->getParam('noReferenceReason', '');
-			$candidateObjRecord['candidate_agree_terms'] = $this->getParam('agreeTerms','');
-			$candidateObjRecord['candidate_signature_date'] = $this->getParam('signatureDate','');
-
-			if($this->getParam('comment','') != ''){
-				$candidateObjRecord['remarks'] = $this->getParam('comment','');
-				$candidateObjRecord->update();
-			} 
-
-			$candidateObjRecord->update();
-
+		// Updating of employment_candidate table START
+		if($this->getParam('findingMethod', '') == 'others'){
+			$findingMethod = 'OTHERS-' . strtoupper($this->getParam('otherFindingMethod', ''));
+		}else if($this->getParam('findingMethod', '') == 'internal-referral'){
+			$findingMethod = 'INTERNAL-REFERRAL-' . strtoupper($this->getParam('referralFindingMethod', ''));
+		} else {
+			$findingMethod = strtoupper($this->getParam('findingMethod', ''));
 		}
+
+		if($this->getParam('comment','') != ''){
+			$candidateRemarks = $this->getParam('comment','');
+		} else {
+			$candidateRemarks = null;
+		}
+
+		EmploymentCandidate::model()->updateAll([
+			'full_name'=>$this->getParam('fullName', ''), 
+			'id_no'=>$this->getParam('idNo', ''), 'address'=>$this->getParam('address', ''), 
+			'contact_no'=>$this->getParam('contactNo', ''), 'email_address'=>$this->getParam('emailAddress', ''), 
+			'date_of_birth'=>$this->getParam('DOB', ''), 'marital_status'=>$this->getParam('maritalStatus', ''), 
+			'finding_method'=>$findingMethod, 'gender'=>$this->getParam('gender', ''),
+			'nationality'=>$this->getParam('nationality', ''),'terminated_before'=>$this->getParam('terminatedBefore', ''),
+			'termination_reason'=>$this->getParam('terminationDetails', ''),'reference_consent'=>$this->getParam('consent', ''),
+			'refuse_reference_reason'=>$this->getParam('noReferenceReason', ''),'candidate_agree_terms'=>$this->getParam('agreeTerms',''),
+			'candidate_signature_date'=>$this->getParam('signatureDate',''),'remarks'=>$candidateRemarks
+		], $candidateCondition);
+		//Updating of employment_candidate table END
 
 		$schoolNames = $this->getParam('schoolName', '');
 		$startYears = $this->getParam('startYear', '');
@@ -520,6 +504,14 @@ class RegistrationController extends Controller
 				}
 			}
 		}
+
+		// var_dump($this->getParam('schoolName', ''));exit;
+
+		// EmploymentEducation::model()->updateAll([
+		// 	'candidate_id'=>$this->getParam('idNo', ''), 'school_name'=>$this->getParam('schoolName', ''), 
+		// 	'start_year'=>$this->getParam('startYear', ''), 'end_year'=>$this->getParam('endYear', ''), 
+		// 	'qualification'=>$this->getParam('qualification', ''), 'grade'=>$this->getParam('cgpa', '')
+		// ], $otherCondition);
 
 		$companyNames = $this->getParam('companyName','');
 		$startDates = $this->getParam('startDate','');
@@ -567,6 +559,7 @@ class RegistrationController extends Controller
 			}
 		}
 
+		// if need to add more referees, then insert new record into employment_referee table
 		if($this->getParam('extraSuperiorName1','') != false){
 			$refereeObjModel = new EmploymentReferee;
 			$refereeObjModel->candidate_id = $this->getParam('idNo', '');
@@ -591,47 +584,32 @@ class RegistrationController extends Controller
 			}
 		}
 
-		foreach($generalQuestionArrRecords as $generalQuestionObjRecord){
-			$generalQuestionObjRecord->candidate_id = $this->getParam('idNo', '');
-			$generalQuestionObjRecord->has_physical_ailment = $this->getParam('illness','');
-			$generalQuestionObjRecord->ailment_description = $this->getParam('typeOfIllness','');
-			$generalQuestionObjRecord->has_been_convicted = $this->getParam('criminalOffenseRadio','');
-			$generalQuestionObjRecord->offense = $this->getParam('criminalOffenseInput','');
-			$generalQuestionObjRecord->convicted_date = $this->getParam('convictedDate','');
-			$generalQuestionObjRecord->date_of_discharge = $this->getParam('dischargeDate','');
-			$generalQuestionObjRecord->has_company_contact = $this->getParam('sagaosRelative','');
-			$generalQuestionObjRecord->company_contact_name = $this->getParam('sagaosContactNameInput','');
-			$generalQuestionObjRecord->relationship_with_candidate = $this->getParam('sagaosFamilyInput','');
-			$generalQuestionObjRecord->has_conflict_of_interest = $this->getParam('interestConflict','');
-			$generalQuestionObjRecord->has_own_transport = $this->getParam('ownTransport','');
-			$generalQuestionObjRecord->has_applied_before = $this->getParam('timesApplied','');
-			$generalQuestionObjRecord->commencement_date = $this->getParam('commencementDate','');
-			$generalQuestionObjRecord->good_conduct_consent = $this->getParam('goodConductConsent','');
-			$generalQuestionObjRecord->expected_salary = $this->getParam('expectedSalary','');
-			$generalQuestionObjRecord->probationary_salary = $this->getParam('offerLetterProbationarySalary','');
+		//Updating of employment_general_question table START
+		EmploymentGeneralQuestion::model()->updateAll([
+			'candidate_id'=>$this->getParam('idNo', ''), 'has_physical_ailment'=>$this->getParam('illness',''),
+			'ailment_description'=>$this->getParam('typeOfIllness',''), 'has_been_convicted'=>$this->getParam('criminalOffenseRadio',''),
+			'offense'=>$this->getParam('criminalOffenseInput',''), 'convicted_date'=>$this->getParam('convictedDate',''),
+			'date_of_discharge'=>$this->getParam('dischargeDate',''), 'has_company_contact'=>$this->getParam('sagaosRelative',''),
+			'company_contact_name'=>$this->getParam('sagaosContactNameInput',''), 'relationship_with_candidate'=>$this->getParam('sagaosFamilyInput',''),
+			'has_conflict_of_interest'=>$this->getParam('interestConflict',''), 'has_own_transport'=>$this->getParam('ownTransport',''),
+			'has_applied_before'=>$this->getParam('timesApplied',''), 'commencement_date'=>$this->getParam('commencementDate',''),
+			'good_conduct_consent'=>$this->getParam('goodConductConsent',''), 'expected_salary'=>$this->getParam('expectedSalary',''),
+			'probationary_salary'=>$this->getParam('offerLetterProbationarySalary','')
+		], $otherCondition);
+		//Updating of employment_general_question table END
 
-			$generalQuestionObjRecord->update();
-		}
-
+		// Updating of employment_interview_questions table START
 		$currentUserId = Yii::app()->user->id;
 
-		$interviewQuestionsArrRecords = EmploymentInterviewQuestions::model()->findAll($otherCondition);
-		foreach($interviewQuestionsArrRecords as $interviewQuestionsObjRecord){
-			$interviewQuestionsObjRecord->candidate_id = $this->getParam('idNo', '');
-			$interviewQuestionsObjRecord->suitable_experience = $this->getParam('suitableExperience','');
-			$interviewQuestionsObjRecord->aspirations = $this->getParam('aspirations','');
-			$interviewQuestionsObjRecord->passion = $this->getParam('passion','');
-			$interviewQuestionsObjRecord->background = $this->getParam('background','');
-			$interviewQuestionsObjRecord->commute = $this->getParam('commute','');
-			$interviewQuestionsObjRecord->experience = $this->getParam('experience','');
-			$interviewQuestionsObjRecord->leave_reason = $this->getParam('leaveReason','');
-			$interviewQuestionsObjRecord->notice_period = $this->getParam('noticePeriod','');
-			$interviewQuestionsObjRecord->interviewing_with_other_companies = $this->getParam('interviewingWithOtherCompanies','');
-			$interviewQuestionsObjRecord->family_status = $this->getParam('familyStatus','');
-			$interviewQuestionsObjRecord->modified_by = $currentUserId;
-
-			$interviewQuestionsObjRecord->update();
-		}
+		EmploymentInterviewQuestions::model()->updateAll([
+			'candidate_id'=>$this->getParam('idNo', ''),'suitable_experience'=>$this->getParam('suitableExperience',''),
+			'aspirations'=>$this->getParam('aspirations',''),'passion'=>$this->getParam('passion',''),
+			'background'=>$this->getParam('background',''),'commute'=>$this->getParam('commute',''),
+			'experience'=>$this->getParam('experience',''),'leave_reason'=>$this->getParam('leaveReason',''),
+			'notice_period'=>$this->getParam('noticePeriod',''),'interviewing_with_other_companies'=>$this->getParam('interviewingWithOtherCompanies',''),
+			'family_status'=>$this->getParam('familyStatus',''),'modified_by'=>$currentUserId 
+		], $otherCondition);
+		// Updating of employment_interview_questions table END
 
 		$this->redirect(array('showAllCandidates'));
 	}
@@ -649,67 +627,54 @@ class RegistrationController extends Controller
 		Captcha::genCaptcha();
 	}
 
-	public function actionConfirmCandidate($id){
+	public function actionConfirmCandidate($candidateId){
+		$candidateId = $this->getParam('candidateId', '', '', 'get');
 		$candidateStatus = $this->getParam('dropdown','');
-		$candidateCondition = 'id_no = "' . $id . '"';
+		$candidateCondition = 'id_no = "' . $candidateId . '"';
 		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
 
-		foreach($candidateArrRecords as $candidateObjRecord){
-			$candidateObjRecord->candidate_status = $candidateStatus;
-			$candidateObjRecord->update();
-		}
+		EmploymentCandidate::model()->updateAll(['candidate_status' => $candidateStatus], $candidateCondition);
 
-		$trainingOnboardingChecklistCondition = 'candidate_id = "' . $id . '"';
+		$trainingOnboardingChecklistCondition = 'candidate_id = "' . $candidateId . '"';
 		$duplicateCheck = TrainingOnboardingChecklist::model()->findAll($trainingOnboardingChecklistCondition);
 
-
-		if ($candidateStatus == "6" && $duplicateCheck == false){
-			$onboardingItemIds = TrainingOnboardingItems::model()->obtainItemIds();
-			foreach($onboardingItemIds as $iKey => $onboardingItemId){
-				$onboardingChecklistObjModel = new TrainingOnboardingChecklist;
-				$onboardingChecklistObjModel->onboarding_item_id = implode(" ",$onboardingItemId);
-				$onboardingChecklistObjModel->candidate_id = $id;
-				$onboardingChecklistObjModel->created_by = Yii::app()->user->id;
-				$onboardingChecklistObjModel->save();
-			}
-		}
+		// TODO: Still needs further work to generate onboarding checklist
+		// if ($candidateStatus == "6" && $duplicateCheck == false){
+		// 	$onboardingItemIds = TrainingOnboardingItems::model()->obtainItemIds();
+		// 	foreach($onboardingItemIds as $iKey => $onboardingItemId){
+		// 		$onboardingChecklistObjModel = new TrainingOnboardingChecklist;
+		// 		$onboardingChecklistObjModel->onboarding_item_id = implode(" ",$onboardingItemId);
+		// 		$onboardingChecklistObjModel->candidate_id = $candidateId;
+		// 		$onboardingChecklistObjModel->created_by = Yii::app()->user->id;
+		// 		$onboardingChecklistObjModel->save();
+		// 	}
+		// }
 				
 
 		$this->redirect(array('showAllCandidates'));
 	}
 
+	// TODO: change function name because this is confusing
 	public function actionChangeCandidateStatus($candidateId){
 		$candidateCondition = 'id_no = "' . $candidateId . '"';
-		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
 
-		foreach($candidateArrRecords as $candidateObjRecord){
-			$candidateObjRecord->candidate_status = 7;
-			$candidateObjRecord->update();
-		}
+		EmploymentCandidate::model()->updateAll(['candidate_status'=>7], $candidateCondition);
 
 		$this->redirect(array('showAllCandidates'));
 	}
 
 	public function actionChangeCandidateStatusToSigned($candidateId){
 		$candidateCondition = 'id_no = "' . $candidateId . '"';
-		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
-
-		foreach($candidateArrRecords as $candidateObjRecord){
-			$candidateObjRecord->candidate_status = 6;
-			$candidateObjRecord->update();
-		}
+		EmploymentCandidate::model()->updateAll(['candidate_status'=>6], $candidateCondition);
 
 		$this->redirect(array('showAllCandidates'));
 	}
 
 	public function actionChangeCandidatePosition($candidateId){
 		$candidateCondition = 'id_no = "' . $candidateId . '"';
-		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
+		$job_id = $this->getParam('positionDropdown','');
 
-		foreach($candidateArrRecords as $candidateObjRecord){
-			$candidateObjRecord->job_id = $this->getParam('positionDropdown','');
-			$candidateObjRecord->update();
-		}
+		EmploymentCandidate::model()->updateAll(['job_id'=>$job_id], $candidateCondition);
 
 		$this->redirect(['showAllCandidates']);
 	}
@@ -809,23 +774,17 @@ class RegistrationController extends Controller
 
 	public function actionUpdateOfferLetterTemplate($offerLetterId){
 		$offerLetterCondition = 'id = "' . $offerLetterId . '"';
-		$offerLetterArr = EmploymentOfferLetterTemplates::model()->findAll($offerLetterCondition);
+		$offerLetterDepartmentArray = $this->getParam('department', '');
 
-		foreach($offerLetterArr as $offerLetterObj){
-			$offerLetterObj->offer_letter_title = $this->getParam('offerLetterTitle','');
-			$offerLetterObj->offer_letter_description = $this->getParam('offerLetterDescription','');
-			$offerLetterDepartmentArray = $this->getParam('department', '');
-
-			if($offerLetterDepartmentArray == ''){
-				$offerLetterObj->department = null;
-			}else{
-				$offerLetterObj->department = implode(",", $offerLetterDepartmentArray);
-			}
-			$offerLetterObj->is_managerial = $this->getParam('offerLetterIsManagerial', '');
-			$offerLetterObj->offer_letter_content = $this->getParam('offerLetterTemplate','');
-			$offerLetterObj->modified_by = Yii::app()->user->id;
-			$offerLetterObj->update();
+		if($offerLetterDepartmentArray == ''){
+			$offerLetterDepartment = null;
+		}else{
+			$offerLetterDepartment = implode(",", $offerLetterDepartmentArray);
 		}
+
+		EmploymentOfferLetterTemplates::model()->updateAll(
+			['offer_letter_title' => $this->getParam('offerLetterTitle',''), 'offer_letter_description'  => $this->getParam('offerLetterDescription',''),'department' => $offerLetterDepartment, 'is_managerial' => $this->getParam('offerLetterIsManagerial', ''),'modified_by' => Yii::app()->user->id], $offerLetterCondition);
+
 		$this->redirect(['showOfferLetterTemplates']);
 	}
 
@@ -852,6 +811,7 @@ class RegistrationController extends Controller
 		}
 
 		$finalOfferLetter = EmploymentOfferLetterTemplates::model()->searchAndReplaceOfferLetterTerms($candidateId, $jobId, $offerLetterTemplate);
+
 		$decodedFinalOfferLetter = htmlspecialchars_decode($finalOfferLetter["offer_letter_content"]);
 
 		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
