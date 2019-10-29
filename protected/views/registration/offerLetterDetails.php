@@ -58,9 +58,9 @@
         </legend>
 	    	<div id="department-dropdown" style="margin-top: 10px; margin-bottom: 10px;">
 	    		<?php foreach($departmentArr as $iKey => $departmentObj){ ?>
-            <?php $checkedStatus = preg_match("/" . $departmentObj['department_title'] . "/", $offerLetterDepartment)?'checked':'' ?>
-						<input type="checkbox" name="department[]" value="<?php echo $departmentObj['department_title']; ?>" class="department-dropdown" id="<?php echo $departmentObj['department_title']; ?>" <?php echo $checkedStatus; ?> >
-						<label for="<?php echo $departmentObj['department_title']; ?>"><?php echo $departmentObj['department_title']; ?></label>
+            <?php $checkedStatus = preg_match("/" . $departmentObj['title'] . "/", $offerLetterDepartment)?'checked':'' ?>
+						<input type="checkbox" name="department[]" value="<?php echo $departmentObj['title']; ?>" class="department-dropdown" id="<?php echo $departmentObj['title']; ?>" <?php echo $checkedStatus; ?> >
+						<label for="<?php echo $departmentObj['title']; ?>"><?php echo $departmentObj['title']; ?></label>
 					<?php } ?>
 	    	</div>
     		<input type="checkbox" name="offerLetterIsManagerial" id="offerLetterIsManagerial" value="1" class="department-dropdown" <?php echo $offerLetterIsManagerial==1?'checked':'' ?>>

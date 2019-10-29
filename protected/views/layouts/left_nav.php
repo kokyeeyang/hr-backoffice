@@ -19,8 +19,8 @@
 			<ul>
 				<li><a class="btnGetAdminList" rel="<?php echo $this->createUrl('admin/list'); ?>" href="javascript:void(0);"><?php echo Yii::t('app', 'Users List'); ?></a></li>
 				<li><a class="btnGetAdminForm" rel="<?php echo $this->createUrl('admin/add'); ?>" href="javascript:void(0);"><?php echo Yii::t('app', 'Add User'); ?></a></li>
-				<li><a href="<?php echo $this->createUrl('registration/showOfferLetterTemplates'); ?>"><?php echo Yii::t('app', 'Choose template for offer letter'); ?></a></li>
-				<li><a href="<?php echo $this->createUrl('admin/showAllDepartments'); ?>"><?php echo Yii::t('app', 'Show all departments'); ?></a></li>
+				<li><a href="<?php echo $this->createUrl('registration/showOfferLetterTemplates'); ?>"><?php echo Yii::t('app', 'Offer Letters List'); ?></a></li>
+				<li><a href="<?php echo $this->createUrl('admin/showAllDepartments'); ?>"><?php echo Yii::t('app', 'Departments List'); ?></a></li>
 			</ul>
 		</li>
 		<?php
@@ -28,8 +28,8 @@
 		?>		
 		<li class="dropdown"><a class="top_level_item" href="javascript:void(0);"><div class="icon icon-people"></div> <?php echo Yii::t('app', 'Interviewers'); ?></a>
 			<ul>
-				<li><a href="<?php echo $this->createUrl('registration/showAllCandidates'); ?>"><?php echo Yii::t('app', 'View all interview candidates'); ?></a></li>
-				<li><a href="<?php echo $this->createUrl('registration/showAllJobOpenings'); ?>"><?php echo Yii::t('app', 'Show all job openings'); ?></a></li>
+				<li><a href="<?php echo $this->createUrl('registration/showAllCandidates'); ?>"><?php echo Yii::t('app', 'Interview Candidates List'); ?></a></li>
+				<li><a href="<?php echo $this->createUrl('registration/showAllJobOpenings'); ?>"><?php echo Yii::t('app', 'Job Openings List'); ?></a></li>
 			</ul>
 		</li>
 		<li class="dropdown"><a class="top_level_item" href="javascript:void(0);"><div class="icon icon-people"></div> <?php echo Yii::t('app', 'Onboarding'); ?></a>

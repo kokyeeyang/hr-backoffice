@@ -31,14 +31,18 @@
 			</h4>
 			-- rewrite this table into a function --
 			<?php echo CHtml::hiddenField('mode', 'department-list'); ?>
+			<?php echo CHtml::hiddenField('sort_key', $strSortKey); ?>
 			<table class="widget_table grid">
 				<thead>
 					<tr>
 						<th>
-							<div class="sort_wrapper_inner">
+							<div class="btnAjaxSortList sort_wrapper_inner<?php if($strSortKey === 'sort_department_desc'){?> desc<?php }elseif($strSortKey === 'sort_department_asc'){ ?> asc<?php } ?>">
 								<div class="sort_label_wrapper">
 									<div class="sort_label">
 										<?php echo Yii::t('app', 'Department'); ?>
+									</div>
+									<div class="sort_icon_wrapper">
+										<div class="sort_icon">&nbsp;</div>
 									</div>
 								</div>
 							</div>
@@ -89,6 +93,10 @@
 					?>
 				</tbody>
 			</table>
+			<?php
+			if(isset($departmentArr[0])){		
+				echo $this->renderFile(Yii::getPathOfAlias('application.views.layouts') . '/pagination.php', array('objPagination' => $objPagination));
+			} // - end: if ?>
 		<?php $this->endWidget(); ?>
 	</div>
 </div>

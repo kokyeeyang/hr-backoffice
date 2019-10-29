@@ -340,9 +340,17 @@ class AdminController extends Controller
 	}
 
 	public function actionShowAllDepartments(){
-		$departmentArr = Department::model()->findAll();
+		$objCriteria		= new CDbCriteria();
+		// $objCriteria->order = $strSortBy;
+		$strSortKey			= $this->getParam('sort_key', '');
+		$intCount 		= Department::model()->count($objCriteria);
+		$objPagination	= new CPagination($intCount);
+		$objPagination->setPageSize(Yii::app()->params['numPerPage']);
+		$objPagination->setCurrentPage($this->intPage);
+		$objPagination->applyLimit($objCriteria);
+		$departmentArr = Department::model()->findAll($objCriteria);
 
-		$this->render('showAllDepartments', ['departmentArr' => $departmentArr]);
+		$this->render('showAllDepartments', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination]);
 	}
 
 	public function actionAddNewDepartment(){
@@ -358,7 +366,9 @@ class AdminController extends Controller
 	public function actionSaveDepartment(){
 
 		$newDepartmentObjModel = new Department;
-		$newDepartmentObjModel->title = $this->getParam('newDepartment', '');
+		$departmentTitle = $this->getParam('newDepartment', '');
+		//to capitalize the first alphabet of each word
+		$newDepartmentObjModel->title = ucwords($departmentTitle);
 		$newDepartmentObjModel->description = $this->getParam('departmentDescription', '');
 		$newDepartmentObjModel->created_by = Yii::app()->user->id;
 		$newDepartmentObjModel->save();

@@ -271,17 +271,17 @@ class RegistrationController extends Controller
 		//TODO:: 
 		$interviewQuestionsObjModel = new EmploymentInterviewQuestions;
 		$interviewQuestionsObjModel->candidate_id = $sanitizedIdNo;
-		$interviewQuestionsObjModel->suitable_experience = null;
-		$interviewQuestionsObjModel->aspirations = null;
-		$interviewQuestionsObjModel->passion = null;
-		$interviewQuestionsObjModel->background = null;
-		$interviewQuestionsObjModel->commute = null;
-		$interviewQuestionsObjModel->experience = null;
-		$interviewQuestionsObjModel->leave_reason = null;
-		$interviewQuestionsObjModel->notice_period = null;
-		$interviewQuestionsObjModel->interviewing_with_other_companies = null;
-		$interviewQuestionsObjModel->family_status = null;
-		$interviewQuestionsObjModel->modified_by = null;
+		// $interviewQuestionsObjModel->suitable_experience = null;
+		// $interviewQuestionsObjModel->aspirations = null;
+		// $interviewQuestionsObjModel->passion = null;
+		// $interviewQuestionsObjModel->background = null;
+		// $interviewQuestionsObjModel->commute = null;
+		// $interviewQuestionsObjModel->experience = null;
+		// $interviewQuestionsObjModel->leave_reason = null;
+		// $interviewQuestionsObjModel->notice_period = null;
+		// $interviewQuestionsObjModel->interviewing_with_other_companies = null;
+		// $interviewQuestionsObjModel->family_status = null;
+		// $interviewQuestionsObjModel->modified_by = null;
 		//TODO::
 
 		//delete token from database once candidate has submitted application
