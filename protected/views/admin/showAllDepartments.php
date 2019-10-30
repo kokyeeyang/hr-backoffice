@@ -36,10 +36,28 @@
 				<thead>
 					<tr>
 						<th>
-							<div class="btnAjaxSortList sort_wrapper_inner<?php if($strSortKey === 'sort_department_desc'){?> desc<?php }elseif($strSortKey === 'sort_department_asc'){ ?> asc<?php } ?>">
-								<div class="sort_label_wrapper">
-									<div class="sort_label">
-										<?php echo Yii::t('app', 'Department'); ?>
+							<div class="btnAjaxSortList sort_wrapper<?php if($strSortKey === 'sort_department_desc'){?> desc<?php }elseif($strSortKey === 'sort_department_asc'){ ?> asc<?php } ?>" rel="sort" rev="sort_department">
+								<a title="<?php echo Yii::t('app', 'Sort'); ?>" href="javascript:void(0);">
+								<div class="sort_wrapper_inner">
+									<div class="sort_label_wrapper">
+										<div class="sort_label">
+											<?php echo Yii::t('app', 'Department'); ?>
+										</div>
+									</div>
+									<div class="sort_icon_wrapper">
+										<div class="sort_icon">&nbsp;</div>
+									</div>
+								</div>
+							</div>
+						</th>
+						<th>
+							<div class="btnAjaxSortList sort_wrapper<?php if($strSortKey === 'sort_department_description_desc'){?> desc<?php }elseif($strSortKey === 'sort_department_asc'){ ?> asc<?php } ?>" rel="sort" rev="sort_department_description">
+								<a title="<?php echo Yii::t('app', 'Sort'); ?>" href="javascript:void(0);">
+								<div class="sort_wrapper_inner">
+									<div class="sort_label_wrapper">
+										<div class="sort_label">
+											<?php echo Yii::t('app', 'Description'); ?>
+										</div>
 									</div>
 									<div class="sort_icon_wrapper">
 										<div class="sort_icon">&nbsp;</div>
@@ -51,16 +69,7 @@
 							<div class="sort_wrapper_inner">
 								<div class="sort_label_wrapper">
 									<div class="sort_label">
-										<?php echo Yii::t('app', 'Description'); ?>
-									</div>
-								</div>
-							</div>
-						</th>
-						<th>
-							<div class="sort_wrapper_inner">
-								<div class="sort_label_wrapper">
-									<div class="sort_label">
-										<input type="button" title="<?php echo Yii::t('app', 'Delete this entry'); ?>" id="deleteDepartmentButton" value="Delete selected entries" data-delete-url="<?php echo $this->createUrl('admin/deleteSelectedDepartments') ?>">
+										<input type="button" title="<?php echo Yii::t('app', 'Delete this entry'); ?>" id="deleteDepartmentButton" value="Delete selected entries" name="deleteDepartmentButton" data-delete-url="<?php echo $this->createUrl('admin/deleteSelectedDepartments') ?>">
 									</div>
 								</div>
 							</div>

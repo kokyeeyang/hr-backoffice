@@ -340,9 +340,30 @@ class AdminController extends Controller
 	}
 
 	public function actionShowAllDepartments(){
+		$strSortKey = $this->getParam('sort_key', '');
+		switch($strSortKey){
+			case 'sort_department_desc':
+			default:
+				$strSortKey = 'sort_department_desc';
+				$strSortBy = 'title DESC';
+			break;
+
+			case 'sort_department_asc':
+				$strSortBy = 'title ASC';
+			break;
+
+			case 'sort_department_description_desc':
+				$strSortBy = 'description DESC';
+			break;
+
+			case 'sort_department_description_asc':
+				$strSortBy = 'description ASC';
+			break;
+		}
+
 		$objCriteria		= new CDbCriteria();
-		// $objCriteria->order = $strSortBy;
-		$strSortKey			= $this->getParam('sort_key', '');
+		$objCriteria->order = $strSortBy;
+
 		$intCount 		= Department::model()->count($objCriteria);
 		$objPagination	= new CPagination($intCount);
 		$objPagination->setPageSize(Yii::app()->params['numPerPage']);
@@ -350,6 +371,23 @@ class AdminController extends Controller
 		$objPagination->applyLimit($objCriteria);
 		$departmentArr = Department::model()->findAll($objCriteria);
 
+		if(isset($_POST['ajax']) && $_POST['ajax']==='department-list' && Yii::app()->request->isAjaxRequest){
+			$aResult = [];
+			$aResult['result'] 	= 0;
+			$aResult['content'] = '';
+			$aResult['msg'] 	= '';
+
+			// if click on sorting, then it will be ajax, thus we returnpartial here
+			$aResult['content'] = $this->renderPartial('showAllDepartments', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination], true);
+			
+			if(!empty($aResult['content'])){
+				$aResult['result'] 	= 1;
+			}
+			echo(json_encode($aResult));
+			Yii::app()->end();
+		} // - end: if
+
+		// we return whole page here
 		$this->render('showAllDepartments', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination]);
 	}
 
@@ -408,4 +446,14 @@ class AdminController extends Controller
 		}
 		$this->redirect('showAllDepartments');
 	}
+
+	// private function getDepartmentList($strSortKey){
+	// 	switch($strSortKey){
+	// 		case 'sort_department_desc':
+	// 		default:
+	// 			$strSortKey = 'sort_department_asc';
+	// 			$strSortBy = 'department_title DESC';
+	// 		break;
+	// 	}
+	// }
 }

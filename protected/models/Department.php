@@ -62,4 +62,5 @@ class Department extends AppActiveRecord {
 			Department::model()->deleteAll($condition);
 		}
 	}
+
 }

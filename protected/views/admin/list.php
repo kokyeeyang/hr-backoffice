@@ -30,6 +30,7 @@
 			<thead>
 				<tr>
 					<th>
+						<!-- <div class="btnAjaxSortList sort_wrapper<?php if($strSortKey === 'sort_username_desc'){?> desc<?php }elseif($strSortKey === 'sort_username_asc'){ ?> asc<?php } ?>" rel="sort" rev="sort_username"> -->
 						<div class="btnAjaxSortList sort_wrapper<?php if($strSortKey === 'sort_username_desc'){?> desc<?php }elseif($strSortKey === 'sort_username_asc'){ ?> asc<?php } ?>" rel="sort" rev="sort_username">
 							<a title="<?php echo Yii::t('app', 'Sort'); ?>" href="javascript:void(0);">
 								<div class="sort_wrapper_inner">								
