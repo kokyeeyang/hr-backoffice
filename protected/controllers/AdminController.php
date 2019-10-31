@@ -340,6 +340,8 @@ class AdminController extends Controller
 	}
 
 	public function actionShowAllDepartments(){
+		//can be a function -START
+		//maybe we want to channel all the view all page sort keys to one function?
 		$strSortKey = $this->getParam('sort_key', '');
 		switch($strSortKey){
 			case 'sort_department_desc':
@@ -369,6 +371,8 @@ class AdminController extends Controller
 		$objPagination->setPageSize(Yii::app()->params['numPerPage']);
 		$objPagination->setCurrentPage($this->intPage);
 		$objPagination->applyLimit($objCriteria);
+		//can be a function -END
+
 		$departmentArr = Department::model()->findAll($objCriteria);
 
 		if(isset($_POST['ajax']) && $_POST['ajax']==='department-list' && Yii::app()->request->isAjaxRequest){
@@ -379,6 +383,7 @@ class AdminController extends Controller
 
 			// if click on sorting, then it will be ajax, thus we returnpartial here
 			$aResult['content'] = $this->renderPartial('showAllDepartments', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination], true);
+			// do we want to echo the three functions here?
 			
 			if(!empty($aResult['content'])){
 				$aResult['result'] 	= 1;
@@ -389,6 +394,7 @@ class AdminController extends Controller
 
 		// we return whole page here
 		$this->render('showAllDepartments', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination]);
+		//echo the three functions here
 	}
 
 	public function actionAddNewDepartment(){

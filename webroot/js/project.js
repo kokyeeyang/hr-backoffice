@@ -305,7 +305,6 @@ var Project = function() {
 			dataType: 'json',
 			success: function(data){
 				if(data != null && data.result == 1 && data.content != ''){
-					console.log(data);
 					// Removes Loading...
 					Project.hide_loading();
 					var objContentElement = $('#main_content .main_content_wrapper');
@@ -357,7 +356,6 @@ var Project = function() {
 				}			
 				else{
 					Project.popup_error($('#common-msg .msg_operation_failed').attr('rel'));
-					// console.log(data);
 				}				
 			},
 			beforeSend: function(){
@@ -371,7 +369,6 @@ var Project = function() {
 			error: function(request, status, err){
 				// Removes Loading...
 				Project.popup_ajax_error(request, status, err);
-				console.warn(request);	
 			}			 
 		});
 	}	

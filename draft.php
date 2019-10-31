@@ -10,7 +10,7 @@
 // first function -END 
 
 
-//second function is to print out header
+//second function is to print out table
 //1. 'id'=>'departments-list',
 //2. 'action'=>$this->CreateUrl('admin/showAllDepartments'),
 //3. <h4 class="widget_title"><?php echo Yii::t('app', 'Departments List'); >
@@ -41,7 +41,6 @@
 // 		</div>
 // 	</div>
 // </th>
-// second function -END 
 
 
 // 9.
@@ -54,9 +53,10 @@
 // 		</td>
 	// </tr>
 // </tbody>
+// second function -END 
 
-// <!-- fourth function for alert messages -->
+// <!-- third function for alert messages -->
 // <!-- <div id="registration-common-msg">
 // 	<div id="msg-select-registration-delete" data-msg="<?php //echo Yii::t('app', '%%message%%'); >"></div>
 // </div> -->
-// fourth function -END
+// third function -END
