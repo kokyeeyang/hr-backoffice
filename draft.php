@@ -53,6 +53,10 @@
 // 		</td>
 	// </tr>
 // </tbody>
+
+// 10. inside controller
+// for sorting to work, the viewpage has to be json encoded
+// instead of json_encode viewpage, we json_encode the three functions that echo the viewpage
 // second function -END 
 
 // <!-- third function for alert messages -->

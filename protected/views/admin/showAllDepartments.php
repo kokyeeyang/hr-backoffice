@@ -1,13 +1,14 @@
-<div class="breadcrumb">
+<!-- <div class="breadcrumb">
 	<div class="breadcrumb_wrapper">
-		<div class="breadcrumb-top"><?php echo Yii::t('app', 'Show All Departments'); ?></div>
+		<div class="breadcrumb-top"><?php //echo Yii::t('app', 'Show All Departments'); ?></div>
 		<div class="breadcrumb-bottom breadcrumb-bottom-key">
 			<div class="title">
-				<span><?php echo Yii::t('app', 'All departments'); ?></span>
+				<span><?php //echo Yii::t('app', 'All departments'); ?></span>
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
+<?php echo PageHelper::printViewAllHeader(); ?>
 <div class="common_content_wrapper admin_list">
 	<div class="common_content_inner_wrapper">
 		<?php 
@@ -69,7 +70,7 @@
 							<div class="sort_wrapper_inner">
 								<div class="sort_label_wrapper">
 									<div class="sort_label">
-										<input type="button" title="<?php echo Yii::t('app', 'Delete this entry'); ?>" id="deleteDepartmentButton" value="Delete selected entries" name="deleteDepartmentButton" data-delete-url="<?php echo $this->createUrl('admin/deleteSelectedDepartments') ?>">
+										<input type="button" title="<?php echo Yii::t('app', 'Delete this entry'); ?>" id="deleteDepartmentButton" value="Delete selected entries" data-delete-url="<?php echo $this->createUrl('admin/deleteSelectedDepartments') ?>">
 									</div>
 								</div>
 							</div>

@@ -343,37 +343,10 @@ class AdminController extends Controller
 		//can be a function -START
 		//maybe we want to channel all the view all page sort keys to one function?
 		$strSortKey = $this->getParam('sort_key', '');
-		switch($strSortKey){
-			case 'sort_department_desc':
-			default:
-				$strSortKey = 'sort_department_desc';
-				$strSortBy = 'title DESC';
-			break;
 
-			case 'sort_department_asc':
-				$strSortBy = 'title ASC';
-			break;
-
-			case 'sort_department_description_desc':
-				$strSortBy = 'description DESC';
-			break;
-
-			case 'sort_department_description_asc':
-				$strSortBy = 'description ASC';
-			break;
-		}
-
-		$objCriteria		= new CDbCriteria();
-		$objCriteria->order = $strSortBy;
-
-		$intCount 		= Department::model()->count($objCriteria);
-		$objPagination	= new CPagination($intCount);
-		$objPagination->setPageSize(Yii::app()->params['numPerPage']);
-		$objPagination->setCurrentPage($this->intPage);
-		$objPagination->applyLimit($objCriteria);
-		//can be a function -END
-
-		$departmentArr = Department::model()->findAll($objCriteria);
+		$objPagination = $this->getDepartmentList($strSortKey, AdminEnum::DEPARTMENT_TABLE, CommonEnum::RETURN_PAGINATION);
+		$objCriteria = $this->getDepartmentList($strSortKey, AdminEnum::DEPARTMENT_TABLE, CommonEnum::RETURN_CRITERIA);
+		$departmentArr = $this->getDepartmentList($strSortKey, AdminEnum::DEPARTMENT_TABLE, CommonEnum::RETURN_TABLE_ARRAY);
 
 		if(isset($_POST['ajax']) && $_POST['ajax']==='department-list' && Yii::app()->request->isAjaxRequest){
 			$aResult = [];
@@ -453,13 +426,51 @@ class AdminController extends Controller
 		$this->redirect('showAllDepartments');
 	}
 
-	// private function getDepartmentList($strSortKey){
-	// 	switch($strSortKey){
-	// 		case 'sort_department_desc':
-	// 		default:
-	// 			$strSortKey = 'sort_department_asc';
-	// 			$strSortBy = 'department_title DESC';
-	// 		break;
-	// 	}
-	// }
+	private function getDepartmentList($strSortKey, $tableName, $pageVar){
+		switch($strSortKey){
+			case 'sort_department_desc':
+			default:
+				$strSortKey = 'sort_department_desc';
+				$strSortBy = 'title DESC';
+			break;
+
+			case 'sort_department_asc':
+				$strSortBy = 'title ASC';
+			break;
+
+			case 'sort_department_description_desc':
+				$strSortBy = 'description DESC';
+			break;
+
+			case 'sort_department_description_asc':
+				$strSortBy = 'description ASC';
+			break;
+		}
+
+		$objCriteria		= new CDbCriteria();
+		$objCriteria->order = $strSortBy;
+
+		$intCount 		= $tableName::model()->count($objCriteria);
+		$objPagination	= new CPagination($intCount);
+		$objPagination->setPageSize(Yii::app()->params['numPerPage']);
+		$objPagination->setCurrentPage($this->intPage);
+		$objPagination->applyLimit($objCriteria);
+
+		$tableArr = $tableName::model()->findAll($objCriteria);
+
+		switch($pageVar){
+			case CommonEnum::RETURN_PAGINATION:
+				return $objPagination;
+			break;
+
+			case CommonEnum::RETURN_CRITERIA:
+				return $objCriteria;
+			break;
+
+			case CommonEnum::RETURN_TABLE_ARRAY:
+				return $tableArr;
+			break;
+
+		}
+	}
 }

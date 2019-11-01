@@ -13,4 +13,8 @@ class CommonEnum {
 
 	const FILE_SYSTEM = 'file system';
 	const S3 = 'S3';
+
+	const RETURN_PAGINATION = 'returnPagination';
+	const RETURN_CRITERIA = 'returnCriteria';
+	const RETURN_TABLE_ARRAY = 'returnTableArr';
 }
