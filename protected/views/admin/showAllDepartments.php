@@ -8,7 +8,7 @@
 		</div>
 	</div>
 </div> -->
-<?php echo PageHelper::printViewAllHeader(); ?>
+<?php echo PageHelper::printViewAllHeader($breadcrumbTop, $spanTitle); ?>
 <div class="common_content_wrapper admin_list">
 	<div class="common_content_inner_wrapper">
 		<?php 
