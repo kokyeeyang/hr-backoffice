@@ -343,8 +343,9 @@ class AdminController extends Controller
 		//can be a function -START
 		//maybe we want to channel all the view all page sort keys to one function?
 		$strSortKey = $this->getParam('sort_key', '');
-		$breadcrumbTop = Yii::t('app', 'Show All Departments');
-		$spanTitle = Yii::t('app', 'All departments');
+		// $breadcrumbTop = Yii::t('app', 'Show All Departments');
+		// $spanTitle = Yii::t('app', 'All departments');
+		$pageType = DepartmentEnum::DEPARTMENT;
 
 		$objPagination = $this->getDepartmentList($strSortKey, AdminEnum::DEPARTMENT_TABLE, CommonEnum::RETURN_PAGINATION);
 		$objCriteria = $this->getDepartmentList($strSortKey, AdminEnum::DEPARTMENT_TABLE, CommonEnum::RETURN_CRITERIA);
@@ -357,7 +358,7 @@ class AdminController extends Controller
 			$aResult['msg'] 	= '';
 
 			// if click on sorting, then it will be ajax, thus we returnpartial here
-			$aResult['content'] = $this->renderPartial('showAllDepartments', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination, 'breadcrumbTop'=>$breadcrumbTop, 'spanTitle'=>$spanTitle], true);
+			$aResult['content'] = $this->renderPartial('showAllDepartments', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination, 'pageType'=>$pageType], true);
 			// do we want to echo the three functions here?
 			
 			if(!empty($aResult['content'])){
@@ -368,7 +369,7 @@ class AdminController extends Controller
 		} // - end: if
 
 		// we return whole page here
-		$this->render('showAllDepartments', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination, 'breadcrumbTop'=>$breadcrumbTop, 'spanTitle'=>$spanTitle]);
+		$this->render('showAllDepartments', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination, 'pageType'=>$pageType]);
 		//echo the three functions here
 	}
 
@@ -426,6 +427,41 @@ class AdminController extends Controller
 			$deleteDepartment = Department::model()->deleteSelectedDepartment($departmentIds);
 		}
 		$this->redirect('showAllDepartments');
+	}
+
+
+	public function actionShowAllDepartmentsTest(){
+		//can be a function -START
+		//maybe we want to channel all the view all page sort keys to one function?
+		$strSortKey = $this->getParam('sort_key', '');
+		// $breadcrumbTop = Yii::t('app', 'Show All Departments');
+		// $spanTitle = Yii::t('app', 'All departments');
+		$pageType = DepartmentEnum::DEPARTMENT;
+
+		$objPagination = $this->getDepartmentList($strSortKey, AdminEnum::DEPARTMENT_TABLE, CommonEnum::RETURN_PAGINATION);
+		$objCriteria = $this->getDepartmentList($strSortKey, AdminEnum::DEPARTMENT_TABLE, CommonEnum::RETURN_CRITERIA);
+		$departmentArr = $this->getDepartmentList($strSortKey, AdminEnum::DEPARTMENT_TABLE, CommonEnum::RETURN_TABLE_ARRAY);
+
+		if(isset($_POST['ajax']) && $_POST['ajax']==='department-list' && Yii::app()->request->isAjaxRequest){
+			$aResult = [];
+			$aResult['result'] 	= 0;
+			$aResult['content'] = '';
+			$aResult['msg'] 	= '';
+
+			// if click on sorting, then it will be ajax, thus we returnpartial here
+			$aResult['content'] = $this->renderPartial('showAllDepartmentsTest', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination, 'pageType'=>$pageType], true);
+			// do we want to echo the three functions here?
+			
+			if(!empty($aResult['content'])){
+				$aResult['result'] 	= 1;
+			}
+			echo(json_encode($aResult));
+			Yii::app()->end();
+		} // - end: if
+
+		// we return whole page here
+		$this->render('showAllDepartmentsTest', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination, 'pageType'=>$pageType]);
+		//echo the three functions here
 	}
 
 	private function getDepartmentList($strSortKey, $tableName, $pageVar){

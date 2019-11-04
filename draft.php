@@ -18,7 +18,20 @@
 	// 	<input type="button" value="<?php //echo Yii::t('app', 'Add new department'); >">
 	// </a>
 //6. <?php echo CHtml::hiddenField('mode', '%%Title%%-list');
-//7.
+// 7. <div class="btnAjaxSortList sort_wrapper<?php if($strSortKey === 'sort_department_desc'){> desc<?php }elseif($strSortKey === 'sort_department_asc'){ > asc<?php } >" rel="sort" rev="sort_department">
+// 								<a title="<?php echo Yii::t('app', 'Sort'); >" href="javascript:void(0);">
+// 								<div class="sort_wrapper_inner">
+// 									<div class="sort_label_wrapper">
+// 										<div class="sort_label">
+// 											<?php echo Yii::t('app', 'Department'); >
+// 										</div>
+// 									</div>
+// 									<div class="sort_icon_wrapper">
+// 										<div class="sort_icon">&nbsp;</div>
+// 									</div>
+// 								</div>
+// 							</div>
+//8.
 // <thead>
 	//<th>
 		 // <div class="sort_wrapper_inner">
@@ -31,7 +44,7 @@
 	// </th> -->
 // </thead> -->
 
-//8. -->
+//9. -->
 // <th>
 // 	<div class="sort_wrapper_inner">
 // 		<div class="sort_label_wrapper">
@@ -43,7 +56,7 @@
 // </th>
 
 
-// 9.
+// 10.
 // <tbody id="data_table">
 // $arrRecords should go here
 	// foreach($arrRecords as $intIndex => $objRecord){

@@ -21,6 +21,7 @@
 				<li><a class="btnGetAdminForm" rel="<?php echo $this->createUrl('admin/add'); ?>" href="javascript:void(0);"><?php echo Yii::t('app', 'Add User'); ?></a></li>
 				<li><a href="<?php echo $this->createUrl('registration/showOfferLetterTemplates'); ?>"><?php echo Yii::t('app', 'Offer Letters List'); ?></a></li>
 				<li><a href="<?php echo $this->createUrl('admin/showAllDepartments'); ?>"><?php echo Yii::t('app', 'Departments List'); ?></a></li>
+				<li><a href="<?php echo $this->createUrl('admin/showAllDepartmentsTest'); ?>"><?php echo Yii::t('app', 'Departments List Test'); ?></a></li>
 			</ul>
 		</li>
 		<?php
