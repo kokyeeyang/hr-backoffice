@@ -1,25 +1,22 @@
 <?php 
 class PageHelper {
-	public static function printViewAllHeader($pageType){
-		switch($pageType){
-			case DepartmentEnum::DEPARTMENT:
-				$breadcrumbTop = DepartmentEnum::BREADCRUMB_TOP;
-				$spanTitle = DepartmentEnum::SPAN_TITLE;
-			break;
 
-		}
-		return ("
-			<div class=\"breadcrumb\">
-				<div class=\"breadcrumb_wrapper\">
-					<div class=\"breadcrumb-top\"> $breadcrumbTop</div>
-					<div class=\"breadcrumb-bottom breadcrumb-bottom-key\">
-						<div class=\"title\">
-							<span>$spanTitle</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		");
+	public static function printContentListingHeader($pageType){
+
+		$pageData = PageEnum::PAGE_DATA[$pageType];
+
+		$contentHeader = '<div class="breadcrumb">';
+		$contentHeader .= '<div class="breadcrumb_wrapper">';
+		$contentHeader .= '<div class="breadcrumb-top">' . $pageData['breadcrumb-top'] . '</div>';
+		$contentHeader .= '<div class="breadcrumb-bottom ' . $pageData['breadcrumb-bottom'] . '">';
+		$contentHeader .= '<div class="title">';
+		$contentHeader .= '<span>' . $pageData['page-title'] . '</span>';
+		$contentHeader .= '</div>';
+		$contentHeader .= '</div>';
+		$contentHeader .= '</div>';
+		$contentHeader .= '</div>';
+
+		return $contentHeader;
 	}
 
 	public static function printViewAllBody($pageType, $strSortKey){

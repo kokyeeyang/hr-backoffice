@@ -1,14 +1,16 @@
-<div class="breadcrumb">
-	<div class="breadcrumb_wrapper">
-		<div class="breadcrumb-top"><?php //echo Yii::t('app', 'Show All Departments'); ?></div>
-		<div class="breadcrumb-bottom breadcrumb-bottom-key">
-			<div class="title">
-				<span><?php echo Yii::t('app', 'All departments'); ?></span>
-			</div>
-		</div>
-	</div>
-</div>
-<?php //echo PageHelper::printViewAllHeader($pageType); ?>
+<?php 
+//output the content header
+echo PageHelper::printContentListingHeader($pageType); 
+
+//output the body content
+//echo PageHelper::printViewAllHeader($pageType);
+
+//output the alert message
+//echo PageHelper::printViewAllHeader($pageType); 
+?>
+
+
+
 <div class="common_content_wrapper admin_list">
 	<div class="common_content_inner_wrapper">
 		<?php 

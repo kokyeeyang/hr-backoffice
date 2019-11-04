@@ -4,7 +4,7 @@
 
 //first function is to to print out title(breadcrumbs)
 // - variables 
-//1. <div class="breadcrumb-top"><?php echo Yii::t('app', 'Show All Candidates'); ></div>
+//1. <div class="breadcrumb-top"><?php echo Yii::t('app', 'Show All Departments'); ></div>
 //2. <div class="breadcrumb-bottom breadcrumb-bottom-people">
 //3. <span><?php echo Yii::t('app', 'Candidates'); ></span>
 // first function -END 
