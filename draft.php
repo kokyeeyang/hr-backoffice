@@ -18,6 +18,7 @@
 	// 	<input type="button" value="<?php //echo Yii::t('app', 'Add new department'); >">
 	// </a>
 //6. <?php echo CHtml::hiddenField('mode', '%%Title%%-list');
+//6.1 <?php echo CHtml::hiddenField('sort_key', $strSortKey); >
 // 7. <div class="btnAjaxSortList sort_wrapper<?php if($strSortKey === 'sort_department_desc'){> desc<?php }elseif($strSortKey === 'sort_department_asc'){ > asc<?php } >" rel="sort" rev="sort_department">
 // 								<a title="<?php echo Yii::t('app', 'Sort'); >" href="javascript:void(0);">
 // 								<div class="sort_wrapper_inner">
@@ -62,9 +63,17 @@
 	// foreach($arrRecords as $intIndex => $objRecord){
 	// <tr>
 // 		<td>
-//   		<?php $objRecord >
+//      <a href="<?php echo $this->createUrl('admin/viewSelectedDepartment', ['departmentId' => $departmentObj->id]); >">
+//    		<?php $objRecord->title >
+//      </a>
 // 		</td>
-	// </tr>
+//		<td>
+//				<?php echo $departmentObj->description >
+//		</td>
+//	  <td>
+//	  	<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $departmentObj->id >">
+//	  </td>
+// 	 </tr>
 // </tbody>
 
 // 10. inside controller

@@ -1,9 +1,9 @@
 <?php 
 //output the content header
-echo PageHelper::printContentListingHeader($pageType); 
+echo PageHelper::printFormListingHeader($pageType); 
 
 //output the body content
-//echo PageHelper::printViewAllHeader($pageType);
+echo PageHelper::printFormListingBody($pageType, $strSortKey, true, $departmentArr);
 
 //output the alert message
 //echo PageHelper::printViewAllHeader($pageType); 
@@ -11,31 +11,8 @@ echo PageHelper::printContentListingHeader($pageType);
 
 
 
-<div class="common_content_wrapper admin_list">
+<div class="common_content_wrapper">
 	<div class="common_content_inner_wrapper">
-		<?php 
-			$objForm = $this->beginWidget(
-				'CActiveForm', 
-				array(
-					'id'=>'departments-list',
-					'action'=>$this->CreateUrl('admin/showAllDepartments'),
-					// Please note: When you enable ajax validation, make sure the corresponding
-					// controller action is handling ajax validation correctly.
-					// There is a call to performAjaxValidation() commented in generated controller code.
-					// See class documentation of CActiveForm for details on this.
-					'enableAjaxValidation'=>false,
-				)
-			); 
-		?>    	
-		<?php //echo PageHelper::printViewAllBody($pageType, $strSortKey); ?>
-<h4 class="widget_title"><?php echo Yii::t('app', 'Departments List'); ?>
-				<a href="<?php echo $this->createUrl('admin/addNewDepartment'); ?>">
-					<input type="button" value="<?php echo Yii::t('app', 'Add new department'); ?>">
-				</a>
-			</h4>
-			-- rewrite this table into a function --
-			<?php echo CHtml::hiddenField('mode', 'department-list'); ?>
-			<?php echo CHtml::hiddenField('sort_key', $strSortKey); ?>
 			<table class="widget_table grid">
 				<thead>
 					<tr>
@@ -85,6 +62,7 @@ echo PageHelper::printContentListingHeader($pageType);
 					if(isset($departmentArr[0])){
 				  ?>
 				  <?php
+				  echo "find out what is inside this object<br/>";
 				  	foreach($departmentArr as $intIndex => $departmentObj){ 
 				  ?>
 						  <tr>

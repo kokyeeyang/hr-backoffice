@@ -9,7 +9,7 @@
 	</div>
 </div>
 <?php //echo PageHelper::printViewAllHeader($pageType); ?>
-<div class="common_content_wrapper admin_list">
+<div class="common_content_wrapper">
 	<div class="common_content_inner_wrapper">
 		<?php 
 			$objForm = $this->beginWidget(
