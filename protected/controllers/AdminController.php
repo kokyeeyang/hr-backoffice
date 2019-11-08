@@ -396,16 +396,16 @@ class AdminController extends Controller
 		$this->redirect('showAllDepartments');
 	}
 
-	public function actionViewSelectedDepartment($departmentId){
-		$departmentCondition = 'id = "' . $departmentId . '"';
+	public function actionViewSelectedDepartment($id){
+		$departmentCondition = 'id = "' . $id . '"';
 		$departmentArr = Department::model()->findAll($departmentCondition);
-		$formAction = $this->createUrl('admin/updateDepartment', ['departmentId' => $departmentId]);
+		$formAction = $this->createUrl('admin/updateDepartment', ['departmentId' => $id]);
 		$header = AdminEnum::EDIT_DEPARTMENT;
     $buttonTitle =  AdminEnum::UPDATE_BUTTON;
     $departmentTitle = $departmentArr[0]->title;
     $departmentDescription = $departmentArr[0]->description;
 		
-		$this->render('departmentDetails', ['departmentArr' => $departmentArr, 'departmentId' => $departmentId, 'formAction'=>$formAction, 'header'=>$header, 'buttonTitle'=>$buttonTitle, 'departmentTitle'=>$departmentTitle, 'departmentDescription'=>$departmentDescription]);
+		$this->render('departmentDetails', ['departmentArr' => $departmentArr, 'id' => $id, 'formAction'=>$formAction, 'header'=>$header, 'buttonTitle'=>$buttonTitle, 'departmentTitle'=>$departmentTitle, 'departmentDescription'=>$departmentDescription]);
 	}
 
 	public function actionUpdateDepartment($departmentId){
@@ -423,9 +423,16 @@ class AdminController extends Controller
 	public function actionDeleteSelectedDepartments(){
 		$departmentIds = $this->getParam('deleteCheckBox', '');
 
+		$admins = Admin::checkAdminDepartmentExist($departmentIds);
+
+		if($admins != null){
+			throw new CHttpException(600, 'There are users belonging to your chosen departments. Please delete the users before deleting the departments chosen.');
+		}
+
 		if($departmentIds != ''){
 			$deleteDepartment = Department::model()->deleteSelectedDepartment($departmentIds);
 		}
+
 		$this->redirect('showAllDepartments');
 	}
 
@@ -442,7 +449,7 @@ class AdminController extends Controller
 		$objCriteria = $this->getDepartmentList($strSortKey, AdminEnum::DEPARTMENT_TABLE, CommonEnum::RETURN_CRITERIA);
 		$departmentArr = $this->getDepartmentList($strSortKey, AdminEnum::DEPARTMENT_TABLE, CommonEnum::RETURN_TABLE_ARRAY);
 
-		if(isset($_POST['ajax']) && $_POST['ajax']==='department-list' && Yii::app()->request->isAjaxRequest){
+		if(isset($_POST['ajax']) && $_POST['ajax']==='department-list-test' && Yii::app()->request->isAjaxRequest){
 			$aResult = [];
 			$aResult['result'] 	= 0;
 			$aResult['content'] = '';
@@ -483,6 +490,15 @@ class AdminController extends Controller
 			case 'sort_department_description_asc':
 				$strSortBy = 'description ASC';
 			break;
+
+			case 'sort_description_desc':
+				$strSortBy = 'description DESC';
+			break;
+
+			case 'sort_description_asc':
+				$strSortBy = 'description ASC';
+			break;
+
 		}
 
 		$objCriteria		= new CDbCriteria();

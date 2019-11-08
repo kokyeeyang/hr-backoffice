@@ -5,7 +5,10 @@ var AdminShowAllDepartmentsTest = function() {
 			alert($('#msg-select-department-delete').attr('data-msg'));
 		} else {
 			if (confirm($('#msg-confirm-department-delete').attr('data-msg'))){
-				$('#departments-list').attr('action', $(objElement).attr('data-delete-url')).submit();
+				//one function to warn there users belonging to this department
+				// $('#department-list-test').attr('action', $(objElement).attr('data-delete-department-url')).submit();
+
+				$('#department-list-test').attr('action', $(objElement).attr('data-delete-url')).submit();
 			}
 		}
 	}
@@ -24,4 +27,4 @@ var AdminShowAllDepartmentsTest = function() {
 	}
 
 }();
-AdminShowAllDepartmentstTest.init();
+AdminShowAllDepartmentsTest.init();

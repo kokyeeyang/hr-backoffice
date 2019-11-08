@@ -346,6 +346,10 @@ var Project = function() {
 					else if($('#departments-list').length > 0 && (typeof Department) == 'object'){
 						Department.init();
 					}
+
+					// else if($('#department-list-test').length > 0 && (typeof Department) == 'object'){
+					// 	Department.init();
+					// } 
 					
 					if(data.msg != ''){
 						Project.popup_alert(data.msg);

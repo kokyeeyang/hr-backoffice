@@ -73,6 +73,11 @@ class Admin extends AppActiveRecord
 			'admin_last_login' => Yii::t('app', 'Last Login')
 		);
 	}
+
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
 	
 	/*public function beforeSave() {
 		
@@ -332,14 +337,24 @@ class Admin extends AppActiveRecord
 		}
 	}
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return TblUser the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
+	public static function checkAdminDepartmentExist($departmentIds){
+		$adminArr = "";
+		foreach($departmentIds as $departmentId){
+			$sql = 'SELECT ' . self::$tableName . '_username';
+			$sql .= ' FROM ' . self::$tableName;
+			$sql .= ' WHERE ' . self::$tableName . '_department = ' . $departmentId;
+
+			$objConnection 	= Yii::app()->db;
+			$objCommand		= $objConnection->createCommand($sql);
+			$arrData		= $objCommand->queryAll();
+
+			if($arrData != null){
+				return $arrData;
+			} else {
+				return false;
+			}
+		}
+
 	}
+
 }
