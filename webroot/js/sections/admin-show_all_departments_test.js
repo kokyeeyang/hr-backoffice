@@ -26,7 +26,7 @@ var AdminShowAllDepartmentsTest = function() {
 				dataType: 'json',
 				success: function(data)
 				{
-					if(data != null && data.result == true){
+					if(data != null && data.result != false){
 						adminDepartmentExistAlert.style.display = "block";
 					}else if(data != null && data.result == false){
 						adminDepartmentExistAlert.style.display = "none";

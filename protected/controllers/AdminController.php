@@ -530,13 +530,14 @@ class AdminController extends Controller
 		}
 	}
 
-	public function actionCheckAdminDepartmentExist($id){
+	public function actionCheckAdminDepartmentExist(){
 		$aResult['result'] = false;
+		$id = $this->getParam('deleteCheckBox','');
 
 		if(isset($_POST['ajax']) && Yii::app()->request->isAjaxRequest){
 			$aResult['result'] = Admin::checkAdminDepartmentExist($id);
 			echo(json_encode($aResult));
-			Yii::app()->end();
 		}
+		Yii::app()->end();
 	}
 }
