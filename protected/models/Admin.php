@@ -364,9 +364,9 @@ class Admin extends AppActiveRecord
 		$arrData		= $objCommand->queryRow();
 
 		if($arrData != null){
-			return 'block';
+			return $arrData;
 		} else {
-			return 'none';
+			return false;
 		}
 
 

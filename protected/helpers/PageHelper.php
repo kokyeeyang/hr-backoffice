@@ -166,7 +166,7 @@ class PageHelper {
 		return $deleteColumnHeader;
 	}
 
-	private static function prepareTableData($pageType, $dataObjects, $deleteColumn, $formUrlViewSelected) {
+	private static function prepareTableData($pageType, $dataObjects, $deleteColumn, $validateForeignKeyExist) {
 
 		//get predefined formData
 		$formData = PageEnum::FORM_DATA[$pageType];
@@ -206,11 +206,11 @@ class PageHelper {
 				$formUrlViewSelected = Yii::app()->createUrl($formData['foreign-key-check'], ["id" => $dataObject->id]);
 				//trial run to check for existing users belonging to this department TODO:
 				// $tableBody .= '<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox"' . 'value="' . $dataObject->id .'"';
-				$tableBody .= '<input ' . $formData['data-url'] . $formData['foreign-key-check'] . ' type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox"' . 'value="' . $dataObject->id .'"';
+				$tableBody .= '<input ' . $formData['data-url'] . $formData['foreign-key-check'] . ' type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox"' . 'value="' . $dataObject->id .'">';
 				if($validateForeignKeyExist == true){
 					//to show there is a foreign key conflict when attempting to delete row
-					$tableBody .= '<td id=' . $formData['msg-foreign-key-id'] . 'style="' . $display . '">' . $formData['msg-foreign-key'];
-					$tableBody .= '</td>';
+					$tableBody .= '<div id="' . $formData['msg-foreign-key-id'] . '" style="display:none;">' . $formData['msg-foreign-key'] . '"';
+					$tableBody .= '</div>';
 				}
 				$tableBody .= '</td>';
 			}

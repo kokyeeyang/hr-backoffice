@@ -46,7 +46,7 @@ var AdminShowAllDepartmentsTest = function() {
 				AdminShowAllDepartmentsTest.check_if_deletion_is_selected(this, objEvent);
 			});
 
-			$('.deleteCheckBox').change(function() {
+			$('.deleteCheckBox').change(function(objEvent) {
 				if(this.checked){
 					AdminShowAllDepartmentsTest.check_if_department_has_users(this, objEvent);
 				}
@@ -56,7 +56,8 @@ var AdminShowAllDepartmentsTest = function() {
 
 	return {
 		init : _init,
-		check_if_deletion_is_selected : _check_if_deletion_is_selected
+		check_if_deletion_is_selected : _check_if_deletion_is_selected,
+		check_if_department_has_users : _check_if_department_has_users
 	}
 
 }();

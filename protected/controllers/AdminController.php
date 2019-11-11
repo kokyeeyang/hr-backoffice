@@ -533,10 +533,10 @@ class AdminController extends Controller
 	public function actionCheckAdminDepartmentExist($id){
 		$aResult['result'] = false;
 
-		if(Yii::app()->request->isAjaxRequest){
+		if(isset($_POST['ajax']) && Yii::app()->request->isAjaxRequest){
 			$aResult['result'] = Admin::checkAdminDepartmentExist($id);
+			echo(json_encode($aResult));
+			Yii::app()->end();
 		}
-		echo(json_encode($aResult));
-		Yii::app()->end();
 	}
 }

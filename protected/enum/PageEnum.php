@@ -28,7 +28,7 @@ class PageEnum {
 															"data-url" => "data-url=",
 															"foreign-key-check" => "admin/checkAdminDepartmentExist",
 															"msg-foreign-key-id" => "adminDepartmentExistAlert",
-															"msg-foreign-key" => "There are users belonging to the chosen department(s). Please delete them first before proceeding to deleting department."
+															"msg-foreign-key" => "Please delete the users belonging to this department first."
 														),
 
 													"Users" => array()
