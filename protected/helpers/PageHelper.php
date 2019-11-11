@@ -26,7 +26,7 @@ class PageHelper {
 		return $formHeader;
 	}
 
-	public static function printFormListingBody($pageType, $strSortKey, $deleteColumn = true, $dataObjects = null){
+	public static function printFormListingBody($pageType, $strSortKey, $deleteColumn = true, $dataObjects = null, $validateForeignKeyExist){
 
 		//get predefined formData
 		$formData = PageEnum::FORM_DATA[$pageType];
@@ -166,7 +166,7 @@ class PageHelper {
 		return $deleteColumnHeader;
 	}
 
-	private static function prepareTableData($pageType, $dataObjects, $deleteColumn) {
+	private static function prepareTableData($pageType, $dataObjects, $deleteColumn, $formUrlViewSelected) {
 
 		//get predefined formData
 		$formData = PageEnum::FORM_DATA[$pageType];
