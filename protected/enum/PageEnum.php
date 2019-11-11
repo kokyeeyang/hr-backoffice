@@ -23,8 +23,12 @@ class PageEnum {
 															"column-link-to-details" => "title",
 															"column-details" => array("description"),
 															"alert-data-msg" => array(
-																	"msg-confirm-delete" => "Are you sure that you want to delete the selected departments?",
-																	"msg-select-delete" => "Please select a department that you would like to delete!")
+															"msg-confirm-delete" => "Are you sure that you want to delete the selected departments?",
+															"msg-select-delete" => "Please select a department that you would like to delete!"),
+															"data-url" => "data-url=",
+															"foreign-key-check" => "admin/checkAdminDepartmentExist",
+															"msg-foreign-key-id" => "adminDepartmentExistAlert",
+															"msg-foreign-key" => "There are users belonging to the chosen department(s). Please delete them first before proceeding to deleting department."
 														),
 
 													"Users" => array()

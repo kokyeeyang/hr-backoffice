@@ -337,23 +337,38 @@ class Admin extends AppActiveRecord
 		}
 	}
 
-	public static function checkAdminDepartmentExist($departmentIds){
+	public static function checkAdminDepartmentExist($id){
 		$adminArr = "";
-		foreach($departmentIds as $departmentId){
-			$sql = 'SELECT ' . self::$tableName . '_username';
-			$sql .= ' FROM ' . self::$tableName;
-			$sql .= ' WHERE ' . self::$tableName . '_department = ' . $departmentId;
+		// foreach($ids as $id){
+		// 	$sql = 'SELECT ' . self::$tableName . '_username';
+		// 	$sql .= ' FROM ' . self::$tableName;
+		// 	$sql .= ' WHERE ' . self::$tableName . '_department = ' . $id;
 
-			$objConnection 	= Yii::app()->db;
-			$objCommand		= $objConnection->createCommand($sql);
-			$arrData		= $objCommand->queryAll();
+		// 	$objConnection 	= Yii::app()->db;
+		// 	$objCommand		= $objConnection->createCommand($sql);
+		// 	$arrData		= $objCommand->queryAll();
 
-			if($arrData != null){
-				return $arrData;
-			} else {
-				return false;
-			}
+		// 	if($arrData != null){
+		// 		return $arrData;
+		// 	} else {
+		// 		return false;
+		// 	}
+		// }
+
+		$sql = 'SELECT ' . self::$tableName . '_username';
+		$sql .= ' FROM ' . self::$tableName;
+		$sql .= ' WHERE ' . self::$tableName . '_department = ' . $id;
+
+		$objConnection 	= Yii::app()->db;
+		$objCommand		= $objConnection->createCommand($sql);
+		$arrData		= $objCommand->queryRow();
+
+		if($arrData != null){
+			return 'block';
+		} else {
+			return 'none';
 		}
+
 
 	}
 
