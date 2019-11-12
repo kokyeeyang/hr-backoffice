@@ -433,10 +433,7 @@ class AdminController extends Controller
 
 	public function actionShowAllDepartmentsTest(){
 		//can be a function -START
-		//maybe we want to channel all the view all page sort keys to one function?
 		$strSortKey = $this->getParam('sort_key', '');
-		// $breadcrumbTop = Yii::t('app', 'Show All Departments');
-		// $spanTitle = Yii::t('app', 'All departments');
 		$pageType = DepartmentEnum::DEPARTMENT;
 
 		$objPagination = $this->getDepartmentList($strSortKey, AdminEnum::DEPARTMENT_TABLE, CommonEnum::RETURN_PAGINATION);

@@ -1,6 +1,6 @@
 var RegistrationShowOfferLetterTemplates = function(){
 	function _generate_offer_letter(objElement, objEvent){
-		$('#showOfferLetterTemplates').attr('action', $(objElement).attr('data-create-url')).submit();
+		$('#offerletter-list').attr('action', $(objElement).attr('data-create-url')).submit();
 	}
 
 	function _check_if_deletion_is_selected(objElement, objEvent){
@@ -8,7 +8,7 @@ var RegistrationShowOfferLetterTemplates = function(){
 			alert($('#msg-select-offerletter-delete').attr('data-msg'));
 		} else {
 			if (confirm($('#msg-confirm-offerletter-delete').attr('data-msg'))){
-				$('#showOfferLetterTemplates').attr('action', $(objElement).attr('data-delete-url')).submit();
+				$('#offerletter-list').attr('action', $(objElement).attr('data-delete-url')).submit();
 			}
 		}
 	}

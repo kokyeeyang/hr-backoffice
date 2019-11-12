@@ -680,8 +680,16 @@ class RegistrationController extends Controller
 
 	public function actionShowOfferLetterTemplates(){
 		$offerLetterArrRecords = EmploymentOfferLetterTemplates::model()->findAll(['order'=>'id ASC']);
-		$mode = OfferLetterEnum::EDIT_MODE;
-		$this->render('showAllOfferLetterTemplates', ['offerLetterArrRecords'=>$offerLetterArrRecords, 'mode'=>$mode]);
+		$pageType = OfferLetterEnum::OFFER_LETTER;
+		$strSortKey = $this->getParam('sort_key', '');
+
+		$objPagination = $this->getOfferLetterList($strSortKey, OfferLetterEnum::OFFER_LETTER, CommonEnum::RETURN_PAGINATION);
+		$objCriteria = $this->getOfferLetterList($strSortKey, OfferLetterEnum::OFFER_LETTER, CommonEnum::RETURN_CRITERIA);
+		$offerLetterArr = $this->getOfferLetterList($strSortKey, OfferLetterEnum::OFFER_LETTER, CommonEnum::RETURN_TABLE_ARRAY);
+
+
+
+		$this->render('showAllOfferLetterTemplates', ['offerLetterArrRecords'=>$offerLetterArrRecords, 'pageType'=>$pageType]);
 	}
 
 	public function actionCreateNewOfferLetter(){
