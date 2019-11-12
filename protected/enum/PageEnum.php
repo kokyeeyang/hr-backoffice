@@ -27,6 +27,7 @@ class PageEnum {
 															"msg-select-delete" => "Please select a department that you would like to delete!"),
 															"data-url" => "data-url=",
 															"foreign-key-check" => "admin/checkAdminDepartmentExist",
+															// "foreign-key-check" => "admin/checkAdminDepaasaasa",
 															"msg-foreign-key-id" => "adminDepartmentExistAlert",
 															"msg-foreign-key" => "Please delete the users belonging to this department first."
 														),

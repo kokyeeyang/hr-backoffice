@@ -16,20 +16,22 @@ var AdminShowAllDepartmentsTest = function() {
 	function _check_if_department_has_users(objElement, objEvent){
 		if($(objElement).val() != '')
 		{
-			var adminDepartmentExistAlert = document.getElementById("adminDepartmentExistAlert");
 			$.ajax({
 				type: 'post',
-				url: $(objElement).attr('data-url'),
+				//pass in department id to query inside admin table
+				url: $(objElement).attr('data-url')+'/'+$(objElement).val(),
 				data: {
-					foreign_key : $(objElement).val()
+					department_id : $(objElement).val()
 				},
 				dataType: 'json',
 				success: function(data)
 				{
 					if(data != null && data.result != false){
-						adminDepartmentExistAlert.style.display = "block";
+						alert('There are users belonging to your chosen department, please delete them first.');
+						//uncheck the boxes for departments that still have users
+						$('#deleteCheckBox' + $(objElement).val()).prop('checked', false);
+
 					}else if(data != null && data.result == false){
-						adminDepartmentExistAlert.style.display = "none";
 					}
 				}, 
 				error: function(request, status, err)

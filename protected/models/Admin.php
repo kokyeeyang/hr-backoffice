@@ -321,7 +321,7 @@ class Admin extends AppActiveRecord
 		}
 	}
 
-	public static function queryForManagers(){
+	public function queryForManagers(){
 		$sql = 'SELECT ' . self::$tableName . '_display_name';
 		$sql .= ' FROM ' . self::$tableName;
 		$sql .= ' WHERE ' . self::$tableName . '_priv != "normaluser"';
@@ -337,24 +337,7 @@ class Admin extends AppActiveRecord
 		}
 	}
 
-	public static function checkAdminDepartmentExist($id){
-		$adminArr = "";
-		// foreach($ids as $id){
-		// 	$sql = 'SELECT ' . self::$tableName . '_username';
-		// 	$sql .= ' FROM ' . self::$tableName;
-		// 	$sql .= ' WHERE ' . self::$tableName . '_department = ' . $id;
-
-		// 	$objConnection 	= Yii::app()->db;
-		// 	$objCommand		= $objConnection->createCommand($sql);
-		// 	$arrData		= $objCommand->queryAll();
-
-		// 	if($arrData != null){
-		// 		return $arrData;
-		// 	} else {
-		// 		return false;
-		// 	}
-		// }
-
+	public function checkAdminDepartmentExist($id){
 		$sql = 'SELECT ' . self::$tableName . '_username';
 		$sql .= ' FROM ' . self::$tableName;
 		$sql .= ' WHERE ' . self::$tableName . '_department = ' . $id;
@@ -363,7 +346,7 @@ class Admin extends AppActiveRecord
 		$objCommand		= $objConnection->createCommand($sql);
 		$arrData		= $objCommand->queryRow();
 
-		if($arrData != null){
+		if(!empty($arrData)){
 			return $arrData;
 		} else {
 			return false;

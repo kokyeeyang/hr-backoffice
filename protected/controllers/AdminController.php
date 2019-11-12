@@ -423,14 +423,6 @@ class AdminController extends Controller
 	public function actionDeleteSelectedDepartments(){
 		$departmentIds = $this->getParam('deleteCheckBox', '');
 
-		// $admins = Admin::checkAdminDepartmentExist($departmentIds);
-
-		// if($admins != null){
-		// 	echo '<script language="javascript">';
-		// 	echo 'alert("The current chosen department still contains users. Please delete them first.")';
-		// 	echo '</script>';
-		// }
-
 		if($departmentIds != ''){
 			$deleteDepartment = Department::model()->deleteSelectedDepartment($departmentIds);
 		}
@@ -530,14 +522,14 @@ class AdminController extends Controller
 		}
 	}
 
-	public function actionCheckAdminDepartmentExist(){
+	public function actionCheckAdminDepartmentExist($id){
 		$aResult['result'] = false;
-		$id = $this->getParam('deleteCheckBox','');
 
-		if(isset($_POST['ajax']) && Yii::app()->request->isAjaxRequest){
-			$aResult['result'] = Admin::checkAdminDepartmentExist($id);
-			echo(json_encode($aResult));
+		if(Yii::app()->request->isAjaxRequest){
+			$departmentName = Admin::model()->checkAdminDepartmentExist($id);
+			$aResult['result'] = $departmentName;
 		}
+		echo(json_encode($aResult));
 		Yii::app()->end();
 	}
 }

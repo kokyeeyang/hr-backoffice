@@ -353,7 +353,6 @@ class RegistrationController extends Controller
 		$aResult['result'] = false;
 		$jobId = (int)$this->getParam('jobId', '', '', 'get');
 		$jobTitle = (int)$this->getParam('jobTitle', '', '', 'get');
-		$arrRecords = EmploymentJobOpening::model()->findAll(array('order'=>'id ASC'));
 		$token = EmploymentLinkToken::model()->generateRandomToken();
 
 		if(Yii::app()->request->isAjaxRequest){
