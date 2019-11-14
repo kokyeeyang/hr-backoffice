@@ -687,9 +687,24 @@ class RegistrationController extends Controller
 		$objCriteria = $this->getOfferLetterList($strSortKey, OfferLetterEnum::OFFER_LETTER, CommonEnum::RETURN_CRITERIA);
 		$offerLetterArr = $this->getOfferLetterList($strSortKey, OfferLetterEnum::OFFER_LETTER, CommonEnum::RETURN_TABLE_ARRAY);
 
+		if(isset($_POST['ajax']) && $_POST['ajax']==='offerletter-list' && Yii::app()->request->isAjaxRequest){
+			$aResult = [];
+			$aResult['result'] 	= 0;
+			$aResult['content'] = '';
+			$aResult['msg'] 	= '';
 
+			// if click on sorting, then it will be ajax, thus we returnpartial here	
+			$aResult['content'] = $this->renderPartial('showAllOfferLetterTemplates', ['strSortKey'=>$strSortKey,'offerLetterArr'=>$offerLetterArr, 'objPagination'=>$objPagination, 'pageType'=>$pageType], true);
 
-		$this->render('showAllOfferLetterTemplates', ['offerLetterArrRecords'=>$offerLetterArrRecords, 'pageType'=>$pageType]);
+			if(!empty($aResult['content'])){
+				$aResult['result'] 	= 1;
+			}
+			echo(json_encode($aResult));
+			Yii::app()->end();		
+		} // - end: if
+		
+		// we return whole page here
+		$this->render('showAllOfferLetterTemplates', ['offerLetterArr'=>$offerLetterArr, 'pageType'=>$pageType]);
 	}
 
 	public function actionCreateNewOfferLetter(){
@@ -922,5 +937,60 @@ class RegistrationController extends Controller
 			echo "No offer letter template is found with this id";
 			$this->redirect("showOfferLetterTemplates");
 		}
+	}
+
+	private function getOfferLetterList($strSortKey, $tableName, $pageVar){
+		switch($strSortKey){
+			case 'sort_offer_letter_title_desc':
+			default:
+				$strSortKey = 'sort_offer_letter_title_desc';
+				$strSortBy = 'offer_letter_title DESC';
+			break;
+
+			case 'sort_offer_letter_title_asc':
+				$strSortBy = 'offer_letter_title ASC';
+			break;
+
+			case 'sort_department_desc':
+				$strSortBy = 'department DESC';
+			break;
+
+			case 'sort_department_asc':
+				$strSortBy = 'department ASC';
+			break;
+
+			case 'sort_is_managerial_desc':
+				$strSortBy = 'is_managerial DESC';
+			break;
+
+			case 'sort_is_managerial_asc':
+				$strSortBy = 'is_managerial ASC';
+			break;
+		}
+
+		$objCriteria		= new CDbCriteria();
+		$objCriteria->order = $strSortBy;
+
+		$intCount 		= $tableName::model()->count($objCriteria);
+		$objPagination	= new CPagination($intCount);
+		$objPagination->setPageSize(Yii::app()->params['numPerPage']);
+		$objPagination->setCurrentPage($this->intPage);
+		$objPagination->applyLimit($objCriteria);
+
+		$tableArr = $tableName::model()->findAll($objCriteria);
+
+		switch($pageVar){
+			case CommonEnum::RETURN_PAGINATION:
+				return $objPagination;
+			break;
+
+			case CommonEnum::RETURN_CRITERIA:
+				return $objCriteria;
+			break;
+
+			case CommonEnum::RETURN_TABLE_ARRAY:
+				return $tableArr;
+			break;	
+		}	
 	}
 }	

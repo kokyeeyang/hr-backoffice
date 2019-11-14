@@ -448,7 +448,6 @@ class AdminController extends Controller
 
 			// if click on sorting, then it will be ajax, thus we returnpartial here
 			$aResult['content'] = $this->renderPartial('showAllDepartmentsTest', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination, 'pageType'=>$pageType], true);
-			// do we want to echo the three functions here?
 			
 			if(!empty($aResult['content'])){
 				$aResult['result'] 	= 1;
@@ -459,7 +458,6 @@ class AdminController extends Controller
 
 		// we return whole page here
 		$this->render('showAllDepartmentsTest', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination, 'pageType'=>$pageType]);
-		//echo the three functions here
 	}
 
 	private function getDepartmentList($strSortKey, $tableName, $pageVar){

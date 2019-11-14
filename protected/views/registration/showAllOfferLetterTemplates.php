@@ -64,18 +64,18 @@ echo PageHelper::printFormListingHeader($pageType);
         </tr>
       </thead>
       <tbody id="data_table">
-        <?php foreach($offerLetterArrRecords as $offerLetterObjRecord){ ?>
+        <?php foreach($offerLetterArr as $offerLetterObj){ ?>
         <tr>
           <td>
             <a href="<?php echo $this->createUrl('registration/viewSelectedOfferLetter', array('offerLetterId' => $offerLetterObjRecord->id)); ?>">
-            <?php echo $offerLetterObjRecord->offer_letter_title; ?>
+            <?php echo $offerLetterObj->offer_letter_title; ?>
             </a>
           </td>
           <td>
-            <?php echo $offerLetterObjRecord->department; ?>
+            <?php echo $offerLetterObj->department; ?>
           </td>
           <td>
-            <?php echo EmploymentOfferLetterTemplates::model()->queryForOfferLetterIsManagerial($offerLetterObjRecord->id); ?>
+            <?php echo EmploymentOfferLetterTemplates::model()->queryForOfferLetterIsManagerial($offerLetterObj->id); ?>
           </td>
           <td>
             <input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $offerLetterObjRecord->id; ?>">
