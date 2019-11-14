@@ -5,9 +5,9 @@ var RegistrationShowOfferLetterTemplates = function(){
 
 	function _check_if_deletion_is_selected(objElement, objEvent){
 		if ($(".deleteCheckBox:checked").length <= 0){
-			alert($('#msg-select-offerletter-delete').attr('data-msg'));
+			alert($('#msg-select-delete').attr('data-msg'));
 		} else {
-			if (confirm($('#msg-confirm-offerletter-delete').attr('data-msg'))){
+			if (confirm($('#msg-confirm-delete').attr('data-msg'))){
 				$('#offerletter-list').attr('action', $(objElement).attr('data-delete-url')).submit();
 			}
 		}

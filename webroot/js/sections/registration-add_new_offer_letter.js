@@ -1,4 +1,4 @@
-var RegistrationCreateNewOfferLetter = function(){
+var RegistrationAddNewOfferLetter = function(){
 	function _save_offer_letter_template(objElement, objEvent){
 		var editorContent = tinyMCE.activeEditor.getContent();
 		  $.post(url, { "editor-content" : tinyMCE.activeEditor.getContent() }, function(respond){
@@ -18,7 +18,7 @@ var RegistrationCreateNewOfferLetter = function(){
 			$('#saveOfferLetterButton').on('click', function(objEvent){
 				if ($(".department-dropdown:checked").length > 0){
 					if(confirm($('#msg-confirm-save-template').attr('data-msg'))){
-						RegistrationCreateNewOfferLetter.save_offer_letter_template(this, objEvent);
+						RegistrationAddNewOfferLetter.save_offer_letter_template(this, objEvent);
 					} else {
 						event.preventDefault();
 					}
@@ -56,4 +56,4 @@ var RegistrationCreateNewOfferLetter = function(){
 
 	}
 }();
-RegistrationCreateNewOfferLetter.init();
+RegistrationAddNewOfferLetter.init();

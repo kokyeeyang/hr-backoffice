@@ -66,10 +66,10 @@
     		<input type="checkbox" name="offerLetterIsManagerial" id="offerLetterIsManagerial" value="1" class="department-dropdown" <?php echo $offerLetterIsManagerial==1?'checked':'' ?>>
     		<label for="offerLetterIsManagerial">Is for a managerial position</label>
     	</table>
-      <?php if($_SERVER['QUERY_STRING'] != "" && isset($_GET['offerLetterId'])){ ?>
+      <?php if($_SERVER['QUERY_STRING'] != "" && isset($_GET['id'])){ ?>
        <input type="button" id="copyOfferLetterButton" name="copyOfferLetterButton" value="<?php echo Yii::t('app', 'Copy this template'); ?>" data-copy-url="<?php echo $this->createUrl('registration/viewSelectedOfferLetter'); ?>">
-       <input type="button" id="updateOfferLetterButton" name="updateOfferLetterButton" value="<?php echo Yii::t('app', 'Update this template'); ?>" data-update-url="<?php echo $this->createUrl('registration/updateOfferLetterTemplate',['offerLetterId'=>$offerLetterId]); ?>">
-      <?php } else if ($_SERVER['QUERY_STRING'] == "" && !isset($_GET['offerLetterId'])){ ?>
+       <input type="button" id="updateOfferLetterButton" name="updateOfferLetterButton" value="<?php echo Yii::t('app', 'Update this template'); ?>" data-update-url="<?php echo $this->createUrl('registration/updateOfferLetterTemplate',['id'=>$id]); ?>">
+      <?php } else if ($_SERVER['QUERY_STRING'] == "" && !isset($_GET['id'])){ ?>
         <div class="buttons">
           <div class="lable_block" id="saveOfferLetterButton">
             <div class="row_buttons">

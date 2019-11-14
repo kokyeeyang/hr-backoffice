@@ -683,9 +683,9 @@ class RegistrationController extends Controller
 		$pageType = OfferLetterEnum::OFFER_LETTER;
 		$strSortKey = $this->getParam('sort_key', '');
 
-		$objPagination = $this->getOfferLetterList($strSortKey, OfferLetterEnum::OFFER_LETTER, CommonEnum::RETURN_PAGINATION);
-		$objCriteria = $this->getOfferLetterList($strSortKey, OfferLetterEnum::OFFER_LETTER, CommonEnum::RETURN_CRITERIA);
-		$offerLetterArr = $this->getOfferLetterList($strSortKey, OfferLetterEnum::OFFER_LETTER, CommonEnum::RETURN_TABLE_ARRAY);
+		$objPagination = $this->getOfferLetterList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, CommonEnum::RETURN_PAGINATION);
+		$objCriteria = $this->getOfferLetterList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, CommonEnum::RETURN_CRITERIA);
+		$offerLetterArr = $this->getOfferLetterList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, CommonEnum::RETURN_TABLE_ARRAY);
 
 		if(isset($_POST['ajax']) && $_POST['ajax']==='offerletter-list' && Yii::app()->request->isAjaxRequest){
 			$aResult = [];
@@ -702,12 +702,12 @@ class RegistrationController extends Controller
 			echo(json_encode($aResult));
 			Yii::app()->end();		
 		} // - end: if
-		
+
 		// we return whole page here
-		$this->render('showAllOfferLetterTemplates', ['offerLetterArr'=>$offerLetterArr, 'pageType'=>$pageType]);
+		$this->render('showAllOfferLetterTemplates', ['offerLetterArr'=>$offerLetterArr, 'pageType'=>$pageType, 'strSortKey'=>$strSortKey]);
 	}
 
-	public function actionCreateNewOfferLetter(){
+	public function actionAddNewOfferLetter(){
 		
 		$dateToday = date("dS F Y");
 		$header = Yii::t('app', 'Add New Offer Letter Template');
@@ -754,14 +754,14 @@ class RegistrationController extends Controller
 		$this->redirect('showOfferLetterTemplates');
 	}
 
-	public function actionViewSelectedOfferLetter($offerLetterId=null){
-		$offerLetterCondition = 'id = "' . $offerLetterId . '"';
+	public function actionViewSelectedOfferLetter($id=null){
+		$offerLetterCondition = 'id = "' . $id . '"';
 		$header = Yii::t('app', 'Edit offer letter template');
 		$departmentTitle = DepartmentEnum::DEPARTMENT_TITLE;
 		$departmentArr = Department::model()->queryForDepartmentDetails($departmentTitle);
 		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
 
-		if(isset($_GET['offerLetterId']) && $offerLetterId != null){
+		if(isset($_GET['id']) && $id != null){
 			$offerLetterArr = EmploymentOfferLetterTemplates::model()->findAll($offerLetterCondition);
 
 			if($offerLetterArr == null){
@@ -776,11 +776,12 @@ class RegistrationController extends Controller
 			$offerLetterDescription = $offerLetterObj->offer_letter_description;
 			$offerLetterContent = $offerLetterObj->offer_letter_content;
 			$offerLetterDepartment = $offerLetterObj->department;
+
 			$offerLetterIsManagerial = $offerLetterObj->is_managerial;
 
-			$this->render('offerLetterDetails', ['offerLetterObj'=>$offerLetterObj, 'offerLetterTitle'=>$offerLetterTitle, 'offerLetterDescription'=>$offerLetterDescription, 'offerLetterContent'=>$offerLetterContent, 'offerLetterDepartment'=>$offerLetterDepartment, 'offerLetterIsManagerial'=>$offerLetterIsManagerial, 'departmentArr'=>$departmentArr, 'offerLetterId'=>$offerLetterId,'header'=>$header]);
+			$this->render('offerLetterDetails', ['offerLetterObj'=>$offerLetterObj, 'offerLetterTitle'=>$offerLetterTitle, 'offerLetterDescription'=>$offerLetterDescription, 'offerLetterContent'=>$offerLetterContent, 'offerLetterDepartment'=>$offerLetterDepartment, 'offerLetterIsManagerial'=>$offerLetterIsManagerial, 'departmentArr'=>$departmentArr, 'id'=>$id,'header'=>$header]);
 
-		} else if (!isset($_GET['offerLetterId']) && $offerLetterId == null){
+		} else if (!isset($_GET['id']) && $id == null){
 			// if offer letter id is not present, then it would be copying the offer letter template
 			$offerLetterTitle = $this->getParam('offerLetterTitle', ''); 
 			$offerLetterDescription = $this->getParam('offerLetterDescription', '');
@@ -794,8 +795,8 @@ class RegistrationController extends Controller
 		}
 	}
 
-	public function actionUpdateOfferLetterTemplate($offerLetterId){
-		$offerLetterCondition = 'id = "' . $offerLetterId . '"';
+	public function actionUpdateOfferLetterTemplate($id){
+		$offerLetterCondition = 'id = "' . $id . '"';
 		$offerLetterDepartmentArray = $this->getParam('department', '');
 
 		if($offerLetterDepartmentArray == ''){

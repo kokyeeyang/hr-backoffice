@@ -26,7 +26,7 @@ class PageHelper {
 		return $formHeader;
 	}
 
-	public static function printFormListingBody($pageType, $strSortKey, $deleteColumn = true, $dataObjects = null, $validateForeignKeyExist){
+	public static function printFormListingBody($pageType, $strSortKey, $deleteColumn = true, $dataObjects = null, $validateForeignKeyExist = false, $queryFunction){
 
 		//get predefined formData
 		$formData = PageEnum::FORM_DATA[$pageType];
@@ -62,7 +62,7 @@ class PageHelper {
 		$contentBody .= '</thead>';
 
 		// format the body of the table to output the listing
-		$contentBody .= self::prepareTableData($pageType, $dataObjects, $deleteColumn, $validateForeignKeyExist);
+		$contentBody .= self::prepareTableData($pageType, $dataObjects, $deleteColumn, $validateForeignKeyExist, $queryFunction);
 
 		$contentBody .= '</table>';
 		$contentBody .= '</form>';
@@ -166,7 +166,7 @@ class PageHelper {
 		return $deleteColumnHeader;
 	}
 
-	private static function prepareTableData($pageType, $dataObjects, $deleteColumn, $validateForeignKeyExist) {
+	private static function prepareTableData($pageType, $dataObjects, $deleteColumn, $validateForeignKeyExist, $queryFunction) {
 
 		//get predefined formData
 		$formData = PageEnum::FORM_DATA[$pageType];
@@ -174,6 +174,17 @@ class PageHelper {
 		//prepare variable for use later
 		$columnLinkToDetails = $formData['column-link-to-details'];
 		$columnDetails = $formData['column-details'];
+		$dataUrlTag = '';
+		$foreignKeyCheckUrl = '';
+		$msgForeignKeyId = $formData['msg-foreign-key-id'];
+		$msgForeignKey = $formData['msg-foreign-key'];
+		$model = $formData['model'];
+		// $queryDetails = $dataObject->attributes[$formData['column-details-query']];
+
+		if ($validateForeignKeyExist == true) {
+			$dataUrlTag = $formData['data-url'];
+			$foreignKeyCheckUrl = Yii::app()->createUrl($formData['foreign-key-check']);
+		}
 
 		// format the body of the table response here
 		$tableBody = "";
@@ -193,10 +204,18 @@ class PageHelper {
 				$tableBody .= '</td>';
 			}
 
-			//all the subsequent column will be loop here
+			//all the subsequent column will be looped here
 			foreach($columnDetails as $columnDetail){
 				$tableBody .= '<td>';
 				$tableBody .= $dataObject->attributes[$columnDetail];	
+				$tableBody .= '</td>';
+			}
+
+			$columnDetailsQuery = $formData['column-details-query'];
+			if($queryFunction == true){
+				$variable = 'queryForOfferLetterIsManagerial';
+				$tableBody .= '<td>';
+				$tableBody .= $formData['column-details-example']::model()->{$formData['model-query-functions']}($dataObject->id);
 				$tableBody .= '</td>';
 			}
 
@@ -204,11 +223,11 @@ class PageHelper {
 			if ($deleteColumn == true) {
 				$tableBody .= '<td>';
 				$formUrlViewSelected = Yii::app()->createUrl($formData['foreign-key-check'], ["id" => $dataObject->id]);
-				//trial run to check for existing users belonging to this department TODO:
-				$tableBody .= '<input ' . $formData['data-url'] . Yii::app()->createUrl($formData['foreign-key-check']) . ' type="checkbox" name="deleteCheckBox[]" id="deleteCheckBox' . $dataObject->id . '" class="deleteCheckBox"' . 'value="' . $dataObject->id .'">';
+				//check for existing users belonging to this department
+				$tableBody .= '<input ' . $dataUrlTag . $foreignKeyCheckUrl . ' type="checkbox" name="deleteCheckBox[]" id="deleteCheckBox' . $dataObject->id . '" class="deleteCheckBox"' . 'value="' . $dataObject->id .'">';
 				if($validateForeignKeyExist == true){
-					//to show there is a foreign key conflict when attempting to delete row
-					$tableBody .= '<div class="' . $formData['msg-foreign-key-id'] . '" style="display:none;">' . $formData['msg-foreign-key'];
+					//alert message to show there is a foreign key conflict when attempting to delete row
+					$tableBody .= '<div class="' . $msgForeignKeyId . '" style="display:none;">' . $msgForeignKey;
 					$tableBody .= '</div>';
 				}
 				$tableBody .= '</td>';
