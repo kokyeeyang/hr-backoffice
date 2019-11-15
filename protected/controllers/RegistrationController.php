@@ -943,11 +943,11 @@ class RegistrationController extends Controller
 
 	// private function getOfferLetterList($strSortKey, $tableName, $pageVar){
 	private function getStrSortByList($strSortKey, $tableName, $pageVar){
-		$strSortBy = $this->getStrSortBy($strSortKey, $tableName);
+
+		$strSortBy = self::getStrSortBy($strSortKey, $tableName);
 
 		$objCriteria		= new CDbCriteria();
 		$objCriteria->order = $strSortBy;
-
 		$intCount 		= $tableName::model()->count($objCriteria);
 		$objPagination	= new CPagination($intCount);
 		$objPagination->setPageSize(Yii::app()->params['numPerPage']);
@@ -971,39 +971,85 @@ class RegistrationController extends Controller
 		}	
 	}
 
-	private function getStrSortBy($strSortKey, $tableName){
+	private static function getStrSortBy($strSortKey, $tableName){
 		switch($tableName){
-			case 'Offer Letter' :
-				switch($strSortKey){
-					case 'sort_offer_letter_title_desc':
-					default:
-						$strSortKey = 'sort_offer_letter_title_desc';
-						$strSortBy = 'offer_letter_title DESC';
-					break;
-
-					case 'sort_offer_letter_title_asc':
-						$strSortBy = 'offer_letter_title ASC';
-					break;
-
-					case 'sort_department_desc':
-						$strSortBy = 'department DESC';
-					break;
-
-					case 'sort_department_asc':
-						$strSortBy = 'department ASC';
-					break;
-
-					case 'sort_is_managerial_desc':
-						$strSortBy = 'is_managerial DESC';
-					break;
-
-					case 'sort_is_managerial_asc':
-						$strSortBy = 'is_managerial ASC';
-					break;
-
-					return $strSortBy;
-				}
+			case OfferLetterEnum::OFFER_LETTER_TABLE :
+				$strSortBy = self::getOfferLetterList($strSortKey);
+				return $strSortBy;
 			break;
+
+			case JobOpeningEnum::JOB_OPENING_TABLE :
+				$strSortBy = self::getJobOpeningList($strSortKey);
+				return $strSortBy;
+			break;
+		}
+	}
+
+	private static function getOfferLetterList($strSortKey){
+		switch($strSortKey){
+			case 'sort_offer_letter_title_desc':
+			default:
+				$strSortKey = 'sort_offer_letter_title_desc';
+				return 'offer_letter_title DESC';
+			break;
+
+			case 'sort_offer_letter_title_asc':
+				return 'offer_letter_title ASC';
+			break;
+
+			case 'sort_department_desc':
+				return 'department DESC';
+			break;
+
+			case 'sort_department_asc':
+				return 'department ASC';
+			break;
+
+			case 'sort_is_managerial_desc':
+				return 'is_managerial DESC';
+			break;
+
+			case 'sort_is_managerial_asc':
+				return 'is_managerial ASC';
+			break;
+		}		
+	}
+
+	private static function getJobOpeningList($strSortKey){
+		switch($strSortKey){
+			case 'sort_job_title_desc':
+			default:
+				$strSortKey = 'sort_job_title_desc';
+				return 'job_title DESC';
+			break;
+
+			case 'sort_job_title_asc':
+				return 'job_title ASC';
+			break;
+
+			case 'sort_department_desc':
+				return 'department DESC';
+			break;
+
+			case 'sort_department_asc':
+				return 'department ASC';
+			break;
+
+			case 'sort_interviewing_manager_desc':
+				return 'interviewing_manager DESC';
+			break
+
+			case 'sort_interviewing_manager_asc':
+				return 'interviewing_manager ASC';
+			break
+
+			case 'sort_created_date_desc':
+				return 'created_date DESC';
+			break
+
+			case 'sort_created_date_asc':
+				return 'created_date ASC';
+			break
 		}
 	}
 }	
