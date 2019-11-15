@@ -53,6 +53,14 @@ var AdminShowAllDepartmentsTest = function() {
 					AdminShowAllDepartmentsTest.check_if_department_has_users(this, objEvent);
 				}
 			});
+
+		  $("#label_filter").on("keyup", function() {
+		    var value = $(this).val().toLowerCase();
+		    $("#data_table tr").filter(function() {
+		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		    });
+		  });	
+		  
 		});
 	}
 

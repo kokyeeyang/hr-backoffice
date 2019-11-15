@@ -37,7 +37,7 @@ class PageEnum {
 
 											"Offer Letter" => 
 											array(
-												"entity-name" => "Offer Letter",
+												"entity-name" => "OfferLetter",
 												"breadcrumb-top" => "Show All Offer Letters",
 												"breadcrumb-bottom" => "breadcrumb-bottom-key",
 												"form-id" => "offerletter-list",
@@ -45,11 +45,14 @@ class PageEnum {
 												"form-title" => "All Offer Letters",
 												"form-action-add-new" => "registration/addNewOfferLetter",
 												"add-new-record-title" => "Add new offer letter",
-												"table-header" => array("File Name", "Department", "Managerial Role"),
+												"table-header" => array("offer_letter_title", "department", "is_managerial"),
 												"form-action-delete-selected" => "registration/deleteSelectedOfferLetters",
 												"form-action-view-selected" => "registration/viewSelectedOfferLetter",
 												"column-link-to-details" => "offer_letter_title",
 												"column-details" => array("department"),
+												"alert-data-msg" => array(
+												"msg-confirm-delete" => "Are you sure that you want to delete the selected offer letter templates?",
+												"msg-select-delete" => "Please select a offer letter template that you would like to delete!"),
 												"data-url" => "",
 												"foreign-key-check" => "",
 												"msg-foreign-key-id" => "",

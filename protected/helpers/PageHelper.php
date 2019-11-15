@@ -37,6 +37,7 @@ class PageHelper {
 		$formTitle = Yii::t('app', $formData['form-title']);
 		$formUrlAddNew = Yii::app()->createUrl($formData['form-action-add-new']);
 		$addNewButtonLabel = Yii::t('app', $formData['add-new-record-title']);
+		$filterResults = Yii::t('app', 'Filter results');
 
 		//format the form body response
 		$contentBody = '<div class="common_content_wrapper">';
@@ -45,6 +46,7 @@ class PageHelper {
 		$contentBody .= '<form method="post" enctype="multipart/form-data" id="' . $formId . '" action="' . $formUrlShowAll . '">';
 
 		$contentBody .= '<h4 class="widget_title">' . $formTitle;
+		$contentBody .= '<input type="text" value="" placeholder="' . $filterResults . '" name="label_filter" id="label_filter" style="width:30%"/>';
 		$contentBody .= '<a href="' . $formUrlAddNew . '">';
 		$contentBody .= '<input type="button" value="' . $addNewButtonLabel . '">';
 		$contentBody .= '</a>';
@@ -107,7 +109,8 @@ class PageHelper {
 		foreach ($tableHeaders as $tableHeader) {
 			//prepare variable for use later
 			$headerName = strtolower($tableHeader);
-			$columnTitle = Yii::t('app', $tableHeader);
+			$tableHeaderAfterStrReplace = str_replace("_", " ", $headerName);
+			$columnTitle = Yii::t('app', $tableHeaderAfterStrReplace);
 			$sortResult = self::getSortKeyOrder($strSortKey, $headerName);
 
 			//format the header response here

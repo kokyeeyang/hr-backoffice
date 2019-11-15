@@ -704,7 +704,7 @@ class RegistrationController extends Controller
 		} // - end: if
 
 		// we return whole page here
-		$this->render('showAllOfferLetterTemplates', ['offerLetterArr'=>$offerLetterArr, 'pageType'=>$pageType, 'strSortKey'=>$strSortKey]);
+		$this->render('showAllOfferLetterTemplates', ['offerLetterArr'=>$offerLetterArr, 'pageType'=>$pageType, 'strSortKey'=>$strSortKey, 'objPagination'=>$objPagination]);
 	}
 
 	public function actionAddNewOfferLetter(){
