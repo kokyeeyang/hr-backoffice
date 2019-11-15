@@ -941,7 +941,6 @@ class RegistrationController extends Controller
 		}
 	}
 
-	// private function getOfferLetterList($strSortKey, $tableName, $pageVar){
 	private function getStrSortByList($strSortKey, $tableName, $pageVar){
 
 		$strSortBy = self::getStrSortBy($strSortKey, $tableName);
@@ -1037,19 +1036,19 @@ class RegistrationController extends Controller
 
 			case 'sort_interviewing_manager_desc':
 				return 'interviewing_manager DESC';
-			break
+			break;
 
 			case 'sort_interviewing_manager_asc':
 				return 'interviewing_manager ASC';
-			break
+			break;
 
 			case 'sort_created_date_desc':
 				return 'created_date DESC';
-			break
+			break;
 
 			case 'sort_created_date_asc':
 				return 'created_date ASC';
-			break
+			break;
 		}
 	}
 }	
