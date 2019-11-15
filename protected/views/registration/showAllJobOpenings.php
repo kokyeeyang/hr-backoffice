@@ -129,8 +129,8 @@
 </div>
 
 <div id="registration-common-msg">
-	<div id="msg-select-registration-delete" data-msg="<?php echo Yii::t('app', 'Please select a job opening that you would like to delete'); ?>"><!-- Dialog Buttons Label --></div>
+	<div id="msg-select-delete" data-msg="<?php echo Yii::t('app', 'Please select a job opening that you would like to delete'); ?>"><!-- Dialog Buttons Label --></div>
 </div>
 <div id="registration-common-msg">
-	<div id="msg-confirm-registration-delete" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to delete selected job openings?'); ?>"><!-- Dialog Buttons Label --></div>
+	<div id="msg-confirm-delete" data-msg="<?php echo Yii::t('app', 'Are you sure that you want to delete selected job openings?'); ?>"><!-- Dialog Buttons Label --></div>
 </div>

@@ -26,7 +26,7 @@ class PageHelper {
 		return $formHeader;
 	}
 
-	public static function printFormListingBody($pageType, $strSortKey, $deleteColumn = true, $dataObjects = null, $validateForeignKeyExist = false, $queryFunction){
+	public static function printFormListingBody($pageType, $strSortKey, $deleteColumn = true, $dataObjects = null, $validateForeignKeyExist = false, $queryFunction = false, $enableButton = false){
 
 		//get predefined formData
 		$formData = PageEnum::FORM_DATA[$pageType];
@@ -64,7 +64,7 @@ class PageHelper {
 		$contentBody .= '</thead>';
 
 		// format the body of the table to output the listing
-		$contentBody .= self::prepareTableData($pageType, $dataObjects, $deleteColumn, $validateForeignKeyExist, $queryFunction);
+		$contentBody .= self::prepareTableData($pageType, $dataObjects, $deleteColumn, $validateForeignKeyExist, $queryFunction, $enableButton);
 
 		$contentBody .= '</table>';
 		$contentBody .= '</form>';
@@ -169,7 +169,7 @@ class PageHelper {
 		return $deleteColumnHeader;
 	}
 
-	private static function prepareTableData($pageType, $dataObjects, $deleteColumn, $validateForeignKeyExist, $queryFunction) {
+	private static function prepareTableData($pageType, $dataObjects, $deleteColumn, $validateForeignKeyExist, $queryFunction, $enableButton) {
 
 		//get predefined formData
 		$formData = PageEnum::FORM_DATA[$pageType];
@@ -181,7 +181,6 @@ class PageHelper {
 		$foreignKeyCheckUrl = '';
 		$msgForeignKeyId = $formData['msg-foreign-key-id'];
 		$msgForeignKey = $formData['msg-foreign-key'];
-		$model = $formData['model'];
 		// $queryDetails = $dataObject->attributes[$formData['column-details-query']];
 
 		if ($validateForeignKeyExist == true) {
@@ -214,12 +213,23 @@ class PageHelper {
 				$tableBody .= '</td>';
 			}
 
-			$columnDetailsQuery = $formData['column-details-query'];
 			if($queryFunction == true){
-				$variable = 'queryForOfferLetterIsManagerial';
+				$tableBody .= 'hello';
+				$columnDetailsQuery = $formData['column-details-query'];
 				$tableBody .= '<td>';
-				$tableBody .= $formData['column-details-example']::model()->{$formData['model-query-functions']}($dataObject->id);
+				$tableBody .= $formData['column-details-model']::model()->{$formData['model-query-functions']}($dataObject->id);
 				$tableBody .= '</td>';
+			}
+
+			if($enableButton == true){
+				$emailVariables = $formData['data-email-details'];
+				foreach($emailVariables as $emailVariable){
+					$tableBody .= '<td>';
+					$tableBody .= '<input type="button" id="' . $formData['send-email-button-id'] . '" ' . $formData['data-email-url-tag'] . Yii::app()->createUrl($formData['data-email-url'], array($emailVariable => $dataObject->attributes[$emailVariable]));
+					$tableBody .= '</td>';
+				}
+
+				// data-email-url="<?php echo $this->createUrl('registration/generateEmail', array('jobId' => $objRecord->id, 'jobTitle' => $objRecord->job_title)); >" value="<?php echo Yii::t('app', 'Generate email'); >">
 			}
 
 			//add in the checkbox for the delete

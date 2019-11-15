@@ -30,9 +30,8 @@ class PageEnum {
 												"foreign-key-check" => "admin/checkAdminDepartmentExist",
 												"msg-foreign-key-id" => "adminDepartmentExistAlert",
 												"msg-foreign-key" => "Please delete the users belonging to this department first.",
-												"model" => "",
 												"column-details-query" => "",
-												"column-details-example" => ""
+												"column-details-model" => ""
 											),
 
 											"Offer Letter" => 
@@ -57,10 +56,41 @@ class PageEnum {
 												"foreign-key-check" => "",
 												"msg-foreign-key-id" => "",
 												"msg-foreign-key" => "",
-												"model" => "EmploymentOfferLetterTemplates",
 												"model-query-functions" => "queryForOfferLetterIsManagerial",
 												"column-details-query" => "is_managerial",
-												"column-details-example" => "EmploymentOfferLetterTemplates"
+												"column-details-model" => "EmploymentOfferLetterTemplates"
+											),
+
+											"Job Opening" =>
+											array(
+												"entity-name" => "JobOpening",
+												"breadcrumb-top" => "Show All Job Openings",
+												"breadcrumb-bottom" => "breadcrumb-bottom-key",
+												"form-id" => "jobopening-list",
+												"form-action-show-all" => "registration/showAllJobOpenings",
+												"form-title" => "All Job Openings",
+												"form-action-add-new" => "registration/addNewJobOpenings",
+												"add-new-record-title" => "Add new job opening",
+												"table-header" => array("job_title", "department", "interviewing_manager", "created_date"),
+												"form-action-delete-selected" => "registration/deleteSelectedJobOpenings",
+												"column-details" => array("department", "interviewing_manager", "created_date"),
+												"alert-data-msg" => array(
+												"msg-confirm-delete" => "Are you sure that you want to delete the selected job openings?",
+												"msg-select-delete" => "Please select a job opening that you would like to delete!"),
+												"data-url" => "",
+												"foreign-key-check" => "",
+												"msg-foreign-key-id" => "",
+												"msg-foreign-key" => "",
+												"send-email-button-id" => "generateEmail",
+												"data-email-url-tag" => "data-email-url=",
+												"data-email-url" => "registration/generateEmail",
+												"data-email-details" => array("id", "job_title"),
+												"data-url" => "data-url=",
+												"foreign-key-check" => "registration/checkCandidateJobOpeningExist",
+												"msg-foreign-key-id" => "candidateJobOpeningExist",
+												"msg-foreign-key" => "Please delete the candidates under this job opening first.",
+												"column-details-query" => "",
+												"column-details-model" => ""
 											)
 										);
 }

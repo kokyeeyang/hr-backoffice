@@ -31,7 +31,7 @@ var RegistrationShowAllCandidates = function() {
 
 	function _init() {
 		$(function() {
-			$('#deleteJobOpeningButton').on('click', function(objEvent){
+			$('#deleteCandidateButton').on('click', function(objEvent){
 				RegistrationShowAllCandidates.check_if_deletion_is_selected(this, objEvent);
 			});
 

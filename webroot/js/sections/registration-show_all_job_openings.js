@@ -67,13 +67,42 @@ var RegistrationShowAllJobOpenings = function() {
 
 	function _check_if_deletion_is_selected(objElement, objEvent){
 		if ($(".deleteCheckBox:checked").length <= 0){
-			alert($('#msg-select-registration-delete').attr('data-msg'));
+			alert($('#msg-select-delete').attr('data-msg'));
 		} else {
-			if (confirm($('#msg-confirm-registration-delete').attr('data-msg'))){
+			if (confirm($('#msg-confirm-delete').attr('data-msg'))){
 				$('#jobopening-list').attr('action', $(objElement).attr('data-delete-url')).submit();
 			}
 		}
 	}
+
+	function _check_if_job_opening_has_candidates(objElement, objEvent){
+		if($(objElement).val() != '')
+		{
+			$.ajax({
+				type: 'post',
+				//pass in department id to query inside admin table
+				url: $(objElement).attr('data-url')+'/'+$(objElement).val(),
+				data: {
+					department_id : $(objElement).val()
+				},
+				dataType: 'json',
+				success: function(data)
+				{
+					if(data != null && data.result != false){
+						alert('There are candidates belonging to your chosen job opening, please delete them first.');
+						//uncheck the boxes for departments that still have users
+						$('#deleteCheckBox' + $(objElement).val()).prop('checked', false);
+
+					}else if(data != null && data.result == false){
+					}
+				}, 
+				error: function(request, status, err)
+				{
+					alert('wrong');
+				}
+			});
+		}		
+	}	
 	
 	function _init(){
 		$(function() {

@@ -349,10 +349,11 @@ class RegistrationController extends Controller
 			Yii::app()->end();
 	}
 
-	public function actionGenerateEmail($jobId, $jobTitle){
+	// public function actionGenerateEmail($jobId, $jobTitle){
+	public function actionGenerateEmail($id, $job_title){
 		$aResult['result'] = false;
-		$jobId = (int)$this->getParam('jobId', '', '', 'get');
-		$jobTitle = (int)$this->getParam('jobTitle', '', '', 'get');
+		$id = (int)$this->getParam('jobId', '', '', 'get');
+		$job_title = (int)$this->getParam('jobTitle', '', '', 'get');
 		$token = EmploymentLinkToken::model()->generateRandomToken();
 
 		if(Yii::app()->request->isAjaxRequest){
@@ -683,9 +684,9 @@ class RegistrationController extends Controller
 		$pageType = OfferLetterEnum::OFFER_LETTER;
 		$strSortKey = $this->getParam('sort_key', '');
 
-		$objPagination = $this->getOfferLetterList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, CommonEnum::RETURN_PAGINATION);
-		$objCriteria = $this->getOfferLetterList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, CommonEnum::RETURN_CRITERIA);
-		$offerLetterArr = $this->getOfferLetterList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, CommonEnum::RETURN_TABLE_ARRAY);
+		$objPagination = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, CommonEnum::RETURN_PAGINATION);
+		$objCriteria = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, CommonEnum::RETURN_CRITERIA);
+		$offerLetterArr = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, CommonEnum::RETURN_TABLE_ARRAY);
 
 		if(isset($_POST['ajax']) && $_POST['ajax']==='offerletter-list' && Yii::app()->request->isAjaxRequest){
 			$aResult = [];
@@ -940,34 +941,9 @@ class RegistrationController extends Controller
 		}
 	}
 
-	private function getOfferLetterList($strSortKey, $tableName, $pageVar){
-		switch($strSortKey){
-			case 'sort_offer_letter_title_desc':
-			default:
-				$strSortKey = 'sort_offer_letter_title_desc';
-				$strSortBy = 'offer_letter_title DESC';
-			break;
-
-			case 'sort_offer_letter_title_asc':
-				$strSortBy = 'offer_letter_title ASC';
-			break;
-
-			case 'sort_department_desc':
-				$strSortBy = 'department DESC';
-			break;
-
-			case 'sort_department_asc':
-				$strSortBy = 'department ASC';
-			break;
-
-			case 'sort_is_managerial_desc':
-				$strSortBy = 'is_managerial DESC';
-			break;
-
-			case 'sort_is_managerial_asc':
-				$strSortBy = 'is_managerial ASC';
-			break;
-		}
+	// private function getOfferLetterList($strSortKey, $tableName, $pageVar){
+	private function getStrSortByList($strSortKey, $tableName, $pageVar){
+		$strSortBy = $this->getStrSortBy($strSortKey, $tableName);
 
 		$objCriteria		= new CDbCriteria();
 		$objCriteria->order = $strSortBy;
@@ -993,5 +969,41 @@ class RegistrationController extends Controller
 				return $tableArr;
 			break;	
 		}	
+	}
+
+	private function getStrSortBy($strSortKey, $tableName){
+		switch($tableName){
+			case 'Offer Letter' :
+				switch($strSortKey){
+					case 'sort_offer_letter_title_desc':
+					default:
+						$strSortKey = 'sort_offer_letter_title_desc';
+						$strSortBy = 'offer_letter_title DESC';
+					break;
+
+					case 'sort_offer_letter_title_asc':
+						$strSortBy = 'offer_letter_title ASC';
+					break;
+
+					case 'sort_department_desc':
+						$strSortBy = 'department DESC';
+					break;
+
+					case 'sort_department_asc':
+						$strSortBy = 'department ASC';
+					break;
+
+					case 'sort_is_managerial_desc':
+						$strSortBy = 'is_managerial DESC';
+					break;
+
+					case 'sort_is_managerial_asc':
+						$strSortBy = 'is_managerial ASC';
+					break;
+
+					return $strSortBy;
+				}
+			break;
+		}
 	}
 }	
