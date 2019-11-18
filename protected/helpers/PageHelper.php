@@ -198,7 +198,7 @@ class PageHelper {
 			$tableBody .= '<tr>';
 
 			//set the first column as hyperlink, this shall always be the name/title or anything that is prominent to this entity
-			if (isset($columnLinkToDetails)) {
+			if ($columnLinkToDetails != false) {
 				$tableBody .= '<td>';
 				$tableBody .= '<a href="' . $formUrlViewSelected . '">';
 				$tableBody .= $dataObject->attributes[$columnLinkToDetails];	
@@ -214,7 +214,6 @@ class PageHelper {
 			}
 
 			if($queryFunction == true){
-				$tableBody .= 'hello';
 				$columnDetailsQuery = $formData['column-details-query'];
 				$tableBody .= '<td>';
 				$tableBody .= $formData['column-details-model']::model()->{$formData['model-query-functions']}($dataObject->id);
@@ -223,13 +222,16 @@ class PageHelper {
 
 			if($enableButton == true){
 				$emailVariables = $formData['data-email-details'];
-				foreach($emailVariables as $emailVariable){
+					$clickableButtonTitle = $formData['clickable-button-title'];
 					$tableBody .= '<td>';
-					$tableBody .= '<input type="button" id="' . $formData['send-email-button-id'] . '" ' . $formData['data-email-url-tag'] . Yii::app()->createUrl($formData['data-email-url'], array($emailVariable => $dataObject->attributes[$emailVariable]));
-					$tableBody .= '</td>';
-				}
+					$buttonVariables = [];
 
-				// data-email-url="<?php echo $this->createUrl('registration/generateEmail', array('jobId' => $objRecord->id, 'jobTitle' => $objRecord->job_title)); >" value="<?php echo Yii::t('app', 'Generate email'); >">
+					foreach($emailVariables as $emailVariable){
+					  $buttonVariables[$emailVariable] = $dataObject->attributes[$emailVariable];
+					}
+
+					$tableBody .= '<input type="button" id="' . $formData['send-email-button-id'] . '" ' . $formData['data-email-url-tag'] . Yii::app()->createUrl($formData['data-email-url'], $buttonVariables) . ' value="' . $clickableButtonTitle . '">';
+					$tableBody .= '</td>';
 			}
 
 			//add in the checkbox for the delete

@@ -331,7 +331,29 @@ class RegistrationController extends Controller
 
 	public function actionShowAllJobOpenings() {
 		$arrRecords = EmploymentJobOpening::model()->findAll(array('order'=>'id ASC'));
-		return $this->render('showAllJobOpenings', array('arrRecords'=>$arrRecords));
+		$strSortKey = $this->getParam('sort_key','');
+		$pageType = JobOpeningEnum::JOB_OPENING;
+
+		$objPagination = $this->getStrSortByList($strSortKey, JobOpeningEnum::JOB_OPENING_TABLE, CommonEnum::RETURN_PAGINATION);
+		$objCriteria = $this->getStrSortByList($strSortKey, JobOpeningEnum::JOB_OPENING_TABLE, CommonEnum::RETURN_CRITERIA);
+		$arrRecords = $this->getStrSortByList($strSortKey, JobOpeningEnum::JOB_OPENING_TABLE, CommonEnum::RETURN_TABLE_ARRAY);
+
+		if(isset($_POST['ajax']) && $_POST['ajax']==='jobopening-list' && Yii::app()->request->isAjaxRequest){
+			$aResult = [];
+			$aResult['result'] 	= 0;
+			$aResult['content'] = '';
+			$aResult['msg'] 	= '';
+
+			$aResult['content'] = $this->renderPartial('showAllJobOpenings', ['strSortKey'=>$strSortKey, 'arrRecords'=>$arrRecords, 'objPagination'=>$objPagination, 'pageType'=>$pageType], true);
+
+			if(!empty($aResult['content'])){
+				$aResult['result'] 	= 1;
+			}
+			echo(json_encode($aResult));
+			Yii::app()->end();		
+		}
+
+		$this->render('showAllJobOpenings', ['strSortKey'=>$strSortKey, 'arrRecords'=>$arrRecords, 'objPagination'=>$objPagination, 'pageType'=>$pageType]);
 	}
 
 	// generates a job application link to send to candidate
@@ -349,15 +371,14 @@ class RegistrationController extends Controller
 			Yii::app()->end();
 	}
 
-	// public function actionGenerateEmail($jobId, $jobTitle){
-	public function actionGenerateEmail($id, $job_title){
+	public function actionGenerateEmail(){
 		$aResult['result'] = false;
-		$id = (int)$this->getParam('jobId', '', '', 'get');
-		$job_title = (int)$this->getParam('jobTitle', '', '', 'get');
+		$id = (int)$this->getParam('id', '');
+		$jobTitle = $this->getParam('job_title', '');
 		$token = EmploymentLinkToken::model()->generateRandomToken();
 
 		if(Yii::app()->request->isAjaxRequest){
-			$encryptedJobTitleId = str_replace('9', $jobId, JOB_TITLE_ID_SECRET_KEY);
+			$encryptedJobTitleId = str_replace('9', $id, JOB_TITLE_ID_SECRET_KEY);
 			$base64EncodedJobTitleId = base64_encode($encryptedJobTitleId);
 			$aResult['result'] = $base64EncodedJobTitleId;
 			$aResult['jobTitleResult'] = $jobTitle;
@@ -504,8 +525,6 @@ class RegistrationController extends Controller
 				}
 			}
 		}
-
-		// var_dump($this->getParam('schoolName', ''));exit;
 
 		// EmploymentEducation::model()->updateAll([
 		// 	'candidate_id'=>$this->getParam('idNo', ''), 'school_name'=>$this->getParam('schoolName', ''), 
@@ -755,7 +774,8 @@ class RegistrationController extends Controller
 		$this->redirect('showOfferLetterTemplates');
 	}
 
-	public function actionViewSelectedOfferLetter($id=null){
+	public function actionViewSelectedOfferLetter(){
+		$id = $this->getParam('id', '', '', 'get');
 		$offerLetterCondition = 'id = "' . $id . '"';
 		$header = Yii::t('app', 'Edit offer letter template');
 		$departmentTitle = DepartmentEnum::DEPARTMENT_TITLE;
