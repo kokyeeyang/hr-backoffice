@@ -750,6 +750,7 @@ class RegistrationController extends Controller
 
 		$offerLetterDepartmentArray = $this->getParam('department', '');
 
+		//don't need this anymore, just foreach the $offerLetterDepartmentArray and save new rows of employmentofferlettertemplatemapping
 		if ($offerLetterDepartmentArray != ''){
 			$offerLetterDepartments = implode(",", $offerLetterDepartmentArray);
 		} else {
@@ -757,6 +758,9 @@ class RegistrationController extends Controller
 		}
 
 		$offerLetterObjModel = new EmploymentOfferLetterTemplates;
+
+		// TODO: add the new employmentofferlettertemplatemapping object here
+		//foreach the $offerLetterDepartmentArray and save new rows of employmentofferlettertemplatemapping here
 		$offerLetterObjModel->offer_letter_title = $offerLetterTitle;
 		$offerLetterObjModel->offer_letter_description = $this->getParam('offerLetterDescription', '');
 
