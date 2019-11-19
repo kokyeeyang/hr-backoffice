@@ -436,6 +436,10 @@ class RegistrationController extends Controller
 		$otherCondition = 'candidate_id = "' . $candidateId . '"';
 		$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
 
+		if ($candidateArrRecords == null){
+			throw new CHttpException(404,'Candidate does not exist with the requested id.');
+		}
+
 		$interviewQuestionsArrRecords = EmploymentInterviewQuestions::model()->findAll($otherCondition);
 		$educationArrRecords = EmploymentEducation::model()->findAll($otherCondition);
 		$jobExperienceArrRecords = EmploymentJobExperience::model()->findAll($otherCondition);
@@ -778,7 +782,7 @@ class RegistrationController extends Controller
 			$offerLetterArr = EmploymentOfferLetterTemplates::model()->findAll($offerLetterCondition);
 
 			if($offerLetterArr == null){
-				throw new CHttpException(500,'Offer letter template does not exist with the requested id.');
+				throw new CHttpException(404,'Offer letter template does not exist with the requested id.');
 			}
 
 			if (count($offerLetterArr) > 0) {

@@ -399,6 +399,11 @@ class AdminController extends Controller
 	public function actionViewSelectedDepartment($id){
 		$departmentCondition = 'id = "' . $id . '"';
 		$departmentArr = Department::model()->findAll($departmentCondition);
+
+		if ($departmentArr == null){
+			throw new CHttpException(404,'Department does not exist with the requsted id');
+		}
+
 		$formAction = $this->createUrl('admin/updateDepartment', ['departmentId' => $id]);
 		$header = AdminEnum::EDIT_DEPARTMENT;
     $buttonTitle =  AdminEnum::UPDATE_BUTTON;
