@@ -13,8 +13,8 @@ class PageEnum {
 												"breadcrumb-top" => "Show All Departments",
 												"breadcrumb-bottom" => "breadcrumb-bottom-key",
 
-												"form-id" => "department-list-test",
-												"form-action-show-all" => "admin/showAllDepartmentsTest",
+												"form-id" => "department-list",
+												"form-action-show-all" => "admin/showAllDepartments",
 												"form-title" => "All Departments",
 												"form-action-add-new" => "admin/addNewDepartment",
 												"add-new-record-title" => "Add new department",

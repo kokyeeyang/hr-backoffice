@@ -339,39 +339,39 @@ class AdminController extends Controller
 		return $this->renderPartial('list', array('strSortKey' => $strSortKey, 'arrRecords'=>$arrRecords, 'objPagination'=>$objPagination), true);	
 	}
 
-	public function actionShowAllDepartments(){
-		//can be a function -START
-		//maybe we want to channel all the view all page sort keys to one function?
-		$strSortKey = $this->getParam('sort_key', '');
-		// $breadcrumbTop = Yii::t('app', 'Show All Departments');
-		// $spanTitle = Yii::t('app', 'All departments');
-		$pageType = DepartmentEnum::DEPARTMENT;
+	// public function actionShowAllDepartments(){
+	// 	//can be a function -START
+	// 	//maybe we want to channel all the view all page sort keys to one function?
+	// 	$strSortKey = $this->getParam('sort_key', '');
+	// 	// $breadcrumbTop = Yii::t('app', 'Show All Departments');
+	// 	// $spanTitle = Yii::t('app', 'All departments');
+	// 	$pageType = DepartmentEnum::DEPARTMENT;
 
-		$objPagination = $this->getDepartmentList($strSortKey, AdminEnum::DEPARTMENT_TABLE, CommonEnum::RETURN_PAGINATION);
-		$objCriteria = $this->getDepartmentList($strSortKey, AdminEnum::DEPARTMENT_TABLE, CommonEnum::RETURN_CRITERIA);
-		$departmentArr = $this->getDepartmentList($strSortKey, AdminEnum::DEPARTMENT_TABLE, CommonEnum::RETURN_TABLE_ARRAY);
+	// 	$objPagination = $this->getDepartmentList($strSortKey, AdminEnum::DEPARTMENT_TABLE, CommonEnum::RETURN_PAGINATION);
+	// 	$objCriteria = $this->getDepartmentList($strSortKey, AdminEnum::DEPARTMENT_TABLE, CommonEnum::RETURN_CRITERIA);
+	// 	$departmentArr = $this->getDepartmentList($strSortKey, AdminEnum::DEPARTMENT_TABLE, CommonEnum::RETURN_TABLE_ARRAY);
 
-		if(isset($_POST['ajax']) && $_POST['ajax']==='department-list' && Yii::app()->request->isAjaxRequest){
-			$aResult = [];
-			$aResult['result'] 	= 0;
-			$aResult['content'] = '';
-			$aResult['msg'] 	= '';
+	// 	if(isset($_POST['ajax']) && $_POST['ajax']==='department-list' && Yii::app()->request->isAjaxRequest){
+	// 		$aResult = [];
+	// 		$aResult['result'] 	= 0;
+	// 		$aResult['content'] = '';
+	// 		$aResult['msg'] 	= '';
 
-			// if click on sorting, then it will be ajax, thus we returnpartial here
-			$aResult['content'] = $this->renderPartial('showAllDepartments', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination, 'pageType'=>$pageType], true);
-			// do we want to echo the three functions here?
+	// 		// if click on sorting, then it will be ajax, thus we returnpartial here
+	// 		$aResult['content'] = $this->renderPartial('showAllDepartments', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination, 'pageType'=>$pageType], true);
+	// 		// do we want to echo the three functions here?
 			
-			if(!empty($aResult['content'])){
-				$aResult['result'] 	= 1;
-			}
-			echo(json_encode($aResult));
-			Yii::app()->end();
-		} // - end: if
+	// 		if(!empty($aResult['content'])){
+	// 			$aResult['result'] 	= 1;
+	// 		}
+	// 		echo(json_encode($aResult));
+	// 		Yii::app()->end();
+	// 	} // - end: if
 
-		// we return whole page here
-		$this->render('showAllDepartments', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination, 'pageType'=>$pageType]);
-		//echo the three functions here
-	}
+	// 	// we return whole page here
+	// 	$this->render('showAllDepartments', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination, 'pageType'=>$pageType]);
+	// 	//echo the three functions here
+	// }
 
 	public function actionAddNewDepartment(){
 		$formAction = $this->createUrl('admin/saveDepartment');
@@ -431,7 +431,7 @@ class AdminController extends Controller
 	}
 
 
-	public function actionShowAllDepartmentsTest(){
+	public function actionShowAllDepartments(){
 		//can be a function -START
 		$strSortKey = $this->getParam('sort_key', '');
 		$pageType = DepartmentEnum::DEPARTMENT;
@@ -440,14 +440,14 @@ class AdminController extends Controller
 		$objCriteria = $this->getDepartmentList($strSortKey, AdminEnum::DEPARTMENT_TABLE, CommonEnum::RETURN_CRITERIA);
 		$departmentArr = $this->getDepartmentList($strSortKey, AdminEnum::DEPARTMENT_TABLE, CommonEnum::RETURN_TABLE_ARRAY);
 
-		if(isset($_POST['ajax']) && $_POST['ajax']==='department-list-test' && Yii::app()->request->isAjaxRequest){
+		if(isset($_POST['ajax']) && $_POST['ajax']==='department-list' && Yii::app()->request->isAjaxRequest){
 			$aResult = [];
 			$aResult['result'] 	= 0;
 			$aResult['content'] = '';
 			$aResult['msg'] 	= '';
 
 			// if click on sorting, then it will be ajax, thus we returnpartial here
-			$aResult['content'] = $this->renderPartial('showAllDepartmentsTest', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination, 'pageType'=>$pageType], true);
+			$aResult['content'] = $this->renderPartial('showAllDepartments', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination, 'pageType'=>$pageType], true);
 			
 			if(!empty($aResult['content'])){
 				$aResult['result'] 	= 1;
@@ -457,7 +457,7 @@ class AdminController extends Controller
 		} // - end: if
 
 		// we return whole page here
-		$this->render('showAllDepartmentsTest', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination, 'pageType'=>$pageType]);
+		$this->render('showAllDepartments', ['strSortKey'=>$strSortKey,'departmentArr'=>$departmentArr, 'objPagination'=>$objPagination, 'pageType'=>$pageType]);
 	}
 
 	private function getDepartmentList($strSortKey, $tableName, $pageVar){
