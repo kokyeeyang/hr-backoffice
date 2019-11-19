@@ -28,7 +28,6 @@ class PageEnum {
 												"msg-select-delete" => "Please select a department that you would like to delete!"),
 												"data-url" => "data-url=",
 												"foreign-key-check" => "admin/checkAdminDepartmentExist",
-												"msg-foreign-key-id" => "adminDepartmentExistAlert",
 												"msg-foreign-key" => "Please delete the users belonging to this department first.",
 												"column-details-query" => "",
 												"column-details-model" => ""
@@ -54,7 +53,6 @@ class PageEnum {
 												"msg-select-delete" => "Please select a offer letter template that you would like to delete!"),
 												"data-url" => "",
 												"foreign-key-check" => "",
-												"msg-foreign-key-id" => "",
 												"msg-foreign-key" => "",
 												"model-query-functions" => "queryForOfferLetterIsManagerial",
 												"column-details-query" => "is_managerial",
@@ -81,7 +79,6 @@ class PageEnum {
 												"foreign-key-check" => "",
 												"column-link-to-details" => "",
 												"form-action-view-selected" => "",
-												"msg-foreign-key-id" => "",
 												"msg-foreign-key" => "",
 												"send-email-button-id" => "generateEmail",
 												"data-email-url-tag" => "data-email-url=",

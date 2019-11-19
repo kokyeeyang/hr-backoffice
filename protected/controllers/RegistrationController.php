@@ -1074,11 +1074,11 @@ class RegistrationController extends Controller
 
 	public function actionCheckCandidateJobOpeningExist($id){
 		$aResult['result'] = false;
-		$id = $queryString;
-		$queryResult = EmploymentCandidateEnum::FULL_NAME;
-		$columnName = EmploymentCandidateEnum::JOB_ID;
 
 		if(Yii::app()->request->isAjaxRequest){
+			$queryString = $id;
+			$queryResult = EmploymentCandidateEnum::FULL_NAME;
+			$columnName = EmploymentCandidateEnum::JOB_ID;
 			//to confirm whether there are any candidates applied under this job opening
 			$candidateName = EmploymentCandidate::model()->queryForCandidateInformation($queryString, $queryResult, $columnName);
 			$aResult['result'] = $candidateName;

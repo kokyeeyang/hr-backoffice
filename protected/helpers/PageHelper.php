@@ -240,11 +240,6 @@ class PageHelper {
 				$formUrlViewSelected = Yii::app()->createUrl($formData['foreign-key-check'], ["id" => $dataObject->id]);
 				//check for existing users belonging to this department
 				$tableBody .= '<input ' . $dataUrlTag . $foreignKeyCheckUrl . ' type="checkbox" name="deleteCheckBox[]" id="deleteCheckBox' . $dataObject->id . '" class="deleteCheckBox"' . 'value="' . $dataObject->id .'">';
-				if($validateForeignKeyExist == true){
-					//alert message to show there is a foreign key conflict when attempting to delete row
-					$tableBody .= '<div class="' . $msgForeignKeyId . '" style="display:none;">' . $msgForeignKey;
-					$tableBody .= '</div>';
-				}
 				$tableBody .= '</td>';
 			}
 			$tableBody .= '</tr>';

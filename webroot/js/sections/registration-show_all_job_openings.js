@@ -113,7 +113,7 @@ var RegistrationShowAllJobOpenings = function() {
 				//pass in department id to query inside admin table
 				url: $(objElement).attr('data-url')+'/'+$(objElement).val(),
 				data: {
-					department_id : $(objElement).val()
+					job_id : $(objElement).val()
 				},
 				dataType: 'json',
 				success: function(data)
@@ -169,7 +169,7 @@ var RegistrationShowAllJobOpenings = function() {
 		copy_link : _copy_link,
 		generate_email : _generate_email,
 		check_if_deletion_is_selected : _check_if_deletion_is_selected,
-		_check_if_job_opening_has_applicants : check_if_job_opening_has_applicants
+		check_if_job_opening_has_applicants : _check_if_job_opening_has_applicants
 	}
 }();
 RegistrationShowAllJobOpenings.init();
