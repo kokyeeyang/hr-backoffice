@@ -110,10 +110,9 @@ class RegistrationController extends Controller
 	public function actionSaveCandidate($token)
 	{
 		//this is for saving candidate details into employment_candidate table
-
 		$encryptedJobId = $this->getParam('encryptedJobId', '');
-		$jobIdInSecretKey = base64_decode($encryptedJobId);
-		$jobId = substr($jobIdInSecretKey,9,1);
+		$decryptedIdRaw = base64_decode($encryptedJobId);
+		$jobId = str_replace(JOB_TITLE_ID_SECRET_KEY, "", $decryptedIdRaw);
 		$sanitizedIdNo = str_replace("-", "", strtoupper($this->getParam('idNo', '')));
 
 		$candidateObjModel = new EmploymentCandidate;
@@ -373,13 +372,12 @@ class RegistrationController extends Controller
 
 	public function actionGenerateEmail(){
 		$aResult['result'] = false;
-		$id = (int)$this->getParam('id', '');
+		$id = (int)$this->getParam('id', '', '', 'get');
 		$jobTitle = $this->getParam('job_title', '');
 		$token = EmploymentLinkToken::model()->generateRandomToken();
 
 		if(Yii::app()->request->isAjaxRequest){
-			$encryptedJobTitleId = str_replace('9', $id, JOB_TITLE_ID_SECRET_KEY);
-			$base64EncodedJobTitleId = base64_encode($encryptedJobTitleId);
+			$base64EncodedJobTitleId = base64_encode($id . JOB_TITLE_ID_SECRET_KEY);
 			$aResult['result'] = $base64EncodedJobTitleId;
 			$aResult['jobTitleResult'] = $jobTitle;
 			$aResult['token'] = $token;
@@ -525,12 +523,6 @@ class RegistrationController extends Controller
 				}
 			}
 		}
-
-		// EmploymentEducation::model()->updateAll([
-		// 	'candidate_id'=>$this->getParam('idNo', ''), 'school_name'=>$this->getParam('schoolName', ''), 
-		// 	'start_year'=>$this->getParam('startYear', ''), 'end_year'=>$this->getParam('endYear', ''), 
-		// 	'qualification'=>$this->getParam('qualification', ''), 'grade'=>$this->getParam('cgpa', '')
-		// ], $otherCondition);
 
 		$companyNames = $this->getParam('companyName','');
 		$startDates = $this->getParam('startDate','');

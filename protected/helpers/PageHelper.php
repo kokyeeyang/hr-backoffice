@@ -179,9 +179,6 @@ class PageHelper {
 		$columnDetails = $formData['column-details'];
 		$dataUrlTag = '';
 		$foreignKeyCheckUrl = '';
-		$msgForeignKeyId = $formData['msg-foreign-key-id'];
-		$msgForeignKey = $formData['msg-foreign-key'];
-		// $queryDetails = $dataObject->attributes[$formData['column-details-query']];
 
 		if ($validateForeignKeyExist == true) {
 			$dataUrlTag = $formData['data-url'];
