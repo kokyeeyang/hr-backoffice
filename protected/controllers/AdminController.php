@@ -521,6 +521,7 @@ class AdminController extends Controller
 		$aResult['result'] = false;
 
 		if(Yii::app()->request->isAjaxRequest){
+			//to confirm if there are any users created for this department or not
 			$departmentName = Admin::model()->checkAdminDepartmentExist($id);
 			$aResult['result'] = $departmentName;
 		}

@@ -205,4 +205,14 @@ class EmploymentCandidate extends AppActiveRecord
 		}
 	}
 
+	// public function checkCandidateJobOpeningExist($id){
+	// 	$sql = 'SELECT ' . 'full_name';
+	// 	$sql .= ' FROM ' . self::$tableName;
+	// 	$sql .= ' WHERE ' . 'job_id = ' . $id; 
+		
+	// 	$objConnection 	= Yii::app()->db;
+	// 	$objCommand		= $objConnection->createCommand($sql);
+	// 	$arrData		= $objCommand->queryRow(); 
+	}
+
 }

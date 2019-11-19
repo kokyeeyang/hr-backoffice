@@ -31,6 +31,36 @@ var RegistrationShowAllJobOpenings = function() {
 		}
 	}
 
+	function _check_if_job_opening_has_applicants(objElement, objEvent){
+		if($(objElement).val() != '')
+		{
+			$.ajax({
+				type: 'post',
+				//pass in department id to query inside admin table
+				url: $(objElement).attr('data-url')+'/'+$(objElement).val(),
+				data: {
+					department_id : $(objElement).val()
+				},
+				dataType: 'json',
+				success: function(data)
+				{
+					if(data != null && data.result != false){
+						alert('There are still applicants for your chosen job opening, please delete them first.');
+						//uncheck the boxes for departments that still have users
+						$('#deleteCheckBox' + $(objElement).val()).prop('checked', false);
+
+					}else if(data != null && data.result == false){
+
+					}
+				}, 
+				error: function(request, status, err)
+				{
+					alert('wrong');
+				}
+			});
+		}			
+	}
+
 	function _generate_email(objElement, objEvent){
 		if($(objElement).val() != ''){
 			$.ajax({
@@ -125,6 +155,12 @@ var RegistrationShowAllJobOpenings = function() {
 				RegistrationShowAllJobOpenings.check_if_deletion_is_selected(this, objEvent);
 			});
 
+			$('.deleteCheckBox').change(function(objEvent) {
+				if(this.checked){
+					RegistrationShowAllJobOpenings.check_if_job_opening_has_applicants(this, objEvent);
+				}
+			});
+
 		});
 	}
 
@@ -132,7 +168,8 @@ var RegistrationShowAllJobOpenings = function() {
 		init : _init,
 		copy_link : _copy_link,
 		generate_email : _generate_email,
-		check_if_deletion_is_selected : _check_if_deletion_is_selected
+		check_if_deletion_is_selected : _check_if_deletion_is_selected,
+		_check_if_job_opening_has_applicants : check_if_job_opening_has_applicants
 	}
 }();
 RegistrationShowAllJobOpenings.init();

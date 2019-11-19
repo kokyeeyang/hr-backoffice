@@ -7,6 +7,7 @@ class EmploymentCandidateEnum {
 	const FULL_NAME = 'full_name';
 	const ID_NO = 'id_no';
 	const CANDIDATE_STATUS = 'candidate_status';
+	const JOB_ID = 'job_id';
 
 	//interview stages
 	const INTERVIEW_STAGE = 'Interview stage';

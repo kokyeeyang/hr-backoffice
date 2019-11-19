@@ -30,6 +30,7 @@ var AdminShowAllDepartments = function() {
 						$('#deleteCheckBox' + $(objElement).val()).prop('checked', false);
 
 					}else if(data != null && data.result == false){
+						
 					}
 				}, 
 				error: function(request, status, err)
