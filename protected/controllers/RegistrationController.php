@@ -695,6 +695,7 @@ class RegistrationController extends Controller
 	}
 
 	public function actionShowOfferLetterTemplates(){
+		//TODO: make a custom function to findall EmploymentOfferLetterTemplates (need to inner join with the EmploymentOfferLetterTemplates mapping table to look for departments)
 		$offerLetterArrRecords = EmploymentOfferLetterTemplates::model()->findAll(['order'=>'id ASC']);
 		$pageType = OfferLetterEnum::OFFER_LETTER;
 		$strSortKey = $this->getParam('sort_key', '');
@@ -702,6 +703,7 @@ class RegistrationController extends Controller
 		$objPagination = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, CommonEnum::RETURN_PAGINATION);
 		$objCriteria = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, CommonEnum::RETURN_CRITERIA);
 		$offerLetterArr = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, CommonEnum::RETURN_TABLE_ARRAY);
+
 
 		if(isset($_POST['ajax']) && $_POST['ajax']==='offerletter-list' && Yii::app()->request->isAjaxRequest){
 			$aResult = [];

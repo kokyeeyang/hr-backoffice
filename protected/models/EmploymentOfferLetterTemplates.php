@@ -73,12 +73,7 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 		$objCommand = $objConnection->createCommand($sql);
 		$arrData = $objCommand->queryRow();
 
-		// if ($arrData['offer_letter_content'] != ''){
-			return $arrData;
-		// } 
-		// else {
-		// 	echo OfferLetterEnum::OFFER_LETTER_NOT_FOUND_WARNING;
-		// }
+		return $arrData;
 	}
 
 	public function searchAndReplaceOfferLetterTerms($candidateId, $jobId, $sanitizedOfferLetterTemplate){

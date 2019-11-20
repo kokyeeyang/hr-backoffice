@@ -1,4 +1,4 @@
-<div class="logo"><img alt="" src="<?php echo HTTP_MEDIA_CURRENT_THEME . '/images/alllanguages/site_logo.png'; ?>" /></div>
+<a class="top_level_item" href="<?php echo $this->createUrl('site/welcome'); ?>"><div class="logo"><img alt="" src="<?php echo HTTP_MEDIA_CURRENT_THEME . '/images/alllanguages/site_logo.png'; ?>" /></div></a>
 <div class="header_inner">
 	<ul class="head_menu">
 		<li class="odd">
