@@ -454,3 +454,12 @@ CREATE TABLE onboarding_checklist_user_mapping (
 
 ALTER TABLE department CHANGE department_title title varchar(80);
 ALTER TABLE department CHANGE department_description description varchar(300);
+
+CREATE TABLE employment_offer_letter_templates_mapping (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `offer_letter_template_id` int(11) UNSIGNED NOT NULL,
+  `department_id` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (offer_letter_template_id) REFERENCES employment_offer_letter_templates(id),
+  FOREIGN KEY (department_id) REFERENCES department(id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;

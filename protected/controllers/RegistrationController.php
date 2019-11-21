@@ -730,7 +730,10 @@ class RegistrationController extends Controller
 		$dateToday = date("dS F Y");
 		$header = Yii::t('app', 'Add New Offer Letter Template');
 		$departmentTitle = DepartmentEnum::DEPARTMENT_TITLE;
-		$departmentArr = Department::model()->queryForDepartmentDetails($departmentTitle);
+		$departmentId = 'id';
+		$departmentCondition = $departmentTitle . ',' . $departmentId;
+		// $departmentArr = Department::model()->queryForDepartmentDetails($departmentTitle);
+		$departmentArr = Department::model()->queryForDepartmentDetails($departmentCondition);
 
 		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
 
@@ -772,6 +775,15 @@ class RegistrationController extends Controller
 		$offerLetterObjModel->offer_letter_content = $this->getParam('offerLetterTemplate', '');
 		$offerLetterObjModel->created_by = $currentUserId; 
 		$offerLetterObjModel->save();
+
+		foreach ($offerLetterDepartmentArray as $offerLetterDepartmentObj){
+			$offerLetterMappingObjModel = new EmploymentOfferLetterTemplatesMapping;
+			$offerLetterMappingObjModel->offer_letter_template_id = $offerLetterObjModel->id;
+			$offerLetterMappingObjModel->department_id = $offerLetterDepartmentObj;
+			$offerLetterMappingObjModel->save();
+		}
+
+		var_dump($offerLetterMappingObjModel); exit;
 
 		$this->redirect('showOfferLetterTemplates');
 	}
