@@ -756,11 +756,11 @@ class RegistrationController extends Controller
 		$offerLetterDepartmentArray = $this->getParam('department', '');
 
 		//don't need this anymore, just foreach the $offerLetterDepartmentArray and save new rows of employmentofferlettertemplatemapping
-		if ($offerLetterDepartmentArray != ''){
-			$offerLetterDepartments = implode(",", $offerLetterDepartmentArray);
-		} else {
-			$offerLetterDepartments = null;
-		}
+		// if ($offerLetterDepartmentArray != ''){
+		// 	$offerLetterDepartments = implode(",", $offerLetterDepartmentArray);
+		// } else {
+		// 	$offerLetterDepartments = null;
+		// }
 
 		$offerLetterObjModel = new EmploymentOfferLetterTemplates;
 
@@ -769,7 +769,7 @@ class RegistrationController extends Controller
 		$offerLetterObjModel->offer_letter_title = $offerLetterTitle;
 		$offerLetterObjModel->offer_letter_description = $this->getParam('offerLetterDescription', '');
 
-		$offerLetterObjModel->department = $offerLetterDepartments;
+		// $offerLetterObjModel->department = $offerLetterDepartments;
 
 		$offerLetterObjModel->is_managerial = $this->getParam('offerLetterIsManagerial', '');
 		$offerLetterObjModel->offer_letter_content = $this->getParam('offerLetterTemplate', '');
@@ -782,8 +782,6 @@ class RegistrationController extends Controller
 			$offerLetterMappingObjModel->department_id = $offerLetterDepartmentObj;
 			$offerLetterMappingObjModel->save();
 		}
-
-		var_dump($offerLetterMappingObjModel); exit;
 
 		$this->redirect('showOfferLetterTemplates');
 	}

@@ -18,7 +18,6 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 			'offer_letter_title' => Yii::t('app', 'offer_letter_title'),
 			'offer_letter_description' => Yii::t('app', 'offer_letter_description'),
 			'offer_letter_content' => Yii::t('app', 'offer_letter_content'),
-			'department' => Yii::t('app', 'department'),
 			'is_managerial' => Yii::t('app', 'is_managerial'),
 			'offer_letter_content' => Yii::t('app', 'offer_letter_content'),
 			'created_date' => Yii::t('app', 'created_date'),
