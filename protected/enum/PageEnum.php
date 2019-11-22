@@ -47,7 +47,7 @@ class PageEnum {
 												"form-action-delete-selected" => "registration/deleteSelectedOfferLetters",
 												"form-action-view-selected" => "registration/viewSelectedOfferLetter",
 												"column-link-to-details" => "offer_letter_title",
-												"column-details" => array(""),
+												"column-details" => array("is_managerial"),
 												"alert-data-msg" => array(
 												"msg-confirm-delete" => "Are you sure that you want to delete the selected offer letter templates?",
 												"msg-select-delete" => "Please select a offer letter template that you would like to delete!"),

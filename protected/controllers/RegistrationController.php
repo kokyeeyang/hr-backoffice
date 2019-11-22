@@ -337,6 +337,8 @@ class RegistrationController extends Controller
 		$objCriteria = $this->getStrSortByList($strSortKey, JobOpeningEnum::JOB_OPENING_TABLE, CommonEnum::RETURN_CRITERIA);
 		$arrRecords = $this->getStrSortByList($strSortKey, JobOpeningEnum::JOB_OPENING_TABLE, CommonEnum::RETURN_TABLE_ARRAY);
 
+		var_dump($arrRecords);exit;
+
 		if(isset($_POST['ajax']) && $_POST['ajax']==='jobopening-list' && Yii::app()->request->isAjaxRequest){
 			$aResult = [];
 			$aResult['result'] 	= 0;
@@ -696,14 +698,30 @@ class RegistrationController extends Controller
 
 	public function actionShowOfferLetterTemplates(){
 		//TODO: make a custom function to findall EmploymentOfferLetterTemplates (need to inner join with the EmploymentOfferLetterTemplates mapping table to look for departments)
-		$offerLetterArrRecords = EmploymentOfferLetterTemplates::model()->findAll(['order'=>'id ASC']);
+		// $offerLetterArrRecords = EmploymentOfferLetterTemplates::model()->findAll(['order'=>'id ASC']);
+
+		// foreach($offerLetterArrRecords as $offerLetterObjRecord){
+		// 	var_dump($offerLetterObjRecord);
+		// 	exit;
+		// }
+
+		//build a custom function that would cater for is_managerial 
+		$offerLetterArrRecords = EmploymentOfferLetterTemplates::model()->findAllOfferLetters();
+
+		// var_dump($offerLetterArrRecords);exit;
+
+		// foreach($offerLetterArrRecords as $iKey => $offerLetterObjRecord){
+		// 	var_dump($offerLetterObjRecord[0][0]);
+		// 	exit;
+		// }
+
 		$pageType = OfferLetterEnum::OFFER_LETTER;
 		$strSortKey = $this->getParam('sort_key', '');
 
 		$objPagination = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, CommonEnum::RETURN_PAGINATION);
 		$objCriteria = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, CommonEnum::RETURN_CRITERIA);
 		$offerLetterArr = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, CommonEnum::RETURN_TABLE_ARRAY);
-
+		// var_dump($offerLetterArr);exit;
 
 		if(isset($_POST['ajax']) && $_POST['ajax']==='offerletter-list' && Yii::app()->request->isAjaxRequest){
 			$aResult = [];
@@ -985,7 +1003,7 @@ class RegistrationController extends Controller
 		$objPagination->setCurrentPage($this->intPage);
 		$objPagination->applyLimit($objCriteria);
 
-		$tableArr = $tableName::model()->findAll($objCriteria);
+		
 
 		switch($pageVar){
 			case CommonEnum::RETURN_PAGINATION:
@@ -997,6 +1015,19 @@ class RegistrationController extends Controller
 			break;
 
 			case CommonEnum::RETURN_TABLE_ARRAY:
+			// just need to add one more case for when you dont need to alter the sql
+				$sql = "SELECT id, offer_letter_title, ";
+				$sql .= "CASE WHEN is_managerial = 0 THEN 'Non-Managerial' ";
+				$sql .= "WHEN is_managerial = 1 THEN 'Managerial' END AS 'is_managerial' ";
+
+				$sql .= "FROM employment_offer_letter_templates ";
+
+				$sql .= "ORDER BY $strSortBy ";
+				$sql .= "LIMIT " . $this->intPage . ", " . Yii::app()->params['numPerPage'];
+				$tableArr = $tableName::model()->findAllBySql($sql);
+
+				// $tableArr = $tableName::model()->findAll($objCriteria);
+				// var_dump($tableArr);exit;
 				return $tableArr;
 			break;	
 		}	

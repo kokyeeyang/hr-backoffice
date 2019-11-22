@@ -38,6 +38,7 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 		return parent::model($className);
 	}	
 
+	//no longer needed since we already have findall to cater for is_managerial
 	public function queryForOfferLetterIsManagerial($templateId){
 		$sql = 'SELECT is_managerial 
 
@@ -116,5 +117,20 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
     $ini += strlen($start);
     $len = strpos($string, $end, $ini) - $ini;
     return substr($string, $ini, $len);
+	}
+
+	public function findAllOfferLetters(){
+		$sql = 'select offer_letter_title, offer_letter_description, offer_letter_content, is_managerial, CASE WHEN is_managerial = 0 THEN "Non-Managerial" WHEN is_managerial = 1 THEN "Managerial" END AS "is_managerial" from employment_offer_letter_templates ORDER BY id ASC';
+
+		$objConnection = Yii::app()->db;
+		$objCommand = $objConnection->createCommand($sql);
+		$arrData = $objCommand->queryAll();
+
+		if ($arrData != ''){
+			return $arrData;
+		} else if ($arrData == '') {
+			return 'No record is found';
+		}
+
 	}
 }

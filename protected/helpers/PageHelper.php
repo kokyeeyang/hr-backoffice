@@ -189,6 +189,8 @@ class PageHelper {
 		$tableBody = "";
 		$tableBody .= '<tbody id="data_table">';
 		foreach ($dataObjects as $dataObject) {
+			// var_dump($dataObjects);exit;
+			// $formUrlViewSelected = Yii::app()->createUrl($formData['form-action-view-selected'], ["id" => $dataObject->attributes['id']]);
 			$formUrlViewSelected = Yii::app()->createUrl($formData['form-action-view-selected'], ["id" => $dataObject->id]);
 
 			//TODO : find out what is the actual data structure of the table body
@@ -210,12 +212,12 @@ class PageHelper {
 				$tableBody .= '</td>';
 			}
 
-			if($queryFunction == true){
-				$columnDetailsQuery = $formData['column-details-query'];
-				$tableBody .= '<td>';
-				$tableBody .= $formData['column-details-model']::model()->{$formData['model-query-functions']}($dataObject->id);
-				$tableBody .= '</td>';
-			}
+			// if($queryFunction == true){
+			// 	$columnDetailsQuery = $formData['column-details-query'];
+			// 	$tableBody .= '<td>';
+			// 	$tableBody .= $formData['column-details-model']::model()->{$formData['model-query-functions']}($dataObject->id);
+			// 	$tableBody .= '</td>';
+			// }
 
 			if($enableButton == true){
 				$emailVariables = $formData['data-email-details'];
