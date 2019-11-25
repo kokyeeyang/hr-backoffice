@@ -119,18 +119,22 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
     return substr($string, $ini, $len);
 	}
 
-	public function findAllOfferLetters(){
-		$sql = 'select offer_letter_title, offer_letter_description, offer_letter_content, is_managerial, CASE WHEN is_managerial = 0 THEN "Non-Managerial" WHEN is_managerial = 1 THEN "Managerial" END AS "is_managerial" from employment_offer_letter_templates ORDER BY id ASC';
+	public function findAllOfferLetterIsManagerial($strSortBy, $intPage, $numPerPage, $objCriteria){
+		$sql = 'select offer_letter_title, offer_letter_description, offer_letter_content, is_managerial, CASE WHEN is_managerial = 0 THEN "Non-Managerial" WHEN is_managerial = 1 THEN "Managerial" END AS "is_managerial" from employment_offer_letter_templates ORDER BY ' . $strSortBy . ' LIMIT ' . self::calculatePagination($intPage) . ', ' . $numPerPage;
 
-		$objConnection = Yii::app()->db;
-		$objCommand = $objConnection->createCommand($sql);
-		$arrData = $objCommand->queryAll();
-
-		if ($arrData != ''){
-			return $arrData;
-		} else if ($arrData == '') {
-			return 'No record is found';
-		}
-
+		$tableArr = EmploymentOfferLetterTemplates::model()->findAllBySql($sql);
+		return $tableArr;
 	}
+
+	private function calculatePagination($intPage){
+		$recordNumber = 0;
+		if($intPage == 0){
+		// if first page, then start from first record
+			return $recordNumber;
+		// if second page, then start from 11th record, increments of 10
+		} else if($intPage++){
+			return $intPage * 10 - 10;
+		}
+	}
+
 }

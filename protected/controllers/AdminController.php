@@ -335,7 +335,7 @@ class AdminController extends Controller
 		$objPagination->setCurrentPage($this->intPage);
 		$objPagination->applyLimit($objCriteria);
 		$arrRecords		= Admin::model()->findAll($objCriteria);
-				
+
 		return $this->renderPartial('list', array('strSortKey' => $strSortKey, 'arrRecords'=>$arrRecords, 'objPagination'=>$objPagination), true);	
 	}
 
@@ -504,8 +504,6 @@ class AdminController extends Controller
 		$objPagination->setCurrentPage($this->intPage);
 		$objPagination->applyLimit($objCriteria);
 
-		$tableArr = $tableName::model()->findAll($objCriteria);
-
 		switch($pageVar){
 			case CommonEnum::RETURN_PAGINATION:
 				return $objPagination;
@@ -516,6 +514,7 @@ class AdminController extends Controller
 			break;
 
 			case CommonEnum::RETURN_TABLE_ARRAY:
+				$tableArr = $tableName::model()->findAll($objCriteria);
 				return $tableArr;
 			break;
 

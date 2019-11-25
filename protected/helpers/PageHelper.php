@@ -26,7 +26,7 @@ class PageHelper {
 		return $formHeader;
 	}
 
-	public static function printFormListingBody($pageType, $strSortKey, $deleteColumn = true, $dataObjects = null, $validateForeignKeyExist = false, $queryFunction = false, $enableButton = false){
+	public static function printFormListingBody($pageType, $strSortKey, $deleteColumn = true, $dataObjects = null, $validateForeignKeyExist = false, $objPagination, $enableButton = false){
 
 		//get predefined formData
 		$formData = PageEnum::FORM_DATA[$pageType];
@@ -64,13 +64,16 @@ class PageHelper {
 		$contentBody .= '</thead>';
 
 		// format the body of the table to output the listing
-		$contentBody .= self::prepareTableData($pageType, $dataObjects, $deleteColumn, $validateForeignKeyExist, $queryFunction, $enableButton);
+		$contentBody .= self::prepareTableData($pageType, $dataObjects, $deleteColumn, $validateForeignKeyExist, $objPagination, $enableButton);
 
 		$contentBody .= '</table>';
-		$contentBody .= '</form>';
+		// if(isset($dataObjects[0])){
+		// 	$contentBody .= self::includeFileWithVariables(Yii::getPathOfAlias('application.views.layouts') . '/pagination.php', array($objPagination));
+		// }
+		// $contentBody .= '</form>';
 
-		$contentBody .= '</div>';
-		$contentBody .= '</div>';
+		// $contentBody .= '</div>';
+		// $contentBody .= '</div>';
 
 		return $contentBody;
 	}
@@ -169,7 +172,7 @@ class PageHelper {
 		return $deleteColumnHeader;
 	}
 
-	private static function prepareTableData($pageType, $dataObjects, $deleteColumn, $validateForeignKeyExist, $queryFunction, $enableButton) {
+	private static function prepareTableData($pageType, $dataObjects, $deleteColumn, $validateForeignKeyExist, $objPagination, $enableButton) {
 
 		//get predefined formData
 		$formData = PageEnum::FORM_DATA[$pageType];
@@ -211,13 +214,6 @@ class PageHelper {
 				$tableBody .= $dataObject->attributes[$columnDetail];	
 				$tableBody .= '</td>';
 			}
-
-			// if($queryFunction == true){
-			// 	$columnDetailsQuery = $formData['column-details-query'];
-			// 	$tableBody .= '<td>';
-			// 	$tableBody .= $formData['column-details-model']::model()->{$formData['model-query-functions']}($dataObject->id);
-			// 	$tableBody .= '</td>';
-			// }
 
 			if($enableButton == true){
 				$emailVariables = $formData['data-email-details'];
@@ -269,6 +265,15 @@ class PageHelper {
 		
 
 		return $alertMessage;
+	}
+
+	private static function includeFileWithVariables($fileName, $objPagination){
+		extract($objPagination);
+		ob_start();
+		include($fileName);
+		// return($fileName);
+		// var_dump($fileName);exit;
+		return ob_get_clean();
 	}
 
 }

@@ -17,6 +17,7 @@ class CommonEnum {
 	const RETURN_PAGINATION = 'returnPagination';
 	const RETURN_CRITERIA = 'returnCriteria';
 	const RETURN_TABLE_ARRAY = 'returnTableArr';
+	const RETURN_TABLE_ARRAY_BY_SQL = 'returnTableArrBySql';
 	const STRING_DATA = 'String Data';
 	const INTEGER_DATA = 'Integer Data';
 }

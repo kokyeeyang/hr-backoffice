@@ -331,13 +331,11 @@ class RegistrationController extends Controller
 	public function actionShowAllJobOpenings() {
 		$arrRecords = EmploymentJobOpening::model()->findAll(array('order'=>'id ASC'));
 		$strSortKey = $this->getParam('sort_key','');
-		$pageType = JobOpeningEnum::JOB_OPENING;
+		$pageType = EmploymentJobOpeningEnum::JOB_OPENING;
 
-		$objPagination = $this->getStrSortByList($strSortKey, JobOpeningEnum::JOB_OPENING_TABLE, CommonEnum::RETURN_PAGINATION);
-		$objCriteria = $this->getStrSortByList($strSortKey, JobOpeningEnum::JOB_OPENING_TABLE, CommonEnum::RETURN_CRITERIA);
-		$arrRecords = $this->getStrSortByList($strSortKey, JobOpeningEnum::JOB_OPENING_TABLE, CommonEnum::RETURN_TABLE_ARRAY);
-
-		var_dump($arrRecords);exit;
+		$objPagination = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, EmploymentJobOpeningEnum::JOB_OPENING_TABLE_IN_SQL, CommonEnum::RETURN_PAGINATION);
+		$objCriteria = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, EmploymentJobOpeningEnum::JOB_OPENING_TABLE_IN_SQL, CommonEnum::RETURN_CRITERIA);
+		$arrRecords = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, EmploymentJobOpeningEnum::JOB_OPENING_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY);
 
 		if(isset($_POST['ajax']) && $_POST['ajax']==='jobopening-list' && Yii::app()->request->isAjaxRequest){
 			$aResult = [];
@@ -697,31 +695,12 @@ class RegistrationController extends Controller
 	}
 
 	public function actionShowOfferLetterTemplates(){
-		//TODO: make a custom function to findall EmploymentOfferLetterTemplates (need to inner join with the EmploymentOfferLetterTemplates mapping table to look for departments)
-		// $offerLetterArrRecords = EmploymentOfferLetterTemplates::model()->findAll(['order'=>'id ASC']);
-
-		// foreach($offerLetterArrRecords as $offerLetterObjRecord){
-		// 	var_dump($offerLetterObjRecord);
-		// 	exit;
-		// }
-
-		//build a custom function that would cater for is_managerial 
-		$offerLetterArrRecords = EmploymentOfferLetterTemplates::model()->findAllOfferLetters();
-
-		// var_dump($offerLetterArrRecords);exit;
-
-		// foreach($offerLetterArrRecords as $iKey => $offerLetterObjRecord){
-		// 	var_dump($offerLetterObjRecord[0][0]);
-		// 	exit;
-		// }
-
 		$pageType = OfferLetterEnum::OFFER_LETTER;
 		$strSortKey = $this->getParam('sort_key', '');
 
-		$objPagination = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, CommonEnum::RETURN_PAGINATION);
-		$objCriteria = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, CommonEnum::RETURN_CRITERIA);
-		$offerLetterArr = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, CommonEnum::RETURN_TABLE_ARRAY);
-		// var_dump($offerLetterArr);exit;
+		$objPagination = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL, CommonEnum::RETURN_PAGINATION);
+		$objCriteria = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL, CommonEnum::RETURN_CRITERIA);
+		$offerLetterArr = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
 
 		if(isset($_POST['ajax']) && $_POST['ajax']==='offerletter-list' && Yii::app()->request->isAjaxRequest){
 			$aResult = [];
@@ -735,6 +714,7 @@ class RegistrationController extends Controller
 			if(!empty($aResult['content'])){
 				$aResult['result'] 	= 1;
 			}
+
 			echo(json_encode($aResult));
 			Yii::app()->end();		
 		} // - end: if
@@ -991,19 +971,20 @@ class RegistrationController extends Controller
 		}
 	}
 
-	private function getStrSortByList($strSortKey, $tableName, $pageVar){
+	private function getStrSortByList($strSortKey, $tableName, $tableNameInSql, $pageVar){
 
 		$strSortBy = self::getStrSortBy($strSortKey, $tableName);
 
 		$objCriteria		= new CDbCriteria();
 		$objCriteria->order = $strSortBy;
+
 		$intCount 		= $tableName::model()->count($objCriteria);
 		$objPagination	= new CPagination($intCount);
 		$objPagination->setPageSize(Yii::app()->params['numPerPage']);
 		$objPagination->setCurrentPage($this->intPage);
 		$objPagination->applyLimit($objCriteria);
 
-		
+		$intPage = $this->intPage;
 
 		switch($pageVar){
 			case CommonEnum::RETURN_PAGINATION:
@@ -1014,20 +995,18 @@ class RegistrationController extends Controller
 				return $objCriteria;
 			break;
 
-			case CommonEnum::RETURN_TABLE_ARRAY:
+			case CommonEnum::RETURN_TABLE_ARRAY_BY_SQL:
 			// just need to add one more case for when you dont need to alter the sql
-				$sql = "SELECT id, offer_letter_title, ";
-				$sql .= "CASE WHEN is_managerial = 0 THEN 'Non-Managerial' ";
-				$sql .= "WHEN is_managerial = 1 THEN 'Managerial' END AS 'is_managerial' ";
+				case OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL:
+					$numPerPage = Yii::app()->params['numPerPage'];
+					$tableArr = EmploymentOfferLetterTemplates::model()->findAllOfferLetterIsManagerial($strSortBy, $intPage, $numPerPage, $objCriteria);
+					return $tableArr;
+				break;
 
-				$sql .= "FROM employment_offer_letter_templates ";
+			break;
 
-				$sql .= "ORDER BY $strSortBy ";
-				$sql .= "LIMIT " . $this->intPage . ", " . Yii::app()->params['numPerPage'];
-				$tableArr = $tableName::model()->findAllBySql($sql);
-
-				// $tableArr = $tableName::model()->findAll($objCriteria);
-				// var_dump($tableArr);exit;
+			case CommonEnum::RETURN_TABLE_ARRAY:
+				$tableArr = $tableName::model()->findAll($objCriteria);
 				return $tableArr;
 			break;	
 		}	
@@ -1040,7 +1019,7 @@ class RegistrationController extends Controller
 				return $strSortBy;
 			break;
 
-			case JobOpeningEnum::JOB_OPENING_TABLE :
+			case EmploymentJobOpeningEnum::JOB_OPENING_TABLE :
 				$strSortBy = self::getJobOpeningList($strSortKey);
 				return $strSortBy;
 			break;
