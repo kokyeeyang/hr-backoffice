@@ -120,21 +120,10 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 	}
 
 	public function findAllOfferLetterIsManagerial($strSortBy, $intPage, $numPerPage, $objCriteria){
-		$sql = 'select offer_letter_title, offer_letter_description, offer_letter_content, is_managerial, CASE WHEN is_managerial = 0 THEN "Non-Managerial" WHEN is_managerial = 1 THEN "Managerial" END AS "is_managerial" from employment_offer_letter_templates ORDER BY ' . $strSortBy . ' LIMIT ' . self::calculatePagination($intPage) . ', ' . $numPerPage;
+		$sql = 'select offer_letter_title, offer_letter_description, offer_letter_content, is_managerial, CASE WHEN is_managerial = 0 THEN "' . OfferLetterEnum::IS_NOT_MANAGERIAL . '" WHEN is_managerial = 1 THEN "' . OfferLetterEnum::IS_MANAGERIAL . '" END AS "is_managerial" from employment_offer_letter_templates ORDER BY ' . $strSortBy . ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
 
 		$tableArr = EmploymentOfferLetterTemplates::model()->findAllBySql($sql);
 		return $tableArr;
-	}
-
-	private function calculatePagination($intPage){
-		$recordNumber = 0;
-		if($intPage == 0){
-		// if first page, then start from first record
-			return $recordNumber;
-		// if second page, then start from 11th record, increments of 10
-		} else if($intPage++){
-			return $intPage * 10 - 10;
-		}
 	}
 
 }

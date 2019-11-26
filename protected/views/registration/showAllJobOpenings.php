@@ -8,7 +8,13 @@ echo PageHelper::printFormListingBody($pageType, $strSortKey, true, $arrRecords,
 if(isset($arrRecords[0])){
 	echo $this->renderFile(Yii::getPathOfAlias('application.views.layouts') . '/pagination.php', array('objPagination' => $objPagination));
 }// - end: if
+?>
 
+</form>
+</div>
+</div>
+
+<?php 
 //output the alert message
 echo PageHelper::printFormListingAlertMessage($pageType); 
 

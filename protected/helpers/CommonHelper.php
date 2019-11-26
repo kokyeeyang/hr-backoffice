@@ -116,4 +116,9 @@ class CommonHelper {
 		}
 	}
 
+	//only need to use in cases where modification of sql to list out records is necessary
+	public static function calculatePagination($intPage, $numPerPage){
+		return $intPage * $numPerPage;
+	}
+
 }

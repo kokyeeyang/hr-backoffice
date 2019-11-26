@@ -297,6 +297,26 @@ class RegistrationController extends Controller
 
 		$jobTitleArrRecords = EmploymentJobOpening::model()->queryForAllJobs();
 
+		$objPagination = $this->getStrSortByList($strSortKey, EmploymentCandidateEnum::CANDIDATE_TABLE, CommonEnum::RETURN_PAGINATION);
+		$objCriteria = $this->getStrSortByList($strSortKey, EmploymentCandidateEnum::CANDIDATE_TABLE, CommonEnum::RETURN_CRITERIA);
+		$arrRecords = $this->getStrSortByList($strSortKey, EmploymentCandidateEnum::CANDIDATE_TABLE, CommonEnum::RETURN_TABLE_ARRAY);
+
+		if(isset($_POST['ajax']) && $_POST['ajax']==='candidate-list' && Yii::app()->request->isAjaxRequest){
+			$aResult = [];
+			$aResult['result'] 	= 0;
+			$aResult['content'] = '';
+			$aResult['msg'] 	= '';
+
+			// if click on sorting, then it will be ajax, thus we returnpartial here
+			$this->renderPartial("showAllCandidates", array('strSortKey'=>$strSortKey, 'objPagination'=>$objPagination, 'candidateArrRecords' => $candidateArrRecords, 'jobTitleArrRecords' => $jobTitleArrRecords, 'strSortKey' => $strSortKey));
+
+			if(!empty($aResult['content'])){
+				$aResult['result'] 	= 1;
+			}
+			echo(json_encode($aResult));
+			Yii::app()->end();
+		}
+		// we return whole page here
 		$this->render("showAllCandidates", array('candidateArrRecords' => $candidateArrRecords, 'jobTitleArrRecords' => $jobTitleArrRecords, 'strSortKey' => $strSortKey));
 	}
 
@@ -333,9 +353,12 @@ class RegistrationController extends Controller
 		$strSortKey = $this->getParam('sort_key','');
 		$pageType = EmploymentJobOpeningEnum::JOB_OPENING;
 
-		$objPagination = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, EmploymentJobOpeningEnum::JOB_OPENING_TABLE_IN_SQL, CommonEnum::RETURN_PAGINATION);
-		$objCriteria = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, EmploymentJobOpeningEnum::JOB_OPENING_TABLE_IN_SQL, CommonEnum::RETURN_CRITERIA);
-		$arrRecords = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, EmploymentJobOpeningEnum::JOB_OPENING_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY);
+		// $objPagination = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, EmploymentJobOpeningEnum::JOB_OPENING_TABLE_IN_SQL, CommonEnum::RETURN_PAGINATION);
+		// $objCriteria = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, EmploymentJobOpeningEnum::JOB_OPENING_TABLE_IN_SQL, CommonEnum::RETURN_CRITERIA);
+		// $arrRecords = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, EmploymentJobOpeningEnum::JOB_OPENING_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY);
+		$objPagination = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, CommonEnum::RETURN_PAGINATION);
+		$objCriteria = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, CommonEnum::RETURN_CRITERIA);
+		$arrRecords = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, CommonEnum::RETURN_TABLE_ARRAY);
 
 		if(isset($_POST['ajax']) && $_POST['ajax']==='jobopening-list' && Yii::app()->request->isAjaxRequest){
 			$aResult = [];
@@ -971,7 +994,7 @@ class RegistrationController extends Controller
 		}
 	}
 
-	private function getStrSortByList($strSortKey, $tableName, $tableNameInSql, $pageVar){
+	private function getStrSortByList($strSortKey, $tableName, $tableNameInSql=null, $pageVar){
 
 		$strSortBy = self::getStrSortBy($strSortKey, $tableName);
 
@@ -1021,6 +1044,11 @@ class RegistrationController extends Controller
 
 			case EmploymentJobOpeningEnum::JOB_OPENING_TABLE :
 				$strSortBy = self::getJobOpeningList($strSortKey);
+				return $strSortBy;
+			break;
+
+			case EmploymentCandidateEnum::CANDIDATE_TABLE :
+				$strSortBy = self::getCandidateList($strSortKey);
 				return $strSortBy;
 			break;
 		}
@@ -1107,5 +1135,27 @@ class RegistrationController extends Controller
 		}
 		echo(json_encode($aResult));
 		Yii::app()->end();
+	}
+
+	private static function getCandidateList($strSortKey){
+		switch($strSortKey){
+			case 'sort_full_name_desc':
+			default:
+				$strSortKey = 'sort_full_name_desc';
+				return 'full_name DESC';
+			break;
+
+			case 'sort_full_name_asc':
+				return 'full_name ASC';
+			break;
+
+			case 'sort_created_date desc':
+				return 'created_date DESC';
+			break;
+
+			case 'sort_created_date asc':
+				return 'created_date ASC';
+			break;
+		}
 	}
 }	

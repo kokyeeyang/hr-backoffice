@@ -150,7 +150,7 @@
 		</table>
 		<?php
 		if(isset($arrRecords[0])){		
-			echo $this->renderFile(Yii::getPathOfAlias('application.views.layouts') . '/pagination.php', array('objPagination' => $objPagination)); var_dump($objPagination);
+			echo $this->renderFile(Yii::getPathOfAlias('application.views.layouts') . '/pagination.php', array('objPagination' => $objPagination));
 		} // - end: if ?>		
 		<?php $this->endWidget(); ?>		
 	</div>
