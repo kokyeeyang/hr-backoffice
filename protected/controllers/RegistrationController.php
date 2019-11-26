@@ -293,13 +293,12 @@ class RegistrationController extends Controller
 	public function actionShowAllCandidates() {
 		$strSortKey	= $this->getParam('sort_key', '');
 
-		$candidateArrRecords = EmploymentCandidate::model()->findAll(array('order'=>'id ASC'));
+		// $candidateArrRecords = EmploymentCandidate::model()->findAll(array('order'=>'id ASC'));
 
 		$jobTitleArrRecords = EmploymentJobOpening::model()->queryForAllJobs();
 
-		$objPagination = $this->getStrSortByList($strSortKey, EmploymentCandidateEnum::CANDIDATE_TABLE, CommonEnum::RETURN_PAGINATION);
-		$objCriteria = $this->getStrSortByList($strSortKey, EmploymentCandidateEnum::CANDIDATE_TABLE, CommonEnum::RETURN_CRITERIA);
-		$arrRecords = $this->getStrSortByList($strSortKey, EmploymentCandidateEnum::CANDIDATE_TABLE, CommonEnum::RETURN_TABLE_ARRAY);
+		$objPagination = $this->getStrSortByList($strSortKey, EmploymentCandidateEnum::CANDIDATE_TABLE, false, CommonEnum::RETURN_PAGINATION);
+		$candidateArrRecords = $this->getStrSortByList($strSortKey, EmploymentCandidateEnum::CANDIDATE_TABLE, false, CommonEnum::RETURN_TABLE_ARRAY);
 
 		if(isset($_POST['ajax']) && $_POST['ajax']==='candidate-list' && Yii::app()->request->isAjaxRequest){
 			$aResult = [];
@@ -308,16 +307,17 @@ class RegistrationController extends Controller
 			$aResult['msg'] 	= '';
 
 			// if click on sorting, then it will be ajax, thus we returnpartial here
-			$this->renderPartial("showAllCandidates", array('strSortKey'=>$strSortKey, 'objPagination'=>$objPagination, 'candidateArrRecords' => $candidateArrRecords, 'jobTitleArrRecords' => $jobTitleArrRecords, 'strSortKey' => $strSortKey));
+			$aResult['content'] = $this->renderPartial("showAllCandidates", array('strSortKey'=>$strSortKey, 'objPagination'=>$objPagination, 'candidateArrRecords' => $candidateArrRecords, 'jobTitleArrRecords' => $jobTitleArrRecords), true);
 
 			if(!empty($aResult['content'])){
 				$aResult['result'] 	= 1;
 			}
 			echo(json_encode($aResult));
 			Yii::app()->end();
-		}
+		} //-end: if
+
 		// we return whole page here
-		$this->render("showAllCandidates", array('candidateArrRecords' => $candidateArrRecords, 'jobTitleArrRecords' => $jobTitleArrRecords, 'strSortKey' => $strSortKey));
+		$this->render("showAllCandidates", array('candidateArrRecords' => $candidateArrRecords, 'jobTitleArrRecords' => $jobTitleArrRecords, 'objPagination'=>$objPagination, 'strSortKey' => $strSortKey));
 	}
 
 	public function actionAddNewJobOpenings() {
@@ -353,12 +353,9 @@ class RegistrationController extends Controller
 		$strSortKey = $this->getParam('sort_key','');
 		$pageType = EmploymentJobOpeningEnum::JOB_OPENING;
 
-		// $objPagination = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, EmploymentJobOpeningEnum::JOB_OPENING_TABLE_IN_SQL, CommonEnum::RETURN_PAGINATION);
-		// $objCriteria = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, EmploymentJobOpeningEnum::JOB_OPENING_TABLE_IN_SQL, CommonEnum::RETURN_CRITERIA);
-		// $arrRecords = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, EmploymentJobOpeningEnum::JOB_OPENING_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY);
-		$objPagination = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, CommonEnum::RETURN_PAGINATION);
-		$objCriteria = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, CommonEnum::RETURN_CRITERIA);
-		$arrRecords = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, CommonEnum::RETURN_TABLE_ARRAY);
+		$objPagination = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, false,  CommonEnum::RETURN_PAGINATION);
+		$objCriteria = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, false, CommonEnum::RETURN_CRITERIA);
+		$arrRecords = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, false, CommonEnum::RETURN_TABLE_ARRAY);
 
 		if(isset($_POST['ajax']) && $_POST['ajax']==='jobopening-list' && Yii::app()->request->isAjaxRequest){
 			$aResult = [];
@@ -994,7 +991,7 @@ class RegistrationController extends Controller
 		}
 	}
 
-	private function getStrSortByList($strSortKey, $tableName, $tableNameInSql=null, $pageVar){
+	private function getStrSortByList($strSortKey, $tableName, $tableNameInSql=false, $pageVar){
 
 		$strSortBy = self::getStrSortBy($strSortKey, $tableName);
 
@@ -1019,12 +1016,13 @@ class RegistrationController extends Controller
 			break;
 
 			case CommonEnum::RETURN_TABLE_ARRAY_BY_SQL:
-			// just need to add one more case for when you dont need to alter the sql
-				case OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL:
-					$numPerPage = Yii::app()->params['numPerPage'];
-					$tableArr = EmploymentOfferLetterTemplates::model()->findAllOfferLetterIsManagerial($strSortBy, $intPage, $numPerPage, $objCriteria);
-					return $tableArr;
-				break;
+				switch($tableNameInSql){
+					case OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL:
+						$numPerPage = Yii::app()->params['numPerPage'];
+						$tableArr = EmploymentOfferLetterTemplates::model()->findAllOfferLetterIsManagerial($strSortBy, $intPage, $numPerPage, $objCriteria);
+						return $tableArr;
+					break;
+				}
 
 			break;
 

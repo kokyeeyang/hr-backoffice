@@ -119,8 +119,13 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
     return substr($string, $ini, $len);
 	}
 
-	public function findAllOfferLetterIsManagerial($strSortBy, $intPage, $numPerPage, $objCriteria){
-		$sql = 'select offer_letter_title, offer_letter_description, offer_letter_content, is_managerial, CASE WHEN is_managerial = 0 THEN "' . OfferLetterEnum::IS_NOT_MANAGERIAL . '" WHEN is_managerial = 1 THEN "' . OfferLetterEnum::IS_MANAGERIAL . '" END AS "is_managerial" from employment_offer_letter_templates ORDER BY ' . $strSortBy . ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
+	public function findAllOfferLetterIsManagerial($strSortBy, $intPage, $numPerPage){
+		//TODO: Still needs to inner join with offer letter mapping table to display the departments as well
+		$sql = 'select offer_letter_title, offer_letter_description, offer_letter_content, is_managerial, ';
+		$sql .= 'CASE WHEN is_managerial = 0 THEN "' . OfferLetterEnum::IS_NOT_MANAGERIAL; 
+		$sql .= '" WHEN is_managerial = 1 THEN "' . OfferLetterEnum::IS_MANAGERIAL . '" END AS "is_managerial" ';
+		$sql .= 'FROM employment_offer_letter_templates ORDER BY ' . $strSortBy;
+		$sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
 
 		$tableArr = EmploymentOfferLetterTemplates::model()->findAllBySql($sql);
 		return $tableArr;

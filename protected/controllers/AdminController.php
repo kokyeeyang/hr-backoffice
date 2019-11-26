@@ -435,7 +435,6 @@ class AdminController extends Controller
 		$this->redirect('showAllDepartments');
 	}
 
-
 	public function actionShowAllDepartments(){
 		//can be a function -START
 		$strSortKey = $this->getParam('sort_key', '');

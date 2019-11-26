@@ -24,6 +24,8 @@
 				)
 			); 
 		?>
+		<?php echo CHtml::hiddenField('mode', 'candidate-list'); ?>
+		<?php echo CHtml::hiddenField('sort_key', $strSortKey); ?>
 		<h4 class="widget_title"><?php echo Yii::t('app', 'Interview Candidates List'); ?>
 		<input type="text" value="" placeholder="<?php echo Yii::t('app', 'Filter results'); ?>" name="label_filter" id="label_filter" style="width:30%"/>
 		</h4> 
@@ -31,12 +33,20 @@
 			<thead>
 				<tr>
 					<th>
-						<div class="sort_wrapper_inner">
-							<div class="sort_label_wrapper">
-								<div class="sort_label">
-									<?php echo Yii::t('app', 'Name'); ?>
+						<div class="btnAjaxSortList sort_wrapper<?php if($strSortKey === 'sort_full_name_desc'){?> desc<?php }elseif($strSortKey === 'sort_full_name_asc'){ ?> asc<?php } ?>" rel="sort" rev="sort_full_name">
+							<a title="<?php echo Yii::t('app', 'Sort'); ?>" href="javascript:void(0);">
+								<div class="sort_wrapper_inner">
+									<div class="sort_label_wrapper">
+										<div class="sort_label">
+											<?php echo Yii::t('app', 'Name'); ?>
+										</div>
+									</div>
+									<div class="sort_icon_wrapper">
+										<div class="sort_icon">&nbsp;</div>
+									</div>
+									<div class="clear"><!--clear--></div>
 								</div>
-							</div>
+							</a>
 						</div>
 					</th>
 					<th>
