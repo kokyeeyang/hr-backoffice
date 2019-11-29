@@ -120,11 +120,18 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 	}
 
 	public function findAllOfferLetterIsManagerial($strSortBy, $intPage, $numPerPage){
-		//TODO: Still needs to inner join with offer letter mapping table to display the departments as well
-		$sql = 'select offer_letter_title, offer_letter_description, offer_letter_content, is_managerial, ';
-		$sql .= 'CASE WHEN is_managerial = 0 THEN "' . OfferLetterEnum::IS_NOT_MANAGERIAL; 
-		$sql .= '" WHEN is_managerial = 1 THEN "' . OfferLetterEnum::IS_MANAGERIAL . '" END AS "is_managerial" ';
-		$sql .= 'FROM employment_offer_letter_templates ORDER BY ' . $strSortBy;
+		$sql = 'SELECT EOLT.id, EOLT.offer_letter_title, EOLT.offer_letter_description, GROUP_CONCAT(D.title SEPARATOR ", ") AS department_title, ';
+		$sql .= 'CASE WHEN is_managerial = 0 THEN "Non-Managerial" ';
+		$sql .= 'WHEN is_managerial = 1 ';
+		$sql .= 'THEN "Managerial" ';
+		$sql .= 'END AS "is_managerial" ';
+		$sql .= 'FROM employment_offer_letter_templates EOLT ';
+		$sql .= 'INNER JOIN employment_offer_letter_templates_mapping EOLTM ';
+		$sql .= 'ON EOLTM.offer_letter_template_id = EOLT.id ';
+		$sql .= 'INNER JOIN department D ';
+		$sql .= 'ON EOLTM.department_id = D.id ';
+		$sql .= 'GROUP BY EOLT.id ';
+		$sql .= 'ORDER BY ' . $strSortBy;
 		$sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
 
 		$tableArr = EmploymentOfferLetterTemplates::model()->findAllBySql($sql);
