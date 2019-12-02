@@ -23,11 +23,30 @@ class EmploymentOfferLetterTemplatesMapping extends AppActiveRecord {
 	public function relations(){
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-		);
+		return array[
+			// 'id'=>[self::BELONGS_TO, 'EmploymentOfferLetterTemplates', 'id']
+			// 'department_id'=>[self::BELONGS_TO, 'Department', 'id']
+			'id'=>[self::BELONGS_TO, 'employment_offer_letter_templates', 'id']
+			'department_id'=>[self::BELONGS_TO, 'department', 'id']
+		];
 	}
 
 	public static function model($className=__CLASS__){
 		return parent::model($className);
 	}
+
+	public function findDepartmentById($offerLetterId){
+		$sql = 'SELECT department_id ';
+		$sql .= 'WHERE offer_letter_template_id = ' . $offerLetterId;
+
+		$objConnection = Yii::app()->db;
+		$objCommand = $objConnection->createCommand($sql);
+		$arrData = $objCommand->queryAll($sql);
+ 	}
+
+ 	public function deleteMappingItem($columnName, $mappingColumnIds){
+ 		$mappingColumnIdString = implode(",",$mappingColumnIds);
+ 		$condition = $columnName . ' IN (' . $mappingIdString . ')';
+ 		self::model()->deleteAll($condition);
+ 	}
 }

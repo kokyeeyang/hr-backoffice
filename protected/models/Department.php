@@ -28,6 +28,7 @@ class Department extends AppActiveRecord {
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'id'=>[self::HAS_MANY, 'employment_offer_letter_templates_mapping', 'department_id']
 		);
 	}
 
@@ -35,8 +36,8 @@ class Department extends AppActiveRecord {
 		return parent::model($className);
 	}
 
-	public function queryForDepartmentDetails($queryResult){
-		$sql = 'SELECT ' . $queryResult . ' FROM ' . self::$tableName;
+	public function queryForDepartmentDetails($queryResults){
+		$sql = 'SELECT ' . $queryResults . ' FROM ' . self::$tableName;
 
 		$objConnection = Yii::app()->db;
 		$objCommand = $objConnection->createCommand($sql);

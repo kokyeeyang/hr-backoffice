@@ -806,14 +806,19 @@ class RegistrationController extends Controller
 
 	public function actionViewSelectedOfferLetter(){
 		$id = $this->getParam('id', '', '', 'get');
-		$offerLetterCondition = 'id = "' . $id . '"';
+		$offerLetterCondition = 'EOLT.id = ' . $id;
 		$header = Yii::t('app', 'Edit offer letter template');
 		$departmentTitle = DepartmentEnum::DEPARTMENT_TITLE;
-		$departmentArr = Department::model()->queryForDepartmentDetails($departmentTitle);
+		$departmentId = DepartmentEnum::DEPARTMENT_ID;
+		$queryResults = $departmentTitle . ', ' . $departmentId;
+
+		$departmentArr = Department::model()->queryForDepartmentDetails($queryResults);
+
 		$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
 
 		if(isset($_GET['id']) && $id != null){
-			$offerLetterArr = EmploymentOfferLetterTemplates::model()->findAll($offerLetterCondition);
+			// $offerLetterArr = EmploymentOfferLetterTemplates::model()->findAll($offerLetterCondition);
+			$offerLetterArr = EmploymentOfferLetterTemplates::model()->findAllOfferLetters(false, false, false, $offerLetterCondition);
 
 			if($offerLetterArr == null){
 				throw new CHttpException(404,'Offer letter template does not exist with the requested id.');
@@ -823,12 +828,12 @@ class RegistrationController extends Controller
 			  $offerLetterObj = $offerLetterArr[0];
 			} 
 
-			$offerLetterTitle = $offerLetterObj->offer_letter_title;
-			$offerLetterDescription = $offerLetterObj->offer_letter_description;
-			$offerLetterContent = $offerLetterObj->offer_letter_content;
-			$offerLetterDepartment = $offerLetterObj->department;
+			$offerLetterTitle = $offerLetterObj['offer_letter_title'];
+			$offerLetterDescription = $offerLetterObj['offer_letter_description'];
+			$offerLetterContent = $offerLetterObj['offer_letter_content'];
+			$offerLetterDepartment = $offerLetterObj['department_title'];
 
-			$offerLetterIsManagerial = $offerLetterObj->is_managerial;
+			$offerLetterIsManagerial = $offerLetterObj['is_managerial'];
 
 			$this->render('offerLetterDetails', ['offerLetterObj'=>$offerLetterObj, 'offerLetterTitle'=>$offerLetterTitle, 'offerLetterDescription'=>$offerLetterDescription, 'offerLetterContent'=>$offerLetterContent, 'offerLetterDepartment'=>$offerLetterDepartment, 'offerLetterIsManagerial'=>$offerLetterIsManagerial, 'departmentArr'=>$departmentArr, 'id'=>$id,'header'=>$header]);
 
@@ -847,17 +852,43 @@ class RegistrationController extends Controller
 	}
 
 	public function actionUpdateOfferLetterTemplate($id){
+
 		$offerLetterCondition = 'id = "' . $id . '"';
 		$offerLetterDepartmentArray = $this->getParam('department', '');
 
-		if($offerLetterDepartmentArray == ''){
-			$offerLetterDepartment = null;
-		}else{
-			$offerLetterDepartment = implode(",", $offerLetterDepartmentArray);
+		//update inside employment_offer_letter_templates_mapping table
+		//first, have to find all records inside the mapping table that has the offer_letter_template id
+		//second, have to compare the department ids inside the database with those gotten from the UI
+
+		//look for the departments that this offer letter 
+		$departmentArrayInsideDatabase = EmploymentOfferLetterTemplatesMapping::model()->findDepartmentById($id);
+
+		foreach($offerLetterDepartmentArray as $offerLetterDepartmentObj){
+			$offerLetterMappingCondition = 'offer_letter_template_id = ' $id;
+			// if in_array(needle, haystack){
+			//if cannot find, then create new department inside mapping table
+			if !in_array($offerLetterDepartmentObj, $departmentArrayInsideDatabase){
+				$offerLetterMappingObjModel = new EmploymentOfferLetterTemplatesMapping;
+				$offerLetterMappingObjModel->offer_letter_template_id = $id;
+				$offerLetterMappingObjModel->departmentId = $offerLetterDepartmentObj;
+				$offerLetterObjModel->save();
+			}
+
+			//finding the position of the department choices taken from UI inside the array retrieved from database
+		  $pos = array_search($offerLetterDepartmentObj, $departmentArrayInsideDatabase);
+
+		  $deleteTheseDepartments = unset($departmentArrayInsideDatabase);
+
+		  $columnName = OfferLetterMappingEnum::DEPARMENT_ID;
+
+		  var_dump($deleteTheseDepartments);
+			//if different, then delete those departments that are not found
+		  EmploymentOfferLetterTemplatesMapping::model()->deleteMappingItem($deleteTheseDepartments);
+
 		}
 
 		EmploymentOfferLetterTemplates::model()->updateAll(
-			['offer_letter_title' => $this->getParam('offerLetterTitle',''), 'offer_letter_description'  => $this->getParam('offerLetterDescription',''),'department' => $offerLetterDepartment, 'is_managerial' => $this->getParam('offerLetterIsManagerial', ''),'modified_by' => Yii::app()->user->id], $offerLetterCondition);
+			['offer_letter_title' => $this->getParam('offerLetterTitle',''), 'offer_letter_description'  => $this->getParam('offerLetterDescription',''), 'is_managerial' => $this->getParam('offerLetterIsManagerial', ''),'modified_by' => Yii::app()->user->id], $offerLetterCondition);
 
 		$this->redirect(['showOfferLetterTemplates']);
 	}
@@ -1019,7 +1050,9 @@ class RegistrationController extends Controller
 				switch($tableNameInSql){
 					case OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL:
 						$numPerPage = Yii::app()->params['numPerPage'];
-						$tableArr = EmploymentOfferLetterTemplates::model()->findAllOfferLetterIsManagerial($strSortBy, $intPage, $numPerPage, $objCriteria);
+						// $tableArr = EmploymentOfferLetterTemplates::model()->findAllOfferLetterIsManagerial($strSortBy, $intPage, $numPerPage, $objCriteria);
+						// var_dump($intPage);exit;
+						$tableArr = EmploymentOfferLetterTemplates::model()->findAllOfferLetters($strSortBy, $intPage, $numPerPage, false);
 						return $tableArr;
 					break;
 				}

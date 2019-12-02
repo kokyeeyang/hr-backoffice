@@ -23,40 +23,24 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 			'created_date' => Yii::t('app', 'created_date'),
 			'created_by' => Yii::t('app', 'created_by'),
 			'modified_date' => Yii::t('app', 'modified_date'),
-			'modified_by' => Yii::t('app', 'modified_by')
+			'modified_by' => Yii::t('app', 'modified_by'),
+			//testing for joined tables
+			// 'department_title' => Yii::t('app', 'department_title')
 		];
 	}
 	
 	public function relations(){
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-		);
+		return [
+			// 'id'=>[self::HAS_MANY, 'EmploymentOfferLetterTemplatesMapping', 'id']
+			'id'=>[self::HAS_MANY, 'employment_offer_letter_templates_mapping', 'id']
+		];
 	}
 
 	public static function model($className=__CLASS__){
 		return parent::model($className);
 	}	
-
-	//no longer needed since we already have findall to cater for is_managerial
-	public function queryForOfferLetterIsManagerial($templateId){
-		$sql = 'SELECT is_managerial 
-
-						FROM ' . self::$tableName .
-
-						' WHERE id=' . $templateId;
-
-		$objConnection = Yii::app()->db;
-		$objCommand = $objConnection->createCommand($sql);
-		$arrData = $objCommand->queryRow();
-
-		if ($arrData['is_managerial'] == "0"){
-			return 'Non manager role';
-		} else if ($arrData['is_managerial'] == "1"){
-			return 'Managerial role';
-		}
-
-	}
 
 	//TODO: need to relook into thiS
 	public function queryForOfferLetterTemplate($isManagerial,$department){
@@ -119,8 +103,8 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
     return substr($string, $ini, $len);
 	}
 
-	public function findAllOfferLetterIsManagerial($strSortBy, $intPage, $numPerPage){
-		$sql = 'SELECT EOLT.id, EOLT.offer_letter_title, EOLT.offer_letter_description, GROUP_CONCAT(D.title SEPARATOR ", ") AS department_title, ';
+	public function findAllOfferLetters($strSortBy=false, $intPage=false, $numPerPage=false, $condition=false){
+		$sql = 'SELECT EOLT.id, EOLT.offer_letter_title, EOLT.offer_letter_description, EOLT.offer_letter_content, GROUP_CONCAT(D.title SEPARATOR ", ") AS department_title, ';
 		$sql .= 'CASE WHEN is_managerial = 0 THEN "Non-Managerial" ';
 		$sql .= 'WHEN is_managerial = 1 ';
 		$sql .= 'THEN "Managerial" ';
@@ -130,12 +114,20 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 		$sql .= 'ON EOLTM.offer_letter_template_id = EOLT.id ';
 		$sql .= 'INNER JOIN department D ';
 		$sql .= 'ON EOLTM.department_id = D.id ';
-		$sql .= 'GROUP BY EOLT.id ';
-		$sql .= 'ORDER BY ' . $strSortBy;
-		$sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
 
-		$tableArr = EmploymentOfferLetterTemplates::model()->findAllBySql($sql);
-		return $tableArr;
+		if($condition == false){
+			$sql .= 'GROUP BY EOLT.id ';
+			$sql .= 'ORDER BY ' . $strSortBy;
+			$sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
+		} else if ($condition != false) {
+			$sql .= ' WHERE ' . $condition;
+		}
+
+		$objConnection = Yii::app()->db;
+		$objCommand = $objConnection->createCommand($sql);
+		$arrData = $objCommand->queryAll($sql);
+
+		return $arrData;
 	}
 
 }
