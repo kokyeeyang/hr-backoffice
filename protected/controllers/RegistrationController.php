@@ -854,36 +854,27 @@ class RegistrationController extends Controller
 	public function actionUpdateOfferLetterTemplate($id){
 
 		$offerLetterCondition = 'id = "' . $id . '"';
+		$id = $this->getParam('id', '', '', 'get');
 		$offerLetterDepartmentArray = $this->getParam('department', '');
 
-		//update inside employment_offer_letter_templates_mapping table
-		//first, have to find all records inside the mapping table that has the offer_letter_template id
-		//second, have to compare the department ids inside the database with those gotten from the UI
-
-		//look for the departments that this offer letter 
 		$departmentArrayInsideDatabase = EmploymentOfferLetterTemplatesMapping::model()->findDepartmentById($id);
 
-		foreach($offerLetterDepartmentArray as $offerLetterDepartmentObj){
-			$offerLetterMappingCondition = 'offer_letter_template_id = ' $id;
-			// if in_array(needle, haystack){
-			//if cannot find, then create new department inside mapping table
-			if !in_array($offerLetterDepartmentObj, $departmentArrayInsideDatabase){
+		foreach($departmentArrayInsideDatabase as $departmentObjectInsideDatabase){
+			$result = array_diff($offerLetterDepartmentArray, $departmentObjectInsideDatabase);
+		}
+
+		//if department choices from UI differs from record inside database, then delete and create new records inside the offer letter mapping table again
+		if($result != null){
+			foreach($offerLetterDepartmentArray as $offerLetterDepartmentObj){
+			  $columnName = OfferLetterMappingEnum::OFFER_LETTER_ID;
+			  $condition = $columnName .  ' = ' . $id;
+			  EmploymentOfferLetterTemplatesMapping::model()->deleteAll($condition);
+
 				$offerLetterMappingObjModel = new EmploymentOfferLetterTemplatesMapping;
 				$offerLetterMappingObjModel->offer_letter_template_id = $id;
-				$offerLetterMappingObjModel->departmentId = $offerLetterDepartmentObj;
-				$offerLetterObjModel->save();
+				$offerLetterMappingObjModel->department_id = $offerLetterDepartmentObj;
+				$offerLetterMappingObjModel->save();
 			}
-
-			//finding the position of the department choices taken from UI inside the array retrieved from database
-		  $pos = array_search($offerLetterDepartmentObj, $departmentArrayInsideDatabase);
-
-		  $deleteTheseDepartments = unset($departmentArrayInsideDatabase);
-
-		  $columnName = OfferLetterMappingEnum::DEPARMENT_ID;
-
-		  var_dump($deleteTheseDepartments);
-			//if different, then delete those departments that are not found
-		  EmploymentOfferLetterTemplatesMapping::model()->deleteMappingItem($deleteTheseDepartments);
 
 		}
 
@@ -1014,7 +1005,8 @@ class RegistrationController extends Controller
 		$offerLetterIds = $this->getParam('deleteCheckBox', '');
 
 		if ($offerLetterIds != ''){
-			$deleteJobOpening = EmploymentOfferLetterTemplates::model()->deleteSelectedOfferLetterTemplates($offerLetterIds);
+			EmploymentOfferLetterTemplatesMapping::model()->deleteMappingItem(OfferLetterMappingEnum::OFFER_LETTER_ID, $offerLetterIds);
+			EmploymentOfferLetterTemplates::model()->deleteSelectedOfferLetterTemplates($offerLetterIds);
 			$this->redirect("showOfferLetterTemplates");
 		} else {
 			echo "No offer letter template is found with this id";
@@ -1050,8 +1042,6 @@ class RegistrationController extends Controller
 				switch($tableNameInSql){
 					case OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL:
 						$numPerPage = Yii::app()->params['numPerPage'];
-						// $tableArr = EmploymentOfferLetterTemplates::model()->findAllOfferLetterIsManagerial($strSortBy, $intPage, $numPerPage, $objCriteria);
-						// var_dump($intPage);exit;
 						$tableArr = EmploymentOfferLetterTemplates::model()->findAllOfferLetters($strSortBy, $intPage, $numPerPage, false);
 						return $tableArr;
 					break;

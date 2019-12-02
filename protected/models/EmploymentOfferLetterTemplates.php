@@ -24,8 +24,6 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 			'created_by' => Yii::t('app', 'created_by'),
 			'modified_date' => Yii::t('app', 'modified_date'),
 			'modified_by' => Yii::t('app', 'modified_by'),
-			//testing for joined tables
-			// 'department_title' => Yii::t('app', 'department_title')
 		];
 	}
 	
@@ -33,7 +31,6 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return [
-			// 'id'=>[self::HAS_MANY, 'EmploymentOfferLetterTemplatesMapping', 'id']
 			'id'=>[self::HAS_MANY, 'employment_offer_letter_templates_mapping', 'id']
 		];
 	}
