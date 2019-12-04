@@ -331,8 +331,6 @@ class RegistrationController extends Controller
 	}
 
 	public function actionSaveJobOpenings() {
-		$jobTitle = $this->getParam('jobTitle','');
-
 		$jobOpeningObjModel = new EmploymentJobOpening;
 		$jobOpeningObjModel->job_title = $this->getParam('jobTitle','');
 		$jobOpeningObjModel->department = $this->getParam('departmentDropdown','');
@@ -1230,10 +1228,11 @@ class RegistrationController extends Controller
 
 	public function actionAddNewCandidateStatus(){
 		$formAction = $this->createUrl('registration/saveCandidateStatus');
-		$header = AdminEnum::ADD_CANDIDATE_STATUS;
-		$buttonTitle = AdminEnum::SAVE_BUTTON;
+		$header = EmploymentCandidateStatusEnum::ADD_CANDIDATE_STATUS;
+		$buttonTitle = CommonEnum::SAVE_BUTTON;
+		$candidateStatusTitle = '';
 
-		$this->render('candidateStatusDetails', array('objModel' => $objModel,));
+		$this->render('candidateStatusDetails', array('formAction' => $formAction, 'header' => $header, 'buttonTitle' => $buttonTitle, 'candidateStatusTitle' => $candidateStatusTitle));
 	}
 
 	public function actionDeleteCandidateStatus(){
@@ -1245,4 +1244,16 @@ class RegistrationController extends Controller
 
 		$this->redirect(array('showAllCandidateStatus'));
 	}	
+
+	public function actionSaveCandidateStatus(){
+		$candidateStatusObjModel = new EmploymentCandidateStatus;
+		$candidateStatusObjModel->title = $this->getParam('newCandidateStatus','');
+		$candidateStatusObjModel->save();
+
+		if(!$error = $this->objError->getError()){
+			if($candidateStatusObjModel->save()){
+				$this->redirect(array('showAllCandidateStatus'));
+			}
+		}
+	}
 }	

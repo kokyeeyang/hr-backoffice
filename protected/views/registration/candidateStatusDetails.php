@@ -24,16 +24,6 @@
           <td>:</td>
           <td><input type="text" name="newCandidateStatus" id="newCandidateStatus" value="<?php echo $candidateStatusTitle; ?>" required/>
         </tr>
-<!--         <tr>
-          <td>
-            <?php// echo Yii::t('app', 'Give a short description'); ?>
-          </td>
-          <td>:</td>
-          <td>
-            <textarea rows="4" name="departmentDescription" id="departmentDescription" cols="22" required/><?php echo $departmentDescription; ?></textarea>
-          </td>
-          </td>
-        </tr> -->
         <tr>
           <td>
             <input type="submit" value="<?php echo $buttonTitle; ?>">

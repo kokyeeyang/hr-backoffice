@@ -20,4 +20,5 @@ class CommonEnum {
 	const RETURN_TABLE_ARRAY_BY_SQL = 'returnTableArrBySql';
 	const STRING_DATA = 'String Data';
 	const INTEGER_DATA = 'Integer Data';
+	const SAVE_BUTTON = 'Save';
 }
