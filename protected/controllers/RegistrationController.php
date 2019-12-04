@@ -865,11 +865,11 @@ class RegistrationController extends Controller
 
 		//if department choices from UI differs from record inside database, then delete and create new records inside the offer letter mapping table again
 		if($result != null){
-			foreach($offerLetterDepartmentArray as $offerLetterDepartmentObj){
-			  $columnName = OfferLetterMappingEnum::OFFER_LETTER_ID;
-			  $condition = $columnName .  ' = ' . $id;
-			  EmploymentOfferLetterTemplatesMapping::model()->deleteAll($condition);
+		  $columnName = OfferLetterMappingEnum::OFFER_LETTER_ID;
+		  $condition = $columnName .  ' = ' . $id;
+		  EmploymentOfferLetterTemplatesMapping::model()->deleteAll($condition);
 
+			foreach($offerLetterDepartmentArray as $offerLetterDepartmentObj){
 				$offerLetterMappingObjModel = new EmploymentOfferLetterTemplatesMapping;
 				$offerLetterMappingObjModel->offer_letter_template_id = $id;
 				$offerLetterMappingObjModel->department_id = $offerLetterDepartmentObj;

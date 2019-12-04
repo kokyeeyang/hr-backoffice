@@ -463,3 +463,11 @@ CREATE TABLE employment_offer_letter_templates_mapping (
   FOREIGN KEY (offer_letter_template_id) REFERENCES employment_offer_letter_templates(id),
   FOREIGN KEY (department_id) REFERENCES department(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE employment_candidate_status (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` varchar(160) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
