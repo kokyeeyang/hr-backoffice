@@ -1072,6 +1072,11 @@ class RegistrationController extends Controller
 				$strSortBy = self::getCandidateList($strSortKey);
 				return $strSortBy;
 			break;
+
+			case EmploymentCandidateStatusEnum::CANDIDATE_STATUS_TABLE :
+				$strSortBy = self::getCandidateStatusList($strSortKey);
+				return $strSortBy;
+			break;
 		}
 	}
 
@@ -1176,6 +1181,49 @@ class RegistrationController extends Controller
 
 			case 'sort_created_date asc':
 				return 'created_date ASC';
+			break;
+		}
+	}
+
+	public function actionShowAllCandidateStatus(){
+		$arrRecords = EmploymentCandidateStatus::model()->findAll(array('order'=>'id ASC'));
+		$strSortKey = $this->getParam('sort_key','');
+		$pageType = EmploymentCandidateStatusEnum::CANDIDATE_STATUS;
+
+		$objPagination = $this->getStrSortByList($strSortKey, EmploymentCandidateStatusEnum::CANDIDATE_STATUS_TABLE, false,  CommonEnum::RETURN_PAGINATION);
+		$objCriteria = $this->getStrSortByList($strSortKey, EmploymentCandidateStatusEnum::CANDIDATE_STATUS_TABLE, false, CommonEnum::RETURN_CRITERIA);
+		$arrRecords = $this->getStrSortByList($strSortKey, EmploymentCandidateStatusEnum::CANDIDATE_STATUS_TABLE, false, CommonEnum::RETURN_TABLE_ARRAY);
+
+		if(isset($_POST['ajax']) && $_POST['ajax']==='jobopening-list' && Yii::app()->request->isAjaxRequest){
+			$aResult = [];
+			$aResult['result'] 	= 0;
+			$aResult['content'] = '';
+			$aResult['msg'] 	= '';
+
+			$aResult['content'] = $this->renderPartial('showAllCandidateStatus', ['strSortKey'=>$strSortKey, 'arrRecords'=>$arrRecords, 'objPagination'=>$objPagination, 'pageType'=>$pageType], true);
+
+			if(!empty($aResult['content'])){
+				$aResult['result'] 	= 1;
+			}
+			echo(json_encode($aResult));
+			Yii::app()->end();				
+		}
+
+		$this->render('showAllCandidateStatus', ['strSortKey'=>$strSortKey, 'arrRecords'=>$arrRecords, 'objPagination'=>$objPagination, 'pageType'=>$pageType]);
+
+	}
+
+	private static function getCandidateStatusList($strSortKey){
+		switch($strSortKey){
+			case 'sort_title_desc':
+			default:
+				$strSortKey = 'sort_title_desc';
+				return 'title DESC';
+			break;
+
+			case 'sort_title_asc':
+				$strSortKey = 'sort_title_asc';
+				return 'title ASC';
 			break;
 		}
 	}

@@ -91,6 +91,30 @@ class PageEnum {
 												"msg-foreign-key" => "Please delete the candidates under this job opening first.",
 												"column-details-query" => "",
 												"column-details-model" => ""
+											),
+
+											"Candidate Status" =>
+											array(
+												"entity-name" => "CandidateStatus",
+												"breadcrumb-top" => "Show All Candidate Status",
+												"breadcrumb-bottom" => "breadcrumb-bottom-key",
+												"form-id" => "candidatestatus-list",
+												"form-action-show-all" => "registration/showAllCandidateStatus",
+												"form-title" => "All Candidate Status",
+												"form-action-add-new" => "registration/addNewCandidateStatus",
+												"add-new-record-title" => "Add new candidate status",
+												"table-header" => array("title"),
+												"form-action-delete-selected" => "registration/deleteSelectedCandidateStatus",
+												"column-details" => array("title"),
+												"alert-data-msg" => array(
+												"msg-confirm-delete" => "Are you sure that you want to delete the selected candidate status?",
+												"msg-select-delete" => "Please select a candidate status that you would like to delete!"),
+												"data-url" => "",
+												"foreign-key-check" => "",
+												"column-link-to-details" => "",
+												"form-action-view-selected" => "",
+												"msg-foreign-key" => ""
+
 											)
 										);
 }
