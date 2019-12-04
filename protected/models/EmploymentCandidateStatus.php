@@ -13,7 +13,9 @@ class EmploymentCandidateStatus extends AppActiveRecord
 	}
 
 	public function rules(){
-
+		return [
+			['title', 'required']
+		];
 	}
 
 	public function attributeLabels(){
@@ -33,11 +35,14 @@ class EmploymentCandidateStatus extends AppActiveRecord
 		return parent::model($className);
 	}
 
-	public function actionDeleteSelectedCandidateStatus($candidateStatusIds){
-		foreach($candidateStatusIds as $candidateStatusId){
-			$candidateStatusCondition = 'id = ' . $candidateStatusId;
+	public function deleteSelectedCandidateStatus($candidateStatusIds){
 
-			EmploymentCandidateStatus::model()->deleteAll($candidateStatusCondition);
+		if ($candidateStatusIds != ''){
+			foreach($candidateStatusIds as $candidateStatusId){
+				$candidateStatusCondition = 'id = ' . $candidateStatusId;
+
+				EmploymentCandidateStatus::model()->deleteAll($candidateStatusCondition);
+			}
 		}
 	}
 }
