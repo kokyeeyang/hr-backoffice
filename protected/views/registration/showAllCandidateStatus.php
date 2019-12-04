@@ -3,7 +3,7 @@
 echo PageHelper::printFormListingHeader($pageType); 
 
 //output the body content
-echo PageHelper::printFormListingBody($pageType, $strSortKey, true, $departmentArr, true, $objPagination, false);
+echo PageHelper::printFormListingBody($pageType, $strSortKey, true, $arrRecords, true, $objPagination, false);
 
 if(isset($departmentArr[0])){		
 	echo $this->renderFile(Yii::getPathOfAlias('application.views.layouts') . '/pagination.php', array('objPagination' => $objPagination));

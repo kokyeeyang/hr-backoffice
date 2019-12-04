@@ -1227,4 +1227,22 @@ class RegistrationController extends Controller
 			break;
 		}
 	}
+
+	public function actionAddNewCandidateStatus(){
+		$formAction = $this->createUrl('registration/saveCandidateStatus');
+		$header = AdminEnum::ADD_CANDIDATE_STATUS;
+		$buttonTitle = AdminEnum::SAVE_BUTTON;
+
+		$this->render('candidateStatusDetails', array('objModel' => $objModel,));
+	}
+
+	public function actionDeleteCandidateStatus(){
+		$deleteCandidateStatusIds = $this->getParam('deleteCheckBox', '');
+
+		if ($deleteCandidateStatusIds != ''){
+			EmploymentCandidateStatus::model()->deleteSelectedCandidateStatus($jobOpeningIds);
+		}
+
+		$this->redirect(array('showAllCandidateStatus'));
+	}	
 }	

@@ -32,4 +32,12 @@ class EmploymentCandidateStatus extends AppActiveRecord
 	public static function model($className=__CLASS__){
 		return parent::model($className);
 	}
+
+	public function actionDeleteSelectedCandidateStatus($candidateStatusIds){
+		foreach($candidateStatusIds as $candidateStatusId){
+			$candidateStatusCondition = 'id = ' . $candidateStatusId;
+
+			EmploymentCandidateStatus::model()->deleteAll($candidateStatusCondition);
+		}
+	}
 }
