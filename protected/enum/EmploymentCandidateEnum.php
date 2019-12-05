@@ -18,5 +18,7 @@ class EmploymentCandidateEnum {
 	const RESCHEDULED = 'Rescheduled';
 	const OFFER_LETTER_SIGNED = 'Offer letter signed';
 	const OFFER_LETTER_GENERATED = 'Offer letter generated';
+
 	const CANDIDATE_TABLE = "EmploymentCandidate";
+	const CANDIDATE_TABLE_IN_SQL = "employment_candidate";
 }

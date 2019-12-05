@@ -205,4 +205,20 @@ class EmploymentCandidate extends AppActiveRecord
 		}
 	}
 
+	public static function findAllCandidates($strSortBy, $intPage, $numPerPage){
+		$sql = 'SELECT EC.full_name, EC.created_date, EC.candidate_status, EJO.job_title, EJO.department, EJO.interviewing_manager ';
+		$sql .= 'FROM employment_candidate EC ';
+		$sql .= 'INNER JOIN employment_job_opening EJO ';
+		$sql .= 'ON EC.job_id = EJO.id ';
+		$sql .= 'ORDER BY ' . $strSortBy;
+		$sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
+
+		var_dump($sql);exit;
+		// SELECT EC.full_name, EC.created_date, EC.candidate_status, EJO.job_title, EJO.department, EJO.interviewing_manager
+// FROM employment_candidate EC
+// INNER JOIN employment_job_opening EJO
+// ON EC.job_id = EJO.id
+// ORDER BY full_name DESC LIMIT 0, 10;
+	}
+
 }

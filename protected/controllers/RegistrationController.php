@@ -297,8 +297,10 @@ class RegistrationController extends Controller
 
 		$jobTitleArrRecords = EmploymentJobOpening::model()->queryForAllJobs();
 
-		$objPagination = $this->getStrSortByList($strSortKey, EmploymentCandidateEnum::CANDIDATE_TABLE, false, CommonEnum::RETURN_PAGINATION);
-		$candidateArrRecords = $this->getStrSortByList($strSortKey, EmploymentCandidateEnum::CANDIDATE_TABLE, false, CommonEnum::RETURN_TABLE_ARRAY);
+		$objPagination = $this->getStrSortByList($strSortKey, EmploymentCandidateEnum::CANDIDATE_TABLE, EmploymentCandidateEnum::CANDIDATE_TABLE_IN_SQL, CommonEnum::RETURN_PAGINATION);
+		$candidateArrRecords = $this->getStrSortByList($strSortKey, EmploymentCandidateEnum::CANDIDATE_TABLE, EmploymentCandidateEnum::CANDIDATE_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
+
+		$candidateStatusArrRecord = EmploymentCandidateStatus::model()->queryForCandidateStatus();
 
 		if(isset($_POST['ajax']) && $_POST['ajax']==='candidate-list' && Yii::app()->request->isAjaxRequest){
 			$aResult = [];
@@ -307,7 +309,7 @@ class RegistrationController extends Controller
 			$aResult['msg'] 	= '';
 
 			// if click on sorting, then it will be ajax, thus we returnpartial here
-			$aResult['content'] = $this->renderPartial("showAllCandidates", array('strSortKey'=>$strSortKey, 'objPagination'=>$objPagination, 'candidateArrRecords' => $candidateArrRecords, 'jobTitleArrRecords' => $jobTitleArrRecords), true);
+			$aResult['content'] = $this->renderPartial("showAllCandidates", array('strSortKey'=>$strSortKey, 'objPagination'=>$objPagination, 'candidateStatusArrRecord' => $candidateStatusArrRecord, 'candidateArrRecords' => $candidateArrRecords, 'jobTitleArrRecords' => $jobTitleArrRecords), true);
 
 			if(!empty($aResult['content'])){
 				$aResult['result'] 	= 1;
@@ -317,7 +319,7 @@ class RegistrationController extends Controller
 		} //-end: if
 
 		// we return whole page here
-		$this->render("showAllCandidates", array('candidateArrRecords' => $candidateArrRecords, 'jobTitleArrRecords' => $jobTitleArrRecords, 'objPagination'=>$objPagination, 'strSortKey' => $strSortKey));
+		$this->render("showAllCandidates", array('candidateArrRecords' => $candidateArrRecords, 'jobTitleArrRecords' => $jobTitleArrRecords, 'objPagination'=>$objPagination, 'candidateStatusArrRecord' => $candidateStatusArrRecord, 'strSortKey' => $strSortKey));
 	}
 
 	public function actionAddNewJobOpenings() {
@@ -1043,6 +1045,12 @@ class RegistrationController extends Controller
 						$tableArr = EmploymentOfferLetterTemplates::model()->findAllOfferLetters($strSortBy, $intPage, $numPerPage, false);
 						return $tableArr;
 					break;
+
+					case EmploymentCandidateEnum::CANDIDATE_TABLE_IN_SQL:
+						$numPerPage = Yii::app()->params['numPerPage'];
+						$tableArr = EmploymentCandidate::model()->findAllCandidates($strSortBy, $intPage, $numPerPage);
+						return $tableArr;
+					break;
 				}
 
 			break;
@@ -1239,7 +1247,7 @@ class RegistrationController extends Controller
 		$deleteCandidateStatusIds = $this->getParam('deleteCheckBox', '');
 
 		if ($deleteCandidateStatusIds != ''){
-			EmploymentCandidateStatus::model()->deleteSelectedCandidateStatus($jobOpeningIds);
+			EmploymentCandidateStatus::model()->deleteSelectedCandidateStatus($deleteCandidateStatusIds);
 		}
 
 		$this->redirect(array('showAllCandidateStatus'));

@@ -104,7 +104,7 @@ class PageEnum {
 												"form-action-add-new" => "registration/addNewCandidateStatus",
 												"add-new-record-title" => "Add new candidate status",
 												"table-header" => array("title"),
-												"form-action-delete-selected" => "registration/deleteSelectedCandidateStatus",
+												"form-action-delete-selected" => "registration/deleteCandidateStatus",
 												"column-details" => array("title"),
 												"alert-data-msg" => array(
 												"msg-confirm-delete" => "Are you sure that you want to delete the selected candidate status?",

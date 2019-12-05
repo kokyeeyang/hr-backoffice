@@ -137,20 +137,23 @@
 						</td>
 						<td>
 							<?php //echo EmploymentJobOpening::model()->queryForCandidateDepartment($objRecord->job_id); ?>
-							<?php echo EmploymentJobOpening::model()->queryForCandidateInformation($objRecord->job_id, EmploymentJobOpeningEnum::DEPARTMENT, EmploymentJobOpeningEnum::ID); ?>
+							<?php //echo EmploymentJobOpening::model()->queryForCandidateInformation($objRecord->job_id, EmploymentJobOpeningEnum::DEPARTMENT, EmploymentJobOpeningEnum::ID); ?>
+							<?php echo $objRecord->department ?>
 						</td>
 						<td>
 							<?php //echo EmploymentJobOpening::model()->queryForCandidateInterviewingManager($objRecord->job_id); ?>
-							<?php echo EmploymentJobOpening::model()->queryForCandidateInformation($objRecord->job_id, EmploymentJobOpeningEnum::INTERVIEWING_MANAGER, EmploymentJobOpeningEnum::ID); ?>
+							<?php //echo EmploymentJobOpening::model()->queryForCandidateInformation($objRecord->job_id, EmploymentJobOpeningEnum::INTERVIEWING_MANAGER, EmploymentJobOpeningEnum::ID); ?>
+							<?php echo $objRecord->interviewing_manager ?>
 						</td>
 						<td>
 							<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $objRecord->id_no ?>">
 						</td>
 						<td>
-							<?php echo EmploymentCandidate::model()->queryForCandidateStatus($objRecord->id_no); ?>
+							<?php //echo EmploymentCandidate::model()->queryForCandidateStatus($objRecord->id_no); ?>
+							<?php echo $objRecord->candidate_status ?>
 						</td>
-						<td>
-							<select name="dropdown" data-confirm-url="<?php echo $this->createUrl('registration/confirmCandidate', array('candidateId' => $objRecord->id_no)); ?>" size=1>
+		<!-- 				<td>
+							<select name="dropdown" data-confirm-url="<?php //echo $this->createUrl('registration/confirmCandidate', array('candidateId' => $objRecord->id_no)); ?>" size=1>
 								<option value="" selected disabled hidden>Choose here</option>
 						    <option value="1">Accepted</option>
 						    <option value="2">Shortlisted</option>
@@ -159,6 +162,14 @@
 						    <option value="5">Rescheduled</option>
 						    <option value="6" title="This will generate onboarding checklist for this candidate">Offer letter signed</option>
 						    <option value="7">Offer letter generated</option>
+							</select>
+						</td> -->
+						<td>
+							<select name="dropdown" data-confirm-url="<?php echo $this->createUrl('registration/confirmCandidate', array('candidateId' => $objRecord->id_no)); ?>" size=1>
+								<option value="" selected disabled hidden>Choose here</option>
+								<?php foreach($candidateStatusArrRecord as $candidateStatusObjRecord){ ?>
+						    <option value="<?php $candidateStatusObjRecord->id ?>">$candidateStatusObjRecord->title</option>
+							  <?php } ?>
 							</select>
 						</td>
 					</tr>
