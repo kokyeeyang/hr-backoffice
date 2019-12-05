@@ -50,4 +50,9 @@ class OnboardingController extends Controller
 	public function actionAddNewOnboardingItem(){
 		return $this->render("onboardingItemDetails");
 	}
+
+	public function actionShowAllOnboardingItems(){
+		
+		return $this->render("showAllOnboardingItems");
+	}
 }

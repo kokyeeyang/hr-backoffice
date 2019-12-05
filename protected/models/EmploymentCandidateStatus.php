@@ -47,8 +47,8 @@ class EmploymentCandidateStatus extends AppActiveRecord
 	}
 
 	public function queryForCandidateStatus(){
-		$sql = 'SELECT title ';
-		$sql .= 'FROM' . self::$tableName;
+		$sql = 'SELECT id, title ';
+		$sql .= 'FROM ' . self::$tableName;
 
 		$objConnection = Yii::app()->db;
 		$objCommand = $objConnection->createCommand($sql);

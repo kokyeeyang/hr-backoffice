@@ -115,6 +115,12 @@ class PageEnum {
 												"form-action-view-selected" => "",
 												"msg-foreign-key" => ""
 
-											)
+											),
+
+											"Onboarding Template" =>
+											array(
+												"entity-name" => "OnboardingTemplate",
+												"breadcrumb-top" => "Show All Onboarding Templates",
+											) 
 										);
 }

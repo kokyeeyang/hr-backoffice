@@ -298,7 +298,7 @@ class RegistrationController extends Controller
 		$jobTitleArrRecords = EmploymentJobOpening::model()->queryForAllJobs();
 
 		$objPagination = $this->getStrSortByList($strSortKey, EmploymentCandidateEnum::CANDIDATE_TABLE, EmploymentCandidateEnum::CANDIDATE_TABLE_IN_SQL, CommonEnum::RETURN_PAGINATION);
-		$candidateArrRecords = $this->getStrSortByList($strSortKey, EmploymentCandidateEnum::CANDIDATE_TABLE, EmploymentCandidateEnum::CANDIDATE_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
+		$candidateArrRecord = $this->getStrSortByList($strSortKey, EmploymentCandidateEnum::CANDIDATE_TABLE, EmploymentCandidateEnum::CANDIDATE_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
 
 		$candidateStatusArrRecord = EmploymentCandidateStatus::model()->queryForCandidateStatus();
 
@@ -309,7 +309,7 @@ class RegistrationController extends Controller
 			$aResult['msg'] 	= '';
 
 			// if click on sorting, then it will be ajax, thus we returnpartial here
-			$aResult['content'] = $this->renderPartial("showAllCandidates", array('strSortKey'=>$strSortKey, 'objPagination'=>$objPagination, 'candidateStatusArrRecord' => $candidateStatusArrRecord, 'candidateArrRecords' => $candidateArrRecords, 'jobTitleArrRecords' => $jobTitleArrRecords), true);
+			$aResult['content'] = $this->renderPartial("showAllCandidates", array('strSortKey'=>$strSortKey, 'objPagination'=>$objPagination, 'candidateStatusArrRecord' => $candidateStatusArrRecord, 'candidateArrRecord' => $candidateArrRecord, 'jobTitleArrRecords' => $jobTitleArrRecords), true);
 
 			if(!empty($aResult['content'])){
 				$aResult['result'] 	= 1;
@@ -319,7 +319,7 @@ class RegistrationController extends Controller
 		} //-end: if
 
 		// we return whole page here
-		$this->render("showAllCandidates", array('candidateArrRecords' => $candidateArrRecords, 'jobTitleArrRecords' => $jobTitleArrRecords, 'objPagination'=>$objPagination, 'candidateStatusArrRecord' => $candidateStatusArrRecord, 'strSortKey' => $strSortKey));
+		$this->render("showAllCandidates", array('candidateArrRecord' => $candidateArrRecord, 'jobTitleArrRecords' => $jobTitleArrRecords, 'objPagination'=>$objPagination, 'candidateStatusArrRecord' => $candidateStatusArrRecord, 'strSortKey' => $strSortKey));
 	}
 
 	public function actionAddNewJobOpenings() {

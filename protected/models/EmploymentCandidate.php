@@ -146,47 +146,6 @@ class EmploymentCandidate extends AppActiveRecord
 		}
 	}
 
-	public function queryForCandidateStatus($candidateId){
-		$sql = 'SELECT candidate_status
-
-				   	FROM ' . self::$tableName . '
-
-				   	WHERE id_no = ' . '"' . $candidateId . '"';
-
-		$objConnection = Yii::app()->db;
-		$objCommand = $objConnection->createCommand($sql);
-		$arrData = $objCommand->queryRow();
-
-		foreach($arrData as $objData){
-			switch($objData){
-				case "0":
-					return EmploymentCandidateEnum::INTERVIEW_STAGE;
-					break;
-				case "1":
-					return EmploymentCandidateEnum::ACCEPTED;
-					break;
-				case "2":
-					return EmploymentCandidateEnum::SHORTLISTED;
-					break;
-				case "3":
-					return EmploymentCandidateEnum::NO_SHOW;
-					break;
-				case "4":
-					return EmploymentCandidateEnum::NOT_SUITABLE;
-					break;
-				case "5":
-					return EmploymentCandidateEnum::RESCHEDULED;
-					break;
-				case "6":
-					return EmploymentCandidateEnum::OFFER_LETTER_SIGNED;
-					break;
-				case "7":
-					return EmploymentCandidateEnum::OFFER_LETTER_GENERATED;
-					break;
-			}
-		}
-	}	
-
 	//first param is the condition, second param is the result, and third is the column name to query for
 	public function queryForCandidateInformation($queryString, $queryResult, $columnName){
 		$sql = 'SELECT ' . $queryResult;
@@ -206,19 +165,20 @@ class EmploymentCandidate extends AppActiveRecord
 	}
 
 	public static function findAllCandidates($strSortBy, $intPage, $numPerPage){
-		$sql = 'SELECT EC.full_name, EC.created_date, EC.candidate_status, EJO.job_title, EJO.department, EJO.interviewing_manager ';
+		$sql = 'SELECT EC.id_no, EC.full_name, EC.created_date, ECS.title AS candidate_status, EC.job_id, EJO.job_title, EJO.department, EJO.interviewing_manager ';
 		$sql .= 'FROM employment_candidate EC ';
 		$sql .= 'INNER JOIN employment_job_opening EJO ';
 		$sql .= 'ON EC.job_id = EJO.id ';
+		$sql .= 'INNER JOIN employment_candidate_status ECS ';
+		$sql .= 'ON EC.candidate_status = ECS.id ';
 		$sql .= 'ORDER BY ' . $strSortBy;
 		$sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
 
-		var_dump($sql);exit;
-		// SELECT EC.full_name, EC.created_date, EC.candidate_status, EJO.job_title, EJO.department, EJO.interviewing_manager
-// FROM employment_candidate EC
-// INNER JOIN employment_job_opening EJO
-// ON EC.job_id = EJO.id
-// ORDER BY full_name DESC LIMIT 0, 10;
+		$objConnection = Yii::app()->db;
+		$objCommand = $objConnection->createCommand($sql);
+		$arrData = $objCommand->queryAll($sql);
+
+		return $arrData;
 	}
 
 }

@@ -115,60 +115,43 @@
 			</thead>
 			<tbody id="data_table">
 				<?php
-				if(isset($candidateArrRecords[0])){
-					foreach($candidateArrRecords as $intIndex => $objRecord){
+				if(isset($candidateArrRecord[0])){
+					foreach($candidateArrRecord as $intIndex => $objRecord){
 				?>
 					<tr>
 						<td title="<?php echo Yii::t('app', 'Click here to view this candidate'); ?>">
-							<a href="<?php echo $this->createUrl('registration/viewSelectedCandidate', array('candidateId' => $objRecord->id_no)); ?>">
-								<?php echo $objRecord->full_name; ?>
+							<a href="<?php echo $this->createUrl('registration/viewSelectedCandidate', array('candidateId' => $objRecord['id_no'])); ?>">
+								<?php echo $objRecord['full_name']; ?>
 							</a>
 						</td>
 						<td>
-							<?php echo substr($objRecord->created_date, 0, 10); ?>
+							<?php echo substr($objRecord['created_date'], 0, 10); ?>
 						</td>
 						<td>
-							<select name="positionDropdown" size=1 class="changeCandidatePosition" data-change-url="<?php echo $this->createUrl('registration/changeCandidatePosition', array('candidateId' => $objRecord->id_no)); ?>" title="Select here if you would like to change this candidate's applied for job">
-								 <option value="<?php echo($objRecord->job_id); ?>" selected disabled hidden><?php echo EmploymentJobOpening::model()->queryForCandidateInformation($objRecord->job_id, EmploymentJobOpeningEnum::CANDIDATE_JOB, EmploymentJobOpeningEnum::ID); ?></option>
+							<select name="positionDropdown" size=1 class="changeCandidatePosition" data-change-url="<?php echo $this->createUrl('registration/changeCandidatePosition', array('candidateId' => $objRecord['id_no'])); ?>" title="Select here if you would like to change this candidate's applied for job">
+								 <option value="<?php echo($objRecord['job_id']); ?>" selected disabled hidden><?php echo $objRecord['job_title'] ?></option>
 								<?php foreach($jobTitleArrRecords as $intIndex => $jobTitleObjRecord){ ?>
 									<option value="<?php echo($jobTitleObjRecord['id']); ?>"><?php echo $jobTitleObjRecord['job_title']; ?></option>
 								<?php }?>
 							</select>
 						</td>
 						<td>
-							<?php //echo EmploymentJobOpening::model()->queryForCandidateDepartment($objRecord->job_id); ?>
-							<?php //echo EmploymentJobOpening::model()->queryForCandidateInformation($objRecord->job_id, EmploymentJobOpeningEnum::DEPARTMENT, EmploymentJobOpeningEnum::ID); ?>
-							<?php echo $objRecord->department ?>
+							<?php echo $objRecord['department'] ?>
 						</td>
 						<td>
-							<?php //echo EmploymentJobOpening::model()->queryForCandidateInterviewingManager($objRecord->job_id); ?>
-							<?php //echo EmploymentJobOpening::model()->queryForCandidateInformation($objRecord->job_id, EmploymentJobOpeningEnum::INTERVIEWING_MANAGER, EmploymentJobOpeningEnum::ID); ?>
-							<?php echo $objRecord->interviewing_manager ?>
+							<?php echo $objRecord['interviewing_manager'] ?>
 						</td>
 						<td>
-							<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $objRecord->id_no ?>">
+							<input type="checkbox" name="deleteCheckBox[]" class="deleteCheckBox" value="<?php echo $objRecord['id_no'] ?>">
 						</td>
 						<td>
-							<?php //echo EmploymentCandidate::model()->queryForCandidateStatus($objRecord->id_no); ?>
-							<?php echo $objRecord->candidate_status ?>
+							<?php echo $objRecord['candidate_status'] ?>
 						</td>
-		<!-- 				<td>
-							<select name="dropdown" data-confirm-url="<?php //echo $this->createUrl('registration/confirmCandidate', array('candidateId' => $objRecord->id_no)); ?>" size=1>
-								<option value="" selected disabled hidden>Choose here</option>
-						    <option value="1">Accepted</option>
-						    <option value="2">Shortlisted</option>
-						    <option value="3">No Show</option>
-						    <option value="4">Not Suitable</option>
-						    <option value="5">Rescheduled</option>
-						    <option value="6" title="This will generate onboarding checklist for this candidate">Offer letter signed</option>
-						    <option value="7">Offer letter generated</option>
-							</select>
-						</td> -->
 						<td>
-							<select name="dropdown" data-confirm-url="<?php echo $this->createUrl('registration/confirmCandidate', array('candidateId' => $objRecord->id_no)); ?>" size=1>
+							<select name="dropdown" data-confirm-url="<?php echo $this->createUrl('registration/confirmCandidate', array('candidateId' => $objRecord['id_no'])); ?>" size=1>
 								<option value="" selected disabled hidden>Choose here</option>
 								<?php foreach($candidateStatusArrRecord as $candidateStatusObjRecord){ ?>
-						    <option value="<?php $candidateStatusObjRecord->id ?>">$candidateStatusObjRecord->title</option>
+						    <option value="<?php echo $candidateStatusObjRecord['id'] ?>"><?php echo $candidateStatusObjRecord['title'] ?></option>
 							  <?php } ?>
 							</select>
 						</td>
@@ -180,7 +163,7 @@
 			</tbody>
 		</table> 
 		<?php
-		if(isset($candidateArrRecords[0])){		
+		if(isset($candidateArrRecord[0])){		
 			echo $this->renderFile(Yii::getPathOfAlias('application.views.layouts') . '/pagination.php', array('objPagination' => $objPagination));
 		} // - end: if ?>	 
 	<?php $this->endWidget(); ?> 	
