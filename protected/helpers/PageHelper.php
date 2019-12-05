@@ -67,13 +67,6 @@ class PageHelper {
 		$contentBody .= self::prepareTableData($pageType, $dataObjects, $deleteColumn, $validateForeignKeyExist, $objPagination, $enableButton);
 
 		$contentBody .= '</table>';
-		// if(isset($dataObjects[0])){
-		// 	$contentBody .= self::includeFileWithVariables(Yii::getPathOfAlias('application.views.layouts') . '/pagination.php', array($objPagination));
-		// }
-		// $contentBody .= '</form>';
-
-		// $contentBody .= '</div>';
-		// $contentBody .= '</div>';
 
 		return $contentBody;
 	}
@@ -192,9 +185,6 @@ class PageHelper {
 		$tableBody = "";
 		$tableBody .= '<tbody id="data_table">';
 		foreach ($dataObjects as $dataObject) {
-			// var_dump($dataObject["id"]);exit;
-			// $formUrlViewSelected = Yii::app()->createUrl($formData['form-action-view-selected'], ["id" => $dataObject->attributes['id']]);
-			// $formUrlViewSelected = Yii::app()->createUrl($formData['form-action-view-selected'], ["id" => $dataObject->id]);
 			$formUrlViewSelected = Yii::app()->createUrl($formData['form-action-view-selected'], ["id" => $dataObject["id"]]);
 
 			//TODO : find out what is the actual data structure of the table body
@@ -204,7 +194,6 @@ class PageHelper {
 			if ($columnLinkToDetails != false) {
 				$tableBody .= '<td>';
 				$tableBody .= '<a href="' . $formUrlViewSelected . '">';
-				// $tableBody .= $dataObject->attributes[$columnLinkToDetails];	
 				$tableBody .= $dataObject[$columnLinkToDetails];	
 				$tableBody .= '</a>';
 				$tableBody .= '</td>';
@@ -213,7 +202,6 @@ class PageHelper {
 			//all the subsequent column will be looped here
 			foreach($columnDetails as $columnDetail){
 				$tableBody .= '<td>';
-				// $tableBody .= $dataObject->attributes[$columnDetail];	
 				$tableBody .= $dataObject[$columnDetail];	
 				$tableBody .= '</td>';
 			}
@@ -225,7 +213,6 @@ class PageHelper {
 					$buttonVariables = [];
 
 					foreach($emailVariables as $emailVariable){
-					  // $buttonVariables[$emailVariable] = $dataObject->attributes[$emailVariable];
 					  $buttonVariables[$emailVariable] = $dataObject[$emailVariable];
 					}
 
@@ -236,10 +223,7 @@ class PageHelper {
 			//add in the checkbox for the delete
 			if ($deleteColumn == true) {
 				$tableBody .= '<td>';
-				// $formUrlViewSelected = Yii::app()->createUrl($formData['foreign-key-check'], ["id" => $dataObject->id]);
 				$formUrlViewSelected = Yii::app()->createUrl($formData['foreign-key-check'], ["id" => $dataObject['id']]);
-				//check for existing users belonging to this department
-				// $tableBody .= '<input ' . $dataUrlTag . $foreignKeyCheckUrl . ' type="checkbox" name="deleteCheckBox[]" id="deleteCheckBox' . $dataObject->id . '" class="deleteCheckBox"' . 'value="' . $dataObject->id .'">';
 				$tableBody .= '<input ' . $dataUrlTag . $foreignKeyCheckUrl . ' type="checkbox" name="deleteCheckBox[]" id="deleteCheckBox' . $dataObject['id'] . '" class="deleteCheckBox"' . 'value="' . $dataObject['id'] .'">';
 				$tableBody .= '</td>';
 			}
@@ -277,8 +261,6 @@ class PageHelper {
 		extract($objPagination);
 		ob_start();
 		include($fileName);
-		// return($fileName);
-		// var_dump($fileName);exit;
 		return ob_get_clean();
 	}
 
