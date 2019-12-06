@@ -126,16 +126,16 @@ class PageEnum {
 												"form-title" => "All Onboarding Items",
 												"form-action-add-new" => "onboarding/addNewOnboardingItem",
 												"add-new-record-title" => "Add new onboarding item",
-												"table-header" => array("title", "department_owner", "is_offloading_item", "status", "is_managerial"),
+												"table-header" => array("title", "department_owner", "is_offboarding_item", "status", "is_managerial"),
 												"form-action-delete-selected" => "onboarding/deleteOnboardingItem",
-												"column-details" => array("title", "department_owner", "is_offloading_item", "status", "is_managerial"),
+												"column-details" => array("department_owner", "is_offboarding_item", "status", "is_managerial"),
 												"alert-data-msg" => array(
 												"msg-confirm-delete" => "Are you sure that you want to delete the selected onboarding item?",
 												"msg-select-delete" => "Please select a onboarding item that you would like to delete!"),
 												"data-url" => "",
 												"foreign-key-check" => "",
-												"column-link-to-details" => "",
-												"form-action-view-selected" => "",
+												"column-link-to-details" => "title",
+												"form-action-view-selected" => "onboarding/viewSelectedOnboardingItem",
 												"msg-foreign-key" => ""
 											) 
 										);

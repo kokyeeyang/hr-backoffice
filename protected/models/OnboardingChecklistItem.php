@@ -21,7 +21,7 @@ class OnboardingChecklistItem extends AppActiveRecord {
 		return [																				
 			'description' => Yii::t('app', 'description'),
 			'department_owner' => Yii::t('app', 'department_owner'),
-			'is_offloading_item' => Yii::t('app', 'is_offloading_item'),
+			'is_offboarding_item' => Yii::t('app', 'is_offboarding_item'),
 			'status' => Yii::t('app', 'status'),
 			'is_managerial' => Yii::t('app', 'is_managerial')
 		];
@@ -37,4 +37,31 @@ class OnboardingChecklistItem extends AppActiveRecord {
 	public static function model($className=__CLASS__){
 		return parent::model($className);
 	}	
+
+	public function findAllOnboardingItems($strSortBy=false, $intPage=false, $numPerPage=false){
+		$sql = 'SELECT ECI.id, ECI.title, D.title AS department_owner, ';
+		$sql .= 'CASE WHEN ECI.is_offboarding_item = 0 THEN "No" ';
+		$sql .= 'WHEN ECI.is_offboarding_item = 1 ';
+		$sql .= 'THEN "Yes" ';
+		$sql .= 'END AS "is_offboarding_item", ';
+		$sql .= 'CASE WHEN ECI.status = 0 THEN "Inactive" ';
+		$sql .= 'WHEN ECI.status = 1 ';
+		$sql .= 'THEN "Active" ';
+		$sql .= 'END AS "status", ';
+		$sql .= 'CASE WHEN ECI.is_managerial = 0 THEN "Non-managerial" ';
+		$sql .= 'WHEN ECI.is_managerial = 1 ';
+		$sql .= 'THEN "Managerial" ';
+		$sql .= 'END AS "is_managerial" ';
+		$sql .= 'FROM onboarding_checklist_items ECI ';
+		$sql .= 'INNER JOIN department D ';
+		$sql .= 'ON ECI.department_owner = D.id ';
+		$sql .= 'ORDER BY ' . $strSortBy;
+		$sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
+
+		$objConnection = Yii::app()->db;
+		$objCommand = $objConnection->createCommand($sql);
+		$arrData = $objCommand->queryAll($sql);
+
+		return $arrData;		
+	}
 }
