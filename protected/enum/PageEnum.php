@@ -114,13 +114,29 @@ class PageEnum {
 												"column-link-to-details" => "",
 												"form-action-view-selected" => "",
 												"msg-foreign-key" => ""
-
 											),
 
-											"Onboarding Template" =>
+											"Onboarding Item" =>
 											array(
 												"entity-name" => "OnboardingTemplate",
 												"breadcrumb-top" => "Show All Onboarding Templates",
+												"breadcrumb-bottom" => "breadcrumb-bottom-key",
+												"form-id" => "onboardingitems-list",
+												"form-action-show-all" => "onboarding/showAllOnboardingItems",
+												"form-title" => "All Onboarding Items",
+												"form-action-add-new" => "onboarding/addNewOnboardingItem",
+												"add-new-record-title" => "Add new onboarding item",
+												"table-header" => array("title", "department_owner", "is_offloading_item", "status", "is_managerial"),
+												"form-action-delete-selected" => "onboarding/deleteOnboardingItem",
+												"column-details" => array("title", "department_owner", "is_offloading_item", "status", "is_managerial"),
+												"alert-data-msg" => array(
+												"msg-confirm-delete" => "Are you sure that you want to delete the selected onboarding item?",
+												"msg-select-delete" => "Please select a onboarding item that you would like to delete!"),
+												"data-url" => "",
+												"foreign-key-check" => "",
+												"column-link-to-details" => "",
+												"form-action-view-selected" => "",
+												"msg-foreign-key" => ""
 											) 
 										);
 }

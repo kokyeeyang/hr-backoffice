@@ -35,7 +35,7 @@
               <option value="" selected disabled hidden>Choose here</option>
               <?php foreach($departmentArr as $iKey => $departmentObj){ ?>
               <option value="<?php echo $departmentObj['title']; ?>"><?php echo $departmentObj['title']; ?></option>
-            <?php } ?>
+              <?php } ?>
             </select>
     			</td>
     		</tr>

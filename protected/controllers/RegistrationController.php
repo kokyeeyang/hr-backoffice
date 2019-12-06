@@ -349,6 +349,7 @@ class RegistrationController extends Controller
 	}
 
 	public function actionShowAllJobOpenings() {
+		$startTime = microtime(true);
 		$arrRecords = EmploymentJobOpening::model()->findAll(array('order'=>'id ASC'));
 		$strSortKey = $this->getParam('sort_key','');
 		$pageType = EmploymentJobOpeningEnum::JOB_OPENING;
@@ -372,7 +373,10 @@ class RegistrationController extends Controller
 			Yii::app()->end();		
 		}
 
+		var_dump(microtime(true)-$startTime);
+
 		$this->render('showAllJobOpenings', ['strSortKey'=>$strSortKey, 'arrRecords'=>$arrRecords, 'objPagination'=>$objPagination, 'pageType'=>$pageType]);
+
 	}
 
 	// generates a job application link to send to candidate
@@ -773,21 +777,12 @@ class RegistrationController extends Controller
 
 		$offerLetterDepartmentArray = $this->getParam('department', '');
 
-		//don't need this anymore, just foreach the $offerLetterDepartmentArray and save new rows of employmentofferlettertemplatemapping
-		// if ($offerLetterDepartmentArray != ''){
-		// 	$offerLetterDepartments = implode(",", $offerLetterDepartmentArray);
-		// } else {
-		// 	$offerLetterDepartments = null;
-		// }
-
 		$offerLetterObjModel = new EmploymentOfferLetterTemplates;
 
 		// TODO: add the new employmentofferlettertemplatemapping object here
 		//foreach the $offerLetterDepartmentArray and save new rows of employmentofferlettertemplatemapping here
 		$offerLetterObjModel->offer_letter_title = $offerLetterTitle;
 		$offerLetterObjModel->offer_letter_description = $this->getParam('offerLetterDescription', '');
-
-		// $offerLetterObjModel->department = $offerLetterDepartments;
 
 		$offerLetterObjModel->is_managerial = $this->getParam('offerLetterIsManagerial', '');
 		$offerLetterObjModel->offer_letter_content = $this->getParam('offerLetterTemplate', '');
@@ -1052,7 +1047,6 @@ class RegistrationController extends Controller
 						return $tableArr;
 					break;
 				}
-
 			break;
 
 			case CommonEnum::RETURN_TABLE_ARRAY:
@@ -1098,12 +1092,12 @@ class RegistrationController extends Controller
 				return 'offer_letter_title ASC';
 			break;
 
-			case 'sort_department_desc':
-				return 'department DESC';
+			case 'sort_department_title_desc':
+				return 'department_title DESC';
 			break;
 
-			case 'sort_department_asc':
-				return 'department ASC';
+			case 'sort_department_title_asc':
+				return 'department_title ASC';
 			break;
 
 			case 'sort_is_managerial_desc':
@@ -1200,7 +1194,7 @@ class RegistrationController extends Controller
 		$objCriteria = $this->getStrSortByList($strSortKey, EmploymentCandidateStatusEnum::CANDIDATE_STATUS_TABLE, false, CommonEnum::RETURN_CRITERIA);
 		$arrRecords = $this->getStrSortByList($strSortKey, EmploymentCandidateStatusEnum::CANDIDATE_STATUS_TABLE, false, CommonEnum::RETURN_TABLE_ARRAY);
 
-		if(isset($_POST['ajax']) && $_POST['ajax']==='jobopening-list' && Yii::app()->request->isAjaxRequest){
+		if(isset($_POST['ajax']) && $_POST['ajax']==='candidatestatus-list' && Yii::app()->request->isAjaxRequest){
 			$aResult = [];
 			$aResult['result'] 	= 0;
 			$aResult['content'] = '';
