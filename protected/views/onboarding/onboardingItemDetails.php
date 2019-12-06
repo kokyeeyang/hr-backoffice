@@ -41,7 +41,7 @@
             <select name="responsibilityDropdown" size=1>
               <option value="" selected disabled hidden>Choose here</option>
                 <?php foreach($departmentArr as $departmentObj){ ?>
-                  <option value="<?php echo $departmentObj['title']; ?>"><?php echo $departmentObj['title']; ?></option>
+                  <option value="<?php echo $departmentObj['id']; ?>"><?php echo $departmentObj['title']; ?></option>
                 <?php } ?>
             </select>
     			</td>

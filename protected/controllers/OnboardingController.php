@@ -79,17 +79,17 @@ class OnboardingController extends Controller
 		$strSortKey = $this->getParam('sort_key','');
 		$pageType = OnboardingItemEnum::ONBOARDING_ITEM;
 
-		$objPagination = $this->getStrSortByList($strSortKey, EmploymentCandidateStatusEnum::CANDIDATE_STATUS_TABLE, false,  CommonEnum::RETURN_PAGINATION);
-		$objCriteria = $this->getStrSortByList($strSortKey, EmploymentCandidateStatusEnum::CANDIDATE_STATUS_TABLE, false, CommonEnum::RETURN_CRITERIA);
-		$arrRecords = $this->getStrSortByList($strSortKey, EmploymentCandidateStatusEnum::CANDIDATE_STATUS_TABLE, false, CommonEnum::RETURN_TABLE_ARRAY);
+		$objPagination = $this->getStrSortByList($strSortKey, OnboardingChecklistItem::ONBOARDING_ITEM_TABLE, false,  CommonEnum::RETURN_PAGINATION);
+		$objCriteria = $this->getStrSortByList($strSortKey, OnboardingChecklistItem::ONBOARDING_ITEM_TABLE, false, CommonEnum::RETURN_CRITERIA);
+		$arrRecords = $this->getStrSortByList($strSortKey, OnboardingChecklistItem::ONBOARDING_ITEM_TABLE, true, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
 
-		if(isset($_POST['ajax']) && $_POST['ajax']==='candidatestatus-list' && Yii::app()->request->isAjaxRequest){
+		if(isset($_POST['ajax']) && $_POST['ajax']==='onboardingitems-list' && Yii::app()->request->isAjaxRequest){
 			$aResult = [];
 			$aResult['result'] 	= 0;
 			$aResult['content'] = '';
 			$aResult['msg'] 	= '';
 
-			$aResult['content'] = $this->renderPartial('showAllCandidateStatus', ['strSortKey'=>$strSortKey, 'arrRecords'=>$arrRecords, 'objPagination'=>$objPagination, 'pageType'=>$pageType], true);
+			$aResult['content'] = $this->renderPartial('showAllOnboardingItems', ['strSortKey'=>$strSortKey, 'arrRecords'=>$arrRecords, 'objPagination'=>$objPagination, 'pageType'=>$pageType], true);
 
 			if(!empty($aResult['content'])){
 				$aResult['result'] 	= 1;
@@ -98,6 +98,97 @@ class OnboardingController extends Controller
 			Yii::app()->end();				
 		}
 
-		return $this->render("showAllOnboardingItems", array('pageType' => $pageType));
+		return $this->render("showAllOnboardingItems", ['strSortKey'=>$strSortKey, 'arrRecords'=>$arrRecords, 'objPagination'=>$objPagination, 'pageType'=>$pageType]);
+	}
+
+	private function getStrSortByList($strSortKey, $tableName, $tableNameInSql=false, $pageVar){
+
+		$strSortBy = self::getStrSortBy($strSortKey, $tableName);
+
+		$objCriteria		= new CDbCriteria();
+		$objCriteria->order = $strSortBy;
+
+		$intCount 		= $tableName::model()->count($objCriteria);
+		$objPagination	= new CPagination($intCount);
+		$objPagination->setPageSize(Yii::app()->params['numPerPage']);
+		$objPagination->setCurrentPage($this->intPage);
+		$objPagination->applyLimit($objCriteria);
+
+		$intPage = $this->intPage;	
+
+		switch($pageVar){
+			case CommonEnum::RETURN_PAGINATION:
+				return $objPagination;
+			break;
+
+			case CommonEnum::RETURN_CRITERIA:
+				return $objCriteria;
+			break;
+
+			case CommonEnum::RETURN_TABLE_ARRAY_BY_SQL:
+				switch($tableNameInSql){
+					case OnboardingItemEnum::ONBOARDING_ITEM_TABLE_IN_SQL:
+						$numPerPage = Yii::app()->params['numPerPage'];
+						$tableArr = OnboardingChecklistItem::model()->findAllOnboardingItems($strSortBy, $intPage, $numPerPage, false);
+						return $tableArr;
+					break;
+				}
+			break;
+		}		
+	}
+
+	private static function getStrSortBy($strSortKey, $tableName){
+		switch($tableName){
+			case OnboardingItemEnum::ONBOARDING_ITEM_TABLE :
+				$strSortBy = self::getOnboardingItemList($strSortKey);
+				return $strSortBy;
+			break;
+		}
+	}
+
+	private static function getOnboardingItemList($strSortKey){
+		switch($strrSortKey){
+			case 'sort_title_desc':
+			default: 
+				$strSortKey = 'sort_title_desc';
+				return 'title DESC';
+			break;
+
+			case 'sort_title_asc':
+				return 'title ASC';
+			break;
+
+			case 'department_owner_asc':
+				return 'department_owner ASC';
+			break;
+
+			case 'department_owner_desc':
+				return 'department_owner DESC';
+			break;
+
+			case 'is_offloading_item_asc':
+				return 'is_offloading_item ASC';
+			break;
+
+			case 'is_offloading_item_desc':
+				return 'is_offloading_item DESC';
+			break;
+
+			case 'status_asc':
+				return 'status ASC';
+			break;
+
+			case 'status_desc':
+				return 'status DESC';
+			break;
+
+			case 'is_managerial_asc':
+				return 'is_managerial ASC';
+			break;
+
+			case 'is_managerial_desc':
+				return 'is_managerial DESC';
+			break;
+		}
 	}
 }
