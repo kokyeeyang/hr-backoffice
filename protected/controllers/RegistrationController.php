@@ -373,8 +373,6 @@ class RegistrationController extends Controller
 			Yii::app()->end();		
 		}
 
-		var_dump(microtime(true)-$startTime);
-
 		$this->render('showAllJobOpenings', ['strSortKey'=>$strSortKey, 'arrRecords'=>$arrRecords, 'objPagination'=>$objPagination, 'pageType'=>$pageType]);
 
 	}

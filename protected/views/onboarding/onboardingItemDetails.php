@@ -60,7 +60,7 @@
         </tr>
         <tr>
           <td>
-            <?php isset($_GET['id']) && $onboardingItemObjRecord->is_managerial == 1?$checkedStatus = 'checked':''?>
+            <?php isset($_GET['id']) && $onboardingItemObjRecord->is_managerial == 1?$checkedStatus = 'checked':$checkedStatus = ''?>
             <?php //$onboardingItemObjRecord->is_managerial == 1?$checkedStatus = 'checked':''?>
             <input type="checkbox" name="isManagerialCheckbox" id="isManagerialCheckbox" value="1" <?php echo $checkedStatus ?>>
             <label for="isManagerialCheckbox"><?php echo Yii::t('app', 'Is this item for managerial role?') ?></label>
@@ -68,10 +68,10 @@
         </tr>
         <tr>
           <td>
-            <?php isset($_GET['id']) && $onboardingItemObjRecord->is_offboarding_item == 1?$checkedStatus = 'checked':''?>
+            <?php isset($_GET['id']) && $onboardingItemObjRecord->is_offboarding_item == 1?$checkedStatus = 'checked':$checkedStatus = ''?>
             <?php //$onboardingItemObjRecord->is_offboarding_item == 1?$checkedStatus = 'checked':''?>
-            <input type="checkbox" name="isOffloadingCheckbox" id="isOffboardingCheckbox" value="1" <?php echo $checkedStatus ?>>
-            <label for="isOffloadingCheckbox"><?php echo Yii::t('app', 'Is this item going to be used for offboarding purposes?') ?></label>
+            <input type="checkbox" name="isOffboardingCheckbox" id="isOffboardingCheckbox" value="1" <?php echo $checkedStatus ?>>
+            <label for="isOffboardingCheckbox"><?php echo Yii::t('app', 'Is this item going to be used for offboarding purposes?') ?></label>
           </td>
         </tr>
     		<tr>

@@ -63,9 +63,9 @@ class OnboardingController extends Controller
 		$onboardingItemObjModel->title = $this->getParam('onboardingItemName', '');
 		$onboardingItemObjModel->description = $this->getParam('onboardingItemDescription', '');
 		$onboardingItemObjModel->department_owner = $this->getParam('responsibilityDropdown', '');
-		$onboardingItemObjModel->is_offboarding_item = $this->getParam('isOffBoardingCheckBox', '');
+		$onboardingItemObjModel->is_offboarding_item = $this->getParam('isOffboardingCheckbox', '');
 		$onboardingItemObjModel->status = $this->getParam('isActiveCheckbox', '');
- 		$onboardingItemObjModel->is_managerial = $this->getParam('isManagerialCheckBox', '');
+ 		$onboardingItemObjModel->is_managerial = $this->getParam('isManagerialCheckbox', '');
  		$onboardingItemObjModel->created_by = Yii::app()->user->id;
 		$onboardingItemObjModel->save();
 
@@ -209,5 +209,15 @@ class OnboardingController extends Controller
 		}
 
 		$this->render('onboardingItemDetails', array('onboardingItemObjRecord'=>$onboardingItemObjRecord, 'breadcrumbTop'=>$breadcrumbTop, 'title'=>$title, 'widgetTitle'=>$widgetTitle, 'buttonTitle'=>$buttonTitle, 'departmentArr'=>$departmentArr));
+	}
+
+	public function actionDeleteOnboardingItem(){
+		$deleteOnboardingItemIds = $this->getParam('deleteCheckBox', '');
+
+		if ($deleteOnboardingItemIds != ''){
+			OnboardingChecklistItem::model()->deleteOnboardingItem($deleteOnboardingItemIds);
+		}
+
+		$this->redirect(array('showAllOnboardingItems'));
 	}
 }

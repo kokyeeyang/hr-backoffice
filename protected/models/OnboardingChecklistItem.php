@@ -64,4 +64,11 @@ class OnboardingChecklistItem extends AppActiveRecord {
 
 		return $arrData;		
 	}
+
+	public function deleteOnboardingItem($deleteOnboardingItemIds){
+		foreach($deleteOnboardingItemIds as $deleteOnboardingItemId){
+			$condition = 'id = ' . $deleteOnboardingItemId;
+			OnboardingChecklistItem::model()->deleteAll($condition);
+		}
+	}
 }
