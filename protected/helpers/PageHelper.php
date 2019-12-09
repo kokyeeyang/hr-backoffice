@@ -184,50 +184,52 @@ class PageHelper {
 		// format the body of the table response here
 		$tableBody = "";
 		$tableBody .= '<tbody id="data_table">';
-		foreach ($dataObjects as $dataObject) {
-			$formUrlViewSelected = Yii::app()->createUrl($formData['form-action-view-selected'], ["id" => $dataObject["id"]]);
+		if ($dataObjects != ''){
+			foreach ($dataObjects as $dataObject) {
+				$formUrlViewSelected = Yii::app()->createUrl($formData['form-action-view-selected'], ["id" => $dataObject["id"]]);
 
-			//TODO : find out what is the actual data structure of the table body
-			$tableBody .= '<tr>';
+				//TODO : find out what is the actual data structure of the table body
+				$tableBody .= '<tr>';
 
-			//set the first column as hyperlink, this shall always be the name/title or anything that is prominent to this entity
-			if ($columnLinkToDetails != false) {
-				$tableBody .= '<td>';
-				$tableBody .= '<a href="' . $formUrlViewSelected . '">';
-				$tableBody .= $dataObject[$columnLinkToDetails];	
-				$tableBody .= '</a>';
-				$tableBody .= '</td>';
-			}
-
-			//all the subsequent column will be looped here
-			foreach($columnDetails as $columnDetail){
-				$tableBody .= '<td>';
-				$tableBody .= $dataObject[$columnDetail];	
-				$tableBody .= '</td>';
-			}
-
-			if($enableButton == true){
-				$emailVariables = $formData['data-email-details'];
-					$clickableButtonTitle = $formData['clickable-button-title'];
+				//set the first column as hyperlink, this shall always be the name/title or anything that is prominent to this entity
+				if ($columnLinkToDetails != false) {
 					$tableBody .= '<td>';
-					$buttonVariables = [];
-
-					foreach($emailVariables as $emailVariable){
-					  $buttonVariables[$emailVariable] = $dataObject[$emailVariable];
-					}
-
-					$tableBody .= '<input type="button" id="' . $formData['send-email-button-id'] . '" ' . $formData['data-email-url-tag'] . Yii::app()->createUrl($formData['data-email-url'], $buttonVariables) . ' value="' . $clickableButtonTitle . '">';
+					$tableBody .= '<a href="' . $formUrlViewSelected . '">';
+					$tableBody .= $dataObject[$columnLinkToDetails];	
+					$tableBody .= '</a>';
 					$tableBody .= '</td>';
-			}
+				}
 
-			//add in the checkbox for the delete
-			if ($deleteColumn == true) {
-				$tableBody .= '<td>';
-				$formUrlViewSelected = Yii::app()->createUrl($formData['foreign-key-check'], ["id" => $dataObject['id']]);
-				$tableBody .= '<input ' . $dataUrlTag . $foreignKeyCheckUrl . ' type="checkbox" name="deleteCheckBox[]" id="deleteCheckBox' . $dataObject['id'] . '" class="deleteCheckBox"' . 'value="' . $dataObject['id'] .'">';
-				$tableBody .= '</td>';
+				//all the subsequent column will be looped here
+				foreach($columnDetails as $columnDetail){
+					$tableBody .= '<td>';
+					$tableBody .= $dataObject[$columnDetail];	
+					$tableBody .= '</td>';
+				}
+
+				if($enableButton == true){
+					$emailVariables = $formData['data-email-details'];
+						$clickableButtonTitle = $formData['clickable-button-title'];
+						$tableBody .= '<td>';
+						$buttonVariables = [];
+
+						foreach($emailVariables as $emailVariable){
+						  $buttonVariables[$emailVariable] = $dataObject[$emailVariable];
+						}
+
+						$tableBody .= '<input type="button" id="' . $formData['send-email-button-id'] . '" ' . $formData['data-email-url-tag'] . Yii::app()->createUrl($formData['data-email-url'], $buttonVariables) . ' value="' . $clickableButtonTitle . '">';
+						$tableBody .= '</td>';
+				}
+
+				//add in the checkbox for the delete
+				if ($deleteColumn == true) {
+					$tableBody .= '<td>';
+					$formUrlViewSelected = Yii::app()->createUrl($formData['foreign-key-check'], ["id" => $dataObject['id']]);
+					$tableBody .= '<input ' . $dataUrlTag . $foreignKeyCheckUrl . ' type="checkbox" name="deleteCheckBox[]" id="deleteCheckBox' . $dataObject['id'] . '" class="deleteCheckBox"' . 'value="' . $dataObject['id'] .'">';
+					$tableBody .= '</td>';
+				}
+				$tableBody .= '</tr>';
 			}
-			$tableBody .= '</tr>';
 		}
 		$tableBody .= '</tbody>';
 

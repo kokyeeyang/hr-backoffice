@@ -252,7 +252,7 @@ class OnboardingController extends Controller
 			$aResult['msg'] 	= '';
 
 			// if click on sorting, then it will be ajax, thus we returnpartial here
-			$aResult['content'] = $this->renderPartial("showAllOnboardingChecklistTemplates", array('strSortKey'=>$strSortKey, 'objPagination'=>$objPagination, 'onboardingChecklistTemplatesArr' => $onboardingChecklistTemplatesArr), true);
+			$aResult['content'] = $this->renderPartial("showAllOnboardingChecklistTemplates", array('strSortKey'=>$strSortKey, 'pageType'=>$pageType, 'objPagination'=>$objPagination, 'onboardingChecklistTemplatesArr' => $onboardingChecklistTemplatesArr), true);
 
 			if(!empty($aResult['content'])){
 				$aResult['result'] 	= 1;
@@ -261,7 +261,7 @@ class OnboardingController extends Controller
 			Yii::app()->end();
 		}
 
-		$this->render("showAllOnboardingChecklistTemplates", array('strSortKey'=>$strSortKey, 'objPagination'=>$objPagination, 'onboardingChecklistTemplatesArr' => $onboardingChecklistTemplatesArr));
+		$this->render("showAllOnboardingChecklistTemplates", array('strSortKey'=>$strSortKey, 'objPagination'=>$objPagination, 'pageType'=>$pageType, 'onboardingChecklistTemplatesArr' => $onboardingChecklistTemplatesArr));
 	}
 
 	public function actionAddNewOnboardingChecklistTemplate(){
