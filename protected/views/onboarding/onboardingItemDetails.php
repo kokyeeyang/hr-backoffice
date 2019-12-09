@@ -13,7 +13,7 @@
   <div class="common_content_inner_wrapper">
     <h4 class="widget_title"><?php echo $widgetTitle; ?>
     </h4>
-    <form method="post" enctype="multipart/form-data" id="onboardingChecklistForm" name="onboardingChecklistForm" action="<?php echo $this->createUrl('onboarding/saveOnboardingItem') ?>" >
+    <form method="post" enctype="multipart/form-data" id="onboardingChecklistForm" name="onboardingChecklistForm" action="<?php echo $formAction ?>" >
     	<table style="line-height: 32px;padding-left: 10px;font-size: 15px;">
     		<tr>
     			<td><?php echo Yii::t('app', 'Onboarding checklist item'); ?> </td>
@@ -30,9 +30,7 @@
           <td>:</td>
           <td>
             <?php isset($_GET['id'])?$onboardingItemDescription = $onboardingItemObjRecord->description:$onboardingItemDescription = ''?>
-            <textarea rows="4" name="onboardingItemDescription" id="onboardingItemDescription" cols="22" required/>
-              <?php echo $onboardingItemDescription; ?>
-            </textarea>
+            <textarea rows="4" name="onboardingItemDescription" id="onboardingItemDescription" cols="22" required/><?php echo $onboardingItemDescription; ?></textarea>
           </td>
           </td>
         </tr>
@@ -53,7 +51,6 @@
         <tr>
           <td>
             <?php isset($_GET['id']) && $onboardingItemObjRecord->status == 1?$checkedStatus = 'checked': $checkedStatus = ''?>
-            <?php //$onboardingItemObjRecord->status == 1?$checkedStatus = 'checked': $checkedStatus = ''?>
             <input type="checkbox" name="isActiveCheckbox" id="isActiveCheckbox" value="1" <?php echo $checkedStatus ?>>
             <label for="isActiveCheckbox"><?php echo Yii::t('app', 'Is this item still active?') ?></label>
           </td>
@@ -61,7 +58,6 @@
         <tr>
           <td>
             <?php isset($_GET['id']) && $onboardingItemObjRecord->is_managerial == 1?$checkedStatus = 'checked':$checkedStatus = ''?>
-            <?php //$onboardingItemObjRecord->is_managerial == 1?$checkedStatus = 'checked':''?>
             <input type="checkbox" name="isManagerialCheckbox" id="isManagerialCheckbox" value="1" <?php echo $checkedStatus ?>>
             <label for="isManagerialCheckbox"><?php echo Yii::t('app', 'Is this item for managerial role?') ?></label>
           </td>
@@ -69,14 +65,15 @@
         <tr>
           <td>
             <?php isset($_GET['id']) && $onboardingItemObjRecord->is_offboarding_item == 1?$checkedStatus = 'checked':$checkedStatus = ''?>
-            <?php //$onboardingItemObjRecord->is_offboarding_item == 1?$checkedStatus = 'checked':''?>
             <input type="checkbox" name="isOffboardingCheckbox" id="isOffboardingCheckbox" value="1" <?php echo $checkedStatus ?>>
             <label for="isOffboardingCheckbox"><?php echo Yii::t('app', 'Is this item going to be used for offboarding purposes?') ?></label>
           </td>
         </tr>
     		<tr>
           <td>
-            <input type="submit" value="<?php echo $buttonTitle; ?>">             
+            <input type="submit" value="<?php echo $buttonTitle; ?>">
+            <?php isset($_GET['id'])?$onboardingItemId = $onboardingItemObjRecord->id:$onboardingItemId = '' ?>
+            <input type="hidden" name="onboardingItemId" value="<?php echo $onboardingItemId ?>"/>             
           </td>
         </tr>
     	</table>

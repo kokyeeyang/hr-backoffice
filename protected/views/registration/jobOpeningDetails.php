@@ -30,7 +30,6 @@
     			<td><?php echo Yii::t('app', 'Department'); ?></td>
     			<td>:</td>
     			<td>
-    				<!-- <input type="text" name="department"/> -->
             <select name="departmentDropdown" size=1>
               <option value="" selected disabled hidden>Choose here</option>
               <?php foreach($departmentArr as $iKey => $departmentObj){ ?>

@@ -54,8 +54,9 @@ class OnboardingController extends Controller
 		$buttonTitle = Yii::t('app', 'Save');
 		$onboardingItemObjRecord = '';
 		$departmentArr = Department::model()->findAll();
+		$formAction = $this->createUrl('onboarding/saveOnboardingItem');
 	
-		return $this->render("onboardingItemDetails", array('departmentArr' => $departmentArr, 'breadcrumbTop' => $breadcrumbTop,'title' => $title, 'widgetTitle' => $widgetTitle, 'buttonTitle' => $buttonTitle, 'onboardingItemObjRecord' => $onboardingItemObjRecord));
+		return $this->render("onboardingItemDetails", array('departmentArr' => $departmentArr, 'breadcrumbTop' => $breadcrumbTop,'title' => $title, 'widgetTitle' => $widgetTitle, 'buttonTitle' => $buttonTitle, 'onboardingItemObjRecord' => $onboardingItemObjRecord, 'formAction' => $formAction));
 	}
 
 	public function actionSaveOnboardingItem(){
@@ -198,6 +199,7 @@ class OnboardingController extends Controller
 		$onboardingItemCondition = 'id = ' . $itemId;
 		$onboardingItemObjRecord = OnboardingChecklistItem::model()->find($onboardingItemCondition);
 		$departmentArr = Department::model()->findAll();
+		$formAction = $this->createUrl('onboarding/updateOnboardingItem');
 
 		$breadcrumbTop = Yii::t('app', 'Edit Onboarding Checklist Item');
 		$title = Yii::t('app', 'Edit onboarding checklist item');
@@ -208,7 +210,7 @@ class OnboardingController extends Controller
 			throw new CHttpException(404,'Onboarding item does not exist with the requested id.');
 		}
 
-		$this->render('onboardingItemDetails', array('onboardingItemObjRecord'=>$onboardingItemObjRecord, 'breadcrumbTop'=>$breadcrumbTop, 'title'=>$title, 'widgetTitle'=>$widgetTitle, 'buttonTitle'=>$buttonTitle, 'departmentArr'=>$departmentArr));
+		$this->render('onboardingItemDetails', array('onboardingItemObjRecord'=>$onboardingItemObjRecord, 'breadcrumbTop'=>$breadcrumbTop, 'title'=>$title, 'widgetTitle'=>$widgetTitle, 'buttonTitle'=>$buttonTitle, 'departmentArr'=>$departmentArr, 'formAction'=>$formAction));
 	}
 
 	public function actionDeleteOnboardingItem(){
@@ -220,4 +222,19 @@ class OnboardingController extends Controller
 
 		$this->redirect(array('showAllOnboardingItems'));
 	}
+
+	public function actionUpdateOnboardingItem(){
+		$id = $this->getParam('onboardingItemId', '');
+		$onboardingItemCondition = 'id = "' . $id . '"';
+
+		OnboardingChecklistItem::model()->updateAll([
+			'title' => $this->getParam('onboardingItemName', ''), 'description' => $this->getParam('onboardingItemDescription', ''),
+			'department_owner' => $this->getParam('responsibilityDropdown', ''), 'is_offboarding_item' => $this->getParam('isOffboardingCheckbox', ''),
+			'status' => $this->getParam('isActiveCheckbox', ''), 'is_managerial' => $this->getParam('isManagerialCheckbox', ''),
+			'created_by' => Yii::app()->user->id
+		], $onboardingItemCondition);
+
+		$this->redirect(array('showAllOnboardingItems'));
+	}
+
 }

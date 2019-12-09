@@ -846,8 +846,8 @@ class RegistrationController extends Controller
 
 	public function actionUpdateOfferLetterTemplate($id){
 
-		$offerLetterCondition = 'id = "' . $id . '"';
 		$id = $this->getParam('id', '', '', 'get');
+		$offerLetterCondition = 'id = "' . $id . '"';
 		$offerLetterDepartmentArray = $this->getParam('department', '');
 
 		$departmentArrayInsideDatabase = EmploymentOfferLetterTemplatesMapping::model()->findDepartmentById($id);

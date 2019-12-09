@@ -33,4 +33,5 @@ var OnboardingShowAllOnboardingItems = function() {
   	check_if_deletion_is_selected : _check_if_deletion_is_selected,
 	}
 
-}
+}();
+OnboardingShowAllOnboardingItems.init();

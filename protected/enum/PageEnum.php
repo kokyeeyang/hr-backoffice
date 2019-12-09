@@ -118,8 +118,8 @@ class PageEnum {
 
 											"Onboarding Item" =>
 											array(
-												"entity-name" => "OnboardingTemplate",
-												"breadcrumb-top" => "Show All Onboarding Templates",
+												"entity-name" => "OnboardingItem",
+												"breadcrumb-top" => "Show All Onboarding Items",
 												"breadcrumb-bottom" => "breadcrumb-bottom-key",
 												"form-id" => "onboardingitems-list",
 												"form-action-show-all" => "onboarding/showAllOnboardingItems",
