@@ -45,10 +45,10 @@ class PageHelper {
 		//beginWidget can only work in viewpage, so have to build regular html form
 		$contentBody .= '<form method="post" enctype="multipart/form-data" id="' . $formId . '" action="' . $formUrlShowAll . '">';
 
-		$contentBody .= '<h4 class="widget_title">' . $formTitle;
+		$contentBody .= '<h4 class="widget_title">';
 		$contentBody .= '<input type="text" value="" placeholder="' . $filterResults . '" name="label_filter" id="label_filter" style="width:30%"/>';
 		$contentBody .= '<a href="' . $formUrlAddNew . '">';
-		$contentBody .= '<input type="button" value="' . $addNewButtonLabel . '">';
+		$contentBody .= '<input type="button" value="' . $addNewButtonLabel . '" class="addNewButton">';
 		$contentBody .= '</a>';
 		$contentBody .= '</h4>';
 		$contentBody .= CHtml::hiddenField('mode', $formId);
@@ -152,7 +152,7 @@ class PageHelper {
 			$deleteColumnHeader .= '<div class="sort_wrapper_inner">';
 			$deleteColumnHeader .= '<div class="sort_label_wrapper">';
 			$deleteColumnHeader .= '<div class="sort_label">';
-			$deleteColumnHeader .= '<input type="button" title="' . $deleteButtonTitle . '" id="delete' . $entityName . 'Button" value="Delete selected entries" data-delete-url="' . $formUrlDeleteSelected . '">';
+			$deleteColumnHeader .= '<input type="button" title="' . $deleteButtonTitle . '" id="delete' . $entityName . 'Button" value="Delete" data-delete-url="' . $formUrlDeleteSelected . '" class="deleteButton">';
 			//hidden url to check whether the chosen record to be deleted has any foreign key dependencies
 			//e.g deleting department, but there are still admins belonging to that department
 			//$deleteColumnHeader .= '<input type="button" title="' . $deleteButtonTitle . '" id="delete' . $entityName . 'Button" value="Delete selected entries" data-delete-url="' . $formUrlDeleteSelected . '">';

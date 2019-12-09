@@ -204,7 +204,7 @@ class OnboardingController extends Controller
 		$breadcrumbTop = Yii::t('app', 'Edit Onboarding Checklist Item');
 		$title = Yii::t('app', 'Edit onboarding checklist item');
 		$widgetTitle = Yii::t('app', 'Edit onboarding checklist item');
-		$buttonTitle = Yii::t('app', 'Submit');
+		$buttonTitle = Yii::t('app', 'Update');
 
 		if ($onboardingItemObjRecord == null){
 			throw new CHttpException(404,'Onboarding item does not exist with the requested id.');
@@ -213,7 +213,7 @@ class OnboardingController extends Controller
 		$this->render('onboardingItemDetails', array('onboardingItemObjRecord'=>$onboardingItemObjRecord, 'breadcrumbTop'=>$breadcrumbTop, 'title'=>$title, 'widgetTitle'=>$widgetTitle, 'buttonTitle'=>$buttonTitle, 'departmentArr'=>$departmentArr, 'formAction'=>$formAction));
 	}
 
-	public function actionDeleteOnboardingItem(){
+	public function actionDeleteOnboardingItems(){
 		$deleteOnboardingItemIds = $this->getParam('deleteCheckBox', '');
 
 		if ($deleteOnboardingItemIds != ''){
@@ -235,6 +235,46 @@ class OnboardingController extends Controller
 		], $onboardingItemCondition);
 
 		$this->redirect(array('showAllOnboardingItems'));
+	}
+
+	public function actionShowAllOnboardingChecklistTemplates(){
+		$strSortKey	= $this->getParam('sort_key', '');
+		$pageType = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE;
+
+		$objPagination = $this->getStrSortByList($strSortKey, OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TABLE, false,  CommonEnum::RETURN_PAGINATION);
+		$objCriteria = $this->getStrSortByList($strSortKey, OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TABLE, false, CommonEnum::RETURN_CRITERIA);
+		$onboardingChecklistTemplatesArr = $this->getStrSortByList($strSortKey, OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TABLE, true, CommonEnum::RETURN_TABLE_ARRAY);
+
+		if(isset($_POST['ajax']) && $_POST['ajax']==='onboardingchecklisttemplates-list' && Yii::app()->request->isAjaxRequest){
+			$aResult = [];
+			$aResult['result'] 	= 0;
+			$aResult['content'] = '';
+			$aResult['msg'] 	= '';
+
+			// if click on sorting, then it will be ajax, thus we returnpartial here
+			$aResult['content'] = $this->renderPartial("showAllOnboardingChecklistTemplates", array('strSortKey'=>$strSortKey, 'objPagination'=>$objPagination, 'onboardingChecklistTemplatesArr' => $onboardingChecklistTemplatesArr), true);
+
+			if(!empty($aResult['content'])){
+				$aResult['result'] 	= 1;
+			}
+			echo(json_encode($aResult));
+			Yii::app()->end();
+		}
+
+		$this->render("showAllOnboardingChecklistTemplates", array('strSortKey'=>$strSortKey, 'objPagination'=>$objPagination, 'onboardingChecklistTemplatesArr' => $onboardingChecklistTemplatesArr));
+	}
+
+	public function actionAddNewOnboardingChecklistTemplate(){
+
+		$this->render('onboardingChecklistTemplateDetails');
+	}
+
+	public function actionUpdateOnboardingChecklistTemplate(){
+		$this->redirect(array('showAllOnboardingChecklistTemplates'));
+	}
+
+	public function actionDeleteOnboardingChecklistTemplates(){
+		$this->redirect(array('showAllOnboardingChecklistTemplates'));
 	}
 
 }

@@ -1039,3 +1039,7 @@ div.disabled_button div.right_corner {
 .logo {
 	background-color: #dddddd;
 }
+
+.addNewButton {
+	float:right;
+}

@@ -690,6 +690,15 @@ var Project = function() {
 			});
 		}
 	}	
+
+	function _filter_results(){
+		$("#label_filter").on("keyup", function() {
+	    var value = $(this).val().toLowerCase();
+	    $("#data_table tr").filter(function() {
+	      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	    });
+	  });
+	}
 		
 	function _init(){	
 		$(function() {
@@ -706,6 +715,7 @@ var Project = function() {
 			Project.init_flash_error();
 			Project.init_flash_alert();
 			Project.init_leftnav_iframe_link();
+			Project.filter_results();
 		});
 	}
 	
@@ -735,7 +745,8 @@ var Project = function() {
 		hide_loading			    : _hide_loading,
 		copy_code					: _copy_code,
 		onload_iframe				: _onload_iframe,
-		init					    : _init
+		init					    : _init,
+		filter_results    : _filter_results
 	}
 }();
 Project.init();

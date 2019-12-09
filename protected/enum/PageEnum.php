@@ -15,9 +15,8 @@ class PageEnum {
 
 												"form-id" => "department-list",
 												"form-action-show-all" => "admin/showAllDepartments",
-												"form-title" => "All Departments",
 												"form-action-add-new" => "admin/addNewDepartment",
-												"add-new-record-title" => "Add new department",
+												"add-new-record-title" => "Create",
 												"table-header" => array("Department", "Description"),
 												"form-action-delete-selected" => "admin/deleteSelectedDepartments",
 												"form-action-view-selected" => "admin/viewSelectedDepartment",
@@ -36,11 +35,10 @@ class PageEnum {
 											"Offer Letter" => 
 											array(
 												"entity-name" => "OfferLetter",
-												"breadcrumb-top" => "Show All Offer Letters",
+												"breadcrumb-top" => "Create",
 												"breadcrumb-bottom" => "breadcrumb-bottom-key",
 												"form-id" => "offerletter-list",
 												"form-action-show-all" => "registration/showOfferLetterTemplates",
-												"form-title" => "All Offer Letters",
 												"form-action-add-new" => "registration/addNewOfferLetter",
 												"add-new-record-title" => "Add new offer letter",
 												"table-header" => array("offer_letter_title", "is_managerial", "department_title"),
@@ -66,9 +64,8 @@ class PageEnum {
 												"breadcrumb-bottom" => "breadcrumb-bottom-key",
 												"form-id" => "jobopening-list",
 												"form-action-show-all" => "registration/showAllJobOpenings",
-												"form-title" => "All Job Openings",
 												"form-action-add-new" => "registration/addNewJobOpenings",
-												"add-new-record-title" => "Add new job opening",
+												"add-new-record-title" => "Create",
 												"table-header" => array("job_title", "department", "interviewing_manager", "created_date", "email"),
 												"form-action-delete-selected" => "registration/deleteSelectedJobOpenings",
 												"column-details" => array("job_title", "department", "interviewing_manager", "created_date"),
@@ -100,9 +97,8 @@ class PageEnum {
 												"breadcrumb-bottom" => "breadcrumb-bottom-key",
 												"form-id" => "candidatestatus-list",
 												"form-action-show-all" => "registration/showAllCandidateStatus",
-												"form-title" => "All Candidate Status",
 												"form-action-add-new" => "registration/addNewCandidateStatus",
-												"add-new-record-title" => "Add new candidate status",
+												"add-new-record-title" => "Create",
 												"table-header" => array("title"),
 												"form-action-delete-selected" => "registration/deleteCandidateStatus",
 												"column-details" => array("title"),
@@ -123,11 +119,10 @@ class PageEnum {
 												"breadcrumb-bottom" => "breadcrumb-bottom-key",
 												"form-id" => "onboardingitems-list",
 												"form-action-show-all" => "onboarding/showAllOnboardingItems",
-												"form-title" => "All Onboarding Items",
 												"form-action-add-new" => "onboarding/addNewOnboardingItem",
-												"add-new-record-title" => "Add new onboarding item",
+												"add-new-record-title" => "Create",
 												"table-header" => array("title", "department_owner", "is_offboarding_item", "status", "is_managerial"),
-												"form-action-delete-selected" => "onboarding/deleteOnboardingItem",
+												"form-action-delete-selected" => "onboarding/deleteOnboardingItems",
 												"column-details" => array("department_owner", "is_offboarding_item", "status", "is_managerial"),
 												"alert-data-msg" => array(
 												"msg-confirm-delete" => "Are you sure that you want to delete the selected onboarding item?",
@@ -137,6 +132,28 @@ class PageEnum {
 												"column-link-to-details" => "title",
 												"form-action-view-selected" => "onboarding/viewSelectedOnboardingItem",
 												"msg-foreign-key" => ""
-											) 
+											),
+
+											"Onboarding Checklist Template" =>
+											array(
+												"entity-name" => "OnboardingChecklistTemplate",
+												"breadcrumb-top" => "Show All Onboarding Checklist Templates",
+												"breadcrumb-bottom" => "breadcrumb-bottom-key",
+												"form-id" => "onboardingchecklisttemplates-list",
+												"form-action-show-all" => "onboarding/showAllOnboardingChecklistTemplates",
+												"form-action-add-new" => "onboarding/addNewOnboardingChecklistTemplate",
+												"add-new-record-title" => "Create",
+												"table-header" => array("title"),
+												"form-action-delete-selected" => "onboarding/deleteOnboardingChecklistItem",
+												"column-details" => array("title"),
+												"alert-data-msg" => array(
+												"msg-confirm-delete" => "Are you sure that you want to delete the selected onboarding checklist template?",
+												"msg-select-delete" => "Please select a template that you would like to delete!"),
+												"data-url" => "",
+												"foreign-key-check" => "",
+												"column-link-to-details" => "title",
+												"form-action-view-selected" => "onboarding/viewSelectedOnboardingItem",
+												"msg-foreign-key" => ""
+											)
 										);
 }

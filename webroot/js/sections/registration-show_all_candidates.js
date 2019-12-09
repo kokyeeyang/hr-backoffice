@@ -35,13 +35,6 @@ var RegistrationShowAllCandidates = function() {
 				RegistrationShowAllCandidates.check_if_deletion_is_selected(this, objEvent);
 			});
 
-			$("#label_filter").on("keyup", function() {
-		    var value = $(this).val().toLowerCase();
-		    $("#data_table tr").filter(function() {
-		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-		    });
-		  });
-
 		  $('input[name=editCandidateButton]').on('click', function(objEvent){
 		  	RegistrationShowAllCandidates.view_selected_candidate(this, objEvent);
 		  });

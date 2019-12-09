@@ -19,7 +19,7 @@ class OnboardingChecklistTemplate extends AppActiveRecord {
 
 	public function attributeLabels(){
 		return [																				
-			'name' => Yii::t('app', 'name'),
+			'title' => Yii::t('app', 'title'),
 			'description' => Yii::t('app', 'description'),
 			'created_date' => Yii::t('app', 'created_date'),
 			'created_by' => Yii::t('app', 'created_by')
