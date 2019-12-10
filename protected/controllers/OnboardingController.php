@@ -265,8 +265,11 @@ class OnboardingController extends Controller
 	}
 
 	public function actionAddNewOnboardingChecklistTemplate(){
+		$header = Yii::t('app', 'Add new Onboarding Checklist Template');
+		$formAction = $this->createUrl('onboarding/saveOnboardingChecklistTemplate');
+		$departmentArr = Department::model()->queryForDepartmentDetails($departmentCondition);
 
-		$this->render('onboardingChecklistTemplateDetails');
+		$this->render('onboardingChecklistTemplateDetails', array('header'=>$header,'formAction'=>$formAction,'departmentArr'=>$departmentArr,''=>$,));
 	}
 
 	public function actionUpdateOnboardingChecklistTemplate(){

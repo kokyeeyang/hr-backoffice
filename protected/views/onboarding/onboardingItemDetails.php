@@ -20,7 +20,7 @@
     			<td>:</td>
     			<td>
             <?php isset($_GET['id'])?$onboardingItemTitle = $onboardingItemObjRecord->title:$onboardingItemTitle = ''?>
-    				<input type="text" name="onboardingItemName" value="<?php echo $onboardingItemTitle ?>" value="<?php ?>"/>
+    				<input type="text" name="onboardingItemName" value="<?php echo $onboardingItemTitle ?>" value="<?php ?>" required/>
     			</td>
     		</tr>
         <tr>
