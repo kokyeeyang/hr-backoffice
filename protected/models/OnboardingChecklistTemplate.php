@@ -38,4 +38,14 @@ class OnboardingChecklistTemplate extends AppActiveRecord {
 		return parent::model($className);
 	}
 
+	public function queryForOnboardingChecklistTemplateDetails($queryResults){
+		$sql = 'SELECT ' . $queryResults . ' FROM ' . self::$tableName;
+
+		$objConnection 	= Yii::app()->db;
+		$objCommand		= $objConnection->createCommand($sql);
+		$arrData		= $objCommand->queryRow();
+
+		return $arrData;
+	}
+
 }

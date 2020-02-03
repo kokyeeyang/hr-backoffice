@@ -4,7 +4,7 @@
 echo PageHelper::printFormListingHeader($pageType);
 
 //output the body content
-echo PageHelper::printFormListingBody($pageType, $strSortKey, true, $onboardingItemsArr, true, $objPagination, false);
+echo PageHelper::printFormListingBody($pageType, $strSortKey, true, $onboardingItemsArr, true, false);
 
 if(isset($onboardingItemsArr[0])){		
 	echo $this->renderFile(Yii::getPathOfAlias('application.views.layouts') . '/pagination.php', array('objPagination' => $objPagination));

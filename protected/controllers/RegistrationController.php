@@ -359,18 +359,18 @@ class RegistrationController extends Controller
 		$arrRecords = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, false, CommonEnum::RETURN_TABLE_ARRAY);
 
 		if(isset($_POST['ajax']) && $_POST['ajax']==='jobopening-list' && Yii::app()->request->isAjaxRequest){
-			$aResult = [];
-			$aResult['result'] 	= 0;
-			$aResult['content'] = '';
-			$aResult['msg'] 	= '';
+		    $aResult = [];
+		    $aResult['result'] 	= 0;
+		    $aResult['content'] = '';
+		    $aResult['msg'] 	= '';
 
-			$aResult['content'] = $this->renderPartial('showAllJobOpenings', ['strSortKey'=>$strSortKey, 'arrRecords'=>$arrRecords, 'objPagination'=>$objPagination, 'pageType'=>$pageType], true);
+		    $aResult['content'] = $this->renderPartial('showAllJobOpenings', ['strSortKey'=>$strSortKey, 'arrRecords'=>$arrRecords, 'objPagination'=>$objPagination, 'pageType'=>$pageType], true);
 
-			if(!empty($aResult['content'])){
-				$aResult['result'] 	= 1;
-			}
-			echo(json_encode($aResult));
-			Yii::app()->end();		
+		    if(!empty($aResult['content'])){
+			    $aResult['result'] 	= 1;
+		    }
+		    echo(json_encode($aResult));
+		    Yii::app()->end();		
 		}
 
 		$this->render('showAllJobOpenings', ['strSortKey'=>$strSortKey, 'arrRecords'=>$arrRecords, 'objPagination'=>$objPagination, 'pageType'=>$pageType]);

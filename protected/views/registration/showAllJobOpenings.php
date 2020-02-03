@@ -3,10 +3,10 @@
 echo PageHelper::printFormListingHeader($pageType);
 
 //output the body content
-echo PageHelper::printFormListingBody($pageType, $strSortKey, true, $arrRecords, true, $objPagination, true);
+echo PageHelper::printFormListingBody($pageType, $strSortKey, true, $arrRecords, true, true);
 
 if(isset($arrRecords[0])){
-	echo $this->renderFile(Yii::getPathOfAlias('application.views.layouts') . '/pagination.php', array('objPagination' => $objPagination));
+    echo $this->renderFile(Yii::getPathOfAlias('application.views.layouts') . '/pagination.php', array('objPagination' => $objPagination));
 }// - end: if
 ?>
 

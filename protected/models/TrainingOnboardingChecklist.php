@@ -87,12 +87,10 @@ class TrainingOnboardingChecklist extends AppActiveRecord {
 
 				return $arrData;
 			}
-				// var_dump($arrData);exit;
 		}else if($completedStatus == false){
 			foreach($itemIds as $itemId){
 				$satisfied = 0;
 				$sql = "SELECT onboarding_item_id FROM " . self::$tableName;
-				// $sql .= " WHERE completed == " . $satisfied;
 				$sql .= " WHERE onboarding_item_id = " . $itemId;
 
 				$objConnection 	= Yii::app()->db;
@@ -101,7 +99,6 @@ class TrainingOnboardingChecklist extends AppActiveRecord {
 
 				return $arrData;
 			}
-			// var_dump($arrData);exit;
 		} 
 	}
 
