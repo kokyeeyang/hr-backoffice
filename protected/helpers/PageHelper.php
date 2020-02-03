@@ -280,11 +280,4 @@ class PageHelper {
 	return $alertMessage;
     }
 
-    private static function includeFileWithVariables($fileName, $objPagination){
-	extract($objPagination);
-	ob_start();
-	include($fileName);
-	return ob_get_clean();
-    }
-
 }
