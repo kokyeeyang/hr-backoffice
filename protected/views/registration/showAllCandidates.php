@@ -129,7 +129,7 @@
 						</td>
 						<td>
 							<select name="positionDropdown" size=1 class="changeCandidatePosition" data-change-url="<?php echo $this->createUrl('registration/changeCandidatePosition', array('candidateId' => $objRecord['id_no'])); ?>" title="Select here if you would like to change this candidate's applied for job">
-								 <option value="<?php echo($objRecord['job_id']); ?>" selected disabled hidden><?php echo $objRecord['job_title'] ?></option>
+								<option value="<?php echo($objRecord['job_id']); ?>" selected disabled hidden><?php echo $objRecord['job_title'] ?></option>
 								<?php foreach($jobTitleArrRecords as $intIndex => $jobTitleObjRecord){ ?>
 									<option value="<?php echo($jobTitleObjRecord['id']); ?>"><?php echo $jobTitleObjRecord['job_title']; ?></option>
 								<?php }?>

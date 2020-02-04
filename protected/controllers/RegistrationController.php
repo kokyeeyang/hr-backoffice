@@ -693,56 +693,56 @@ class RegistrationController extends Controller
 
 	// TODO: change function name because this is confusing
 	public function actionChangeCandidateStatus($candidateId){
-		$candidateCondition = 'id_no = "' . $candidateId . '"';
+	    $candidateCondition = 'id_no = "' . $candidateId . '"';
 
-		EmploymentCandidate::model()->updateAll(['candidate_status'=>7], $candidateCondition);
+	    EmploymentCandidate::model()->updateAll(['candidate_status'=>7], $candidateCondition);
 
-		$this->redirect(array('showAllCandidates'));
+	    $this->redirect(array('showAllCandidates'));
 	}
 
 	public function actionChangeCandidateStatusToSigned($candidateId){
-		$candidateCondition = 'id_no = "' . $candidateId . '"';
-		EmploymentCandidate::model()->updateAll(['candidate_status'=>6], $candidateCondition);
+	    $candidateCondition = 'id_no = "' . $candidateId . '"';
+	    EmploymentCandidate::model()->updateAll(['candidate_status'=>6], $candidateCondition);
 
-		$this->redirect(array('showAllCandidates'));
+	    $this->redirect(array('showAllCandidates'));
 	}
 
 	public function actionChangeCandidatePosition($candidateId){
-		$candidateCondition = 'id_no = "' . $candidateId . '"';
-		$job_id = $this->getParam('positionDropdown','');
+	    $candidateCondition = 'id_no = "' . $candidateId . '"';
+	    $job_id = $this->getParam('positionDropdown','');
 
-		EmploymentCandidate::model()->updateAll(['job_id'=>$job_id], $candidateCondition);
+	    EmploymentCandidate::model()->updateAll(['job_id'=>$job_id], $candidateCondition);
 
-		$this->redirect(['showAllCandidates']);
+	    $this->redirect(['showAllCandidates']);
 	}
 
 	public function actionShowOfferLetterTemplates(){
-		$pageType = OfferLetterEnum::OFFER_LETTER;
-		$strSortKey = $this->getParam('sort_key', '');
+	    $pageType = OfferLetterEnum::OFFER_LETTER;
+	    $strSortKey = $this->getParam('sort_key', '');
 
-		$objPagination = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL, CommonEnum::RETURN_PAGINATION);
-		$objCriteria = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL, CommonEnum::RETURN_CRITERIA);
-		$offerLetterArr = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
+	    $objPagination = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL, CommonEnum::RETURN_PAGINATION);
+	    $objCriteria = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL, CommonEnum::RETURN_CRITERIA);
+	    $offerLetterArr = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
 
-		if(isset($_POST['ajax']) && $_POST['ajax']==='offerletter-list' && Yii::app()->request->isAjaxRequest){
-			$aResult = [];
-			$aResult['result'] 	= 0;
-			$aResult['content'] = '';
-			$aResult['msg'] 	= '';
+	    if(isset($_POST['ajax']) && $_POST['ajax']==='offerletter-list' && Yii::app()->request->isAjaxRequest){
+		$aResult = [];
+		$aResult['result'] 	= 0;
+		$aResult['content'] = '';
+		$aResult['msg'] 	= '';
 
-			// if click on sorting, then it will be ajax, thus we returnpartial here	
-			$aResult['content'] = $this->renderPartial('showAllOfferLetterTemplates', ['strSortKey'=>$strSortKey,'offerLetterArr'=>$offerLetterArr, 'objPagination'=>$objPagination, 'pageType'=>$pageType], true);
+		// if click on sorting, then it will be ajax, thus we returnpartial here	
+		$aResult['content'] = $this->renderPartial('showAllOfferLetterTemplates', ['strSortKey'=>$strSortKey,'offerLetterArr'=>$offerLetterArr, 'objPagination'=>$objPagination, 'pageType'=>$pageType], true);
 
-			if(!empty($aResult['content'])){
-				$aResult['result'] 	= 1;
-			}
+		if(!empty($aResult['content'])){
+		    $aResult['result'] 	= 1;
+		}
 
-			echo(json_encode($aResult));
-			Yii::app()->end();		
-		} // - end: if
+		echo(json_encode($aResult));
+		Yii::app()->end();		
+	    } // - end: if
 
-		// we return whole page here
-		$this->render('showAllOfferLetterTemplates', ['offerLetterArr'=>$offerLetterArr, 'pageType'=>$pageType, 'strSortKey'=>$strSortKey, 'objPagination'=>$objPagination]);
+	    // we return whole page here
+	    $this->render('showAllOfferLetterTemplates', ['offerLetterArr'=>$offerLetterArr, 'pageType'=>$pageType, 'strSortKey'=>$strSortKey, 'objPagination'=>$objPagination]);
 	}
 
 	public function actionAddNewOfferLetter(){
@@ -1021,7 +1021,7 @@ class RegistrationController extends Controller
 		$objPagination->applyLimit($objCriteria);
 
 		$intPage = $this->intPage;
-
+		
 		switch($pageVar){
 			case CommonEnum::RETURN_PAGINATION:
 				return $objPagination;

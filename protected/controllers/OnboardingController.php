@@ -267,19 +267,20 @@ class OnboardingController extends Controller
 	public function actionAddNewOnboardingChecklistTemplate(){
 		$header = Yii::t('app', 'Add new Onboarding Checklist Template');
 		$formAction = $this->createUrl('onboarding/saveOnboardingChecklistTemplate');
-		$departmentTitle = DepartmentEnum::DEPARTMENT_TITLE;
-		$departmentId = 'id';
-		$departmentCondition = $departmentTitle . ',' . $departmentId;
-		$departmentArr = Department::model()->queryForDepartmentDetails($departmentCondition);
+//		$departmentTitle = DepartmentEnum::DEPARTMENT_TITLE;
+//		$departmentId = 'id';
+//		$departmentCondition = $departmentTitle . ',' . $departmentId;
+//		$departmentArr = Department::model()->queryForDepartmentDetails($departmentCondition);
+		$onboardingItemTitleArrRecord = OnboardingChecklistItem::model()->queryForOnboardingItemTitles();
 
 		//query for existing onboarding checklist template details inside onboarding_checklist_template table
 		$onboardingChecklistTemplateTitle = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TITLE;
 		$onboardingChecklistTemplateDescription = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_DESCRIPTION;
 		$onboardingCheckListTemplateCondition = $onboardingChecklistTemplateTitle . ',' . $onboardingChecklistTemplateDescription;
-
+		
 		$onboardingChecklistTemplateObjRecord = OnboardingChecklistTemplate::model()->queryForOnboardingChecklistTemplateDetails($onboardingCheckListTemplateCondition);
 
-		$this->render('onboardingChecklistTemplateDetails', array('header'=>$header,'formAction'=>$formAction,'departmentArr'=>$departmentArr));
+		$this->render('onboardingChecklistTemplateDetails', array('header'=>$header,'formAction'=>$formAction, 'onboardingItemTitleArrRecord'=>$onboardingItemTitleArrRecord));
 	}
 
 	public function actionUpdateOnboardingChecklistTemplate(){
@@ -288,6 +289,10 @@ class OnboardingController extends Controller
 
 	public function actionDeleteOnboardingChecklistTemplates(){
 		$this->redirect(array('showAllOnboardingChecklistTemplates'));
+	}
+	
+	public function actionQueryForOnboardingItemDetails(){
+	    
 	}
 
 }

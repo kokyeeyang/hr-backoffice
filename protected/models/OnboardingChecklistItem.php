@@ -66,9 +66,20 @@ class OnboardingChecklistItem extends AppActiveRecord {
 	}
 
 	public function deleteOnboardingItem($deleteOnboardingItemIds){
-		foreach($deleteOnboardingItemIds as $deleteOnboardingItemId){
-			$condition = 'id = ' . $deleteOnboardingItemId;
-			OnboardingChecklistItem::model()->deleteAll($condition);
-		}
+	    foreach($deleteOnboardingItemIds as $deleteOnboardingItemId){
+		$condition = 'id = ' . $deleteOnboardingItemId;
+		OnboardingChecklistItem::model()->deleteAll($condition);
+	    }
+	}
+	
+	public function queryForOnboardingItemTitles(){
+	    $sql = 'SELECT title FROM ' . self::$tableName;
+	    $sql .= ' WHERE status = 1'; 
+	    
+	    $objConnection = Yii::app()->db;
+	    $objCommand = $objConnection->createCommand($sql);
+	    $arrData = $objCommand->queryAll($sql);
+
+	    return $arrData;
 	}
 }
