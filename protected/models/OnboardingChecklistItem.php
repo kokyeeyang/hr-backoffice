@@ -57,7 +57,7 @@ class OnboardingChecklistItem extends AppActiveRecord {
 		$sql .= 'ON ECI.department_owner = D.id ';
 		$sql .= 'ORDER BY ' . $strSortBy;
 		$sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
-
+		
 		$objConnection = Yii::app()->db;
 		$objCommand = $objConnection->createCommand($sql);
 		$arrData = $objCommand->queryAll($sql);
@@ -73,7 +73,7 @@ class OnboardingChecklistItem extends AppActiveRecord {
 	}
 	
 	public function queryForOnboardingItemTitles(){
-	    $sql = 'SELECT title FROM ' . self::$tableName;
+	    $sql = 'SELECT id, title FROM ' . self::$tableName;
 	    $sql .= ' WHERE status = 1'; 
 	    
 	    $objConnection = Yii::app()->db;

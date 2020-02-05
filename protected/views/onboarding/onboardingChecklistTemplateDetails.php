@@ -80,16 +80,24 @@
 		    </tr>
 		</thead>
 		<tbody id="data_table">
-		  <tr>
-		    <td>
-			<select name="onboardingItemDropdown" size=1 class="selectOnboardingItemTitle">
-			  <option value="" selected disabled hidden>Choose here</option>
+		  <tr class="onboardingItemTr">
+		    <td class="onboardingItemTd">
+			<select name="onboardingItemDropdown" size=1 class="selectOnboardingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
+			  <option value="" selected>Choose here</option>
 			  <?php foreach ($onboardingItemTitleArrRecord as $intIndex => $onboardingItemTitleObjRecord){ ?>
-			  <option value="<?php echo $onboardingItemTitleObjRecord['title']; ?>" data-select-url="<?php echo $this->createUrl('onboarding/queryForOnboardingItemDetails'); ?>">
+			  <option value="<?php echo $onboardingItemTitleObjRecord['id']; ?>">
 			    <?php echo $onboardingItemTitleObjRecord['title']; ?>
 			  </option>
 			  <?php } ?>
 			</select>
+		    </td>
+		    <td class="description">
+		    </td>
+		    <td class="departmentOwner">
+		    </td>
+		    <td class="isOffboardingItem">
+		    </td>
+		    <td class="status">
 		    </td>
 		  </tr>
 		</tbody>

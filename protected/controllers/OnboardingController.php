@@ -267,19 +267,55 @@ class OnboardingController extends Controller
 	public function actionAddNewOnboardingChecklistTemplate(){
 		$header = Yii::t('app', 'Add new Onboarding Checklist Template');
 		$formAction = $this->createUrl('onboarding/saveOnboardingChecklistTemplate');
-//		$departmentTitle = DepartmentEnum::DEPARTMENT_TITLE;
-//		$departmentId = 'id';
-//		$departmentCondition = $departmentTitle . ',' . $departmentId;
-//		$departmentArr = Department::model()->queryForDepartmentDetails($departmentCondition);
 		$onboardingItemTitleArrRecord = OnboardingChecklistItem::model()->queryForOnboardingItemTitles();
-
+		
 		//query for existing onboarding checklist template details inside onboarding_checklist_template table
 		$onboardingChecklistTemplateTitle = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TITLE;
 		$onboardingChecklistTemplateDescription = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_DESCRIPTION;
 		$onboardingCheckListTemplateCondition = $onboardingChecklistTemplateTitle . ',' . $onboardingChecklistTemplateDescription;
 		
 		$onboardingChecklistTemplateObjRecord = OnboardingChecklistTemplate::model()->queryForOnboardingChecklistTemplateDetails($onboardingCheckListTemplateCondition);
+		
+//	        $onboardingItemId = 22;
+//	        $onboardingItemCondition = 'id = ' . $onboardingItemId;
+//
+//	        $aResult['content']= OnboardingChecklistItem::model()->find($onboardingItemCondition);
+//		
+//		var_dump($aResult['content']['department_owner']);exit;
+		 
+		if(isset($_POST['ajax']) && $_POST['ajax']==='onboardingChecklistTemplateForm' && Yii::app()->request->isAjaxRequest){
+		   //$header = Yii::t('app', 'Add new Onboarding Checklist Template');
+//		   $formAction = $this->createUrl('onboarding/saveOnboardingChecklistTemplate');
+//		   $onboardingItemTitleArrRecord = OnboardingChecklistItem::model()->queryForOnboardingItemTitles();
+		    
+		   $aResult = [];
+		   $aResult['result'] 	= 0;
+		   $aResult['content'] = '';
+		   $aResult['msg'] 	= '';
+		   
+//		   $onboardingItemId = $this->getParam('onboardingItemDropdown');
+		   $onboardingItemId = $this->getParam('onboarding_item_id');
+		   $onboardingItemCondition = 'id = ' . $onboardingItemId;
 
+//		   $aResult['content']= OnboardingChecklistItem::model()->find($onboardingItemCondition); 
+		   $selectedOnboardingItem= OnboardingChecklistItem::model()->find($onboardingItemCondition); 
+		   
+		   $aResult['description'] = $selectedOnboardingItem['description'];
+		   $aResult['department_owner'] = $selectedOnboardingItem['department_owner'];
+		   $aResult['is_offboarding_item'] = $selectedOnboardingItem['is_offboarding_item'];
+		   $aResult['status'] = $selectedOnboardingItem['status'];
+//		   $aResult['content'] = $this->renderPartial('onboardingChecklistTemplateDetails', ['onboardingItemArrRecords'=>$onboardingItemArrRecords, 'header'=>$header, 'formAction'=>$formAction, 'onboardingItemTitleArrRecord'=>$onboardingItemTitleArrRecord], true);
+//		    $aResult['content'] = $onboardingItemArrRecords;
+		    
+		    if(!empty($aResult['content'])){
+			$aResult['result'] 	= 1;
+		    }
+		    echo(json_encode($aResult));
+		    Yii::app()->end();
+//		   $this->render('onboardingChecklistTemplateDetails', array('header'=>$header,'formAction'=>$formAction, 'onboardingItemTitleArrRecord'=>$onboardingItemTitleArrRecord, 'onboardingItemArrRecords'=>$onboardingItemArrRecords));
+//		   $this->redirect(['addNewOnboardingChecklistTemplate'], array('header'=>$header,'formAction'=>$formAction, 'onboardingItemTitleArrRecord'=>$onboardingItemTitleArrRecord, 'onboardingItemArrRecords'=>$onboardingItemArrRecords));
+		}
+		
 		$this->render('onboardingChecklistTemplateDetails', array('header'=>$header,'formAction'=>$formAction, 'onboardingItemTitleArrRecord'=>$onboardingItemTitleArrRecord));
 	}
 
@@ -292,7 +328,25 @@ class OnboardingController extends Controller
 	}
 	
 	public function actionQueryForOnboardingItemDetails(){
-	    
+	    if(isset($_POST['ajax']) && $_POST['ajax']==='onboardingChecklistTemplateForm' && Yii::app()->request->isAjaxRequest){
+		$header = Yii::t('app', 'Add new Onboarding Checklist Template');
+		$formAction = $this->createUrl('onboarding/saveOnboardingChecklistTemplate');
+		$onboardingItemTitleArrRecord = OnboardingChecklistItem::model()->queryForOnboardingItemTitles();
+		
+		$onboardingItemId = $this->getParam('onboardingItemDropdown');
+		$onboardingItemCondition = 'id = ' . $onboardingItemId;
+		
+		$onboardingItemArrRecords= OnboardingChecklistItem::model()->findAll($onboardingItemCondition);
+		
+		$aResult = [];
+	        $aResult['result'] 	= 0;
+	        $aResult['content'] = '';
+	        $aResult['msg'] 	= '';
+		
+		$aResult['content'] = $this->renderPartial('onboardingChecklistTemplateDetails', ['onboardingItemArrRecords'=>$onboardingItemArrRecords, 'header'=>$header, 'formAction'=>$formAction,'onboardingItemTitleArrRecord'=>$onboardingItemTitleArrRecord], true);
+//		$this->render('onboardingChecklistTemplateDetails', array('onboardingItemArrRecords'=>$onboardingItemArrRecords, 'header'=>$header, 'formAction'=>$formAction,'onboardingItemTitleArrRecord'=>$onboardingItemTitleArrRecord));
+//		$this->redirect(['addNewOnboardingChecklistTemplate'], array('onboardingItemArrRecords'=>$onboardingItemArrRecords, 'header'=>$header, 'formAction'=>$formAction,'onboardingItemTitleArrRecord'=>$onboardingItemTitleArrRecord));
+	    }
 	}
 
 }

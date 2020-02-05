@@ -84,7 +84,6 @@ class PageEnum {
 		    "data-email-url-tag" => "data-email-url=",
 		    "data-email-url" => "registration/generateEmail",
 		    "data-email-details" => array("id", "job_title"),
-		    "data-url" => "data-url=",
 		    "clickable-button-title" => "Generate Email",
 		    "foreign-key-check" => "registration/checkCandidateJobOpeningExist",
 		    "msg-foreign-key-id" => "candidateJobOpeningExist",
