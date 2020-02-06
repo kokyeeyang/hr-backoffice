@@ -64,7 +64,11 @@ class OnboardingController extends Controller
 		$onboardingItemObjModel->title = $this->getParam('onboardingItemName', '');
 		$onboardingItemObjModel->description = $this->getParam('onboardingItemDescription', '');
 		$onboardingItemObjModel->department_owner = $this->getParam('responsibilityDropdown', '');
-		$onboardingItemObjModel->is_offboarding_item = $this->getParam('isOffboardingCheckbox', '');
+		if ($this->getParam('isOffboardingCheckbox', '') == null){
+		    $onboardingItemObjModel->is_offboarding_item = 0;
+		} else {
+		    $onboardingItemObjModel->is_offboarding_item = $this->getParam('isOffboardingCheckbox', '');
+		}
 		$onboardingItemObjModel->status = $this->getParam('isActiveCheckbox', '');
  		$onboardingItemObjModel->is_managerial = $this->getParam('isManagerialCheckbox', '');
  		$onboardingItemObjModel->created_by = Yii::app()->user->id;
@@ -226,12 +230,18 @@ class OnboardingController extends Controller
 	public function actionUpdateOnboardingItem(){
 		$id = $this->getParam('onboardingItemId', '');
 		$onboardingItemCondition = 'id = "' . $id . '"';
-
+		
+		$isOffBoarding = $this->getParam('isOffboardingCheckbox', '');
+		
+		if ($this->getParam('isOffboardingCheckbox', '') == null){
+		    $isOffBoarding = 0;
+		}
+		
 		OnboardingChecklistItem::model()->updateAll([
-			'title' => $this->getParam('onboardingItemName', ''), 'description' => $this->getParam('onboardingItemDescription', ''),
-			'department_owner' => $this->getParam('responsibilityDropdown', ''), 'is_offboarding_item' => $this->getParam('isOffboardingCheckbox', ''),
-			'status' => $this->getParam('isActiveCheckbox', ''), 'is_managerial' => $this->getParam('isManagerialCheckbox', ''),
-			'created_by' => Yii::app()->user->id
+		    'title' => $this->getParam('onboardingItemName', ''), 'description' => $this->getParam('onboardingItemDescription', ''),
+		    'department_owner' => $this->getParam('responsibilityDropdown', ''), 'is_offboarding_item' => $isOffBoarding,
+		    'status' => $this->getParam('isActiveCheckbox', ''), 'is_managerial' => $this->getParam('isManagerialCheckbox', ''),
+		    'created_by' => Yii::app()->user->id
 		], $onboardingItemCondition);
 
 		$this->redirect(array('showAllOnboardingItems'));
@@ -276,44 +286,24 @@ class OnboardingController extends Controller
 		
 		$onboardingChecklistTemplateObjRecord = OnboardingChecklistTemplate::model()->queryForOnboardingChecklistTemplateDetails($onboardingCheckListTemplateCondition);
 		
-//	        $onboardingItemId = 22;
-//	        $onboardingItemCondition = 'id = ' . $onboardingItemId;
-//
-//	        $aResult['content']= OnboardingChecklistItem::model()->find($onboardingItemCondition);
-//		
-//		var_dump($aResult['content']['department_owner']);exit;
-		 
 		if(isset($_POST['ajax']) && $_POST['ajax']==='onboardingChecklistTemplateForm' && Yii::app()->request->isAjaxRequest){
-		   //$header = Yii::t('app', 'Add new Onboarding Checklist Template');
-//		   $formAction = $this->createUrl('onboarding/saveOnboardingChecklistTemplate');
-//		   $onboardingItemTitleArrRecord = OnboardingChecklistItem::model()->queryForOnboardingItemTitles();
-		    
 		   $aResult = [];
 		   $aResult['result'] 	= 0;
 		   $aResult['content'] = '';
 		   $aResult['msg'] 	= '';
 		   
-//		   $onboardingItemId = $this->getParam('onboardingItemDropdown');
 		   $onboardingItemId = $this->getParam('onboarding_item_id');
-		   $onboardingItemCondition = 'id = ' . $onboardingItemId;
-
-//		   $aResult['content']= OnboardingChecklistItem::model()->find($onboardingItemCondition); 
-		   $selectedOnboardingItem= OnboardingChecklistItem::model()->find($onboardingItemCondition); 
-		   
-		   $aResult['description'] = $selectedOnboardingItem['description'];
-		   $aResult['department_owner'] = $selectedOnboardingItem['department_owner'];
-		   $aResult['is_offboarding_item'] = $selectedOnboardingItem['is_offboarding_item'];
-		   $aResult['status'] = $selectedOnboardingItem['status'];
-//		   $aResult['content'] = $this->renderPartial('onboardingChecklistTemplateDetails', ['onboardingItemArrRecords'=>$onboardingItemArrRecords, 'header'=>$header, 'formAction'=>$formAction, 'onboardingItemTitleArrRecord'=>$onboardingItemTitleArrRecord], true);
-//		    $aResult['content'] = $onboardingItemArrRecords;
+		   //put in the new function to find onboarding item details here
+		   $selectedOnboardingItem = OnboardingChecklistItem::model()->findOnboardingItemDetails($onboardingItemId);
+		   $aResult['description'] = $selectedOnboardingItem[0]['description'];
+		   $aResult['department_owner'] = $selectedOnboardingItem[0]['department_owner'];
+		   $aResult['is_offboarding_item'] = $selectedOnboardingItem[0]['is_offboarding_item'];
 		    
 		    if(!empty($aResult['content'])){
 			$aResult['result'] 	= 1;
 		    }
 		    echo(json_encode($aResult));
 		    Yii::app()->end();
-//		   $this->render('onboardingChecklistTemplateDetails', array('header'=>$header,'formAction'=>$formAction, 'onboardingItemTitleArrRecord'=>$onboardingItemTitleArrRecord, 'onboardingItemArrRecords'=>$onboardingItemArrRecords));
-//		   $this->redirect(['addNewOnboardingChecklistTemplate'], array('header'=>$header,'formAction'=>$formAction, 'onboardingItemTitleArrRecord'=>$onboardingItemTitleArrRecord, 'onboardingItemArrRecords'=>$onboardingItemArrRecords));
 		}
 		
 		$this->render('onboardingChecklistTemplateDetails', array('header'=>$header,'formAction'=>$formAction, 'onboardingItemTitleArrRecord'=>$onboardingItemTitleArrRecord));

@@ -82,4 +82,21 @@ class OnboardingChecklistItem extends AppActiveRecord {
 
 	    return $arrData;
 	}
+	
+	public function findOnboardingItemDetails($onboardingItemId){
+	    $sql = 'SELECT OCI.description, D.title AS department_owner, ';
+	    $sql .= 'CASE WHEN OCI.is_offboarding_item = 1 THEN "Yes" ';
+	    $sql .= 'WHEN OCI.is_offboarding_item = 0 THEN "No" ';
+	    $sql .= 'END AS "is_offboarding_item" ';
+	    $sql .= 'FROM onboarding_checklist_items OCI ';
+	    $sql .= 'INNER JOIN department D ';
+	    $sql .= 'ON OCI.department_owner = D.id';
+	    $sql .= ' WHERE OCI.id = ' . $onboardingItemId;
+	    
+	    $objConnection = Yii::app()->db;
+	    $objCommand = $objConnection->createCommand($sql);
+	    $arrData = $objCommand->queryAll($sql);
+	    
+	    return $arrData;
+	}
 }

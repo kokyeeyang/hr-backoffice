@@ -13,58 +13,64 @@ var OnboardingAddNewOnboardingChecklistTemplate = function(){
         dataType: 'json',
         success: function(data)
         {
-          if((typeof data['description']) !== 'undefined' && data != null){
+          if((typeof data['description']) !== 'undefined' && data !== null){
             var description = data['description'];
             var department_owner = data['department_owner'];
             var is_offboarding_item = data['is_offboarding_item'];
-            var status = data['status'];
+            
             var objRow = $(objElement).closest('tr');
-            var objColumn = $(objElement).closest('td');
 
             objRow.find('.description').text(description);
             objRow.find('.departmentOwner').text(department_owner);
             objRow.find('.isOffboardingItem').text(is_offboarding_item);
-            objRow.find('.status').text(status);
-            
-//            $("input.descriptionInput").val(description);
-//            $("input.departmentOwnerInput").val(department_owner);
-//            $("input.isOffboardingItemInput").val(is_offboarding_item);
-//            $("input.statusInput").val(status);
-            
-              $('input.descriptionInput').val(description);
-//            $("input:hidden.departmentOwnerInput").val(department_owner);
-//            $("input.isOffboardingItemInput").val(is_offboarding_item);
-//            $("input.statusInput").val(status);
-            
-//            objColumn.find('input.descriptionInput').val(description);
-//            objColumn.find('input.departmentOwnerInput').val(department_owner);
-//            objColumn.find('input.isOffboardingItemInput').val(is_offboarding_item);
-//            objColumn.find('input.statusInput').val(status);
           }
         }
       });
     }
   }
   
+  function _append_new_onboarding_checklist_item(objElement, objEvent){
+        var dataTable = $('#data_table');
+        
+        var appendRow = $('tr.appendOnboardingItemTr');
+        
+        //deciding to put list_even or list_odd for the front end
+        var counter = parseInt($('#hiddenVal').val());
+        counter++;
+        $('#hiddenVal').val(counter);
+        var numberAfterModulus = counter%2;
+        
+        console.log(numberAfterModulus);
+        if (numberAfterModulus == 1){
+          $(appendRow).clone().attr('class', 'appendedOnboardingItemTr list_odd').show().appendTo(dataTable);
+        } else {
+          $(appendRow).clone().attr('class', 'appendedOnboardingItemTr list_even').show().appendTo(dataTable);
+        }
+        
+        // need to reinitiate the dropdown for onboarding title after appending
+        OnboardingAddNewOnboardingChecklistTemplate.initOnboardingItemDropdown();
+  }
+  
+  function _initOnboardingItemDropdown(){
+      $('select[name="onboardingItemDropdown"]').unbind('change').change(function(objEvent) {
+        OnboardingAddNewOnboardingChecklistTemplate.render_onboarding_checklist_item_details(this, objEvent);
+      });
+  }
+  
   function _init(){
     $(function() {
-      var selectedOption = $("select[name='onboardingItemDropdown'] option:selected").val();
-      
-      $('select[name="onboardingItemDropdown"]').change(function(objEvent) {
-        if (selectedOption == ""){
-          console.log(selectedOption);
-          OnboardingAddNewOnboardingChecklistTemplate.render_onboarding_checklist_item_details(this, objEvent);
-        } else {
-          $("tr.onboardingItemTr td.appendedTd").empty;
-          OnboardingAddNewOnboardingChecklistTemplate.render_onboarding_checklist_item_details(this, objEvent);
-        }
+      OnboardingAddNewOnboardingChecklistTemplate.initOnboardingItemDropdown();
+      $(':button#appendOnboardingItem').unbind('click').click(function(objEvent){
+        OnboardingAddNewOnboardingChecklistTemplate.append_new_onboarding_checklist_item(this, objEvent);
       });
     });
   }
   
   return {
     init : _init,
-    render_onboarding_checklist_item_details : _render_onboarding_checklist_item_details
+    initOnboardingItemDropdown : _initOnboardingItemDropdown,
+    render_onboarding_checklist_item_details : _render_onboarding_checklist_item_details,
+    append_new_onboarding_checklist_item : _append_new_onboarding_checklist_item
   }
 }();
 OnboardingAddNewOnboardingChecklistTemplate.init();
