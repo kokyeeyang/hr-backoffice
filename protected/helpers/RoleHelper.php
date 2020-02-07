@@ -53,7 +53,7 @@ class RoleHelper {
 
 			case 'onboarding':
 				if($bolAuthenticated === true && isset(Yii::app()->user->priv) && in_array(Yii::app()->user->priv, ['admin', 'manager', 'hr'])){
-					$arrActionsList = array_merge($arrActionsList, ['addNewOnboardingItem', 'saveOnboardingItem', 'showAllOnboardingItems', 'viewSelectedOnboardingItem', 'deleteOnboardingItems', 'updateOnboardingItem', 'showAllOnboardingChecklistTemplates', 'addNewOnboardingChecklistTemplate', 'updateOnboardingChecklistTemplate', 'deleteOnboardingChecklistTemplates', 'queryForOnboardingItemDetails']);
+					$arrActionsList = array_merge($arrActionsList, ['addNewOnboardingItem', 'saveOnboardingItem', 'showAllOnboardingItems', 'viewSelectedOnboardingItem', 'deleteOnboardingItems', 'updateOnboardingItem', 'showAllOnboardingChecklistTemplates', 'addNewOnboardingChecklistTemplate', 'updateOnboardingChecklistTemplate', 'deleteOnboardingChecklistTemplates', 'queryForOnboardingItemDetails', 'saveOnboardingChecklistTemplate']);
 				}
 			break;
 		}

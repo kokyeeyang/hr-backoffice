@@ -12,24 +12,42 @@
 <div class="common_content_wrapper admin_login_log_list">
   <div class="common_content_inner_wrapper">
     <h4 class="widget_title"><?php echo $header; ?>
+      <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
     </h4>
     <form method="post" enctype="multipart/form-data" id="onboardingChecklistTemplateForm" name="onboardingChecklistTemplateForm" action="<?php echo $formAction; ?>">
       <div id="offer-letter-template-input" style="margin-bottom:10px; margin-top: 10px;">
 	<input type="hidden" id="hiddenVal" value="0"/>
-	<div id="offerLetterTemplateInput">
-	  <td><?php echo Yii::t('app', 'Onboarding Checklist Template Title'); ?> </td>
-	  <td>:</td>
-	  <td>
-	    <?php isset($_GET['id']) ? $templateTitle = $onboardingChecklistTemplateObjRecord->title : $templateTitle = '' ?>
-	    <input type="text" name="templateTitle" id="templateTitle" value="<?php echo $templateTitle; ?>"/>
-	  </td>
-	  <td><?php echo Yii::t('app', 'Description'); ?> </td>
-	  <td>:</td>
-	  <td>
-	    <?php isset($_GET['id']) ? $templateDescription = $onboardingChecklistTemplateObjRecord->description : $templateDescription = '' ?>
-	    <textarea name="templateDescription" id="templateDescription" rows="3"><?php echo $templateDescription; ?></textarea>
-	  </td>
-	</div>
+	<fieldset class="fieldset">
+	  <legend class="legend">
+	    <?php echo Yii::t('app', 'Onboarding Checklist Template Details'); ?>
+	  </legend>
+	    <div class="grid_block">
+	      <div class="lable_block">
+		<div class="lables">	      
+		  <span><?php echo Yii::t('app', 'Onboarding Checklist Template Title'); ?> </span>
+		  <span>:</span>
+		</div>
+		<div class="lables2">
+		  <span>
+		    <?php isset($_GET['id']) ? $templateTitle = $onboardingChecklistTemplateObjRecord->title : $templateTitle = '' ?>
+		    <input type="text" name="templateTitle" id="templateTitle" value="<?php echo $templateTitle; ?>"/>
+		  </span>
+		</div>
+	      </div>
+	      <div class="lable_block">
+		<div class="lables">
+		    <span><?php echo Yii::t('app', 'Description'); ?> </span>
+		    <span>:</span>
+		</div>
+		<div class="lables2">
+		    <span>
+		      <?php isset($_GET['id']) ? $templateDescription = $onboardingChecklistTemplateObjRecord->description : $templateDescription = '' ?>
+		      <textarea name="templateDescription" id="templateDescription" rows="3" cols="22"><?php echo $templateDescription; ?></textarea>
+		    </span>
+		</div>
+	      </div>
+	    </div>
+	</fieldset>
 	<table class="widget_table grid">
 	  <thead>
 	    <tr>
@@ -69,12 +87,14 @@
 		  </div>
 		</div>
 	      </th>
+	      <th>
+	      </th>
 	    </tr>
 	  </thead>
 	  <tbody id="data_table">
 	    <tr class="onboardingItemTr">
 	      <td class="onboardingItemTd">
-		<select name="onboardingItemDropdown" size=1 class="selectOnboardingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
+		<select name="onboardingItemDropdown 0" size=1 class="selectOnboardingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
 		  <option value="" selected>Choose here</option>
 		  <?php foreach ($onboardingItemTitleArrRecord as $intIndex => $onboardingItemTitleObjRecord) { ?>
     		  <option value="<?php echo $onboardingItemTitleObjRecord['id']; ?>">
@@ -88,11 +108,15 @@
 	      <td class="departmentOwner">
 	      </td>
 	      <td class="isOffboardingItem">
+	      </td>
+	      <td class="removeOnboardingItemButton">
+		<!--<a href="#"><span class="removeOnboardingItemButton" title="Remove this item">&#x2716;</span></a>-->
+		<a href="#"><span class="removeOnboardingItemButton" title="Remove this item"></span></a>
 	      </td>
 	    </tr>
 	    <tr class="appendOnboardingItemTr" style="display:none;">
 	      <td class="onboardingItemTd">
-		<select name="onboardingItemDropdown" size=1 class="selectOnboardingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
+		<select name="appendOnboardingItemDropdown" size=1 class="selectOnboardingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
 		  <option value="" selected>Choose here</option>
 		  <?php foreach ($onboardingItemTitleArrRecord as $intIndex => $onboardingItemTitleObjRecord) { ?>
     		  <option value="<?php echo $onboardingItemTitleObjRecord['id']; ?>">
@@ -106,6 +130,9 @@
 	      <td class="departmentOwner">
 	      </td>
 	      <td class="isOffboardingItem">
+	      </td>
+	      <td class="removeOnboardingItemButton">
+		<a href="#"><span class="removeOnboardingItemButton" title="Remove this item"></span></a>
 	      </td>
 	    </tr>
 	  </tbody>
@@ -116,8 +143,10 @@
 	<!-- would need to pass php array containing all the onboarding items that are available in the database into a dropdown menu for users to choose-->
 	<!-- ajax would then populate the data for the onboarding item that the user chose -->
       </div>
+      <button type="button" id="appendOnboardingItem" title="Add more onboarding items to this template">+</button>
+      <br/><br/>
+      <button value="Save" title="Save this template"> Save </button>
     </form>
-    <button class="w3-button w3-circle w3-black" id="appendOnboardingItem">+</button>
   </div>
 </div>
 

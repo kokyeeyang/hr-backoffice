@@ -20,7 +20,7 @@ class OnboardingChecklistItemsMapping extends AppActiveRecord {
 	public function attributeLabels(){
 		return [																				
 			'checklist_item_id' => Yii::t('app', 'checklist_item_id'),
-			'checcklist_template_id' => Yii::t('app', 'checcklist_template_id')
+			'checklist_template_id' => Yii::t('app', 'checklist_template_id')
 		];
 	}
 
