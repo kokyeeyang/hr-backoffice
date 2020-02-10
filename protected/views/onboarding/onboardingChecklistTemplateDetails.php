@@ -29,7 +29,7 @@
 		</div>
 		<div class="lables2">
 		  <span>
-		    <?php isset($_GET['id']) ? $templateTitle = $onboardingChecklistTemplateObjRecord->title : $templateTitle = '' ?>
+		    <?php isset($templateId) ? $templateTitle = $onboardingTemplateObjRecord->title : $templateTitle = '' ?>
 		    <input type="text" name="templateTitle" id="templateTitle" value="<?php echo $templateTitle; ?>"/>
 		  </span>
 		</div>
@@ -41,7 +41,7 @@
 		</div>
 		<div class="lables2">
 		    <span>
-		      <?php isset($_GET['id']) ? $templateDescription = $onboardingChecklistTemplateObjRecord->description : $templateDescription = '' ?>
+		      <?php isset($templateId) ? $templateDescription = $onboardingTemplateObjRecord->description : $templateDescription = '' ?>
 		      <textarea name="templateDescription" id="templateDescription" rows="3" cols="22"><?php echo $templateDescription; ?></textarea>
 		    </span>
 		</div>
@@ -92,6 +92,9 @@
 	    </tr>
 	  </thead>
 	  <tbody id="data_table">
+	    <?php ?>
+	    <!-- need to add to increment by 1 for dropdown inside onboardingItemTr -->
+	    <!--if id isset, then need to foreach for onboardingItemRecordTr-->
 	    <tr class="onboardingItemTr">
 	      <td class="onboardingItemTd">
 		<select name="onboardingItemDropdown 0" size=1 class="selectOnboardingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -110,7 +113,6 @@
 	      <td class="isOffboardingItem">
 	      </td>
 	      <td class="removeOnboardingItemButton">
-		<!--<a href="#"><span class="removeOnboardingItemButton" title="Remove this item">&#x2716;</span></a>-->
 		<a href="#"><span class="removeOnboardingItemButton" title="Remove this item"></span></a>
 	      </td>
 	    </tr>

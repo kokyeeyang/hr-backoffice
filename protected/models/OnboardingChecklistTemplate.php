@@ -47,15 +47,15 @@ class OnboardingChecklistTemplate extends AppActiveRecord {
     }
     
     public function findAllOnboardingChecklistTemplates($strSortBy=false, $intPage=false, $numPerPage=false){
-	$sql = 'SELECT title, description ';
+	$sql = 'SELECT id, title, description ';
 	$sql .= 'FROM ' . self::$tableName;
-	$sql .= 'ORDER BY ' . $strSortBy;
+	$sql .= ' ORDER BY ' . $strSortBy;
 	$sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
 	
 	$objConnection = Yii::app()->db;
 	$objCommand = $objConnection->createCommand($sql);
 	$arrData = $objCommand->queryAll($sql);
-
+	
 	return $arrData;
     }
 

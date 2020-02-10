@@ -83,7 +83,7 @@ class OnboardingController extends Controller {
 
 	$objPagination = $this->getStrSortByList($strSortKey, OnboardingItemEnum::ONBOARDING_ITEM_TABLE, false, CommonEnum::RETURN_PAGINATION);
 	$objCriteria = $this->getStrSortByList($strSortKey, OnboardingItemEnum::ONBOARDING_ITEM_TABLE, false, CommonEnum::RETURN_CRITERIA);
-	$onboardingItemsArr = $this->getStrSortByList($strSortKey, OnboardingItemEnum::ONBOARDING_ITEM_TABLE, true, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
+	$onboardingItemsArr = $this->getStrSortByList($strSortKey, OnboardingItemEnum::ONBOARDING_ITEM_TABLE, OnboardingItemEnum::ONBOARDING_ITEM_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
 
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'onboardingitems-list' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
@@ -135,7 +135,7 @@ class OnboardingController extends Controller {
 			return $tableArr;
 			break;
 		    
-		    case OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TABLE_IN_SQL:
+		    case OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TABLE_IN_SQL:
 			$numPerPage = Yii::app()->params['numPerPage'];
 			$tableArr = OnboardingChecklistTemplate::model()->findAllOnboardingChecklistTemplates($strSortBy, $intPage, $numPerPage);
 			return $tableArr;
@@ -282,9 +282,8 @@ class OnboardingController extends Controller {
 
 	$objPagination = $this->getStrSortByList($strSortKey, OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TABLE, false, CommonEnum::RETURN_PAGINATION);
 	$objCriteria = $this->getStrSortByList($strSortKey, OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TABLE, false, CommonEnum::RETURN_CRITERIA);
-	$onboardingChecklistTemplatesArr = $this->getStrSortByList($strSortKey, OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TABLE, true, CommonEnum::RETURN_TABLE_ARRAY);
-
-	var_dump($onboardingChecklistTemplatesArr);exit;
+	$onboardingChecklistTemplatesArr = $this->getStrSortByList($strSortKey, OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TABLE, OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
+	
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'onboardingchecklisttemplates-list' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
 	    $aResult['result'] = 0;
@@ -310,11 +309,11 @@ class OnboardingController extends Controller {
 	$onboardingItemTitleArrRecord = OnboardingChecklistItem::model()->queryForOnboardingItemTitles();
 
 	//query for existing onboarding checklist template details inside onboarding_checklist_template table
-	$onboardingChecklistTemplateTitle = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TITLE;
-	$onboardingChecklistTemplateDescription = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_DESCRIPTION;
-	$onboardingCheckListTemplateCondition = $onboardingChecklistTemplateTitle . ',' . $onboardingChecklistTemplateDescription;
+//	$onboardingChecklistTemplateTitle = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TITLE;
+//	$onboardingChecklistTemplateDescription = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_DESCRIPTION;
+//	$onboardingCheckListTemplateCondition = $onboardingChecklistTemplateTitle . ',' . $onboardingChecklistTemplateDescription;
 
-	$onboardingChecklistTemplateObjRecord = OnboardingChecklistTemplate::model()->queryForOnboardingChecklistTemplateDetails($onboardingCheckListTemplateCondition);
+//	$onboardingChecklistTemplateObjRecord = OnboardingChecklistTemplate::model()->queryForOnboardingChecklistTemplateDetails($onboardingCheckListTemplateCondition);
 
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'onboardingChecklistTemplateForm' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
@@ -391,5 +390,31 @@ class OnboardingController extends Controller {
 	$this->redirect(array('showAllOnboardingChecklistTemplates'));
 	
     }
+    
+    public function actionViewSelectedOnboardingChecklistTemplate($id){
+	$templateId = $this->getParam('id', '', '', 'get');
+	$onboardingTemplateItemCondition = 'id = ' . $templateId;
+	$onboardingItemTitleArrRecord = OnboardingChecklistItem::model()->queryForOnboardingItemTitles();
+	
+	$onboardingItemArrRecord = OnboardingChecklistItem::model()->findAllOnboardingItemsInTemplate($templateId);
+	
+	$onboardingTemplateObjRecord = OnboardingChecklistTemplate::model()->find($onboardingTemplateItemCondition);
+	$formAction = $this->createUrl('onboarding/updateOnboardingChecklistTemplate');
 
+	$header = Yii::t('app', 'Onboarding Checklist Template');
+	$breadcrumbTop = Yii::t('app', 'Edit Onboarding Checklist Template');
+	$title = Yii::t('app', 'Edit onboarding checklist template');
+	$widgetTitle = Yii::t('app', 'Edit onboarding checklist template');
+	$buttonTitle = Yii::t('app', 'Update');
+
+	if ($onboardingTemplateObjRecord == null) {
+	    throw new CHttpException(404, 'Onboarding checklist template does not exist with the requested id.');
+	}
+	
+	$this->render('onboardingChecklistTemplateDetails', array('header' => $header, 'formAction' => $formAction, 'onboardingTemplateObjRecord' => $onboardingTemplateObjRecord, 
+	    'onboardingItemArrRecord' => $onboardingItemArrRecord, 'breadcrumbTop' => $breadcrumbTop, 'title' => $title, 
+	    'widgetTitle' => $widgetTitle, 'buttonTitle' => $buttonTitle, 'templateId' => $templateId,
+	    'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord));
+    }
+    
 }

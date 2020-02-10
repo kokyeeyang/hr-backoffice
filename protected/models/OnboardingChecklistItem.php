@@ -99,4 +99,21 @@ class OnboardingChecklistItem extends AppActiveRecord {
 	    
 	    return $arrData;
 	}
+	
+	//looking for all onboarding items belonging to a particular onboarding checklist template
+	public function findAllOnboardingItemsInTemplate($templateId){
+	    $sql = 'SELECT OCI.title, OCI.description, OCI.department_owner, OCI.is_offboarding_item, OCI.is_managerial ';
+	    $sql .= 'FROM onboarding_checklist_items OCI ';
+	    $sql .= 'INNER JOIN onboarding_checklist_items_mapping OCIM ';
+	    $sql .= 'ON OCI.id = OCIM.checklist_item_id ';
+	    $sql .= 'INNER JOIN onboarding_checklist_template OCT ';
+	    $sql .= 'ON OCIM.checklist_template_id = OCT.id ';
+	    $sql .= 'WHERE OCIM.checklist_template_id = ' . $templateId;
+	    
+	    $objConnection = Yii::app()->db;
+	    $objCommand = $objConnection->createCommand($sql);
+	    $arrData = $objCommand->queryAll($sql);
+	    
+	    return $arrData;
+	}
 }
