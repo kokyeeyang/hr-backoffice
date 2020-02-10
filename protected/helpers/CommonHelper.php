@@ -121,6 +121,4 @@ class CommonHelper {
 		return $intPage * $numPerPage;
 	}
 
-	// public static function 
-
 }

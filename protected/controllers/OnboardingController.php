@@ -134,6 +134,12 @@ class OnboardingController extends Controller {
 			$tableArr = OnboardingChecklistItem::model()->findAllOnboardingItems($strSortBy, $intPage, $numPerPage);
 			return $tableArr;
 			break;
+		    
+		    case OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TABLE_IN_SQL:
+			$numPerPage = Yii::app()->params['numPerPage'];
+			$tableArr = OnboardingChecklistTemplate::model()->findAllOnboardingChecklistTemplates($strSortBy, $intPage, $numPerPage);
+			return $tableArr;
+			break;
 		}
 		break;
 	}
@@ -143,6 +149,11 @@ class OnboardingController extends Controller {
 	switch ($tableName) {
 	    case OnboardingItemEnum::ONBOARDING_ITEM_TABLE :
 		$strSortBy = self::getOnboardingItemList($strSortKey);
+		return $strSortBy;
+		break;
+	    
+	    case OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TABLE :
+		$strSortBy = self::getOnboardingChecklistTemplateList($strSortKey);
 		return $strSortBy;
 		break;
 	}
@@ -190,6 +201,28 @@ class OnboardingController extends Controller {
 
 	    case 'sort_is_managerial_desc':
 		return 'ECI.is_managerial DESC';
+		break;
+	}
+    }
+    
+    private static function getOnboardingChecklistTemplateList($strSortKey){
+	switch($strSortKey){
+	    case 'sort_title_desc' :
+	    default:
+		$strSortKey = 'sort_title_desc';
+		return 'title DESC';
+		break;
+	    
+	    case 'sort_title_asc' :
+		return 'title ASC';
+		break;
+	    
+	    case 'sort_description_desc' :
+		return 'description DESC';
+		break;
+	    
+	    case 'sort_description_asc' :
+		return 'description ASC';
 		break;
 	}
     }
@@ -251,6 +284,7 @@ class OnboardingController extends Controller {
 	$objCriteria = $this->getStrSortByList($strSortKey, OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TABLE, false, CommonEnum::RETURN_CRITERIA);
 	$onboardingChecklistTemplatesArr = $this->getStrSortByList($strSortKey, OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TABLE, true, CommonEnum::RETURN_TABLE_ARRAY);
 
+	var_dump($onboardingChecklistTemplatesArr);exit;
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'onboardingchecklisttemplates-list' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
 	    $aResult['result'] = 0;
