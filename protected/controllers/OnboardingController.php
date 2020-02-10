@@ -307,6 +307,7 @@ class OnboardingController extends Controller {
 	$header = Yii::t('app', 'Add new Onboarding Checklist Template');
 	$formAction = $this->createUrl('onboarding/saveOnboardingChecklistTemplate');
 	$onboardingItemTitleArrRecord = OnboardingChecklistItem::model()->queryForOnboardingItemTitles();
+	$buttonTitle = Yii::t('app', 'Save');
 
 	//query for existing onboarding checklist template details inside onboarding_checklist_template table
 //	$onboardingChecklistTemplateTitle = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TITLE;
@@ -335,7 +336,9 @@ class OnboardingController extends Controller {
 	    Yii::app()->end();
 	}
 
-	$this->render('onboardingChecklistTemplateDetails', array('header' => $header, 'formAction' => $formAction, 'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord));
+	$this->render('onboardingChecklistTemplateDetails', array('header' => $header, 'formAction' => $formAction, 'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord,
+	    'buttonTitle' => $buttonTitle
+	    ));
     }
 
     public function actionUpdateOnboardingChecklistTemplate() {
@@ -406,6 +409,26 @@ class OnboardingController extends Controller {
 	$title = Yii::t('app', 'Edit onboarding checklist template');
 	$widgetTitle = Yii::t('app', 'Edit onboarding checklist template');
 	$buttonTitle = Yii::t('app', 'Update');
+	
+	if (isset($_POST['ajax']) && $_POST['ajax'] === 'onboardingChecklistTemplateForm' && Yii::app()->request->isAjaxRequest) {
+	    $aResult = [];
+	    $aResult['result'] = 0;
+	    $aResult['content'] = '';
+	    $aResult['msg'] = '';
+
+	    $onboardingItemId = $this->getParam('onboarding_item_id');
+	    //put in the new function to find onboarding item details here
+	    $selectedOnboardingItem = OnboardingChecklistItem::model()->findOnboardingItemDetails($onboardingItemId);
+	    $aResult['description'] = $selectedOnboardingItem[0]['description'];
+	    $aResult['department_owner'] = $selectedOnboardingItem[0]['department_owner'];
+	    $aResult['is_offboarding_item'] = $selectedOnboardingItem[0]['is_offboarding_item'];
+
+	    if (!empty($aResult['content'])) {
+		$aResult['result'] = 1;
+	    }
+	    echo(json_encode($aResult));
+	    Yii::app()->end();
+	}	
 
 	if ($onboardingTemplateObjRecord == null) {
 	    throw new CHttpException(404, 'Onboarding checklist template does not exist with the requested id.');
@@ -415,6 +438,14 @@ class OnboardingController extends Controller {
 	    'onboardingItemArrRecord' => $onboardingItemArrRecord, 'breadcrumbTop' => $breadcrumbTop, 'title' => $title, 
 	    'widgetTitle' => $widgetTitle, 'buttonTitle' => $buttonTitle, 'templateId' => $templateId,
 	    'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord));
+    }
+    
+    public function actionDeleteSelectedOnboardingItem($onboardingItemId){
+	$onboardingItemId = $this->getParam($onboardingItemId, '');
+	
+	if ($deleteOnboardingItemIds != '') {
+	    OnboardingChecklistItem::model()->deleteOnboardingItem($deleteOnboardingItemIds);
+	}
     }
     
 }

@@ -21,32 +21,32 @@
 	  <legend class="legend">
 	    <?php echo Yii::t('app', 'Onboarding Checklist Template Details'); ?>
 	  </legend>
-	    <div class="grid_block">
-	      <div class="lable_block">
-		<div class="lables">	      
-		  <span><?php echo Yii::t('app', 'Onboarding Checklist Template Title'); ?> </span>
-		  <span>:</span>
-		</div>
-		<div class="lables2">
-		  <span>
-		    <?php isset($templateId) ? $templateTitle = $onboardingTemplateObjRecord->title : $templateTitle = '' ?>
-		    <input type="text" name="templateTitle" id="templateTitle" value="<?php echo $templateTitle; ?>"/>
-		  </span>
-		</div>
+	  <div class="grid_block">
+	    <div class="lable_block">
+	      <div class="lables">	      
+		<span><?php echo Yii::t('app', 'Onboarding Checklist Template Title'); ?> </span>
+		<span>:</span>
 	      </div>
-	      <div class="lable_block">
-		<div class="lables">
-		    <span><?php echo Yii::t('app', 'Description'); ?> </span>
-		    <span>:</span>
-		</div>
-		<div class="lables2">
-		    <span>
-		      <?php isset($templateId) ? $templateDescription = $onboardingTemplateObjRecord->description : $templateDescription = '' ?>
-		      <textarea name="templateDescription" id="templateDescription" rows="3" cols="22"><?php echo $templateDescription; ?></textarea>
-		    </span>
-		</div>
+	      <div class="lables2">
+		<span>
+		  <?php isset($templateId) ? $templateTitle = $onboardingTemplateObjRecord->title : $templateTitle = '' ?>
+		  <input type="text" name="templateTitle" id="templateTitle" value="<?php echo $templateTitle; ?>"/>
+		</span>
 	      </div>
 	    </div>
+	    <div class="lable_block">
+	      <div class="lables">
+		<span><?php echo Yii::t('app', 'Description'); ?> </span>
+		<span>:</span>
+	      </div>
+	      <div class="lables2">
+		<span>
+		  <?php isset($templateId) ? $templateDescription = $onboardingTemplateObjRecord->description : $templateDescription = '' ?>
+		  <textarea name="templateDescription" id="templateDescription" rows="3" cols="22"><?php echo $templateDescription; ?></textarea>
+		</span>
+	      </div>
+	    </div>
+	  </div>
 	</fieldset>
 	<table class="widget_table grid">
 	  <thead>
@@ -92,30 +92,41 @@
 	    </tr>
 	  </thead>
 	  <tbody id="data_table">
-	    <?php ?>
-	    <!-- need to add to increment by 1 for dropdown inside onboardingItemTr -->
-	    <!--if id isset, then need to foreach for onboardingItemRecordTr-->
-	    <tr class="onboardingItemTr">
-	      <td class="onboardingItemTd">
-		<select name="onboardingItemDropdown 0" size=1 class="selectOnboardingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
-		  <option value="" selected>Choose here</option>
-		  <?php foreach ($onboardingItemTitleArrRecord as $intIndex => $onboardingItemTitleObjRecord) { ?>
-    		  <option value="<?php echo $onboardingItemTitleObjRecord['id']; ?>">
-			<?php echo $onboardingItemTitleObjRecord['title']; ?>
-    		  </option>
-		  <?php } ?>
-		</select>
-	      </td>
-	      <td class="description">
-	      </td>
-	      <td class="departmentOwner">
-	      </td>
-	      <td class="isOffboardingItem">
-	      </td>
-	      <td class="removeOnboardingItemButton">
-		<a href="#"><span class="removeOnboardingItemButton" title="Remove this item"></span></a>
-	      </td>
-	    </tr>
+	    <?php
+	    $counter = 0;
+	    if (isset($onboardingItemArrRecord)) {
+		?>
+		<?php foreach ($onboardingItemArrRecord as $onboardingItemObjRecord) { ?>
+		    <tr class="onboardingItemTr">
+		      <td class="onboardingItemTd">
+			<select name="onboardingItemDropdown <?php echo $counter; ?>" size=1 class="selectOnboardingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
+			  <option value="">Choose here</option>
+			  <?php foreach ($onboardingItemTitleArrRecord as $intIndex => $onboardingItemTitleObjRecord) { ?>
+			      <?php $onboardingItemObjRecord['title'] === $onboardingItemTitleObjRecord['title'] ? $selected = "selected" : $selected = ''; ?>
+	    		  <option value="<?php echo $onboardingItemTitleObjRecord['id']; ?>" <?php echo $selected; ?>>
+			      <?php echo $onboardingItemTitleObjRecord['title']; ?>
+	    		  </option>
+			  <?php } ?>
+			</select>
+		      </td>
+		      <td class="description">
+			<?php echo $onboardingItemObjRecord['description']; ?>
+		      </td>
+		      <td class="departmentOwner">
+			<?php echo $onboardingItemObjRecord['department_owner']; ?>
+		      </td>
+		      <td class="isOffboardingItem">
+			<?php echo $onboardingItemObjRecord['is_offboarding_item']; ?>
+		      </td>
+		      <td class="removeOnboardingItemButton">
+			<a href="#"><span class="deleteOnboardingItemButton" title="Remove this item" data-delete-url="onboarding/deleteSelectedOnboardingItem, array('onboardingItemid'=>$onboardingItemObjRecord['id']);">&#x2716;</span></a>
+		      </td>
+		    </tr>
+		    <?php
+		    $counter ++;
+		}
+		?>
+	    <?php } ?>
 	    <tr class="appendOnboardingItemTr" style="display:none;">
 	      <td class="onboardingItemTd">
 		<select name="appendOnboardingItemDropdown" size=1 class="selectOnboardingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -147,8 +158,11 @@
       </div>
       <button type="button" id="appendOnboardingItem" title="Add more onboarding items to this template">+</button>
       <br/><br/>
-      <button value="Save" title="Save this template"> Save </button>
+      <button value="Save" title="Save this template"><?php echo $buttonTitle; ?></button>
     </form>
   </div>
+</div>
+<div id="registration-common-msg">
+  <div id="msg-confirm-delete" data-msg="<?php echo Yii::t('app', 'Are you sure that you want delete the selected item from this template?'); ?>"></div>
 </div>
 

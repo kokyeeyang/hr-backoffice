@@ -38,7 +38,7 @@ class OnboardingChecklistItem extends AppActiveRecord {
 		return parent::model($className);
 	}	
 
-	public function findAllOnboardingItems($strSortBy=false, $intPage=false, $numPerPage=false){
+	public function findAllOnboardingItems($strSortBy, $intPage, $numPerPage){
 		$sql = 'SELECT ECI.id, ECI.title, D.title AS department_owner, ';
 		$sql .= 'CASE WHEN ECI.is_offboarding_item = 0 THEN "No" ';
 		$sql .= 'WHEN ECI.is_offboarding_item = 1 ';
@@ -57,7 +57,7 @@ class OnboardingChecklistItem extends AppActiveRecord {
 		$sql .= 'ON ECI.department_owner = D.id ';
 		$sql .= 'ORDER BY ' . $strSortBy;
 		$sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
-		
+		    
 		$objConnection = Yii::app()->db;
 		$objCommand = $objConnection->createCommand($sql);
 		$arrData = $objCommand->queryAll($sql);
@@ -102,12 +102,19 @@ class OnboardingChecklistItem extends AppActiveRecord {
 	
 	//looking for all onboarding items belonging to a particular onboarding checklist template
 	public function findAllOnboardingItemsInTemplate($templateId){
-	    $sql = 'SELECT OCI.title, OCI.description, OCI.department_owner, OCI.is_offboarding_item, OCI.is_managerial ';
+	    $sql = 'SELECT OCI.title, OCI.description, D.title AS department_owner, OCI.is_managerial, ';
+	    $sql .= 'CASE WHEN OCI.is_offboarding_item = 1 ';
+	    $sql .= 'THEN "Yes" ';
+	    $sql .= 'WHEN OCI.is_offboarding_item = 0 ';
+	    $sql .= 'THEN "No" ';
+	    $sql .= 'END AS "is_offboarding_item" ';
 	    $sql .= 'FROM onboarding_checklist_items OCI ';
 	    $sql .= 'INNER JOIN onboarding_checklist_items_mapping OCIM ';
 	    $sql .= 'ON OCI.id = OCIM.checklist_item_id ';
 	    $sql .= 'INNER JOIN onboarding_checklist_template OCT ';
 	    $sql .= 'ON OCIM.checklist_template_id = OCT.id ';
+	    $sql .= 'INNER JOIN department D ';
+	    $sql .= 'ON OCI.department_owner = D.id ';
 	    $sql .= 'WHERE OCIM.checklist_template_id = ' . $templateId;
 	    
 	    $objConnection = Yii::app()->db;
