@@ -44,10 +44,10 @@ var OnboardingAddNewOnboardingChecklistTemplate = function(){
 
     if (numberAfterModulus == 1){
       var clonedRow = $(appendRow).clone().attr('class', 'appendedOnboardingItemTr list_odd').show().appendTo(dataTable);
-      $(clonedRow).find('.selectOnboardingItemTitle').attr('name', 'onboardingItemDropdown ' + counter);
+      $(clonedRow).find('.selectOnboardingItemTitle').attr('name', 'appended onboardingItemDropdown ' + counter);
     } else {
       var clonedRow = $(appendRow).clone().attr('class', 'appendedOnboardingItemTr list_even').show().appendTo(dataTable);
-      $(clonedRow).find('.selectOnboardingItemTitle').attr('name', 'onboardingItemDropdown ' + counter);
+      $(clonedRow).find('.selectOnboardingItemTitle').attr('name', 'appended onboardingItemDropdown ' + counter);
     }
 
     // need to reinitiate the dropdown for onboarding title and the remove button after appending
@@ -58,11 +58,15 @@ var OnboardingAddNewOnboardingChecklistTemplate = function(){
   function _remove_onboarding_checklist_item_row(objElement, objEvent){
     var rowToBeRemoved = $(objElement).closest('tr');
     $(rowToBeRemoved).remove();
+    
+    var counter = parseInt($('#hiddenVal').val());
+    counter --;
   }
   
   function _initOnboardingItemDropdown(){
     $('select[class="selectOnboardingItemTitle"]').unbind('change').change(function(objEvent) {
       OnboardingAddNewOnboardingChecklistTemplate.render_onboarding_checklist_item_details(this, objEvent);
+      $('.saveOnboardingChecklistTemplateButton').prop('disabled', false);
     });
   }
   

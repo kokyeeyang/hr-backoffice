@@ -149,7 +149,7 @@ class PageEnum {
 		    "form-action-add-new" => "onboarding/addNewOnboardingChecklistTemplate",
 		    "add-new-record-title" => "Create",
 		    "table-header" => array("title", "description"),
-		    "form-action-delete-selected" => "onboarding/deleteOnboardingChecklistTemplate",
+		    "form-action-delete-selected" => "onboarding/deleteOnboardingChecklistTemplates",
 		    "column-details" => array("description"),
 		    "alert-data-msg" => array(
 		    "msg-confirm-delete" => "Are you sure that you want to delete the selected onboarding checklist template?",

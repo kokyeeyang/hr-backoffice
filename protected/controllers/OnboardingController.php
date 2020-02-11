@@ -307,14 +307,9 @@ class OnboardingController extends Controller {
 	$header = Yii::t('app', 'Add new Onboarding Checklist Template');
 	$formAction = $this->createUrl('onboarding/saveOnboardingChecklistTemplate');
 	$onboardingItemTitleArrRecord = OnboardingChecklistItem::model()->queryForOnboardingItemTitles();
-	$buttonTitle = Yii::t('app', 'Save');
-
-	//query for existing onboarding checklist template details inside onboarding_checklist_template table
-//	$onboardingChecklistTemplateTitle = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TITLE;
-//	$onboardingChecklistTemplateDescription = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_DESCRIPTION;
-//	$onboardingCheckListTemplateCondition = $onboardingChecklistTemplateTitle . ',' . $onboardingChecklistTemplateDescription;
-
-//	$onboardingChecklistTemplateObjRecord = OnboardingChecklistTemplate::model()->queryForOnboardingChecklistTemplateDetails($onboardingCheckListTemplateCondition);
+	$buttonShortTitle = Yii::t('app', 'Save');
+	$buttonClass = Yii::t('app', 'saveOnboardingChecklistTemplateButton');
+	$buttonTitle = Yii::t('app', 'Save this template');
 
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'onboardingChecklistTemplateForm' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
@@ -337,15 +332,48 @@ class OnboardingController extends Controller {
 	}
 
 	$this->render('onboardingChecklistTemplateDetails', array('header' => $header, 'formAction' => $formAction, 'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord,
-	    'buttonTitle' => $buttonTitle
+	    'buttonShortTitle' => $buttonShortTitle, 'buttonClass' => $buttonClass, 'buttonTitle' => $buttonTitle
 	    ));
     }
 
     public function actionUpdateOnboardingChecklistTemplate() {
+	
+	$templateId = $this->getParam('templateId', '');
+	$arrayKeys = array_keys($_POST);
+	foreach ($arrayKeys as $arrayKey){
+	    $match = preg_match('%onboardingItemDropdown%', $arrayKey);
+	}
+	
+	$updateCondition = 'id = ' . $templateId;
+	OnboardingChecklistTemplate::model()->updateAll([
+	   'title'=>$this->getParam('templateTitle',''), 'description'=>$this->getParam('templateDescription', '') 
+	], $updateCondition);
+	
+	$arrayKeys = array_keys($_POST);
+	$condition = 'checklist_template_id = ' . $templateId;
+	OnboardingChecklistItemsMapping::model()->deleteAll($condition);
+	
+	foreach ($arrayKeys as $arrayKey){
+	    $match = preg_match('%onboardingItemDropdown%', $arrayKey);
+	    if ($match != null && $this->getParam($arrayKey,'')!=null){
+		$onboardingItemMappingObjModel = new OnboardingChecklistItemsMapping;
+		$onboardingItemMappingObjModel->checklist_item_id = $this->getParam($arrayKey, '');
+		$onboardingItemMappingObjModel->checklist_template_id = $templateId;
+		$onboardingItemMappingObjModel->save();
+	    }
+	}
+	
 	$this->redirect(array('showAllOnboardingChecklistTemplates'));
     }
 
     public function actionDeleteOnboardingChecklistTemplates() {
+	$deleteOnboardingChecklistIds = $this->getParam('deleteCheckBox', '');
+	
+	if ($deleteOnboardingChecklistIds != '') {
+	    OnboardingChecklistTemplate::model()->deleteOnboardingTemplates($deleteOnboardingChecklistIds);
+	    OnboardingChecklistItemsMapping::model()->deleteOnboardingItemsMapping($deleteOnboardingChecklistIds);
+	}
+
 	$this->redirect(array('showAllOnboardingChecklistTemplates'));
     }
 
@@ -366,8 +394,6 @@ class OnboardingController extends Controller {
 	    $aResult['msg'] = '';
 
 	    $aResult['content'] = $this->renderPartial('onboardingChecklistTemplateDetails', ['onboardingItemArrRecords' => $onboardingItemArrRecords, 'header' => $header, 'formAction' => $formAction, 'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord], true);
-//		$this->render('onboardingChecklistTemplateDetails', array('onboardingItemArrRecords'=>$onboardingItemArrRecords, 'header'=>$header, 'formAction'=>$formAction,'onboardingItemTitleArrRecord'=>$onboardingItemTitleArrRecord));
-//		$this->redirect(['addNewOnboardingChecklistTemplate'], array('onboardingItemArrRecords'=>$onboardingItemArrRecords, 'header'=>$header, 'formAction'=>$formAction,'onboardingItemTitleArrRecord'=>$onboardingItemTitleArrRecord));
 	}
     }
     
@@ -382,7 +408,7 @@ class OnboardingController extends Controller {
 	
 	foreach ($arrayKeys as $arrayKey){
 	    $match = preg_match('%onboardingItemDropdown%', $arrayKey);
-	    if ($match != null){
+	    if ($match != null && $this->getParam($arrayKey,'')!=null){
 		$onboardingItemMappingObjModel = new OnboardingChecklistItemsMapping;
 		$onboardingItemMappingObjModel->checklist_item_id = $this->getParam($arrayKey, '');
 		$onboardingItemMappingObjModel->checklist_template_id = $onboardingChecklistTemplateObjModel->id;
@@ -408,7 +434,9 @@ class OnboardingController extends Controller {
 	$breadcrumbTop = Yii::t('app', 'Edit Onboarding Checklist Template');
 	$title = Yii::t('app', 'Edit onboarding checklist template');
 	$widgetTitle = Yii::t('app', 'Edit onboarding checklist template');
-	$buttonTitle = Yii::t('app', 'Update');
+	$buttonShortTitle = Yii::t('app', 'Update');
+	$buttonClass = Yii::t('app', 'updateOnboardingChecklistTemplateButton');
+	$buttonTitle = Yii::t('app', 'Update this template');
 	
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'onboardingChecklistTemplateForm' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
@@ -436,16 +464,8 @@ class OnboardingController extends Controller {
 	
 	$this->render('onboardingChecklistTemplateDetails', array('header' => $header, 'formAction' => $formAction, 'onboardingTemplateObjRecord' => $onboardingTemplateObjRecord, 
 	    'onboardingItemArrRecord' => $onboardingItemArrRecord, 'breadcrumbTop' => $breadcrumbTop, 'title' => $title, 
-	    'widgetTitle' => $widgetTitle, 'buttonTitle' => $buttonTitle, 'templateId' => $templateId,
-	    'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord));
-    }
-    
-    public function actionDeleteSelectedOnboardingItem($onboardingItemId){
-	$onboardingItemId = $this->getParam($onboardingItemId, '');
-	
-	if ($deleteOnboardingItemIds != '') {
-	    OnboardingChecklistItem::model()->deleteOnboardingItem($deleteOnboardingItemIds);
-	}
+	    'widgetTitle' => $widgetTitle, 'buttonShortTitle' => $buttonShortTitle, 'templateId' => $templateId,
+	    'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord, 'buttonClass' => $buttonClass, 'buttonTitle' => $buttonTitle));
     }
     
 }

@@ -35,4 +35,11 @@ class OnboardingChecklistItemsMapping extends AppActiveRecord {
 		return parent::model($className);
 	}
 	
+	public function deleteOnboardingItemsMapping($deleteOnboardingChecklistIds){
+	    foreach ($deleteOnboardingChecklistIds as $deleteOnboardingChecklistId){
+		$deleteCondition = 'checklist_template_id = ' . $deleteOnboardingChecklistId;
+		OnboardingChecklistItemsMapping::model()->deleteAll($deleteOnboardingChecklistId);
+	    }
+	}
+	
 }

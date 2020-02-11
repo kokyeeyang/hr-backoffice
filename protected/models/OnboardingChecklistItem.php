@@ -52,7 +52,8 @@ class OnboardingChecklistItem extends AppActiveRecord {
 		$sql .= 'WHEN ECI.is_managerial = 1 ';
 		$sql .= 'THEN "Managerial" ';
 		$sql .= 'END AS "is_managerial" ';
-		$sql .= 'FROM onboarding_checklist_items ECI ';
+//		$sql .= 'FROM onboarding_checklist_items ECI ';
+		$sql .= 'FROM ' . self::$tableName . ' ECI ';
 		$sql .= 'INNER JOIN department D ';
 		$sql .= 'ON ECI.department_owner = D.id ';
 		$sql .= 'ORDER BY ' . $strSortBy;
@@ -88,7 +89,8 @@ class OnboardingChecklistItem extends AppActiveRecord {
 	    $sql .= 'CASE WHEN OCI.is_offboarding_item = 1 THEN "Yes" ';
 	    $sql .= 'WHEN OCI.is_offboarding_item = 0 THEN "No" ';
 	    $sql .= 'END AS "is_offboarding_item" ';
-	    $sql .= 'FROM onboarding_checklist_items OCI ';
+//	    $sql .= 'FROM onboarding_checklist_items OCI ';
+	    $sql .= 'FROM ' . self::$tableName . ' OCI ';
 	    $sql .= 'INNER JOIN department D ';
 	    $sql .= 'ON OCI.department_owner = D.id';
 	    $sql .= ' WHERE OCI.id = ' . $onboardingItemId;
@@ -102,13 +104,14 @@ class OnboardingChecklistItem extends AppActiveRecord {
 	
 	//looking for all onboarding items belonging to a particular onboarding checklist template
 	public function findAllOnboardingItemsInTemplate($templateId){
-	    $sql = 'SELECT OCI.title, OCI.description, D.title AS department_owner, OCI.is_managerial, ';
+	    $sql = 'SELECT OCI.id, OCI.title, OCI.description, D.title AS department_owner, OCI.is_managerial, ';
 	    $sql .= 'CASE WHEN OCI.is_offboarding_item = 1 ';
 	    $sql .= 'THEN "Yes" ';
 	    $sql .= 'WHEN OCI.is_offboarding_item = 0 ';
 	    $sql .= 'THEN "No" ';
 	    $sql .= 'END AS "is_offboarding_item" ';
-	    $sql .= 'FROM onboarding_checklist_items OCI ';
+//	    $sql .= 'FROM onboarding_checklist_items OCI ';
+	    $sql .= 'FROM ' . self::$tableName . ' OCI ';
 	    $sql .= 'INNER JOIN onboarding_checklist_items_mapping OCIM ';
 	    $sql .= 'ON OCI.id = OCIM.checklist_item_id ';
 	    $sql .= 'INNER JOIN onboarding_checklist_template OCT ';
@@ -123,4 +126,5 @@ class OnboardingChecklistItem extends AppActiveRecord {
 	    
 	    return $arrData;
 	}
+	
 }

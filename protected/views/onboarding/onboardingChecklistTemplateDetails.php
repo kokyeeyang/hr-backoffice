@@ -17,6 +17,7 @@
     <form method="post" enctype="multipart/form-data" id="onboardingChecklistTemplateForm" name="onboardingChecklistTemplateForm" action="<?php echo $formAction; ?>">
       <div id="offer-letter-template-input" style="margin-bottom:10px; margin-top: 10px;">
 	<input type="hidden" id="hiddenVal" value="0"/>
+	<input type="hidden" name="templateId" value="<?php echo isset($templateId) ? $templateId:''; ?>">
 	<fieldset class="fieldset">
 	  <legend class="legend">
 	    <?php echo Yii::t('app', 'Onboarding Checklist Template Details'); ?>
@@ -119,7 +120,7 @@
 			<?php echo $onboardingItemObjRecord['is_offboarding_item']; ?>
 		      </td>
 		      <td class="removeOnboardingItemButton">
-			<a href="#"><span class="deleteOnboardingItemButton" title="Remove this item" data-delete-url="onboarding/deleteSelectedOnboardingItem, array('onboardingItemid'=>$onboardingItemObjRecord['id']);">&#x2716;</span></a>
+			<a href="#"><span class="removeOnboardingItemButton" title="Remove this item">&#x2716;</span></a>
 		      </td>
 		    </tr>
 		    <?php
@@ -158,7 +159,7 @@
       </div>
       <button type="button" id="appendOnboardingItem" title="Add more onboarding items to this template">+</button>
       <br/><br/>
-      <button value="Save" title="Save this template"><?php echo $buttonTitle; ?></button>
+      <button title="<?php echo $buttonTitle; ?>" class="<?php echo $buttonClass; ?>" disabled><?php echo $buttonShortTitle; ?></button>
     </form>
   </div>
 </div>

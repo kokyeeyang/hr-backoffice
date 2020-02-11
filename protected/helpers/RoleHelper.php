@@ -56,7 +56,7 @@ class RoleHelper {
 					$arrActionsList = array_merge($arrActionsList, ['addNewOnboardingItem', 'saveOnboardingItem', 'showAllOnboardingItems', 
 					    'viewSelectedOnboardingItem', 'deleteOnboardingItems', 'updateOnboardingItem', 
 					    'showAllOnboardingChecklistTemplates', 'addNewOnboardingChecklistTemplate', 'updateOnboardingChecklistTemplate', 
-					    'deleteOnboardingChecklistTemplates', 'queryForOnboardingItemDetails', 'saveOnboardingChecklistTemplate',
+					    'queryForOnboardingItemDetails', 'saveOnboardingChecklistTemplate',
 					    'viewSelectedOnboardingChecklistTemplate'
 					]);
 				}
