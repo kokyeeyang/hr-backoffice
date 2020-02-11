@@ -36,9 +36,42 @@ input[type='checkbox'] {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  width: 5%;
 }
 
 button #copyOfferLetterButton {
 	display: none;
+}
+
+div #offerLetterTemplateInput{
+  margin-bottom: 15px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.lables {
+  width: 250px;
+  float: left;
+}
+
+.lables2 {
+  width: 300px;
+  float: left;
+  padding-right: 5px;
+}
+
+.lable_block {
+  display: inline-block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+div .grid_block {
+  display: inline-grid;
+}
+
+fieldset {
+  margin-bottom:20px;
+  margin-top: 20px;
 }
