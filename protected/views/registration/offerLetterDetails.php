@@ -60,7 +60,7 @@
 		    </div>
 		    <div class="lables2">
 		      <span>
-			<textarea name="offerLetterDescription" id="offerLetterDescription" rows="3"><?php echo $offerLetterDescription; ?></textarea>
+			<textarea name="offerLetterDescription" id="offerLetterDescription" rows="3" cols="22"><?php echo $offerLetterDescription; ?></textarea>
 		      </span>
 		    </div>
 		  </div>
