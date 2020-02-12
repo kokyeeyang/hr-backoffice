@@ -24,12 +24,14 @@
 	    <?php echo Yii::t('app', 'Candidate Status Details'); ?>
 	  </legend>
 	  <div class="grid_block">
-	    <div class="lables">
-	      <span><?php echo Yii::t('app', 'Please put in status that you would desire for candidate'); ?> </span>
-	      <span>:</span>
-	    </div>
-	    <div class="lables2">
-	      <span><input type="text" name="newCandidateStatus" id="newCandidateStatus" value="<?php echo $candidateStatusTitle; ?>" required/></span>
+	    <div class="lable_block">
+	      <div class="lables">
+		<span><?php echo Yii::t('app', 'Please put in status that you would desire for candidate'); ?> </span>
+		<span>:</span>
+	      </div>
+	      <div class="lables2">
+		<span><input type="text" name="newCandidateStatus" id="newCandidateStatus" value="<?php echo $candidateStatusTitle; ?>" required/></span>
+	      </div>
 	    </div>
 	  </div>
 	</fieldset>

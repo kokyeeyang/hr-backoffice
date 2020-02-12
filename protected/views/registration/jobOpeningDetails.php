@@ -14,49 +14,62 @@
     <h4 class="widget_title"><?php echo Yii::t('app', 'Add new job openings'); ?>
     </h4>
     <form method="post" enctype="multipart/form-data" id="jobOpeningForm" name="jobOpeningForm" action="<?php echo $this->createUrl('registration/saveJobOpenings') ?>" >
-    	<table style="line-height: 32px;padding-left: 10px;font-size: 15px;">
-    		<tr>
-    			<td><?php echo Yii::t('app', 'Job title'); ?> </td>
-    			<td>:</td>
-    			<td>
-    				<input type="text" name="jobTitle"/>
-    			</td>
-          <td>
-            <input type="checkbox" name="isManagerialCheckbox" id="isManagerialCheckbox" value="1">
-            <label for="isManagerialCheckbox"><?php echo Yii::t('app', 'Managerial position') ?></label>
-          </td>
-    		</tr>
-    		<tr>
-    			<td><?php echo Yii::t('app', 'Department'); ?></td>
-    			<td>:</td>
-    			<td>
-            <select name="departmentDropdown" size=1>
-              <option value="" selected disabled hidden>Choose here</option>
-              <?php foreach($departmentArr as $iKey => $departmentObj){ ?>
-              <option value="<?php echo $departmentObj['title']; ?>"><?php echo $departmentObj['title']; ?></option>
-              <?php } ?>
-            </select>
-    			</td>
-    		</tr>
-				<tr>
-    			<td><?php echo Yii::t('app', 'Line manager'); ?></td>
-    			<td>:</td>
-    			<td>
-            <select name="interviewManager" size=1>
-              <?php foreach ($allManagers as $manager) { ?>
-                <option value="<?php echo $manager['admin_display_name'] ?>"><?php echo $manager['admin_display_name']; ?></option>
-              <?php } ?>
-            </select>
-    			</td>
-    		</tr>
-    		<tr>
-          <td>
-            <div class="row buttons">
-              <?php echo CHtml::submitButton($objModel->isNewRecord ? 'Submit' : 'Save'); ?>
-            </div>
-          </td>
-        </tr>
-    	</table>
+      <table style="line-height: 32px;padding-left: 10px;font-size: 15px;">
+	<fieldset class="fieldset">
+	  <div class="grid_block">
+	    <div class ="lable_block">
+	      <div class="lables">
+		<span><?php echo Yii::t('app', 'Job title'); ?> </span>
+		<span>:</span>
+	      </div>
+	      <div class="lables2">
+		<span>
+		  <input type="text" name="jobTitle"/>
+		</span>
+	      </div>
+	    </div>
+	    <div class ="lable_block">
+	      <div class="lables">
+		<span><?php echo Yii::t('app', 'Department'); ?></span>
+		<span>:</span>
+	      </div>
+	      <div class="lables2">
+		<span>
+		  <select name="departmentDropdown" size=1>
+		    <option value="" selected disabled hidden>Choose here</option>
+		    <?php foreach ($departmentArr as $iKey => $departmentObj) { ?>
+    		    <option value="<?php echo $departmentObj['title']; ?>"><?php echo $departmentObj['title']; ?></option>
+		    <?php } ?>
+		  </select>
+		</span>
+	      </div>
+	    </div>
+	    <div class ="lable_block">
+	      <div class="lables">
+		<td><?php echo Yii::t('app', 'Line manager'); ?></td>
+		<td>:</td>
+	      </div>
+	      <div class="lables2">
+		<select name="interviewManager" size=1>
+		  <?php foreach ($allManagers as $manager) { ?>
+    		  <option value="<?php echo $manager['admin_display_name'] ?>"><?php echo $manager['admin_display_name']; ?></option>
+		  <?php } ?>
+		</select>
+	      </div>
+	    </div>
+	    <div class ="lable_block">
+	      <span>
+		<input type="checkbox" name="isManagerialCheckbox" id="isManagerialCheckbox" value="1">
+		<label for="isManagerialCheckbox"><?php echo Yii::t('app', 'Managerial position') ?></label>
+	      </span>
+	    </div>
+	    <div class ="lable_block">
+	      <div class="row buttons">
+		<?php echo CHtml::submitButton($objModel->isNewRecord ? 'Submit' : 'Save'); ?>
+	      </div>
+	    </div>
+	</fieldset>
+      </table>
     </form>
   </div>
 </div>
