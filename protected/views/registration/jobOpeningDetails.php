@@ -16,6 +16,9 @@
     <form method="post" enctype="multipart/form-data" id="jobOpeningForm" name="jobOpeningForm" action="<?php echo $this->createUrl('registration/saveJobOpenings') ?>" >
       <table style="line-height: 32px;padding-left: 10px;font-size: 15px;">
 	<fieldset class="fieldset">
+	  <legend class="legend">
+	    <?php echo Yii::t('app', 'Job Opening Details'); ?>
+	  </legend>
 	  <div class="grid_block">
 	    <div class ="lable_block">
 	      <div class="lables">
@@ -46,15 +49,17 @@
 	    </div>
 	    <div class ="lable_block">
 	      <div class="lables">
-		<td><?php echo Yii::t('app', 'Line manager'); ?></td>
-		<td>:</td>
+		<span><?php echo Yii::t('app', 'Line manager'); ?></span>
+		<span>:</span>
 	      </div>
 	      <div class="lables2">
-		<select name="interviewManager" size=1>
-		  <?php foreach ($allManagers as $manager) { ?>
-    		  <option value="<?php echo $manager['admin_display_name'] ?>"><?php echo $manager['admin_display_name']; ?></option>
-		  <?php } ?>
-		</select>
+		<span>
+		  <select name="interviewManager" size=1>
+		    <?php foreach ($allManagers as $manager) { ?>
+    		    <option value="<?php echo $manager['admin_display_name'] ?>"><?php echo $manager['admin_display_name']; ?></option>
+		    <?php } ?>
+		  </select>
+		</span>
 	      </div>
 	    </div>
 	    <div class ="lable_block">
@@ -63,12 +68,10 @@
 		<label for="isManagerialCheckbox"><?php echo Yii::t('app', 'Managerial position') ?></label>
 	      </span>
 	    </div>
-	    <div class ="lable_block">
-	      <div class="row buttons">
-		<?php echo CHtml::submitButton($objModel->isNewRecord ? 'Submit' : 'Save'); ?>
-	      </div>
-	    </div>
 	</fieldset>
+	<div class="row buttons">
+	  <?php echo CHtml::submitButton($objModel->isNewRecord ? 'Submit' : 'Save'); ?>
+	</div>
       </table>
     </form>
   </div>
