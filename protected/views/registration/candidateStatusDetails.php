@@ -6,7 +6,7 @@
     <div class="breadcrumb-bottom breadcrumb-bottom-chart">
       <div class="title">
         <span>
-          <?php echo $header; ?>
+	  <?php echo $header; ?>
         </span>
       </div>
     </div>
@@ -19,11 +19,20 @@
     </h4>
     <form method="post" enctype="multipart/form-data" id="candidateStatusForm" name="candidateStatusForm" action="<?php echo $formAction; ?>" >
       <table style="line-height: 32px;padding-left: 10px;font-size: 15px;">
-        <tr>
-          <td><?php echo Yii::t('app', 'Please put in status that you would desire for candidate'); ?> </td>
-          <td>:</td>
-          <td><input type="text" name="newCandidateStatus" id="newCandidateStatus" value="<?php echo $candidateStatusTitle; ?>" required/>
-        </tr>
+	<fieldset class="fieldset">
+	  <legend class="legend">
+	    <?php echo Yii::t('app', 'Candidate Status Details'); ?>
+	  </legend>
+	  <div class="grid_block">
+	    <div class="lables">
+	      <span><?php echo Yii::t('app', 'Please put in status that you would desire for candidate'); ?> </span>
+	      <span>:</span>
+	    </div>
+	    <div class="lables2">
+	      <span><input type="text" name="newCandidateStatus" id="newCandidateStatus" value="<?php echo $candidateStatusTitle; ?>" required/></span>
+	    </div>
+	  </div>
+	</fieldset>
         <tr>
           <td>
             <input type="submit" value="<?php echo $buttonTitle; ?>">
