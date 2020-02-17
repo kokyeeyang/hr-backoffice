@@ -136,11 +136,7 @@ var RegistrationShowAllJobOpenings = function() {
 	
 	function _init(){
 		$(function() {
-			$('input#generateLink').on('click', function(objEvent) {
-				RegistrationShowAllJobOpenings.copy_link(this, objEvent);
-			});
-
-			$('input#generateEmail').on('click', function(objEvent) {
+			$('input.generateEmail').on('click', function(objEvent) {
 				RegistrationShowAllJobOpenings.generate_email(this, objEvent);
 			});
 

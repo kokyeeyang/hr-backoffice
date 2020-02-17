@@ -242,8 +242,8 @@ class PageHelper {
 	foreach($emailVariables as $emailVariable){
 	  $buttonVariables[$emailVariable] = $dataObject[$emailVariable];
 	}
-
-	$tableBody .= '<input type="button" id="' . $formData['send-email-button-id'] . '" ' . $formData['data-email-url-tag'] . Yii::app()->createUrl($formData['data-email-url'], $buttonVariables) . ' value="' . $clickableButtonTitle . '">';
+	
+	$tableBody .= '<input type="button" class="' . $formData['send-email-button-id'] . '" ' . $formData['data-email-url-tag'] . Yii::app()->createUrl($formData['data-email-url'], $buttonVariables) . ' value="' . $clickableButtonTitle . '">';
 	$tableBody .= '</td>';
 
 	return $tableBody;
