@@ -445,6 +445,7 @@ CREATE TABLE onboarding_checklist_items_user_mapping (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `onboarding_checklist_items_mapping_id` int(11) UNSIGNED NOT NULL,
   `user_id` int(11) UNSIGNED NOT NULL,
+  `completed` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` varchar(40) NULL,
   PRIMARY KEY (`id`),  
