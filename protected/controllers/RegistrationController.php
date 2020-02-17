@@ -398,7 +398,7 @@ class RegistrationController extends Controller {
 	Yii::app()->end();
     }
 
-    public function actionGenerateOfferEmail($jobId, $candidateName, $candidateId) {
+    public function actionGenerateOfferEmail() {
 	$aResult['candidateName'] = false;
 	$jobId = $this->getParam('jobId', '', '', 'get');
 	$candidateName = $this->getParam('candidateName', '', '', 'get');
@@ -479,7 +479,7 @@ class RegistrationController extends Controller {
 	$this->render('viewCandidateDetails', array('candidateArrRecords' => $candidateArrRecords, 'educationArrRecords' => $educationArrRecords, 'generalQuestionArrRecords' => $generalQuestionArrRecords, 'jobExperienceArrRecords' => $jobExperienceArrRecords, 'refereeArrRecords' => $refereeArrRecords, 'interviewQuestionsArrRecords' => $interviewQuestionsArrRecords, 'candidateId' => $candidateId, 'access' => $access, 'displayCoverLetterSection' => $displayCoverLetterSection, 'resumeSource' => $resumeSource, 'coverLetterSource' => $coverLetterSource, 'displayResumeSection' => $displayResumeSection));
     }
 
-    public function actionUpdateSelectedCandidate($candidateId) {
+    public function actionUpdateSelectedCandidate() {
 	$candidateId = $this->getParam('candidateId', '', '', 'get');
 	$candidateCondition = 'id_no = "' . $candidateId . '"';
 	$otherCondition = 'candidate_id = "' . $candidateId . '"';
@@ -650,7 +650,7 @@ class RegistrationController extends Controller {
 	Captcha::genCaptcha();
     }
 
-    public function actionConfirmCandidate($candidateId) {
+    public function actionConfirmCandidate() {
 	$candidateId = $this->getParam('candidateId', '', '', 'get');
 	$candidateStatus = $this->getParam('dropdown', '');
 	$candidateCondition = 'id_no = "' . $candidateId . '"';
@@ -677,7 +677,6 @@ class RegistrationController extends Controller {
 	$this->redirect(array('showAllCandidates'));
     }
 
-    // TODO: change function name because this is confusing
     public function actionChangeCandidateStatus($candidateId) {
 	$candidateCondition = 'id_no = "' . $candidateId . '"';
 
@@ -693,7 +692,8 @@ class RegistrationController extends Controller {
 	$this->redirect(array('showAllCandidates'));
     }
 
-    public function actionChangeCandidatePosition($candidateId) {
+    public function actionChangeCandidatePosition() {
+	$candidateId = $this->getParam('candidateId', '', '', 'get');
 	$candidateCondition = 'id_no = "' . $candidateId . '"';
 	$job_id = $this->getParam('positionDropdown', '');
 
@@ -835,14 +835,13 @@ class RegistrationController extends Controller {
 	$offerLetterCondition = 'id = "' . $id . '"';
 	$offerLetterDepartmentArray = $this->getParam('department', '');
 
-	$departmentArrayInsideDatabase = EmploymentOfferLetterTemplatesMapping::model()->findDepartmentById($id);
+//	$departmentArrayInsideDatabase = EmploymentOfferLetterTemplatesMapping::model()->findDepartmentById($id);
 
-	foreach ($departmentArrayInsideDatabase as $departmentObjectInsideDatabase) {
-	    $result = array_diff($offerLetterDepartmentArray, $departmentObjectInsideDatabase);
-	}
+//	foreach ($departmentArrayInsideDatabase as $departmentObjectInsideDatabase) {
+//	    $result = array_diff($offerLetterDepartmentArray, $departmentObjectInsideDatabase);
+//	}
 
-	//if department choices from UI differs from record inside database, then delete and create new records inside the offer letter mapping table again
-	if ($result != null) {
+//	if ($result != null) {
 	    $columnName = OfferLetterMappingEnum::OFFER_LETTER_ID;
 	    $condition = $columnName . ' = ' . $id;
 	    EmploymentOfferLetterTemplatesMapping::model()->deleteAll($condition);
@@ -853,10 +852,11 @@ class RegistrationController extends Controller {
 		$offerLetterMappingObjModel->department_id = $offerLetterDepartmentObj;
 		$offerLetterMappingObjModel->save();
 	    }
-	}
+//	}
 
 	EmploymentOfferLetterTemplates::model()->updateAll(
-	    ['offer_letter_title' => $this->getParam('offerLetterTitle', ''), 'offer_letter_description' => $this->getParam('offerLetterDescription', ''), 'is_managerial' => $this->getParam('offerLetterIsManagerial', ''), 'modified_by' => Yii::app()->user->id], $offerLetterCondition);
+	    ['offer_letter_title' => $this->getParam('offerLetterTitle', ''), 'offer_letter_description' => $this->getParam('offerLetterDescription', ''), 'is_managerial' => $this->getParam('offerLetterIsManagerial', ''), 
+		'offer_letter_content'=>$this->getParam('offerLetterTemplate', ''), 'modified_by' => Yii::app()->user->id], $offerLetterCondition);
 
 	$this->redirect(['showOfferLetterTemplates']);
     }
