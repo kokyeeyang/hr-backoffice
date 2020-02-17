@@ -11,9 +11,6 @@
 
 <div class="common_content_wrapper admin_login_log_list">
   <div class="common_content_inner_wrapper">
-    <h4 class="widget_title"><?php echo $header; ?>
-      <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
-    </h4>
     <form method="post" enctype="multipart/form-data" id="onboardingChecklistTemplateForm" name="onboardingChecklistTemplateForm" action="<?php echo $formAction; ?>">
       <div id="offer-letter-template-input" style="margin-bottom:10px; margin-top: 10px;">
 	<input type="hidden" id="hiddenVal" value="0"/>
@@ -160,9 +157,8 @@
 	  <!-- would need to pass php array containing all the onboarding items that are available in the database into a dropdown menu for users to choose-->
 	  <!-- ajax would then populate the data for the onboarding item that the user chose -->
 	  <button type="button" id="appendOnboardingItem" title="Add more onboarding items to this template">+</button>
-	  <br/><br/>
-	  <button title="<?php echo $buttonTitle; ?>" class="<?php echo $buttonClass; ?>" disabled><?php echo $buttonShortTitle; ?></button>
 	</fieldset>
+	<button title="<?php echo $buttonTitle; ?>" class="<?php echo $buttonClass; ?>" disabled><?php echo $buttonShortTitle; ?></button>
       </div>
     </form>
   </div>

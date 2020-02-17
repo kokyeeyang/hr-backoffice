@@ -323,11 +323,12 @@ class AdminController extends Controller {
 
     public function actionAddNewDepartment() {
 	$formAction = $this->createUrl('admin/saveDepartment');
+	$header = AdminEnum::ADD_DEPARTMENT;
 	$buttonTitle = AdminEnum::SAVE_BUTTON;
 	$departmentTitle = '';
 	$departmentDescription = '';
 
-	$this->render('departmentDetails', ['formAction' => $formAction, 'buttonTitle' => $buttonTitle, 'departmentTitle' => $departmentTitle, 'departmentDescription' => $departmentDescription]);
+	$this->render('departmentDetails', ['formAction' => $formAction, 'header' => $header, 'buttonTitle' => $buttonTitle, 'departmentTitle' => $departmentTitle, 'departmentDescription' => $departmentDescription]);
     }
 
     public function actionSaveDepartment() {
@@ -352,11 +353,12 @@ class AdminController extends Controller {
 	}
 
 	$formAction = $this->createUrl('admin/updateDepartment', ['departmentId' => $id]);
+	$header = AdminEnum::EDIT_DEPARTMENT;
 	$buttonTitle = AdminEnum::UPDATE_BUTTON;
 	$departmentTitle = $departmentArr[0]->title;
 	$departmentDescription = $departmentArr[0]->description;
 
-	$this->render('departmentDetails', ['departmentArr' => $departmentArr, 'id' => $id, 'formAction' => $formAction, 'buttonTitle' => $buttonTitle, 'departmentTitle' => $departmentTitle, 'departmentDescription' => $departmentDescription]);
+	$this->render('departmentDetails', ['departmentArr' => $departmentArr, 'id' => $id, 'formAction' => $formAction, 'header' => $header, 'buttonTitle' => $buttonTitle, 'departmentTitle' => $departmentTitle, 'departmentDescription' => $departmentDescription]);
     }
 
     public function actionUpdateDepartment($departmentId) {

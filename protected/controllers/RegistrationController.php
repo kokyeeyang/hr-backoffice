@@ -748,6 +748,7 @@ class RegistrationController extends Controller
 	public function actionAddNewOfferLetter(){
 		
 		$dateToday = date("dS F Y");
+		$header = Yii::t('app', 'Add New Offer Letter Template');
 		$departmentTitle = DepartmentEnum::DEPARTMENT_TITLE;
 		$departmentId = 'id';
 		$departmentCondition = $departmentTitle . ',' . $departmentId;
@@ -762,7 +763,7 @@ class RegistrationController extends Controller
 		$offerLetterDepartment = "";
 		$offerLetterIsManagerial = "";
 
-		$this->render('offerLetterDetails', array('dateToday'=>$dateToday, 'departmentArr' => $departmentArr, 'currentFunction'=>$currentFunction, 'offerLetterTitle'=>$offerLetterTitle, 'offerLetterDescription'=>$offerLetterDescription, 'offerLetterContent'=>$offerLetterContent, 'offerLetterDepartment'=>$offerLetterDepartment, 'offerLetterIsManagerial'=>$offerLetterIsManagerial));
+		$this->render('offerLetterDetails', array('dateToday'=>$dateToday, 'departmentArr' => $departmentArr, 'currentFunction'=>$currentFunction, 'offerLetterTitle'=>$offerLetterTitle, 'offerLetterDescription'=>$offerLetterDescription, 'offerLetterContent'=>$offerLetterContent, 'offerLetterDepartment'=>$offerLetterDepartment, 'offerLetterIsManagerial'=>$offerLetterIsManagerial, 'header'=>$header));
 	}
 
 	public function actionSaveOfferLetterTemplate(){
