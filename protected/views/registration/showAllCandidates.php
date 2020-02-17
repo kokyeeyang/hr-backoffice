@@ -26,7 +26,7 @@
 		?>
 		<?php echo CHtml::hiddenField('mode', 'candidate-list'); ?>
 		<?php echo CHtml::hiddenField('sort_key', $strSortKey); ?>
-		<h4 class="widget_title"><?php echo Yii::t('app', 'Interview Candidates List'); ?>
+		<h4 class="widget_title">
 		<input type="text" value="" placeholder="<?php echo Yii::t('app', 'Filter results'); ?>" name="label_filter" id="label_filter" style="width:30%"/>
 		</h4> 
 		<table class="widget_table grid">

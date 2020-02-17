@@ -34,8 +34,6 @@
 </div>
 <div class="common_content_wrapper admin_login_log_list">
   <div class="common_content_inner_wrapper">
-    <h4 class="widget_title"><?php echo $header; ?>
-    </h4>
     <form method="post" enctype="multipart/form-data" id="createOfferLetterForm" name="createOfferLetterForm" action="<?php echo $this->createUrl('registration/saveOfferLetterTemplate'); ?>">
       <fieldset class="fieldset">
 	<legend class="legend">

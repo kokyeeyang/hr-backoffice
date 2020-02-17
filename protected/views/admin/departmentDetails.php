@@ -15,8 +15,6 @@
 
 <div class="common_content_wrapper admin_login_log_list">
   <div class="common_content_inner_wrapper">
-    <h4 class="widget_title"><?php echo $header; ?>
-    </h4>
     <form method="post" enctype="multipart/form-data" id="departmentForm" name="departmentForm" action="<?php echo $formAction; ?>" >
       <table style="line-height: 32px;padding-left: 10px;font-size: 15px;">
 	<fieldset class="fieldset">
