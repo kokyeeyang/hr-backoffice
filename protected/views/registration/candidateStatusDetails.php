@@ -21,7 +21,7 @@
       <table style="line-height: 32px;padding-left: 10px;font-size: 15px;">
 	<fieldset class="fieldset">
 	  <legend class="legend">
-	    <?php echo Yii::t('app', 'Candidate Status Details'); ?>
+	    <?php echo Yii::t('app', '1. Candidate Status Details'); ?>
 	  </legend>
 	  <div class="grid_block">
 	    <div class="lable_block">

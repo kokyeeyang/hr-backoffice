@@ -17,7 +17,7 @@
       <table style="line-height: 32px;padding-left: 10px;font-size: 15px;">
 	<fieldset class="fieldset">
 	  <legend class="legend">
-	    <?php echo Yii::t('app', 'Onboarding Checklist Item Details'); ?>
+	    <?php echo Yii::t('app', '1. Onboarding Checklist Item Details'); ?>
 	  </legend>
 	  <div class="grid_block">
 	    <div class="lable_block">
@@ -68,24 +68,24 @@
 	</fieldset>
 	<fieldset class="fieldset">
 	  <legend class="legend">
-	    <?php echo Yii::t('app', 'Others'); ?>
+	    <?php echo Yii::t('app', '2. Others'); ?>
 	  </legend>
 	  <div class="grid_block">
-	    <div class="lable block">
+	    <div class="lable_block">
 	      <span>
 		<?php isset($_GET['id']) && $onboardingItemObjRecord->status == 1 ? $checkedStatus = 'checked' : $checkedStatus = '' ?>
 		<input type="checkbox" name="isActiveCheckbox" id="isActiveCheckbox" value="1" <?php echo $checkedStatus ?>>
 		<label for="isActiveCheckbox"><?php echo Yii::t('app', 'Is this item still active?') ?></label>
 	      </span>
 	    </div>
-	    <div class="lable block">
+	    <div class="lable_block">
 	      <span>
 		<?php isset($_GET['id']) && $onboardingItemObjRecord->is_managerial == 1 ? $checkedStatus = 'checked' : $checkedStatus = '' ?>
 		<input type="checkbox" name="isManagerialCheckbox" id="isManagerialCheckbox" value="1" <?php echo $checkedStatus ?>>
 		<label for="isManagerialCheckbox"><?php echo Yii::t('app', 'Is this item for managerial role?') ?></label>
 	      </span>
 	    </div>
-	    <div class="lable block">
+	    <div class="lable_block">
 	      <span>
 		<?php isset($_GET['id']) && $onboardingItemObjRecord->is_offboarding_item == 1 ? $checkedStatus = 'checked' : $checkedStatus = '' ?>
 		<input type="checkbox" name="isOffboardingCheckbox" id="isOffboardingCheckbox" value="1" <?php echo $checkedStatus ?>>

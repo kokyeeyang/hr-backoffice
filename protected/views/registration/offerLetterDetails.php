@@ -39,7 +39,7 @@
     <form method="post" enctype="multipart/form-data" id="createOfferLetterForm" name="createOfferLetterForm" action="<?php echo $this->createUrl('registration/saveOfferLetterTemplate'); ?>">
       <fieldset class="fieldset">
 	<legend class="legend">
-	  <?php echo Yii::t('app', 'Offer Letter Details'); ?>
+	  <?php echo Yii::t('app', '1. Offer Letter Details'); ?>
 	</legend>
 	<div class="grid_block">
 	  <div class="lable_block">
@@ -70,7 +70,7 @@
 		    <textarea id="offerLetterTemplate" name="offerLetterTemplate"><?php echo $offerLetterContent; ?></textarea>
 		    <fieldset class="fieldset">
 		      <legend class="legend" title="<?php echo Yii::t('app', 'Which department(s) is this offer letter template for?'); ?>">
-			<?php echo Yii::t('app', 'More details'); ?>
+			<?php echo Yii::t('app', '2. More details'); ?>
 		      </legend>
 		      <div id="department-dropdown" style="margin-top: 10px; margin-bottom: 10px;">
 			<?php foreach ($departmentArr as $iKey => $departmentObj) { ?>

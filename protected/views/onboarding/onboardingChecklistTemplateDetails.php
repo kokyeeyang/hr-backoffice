@@ -17,10 +17,10 @@
     <form method="post" enctype="multipart/form-data" id="onboardingChecklistTemplateForm" name="onboardingChecklistTemplateForm" action="<?php echo $formAction; ?>">
       <div id="offer-letter-template-input" style="margin-bottom:10px; margin-top: 10px;">
 	<input type="hidden" id="hiddenVal" value="0"/>
-	<input type="hidden" name="templateId" value="<?php echo isset($templateId) ? $templateId:''; ?>">
+	<input type="hidden" name="templateId" value="<?php echo isset($templateId) ? $templateId : ''; ?>">
 	<fieldset class="fieldset">
 	  <legend class="legend">
-	    <?php echo Yii::t('app', 'Onboarding Checklist Template Details'); ?>
+	    <?php echo Yii::t('app', '1. Describe this template'); ?>
 	  </legend>
 	  <div class="grid_block">
 	    <div class="lable_block">
@@ -49,108 +49,113 @@
 	    </div>
 	  </div>
 	</fieldset>
-	<table class="widget_table grid">
-	  <thead>
-	    <tr>
-	      <th>
-		<div class="sort_wrapper_inner">
-		  <div class="sort_label_wrapper">
-		    <div class="sort_label">
-		      <?php echo Yii::t('app', 'Title'); ?>
+	<fieldset class="fieldset">
+	  <legend class="legend">
+	    <?php echo Yii::t('app', '2. Onboarding Checklist Template Details'); ?>
+	  </legend>
+	  <table class="widget_table grid">
+	    <thead>
+	      <tr>
+		<th>
+		  <div class="sort_wrapper_inner">
+		    <div class="sort_label_wrapper">
+		      <div class="sort_label">
+			<?php echo Yii::t('app', 'Title'); ?>
+		      </div>
 		    </div>
 		  </div>
-		</div>
-	      </th>
-	      <th>
-		<div class="sort_wrapper_inner">
-		  <div class="sort_label_wrapper">
-		    <div class="sort_label">
-		      <?php echo Yii::t('app', 'Description'); ?>
+		</th>
+		<th>
+		  <div class="sort_wrapper_inner">
+		    <div class="sort_label_wrapper">
+		      <div class="sort_label">
+			<?php echo Yii::t('app', 'Description'); ?>
+		      </div>
 		    </div>
 		  </div>
-		</div>
-	      </th>
-	      <th>
-		<div class="sort_wrapper_inner">
-		  <div class="sort_label_wrapper">
-		    <div class="sort_label">
-		      <?php echo Yii::t('app', 'Department owner'); ?>
+		</th>
+		<th>
+		  <div class="sort_wrapper_inner">
+		    <div class="sort_label_wrapper">
+		      <div class="sort_label">
+			<?php echo Yii::t('app', 'Department owner'); ?>
+		      </div>
 		    </div>
 		  </div>
-		</div>
-	      </th>
-	      <th>
-		<div class="sort_wrapper_inner">
-		  <div class="sort_label_wrapper">
-		    <div class="sort_label">
-		      <?php echo Yii::t('app', 'Is offboarding item'); ?>
+		</th>
+		<th>
+		  <div class="sort_wrapper_inner">
+		    <div class="sort_label_wrapper">
+		      <div class="sort_label">
+			<?php echo Yii::t('app', 'Is offboarding item'); ?>
+		      </div>
 		    </div>
 		  </div>
-		</div>
-	      </th>
-	      <th>
-	      </th>
-	    </tr>
-	  </thead>
-	  <tbody id="data_table">
-	    <?php
-	    $counter = 0;
-	    if (isset($onboardingItemArrRecord)) {
-		?>
-		<?php foreach ($onboardingItemArrRecord as $onboardingItemObjRecord) { ?>
-		    <tr class="onboardingItemTr">
-		      <td class="onboardingItemTd">
-			<select name="onboardingItemDropdown <?php echo $counter; ?>" size=1 class="selectOnboardingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
-			  <option value="">Choose here</option>
-			  <?php foreach ($onboardingItemTitleArrRecord as $intIndex => $onboardingItemTitleObjRecord) { ?>
-			      <?php $onboardingItemObjRecord['title'] === $onboardingItemTitleObjRecord['title'] ? $selected = "selected" : $selected = ''; ?>
-	    		  <option value="<?php echo $onboardingItemTitleObjRecord['id']; ?>" <?php echo $selected; ?>>
-			      <?php echo $onboardingItemTitleObjRecord['title']; ?>
-	    		  </option>
-			  <?php } ?>
-			</select>
-		      </td>
-		      <td class="description">
-			<?php echo $onboardingItemObjRecord['description']; ?>
-		      </td>
-		      <td class="departmentOwner">
-			<?php echo $onboardingItemObjRecord['department_owner']; ?>
-		      </td>
-		      <td class="isOffboardingItem">
-			<?php echo $onboardingItemObjRecord['is_offboarding_item']; ?>
-		      </td>
-		      <td class="removeOnboardingItemButton">
-			<a href="#"><span class="removeOnboardingItemButton" title="Remove this item">&#x2716;</span></a>
-		      </td>
-		    </tr>
-		    <?php
-		    $counter ++;
-		}
-		?>
-	    <?php } ?>
-	    <tr class="appendOnboardingItemTr" style="display:none;">
-	      <td class="onboardingItemTd">
-		<select name="appendOnboardingItemDropdown" size=1 class="selectOnboardingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
-		  <option value="" selected>Choose here</option>
-		  <?php foreach ($onboardingItemTitleArrRecord as $intIndex => $onboardingItemTitleObjRecord) { ?>
-    		  <option value="<?php echo $onboardingItemTitleObjRecord['id']; ?>">
-			<?php echo $onboardingItemTitleObjRecord['title']; ?>
-    		  </option>
-		  <?php } ?>
-		</select>
-	      </td>
-	      <td class="description">
-	      </td>
-	      <td class="departmentOwner">
-	      </td>
-	      <td class="isOffboardingItem">
-	      </td>
-	      <td class="removeOnboardingItemButton">
-		<a href="#"><span class="removeOnboardingItemButton" title="Remove this item"></span></a>
-	      </td>
-	    </tr>
-	  </tbody>
-	</table>
+		</th>
+		<th>
+		</th>
+	      </tr>
+	    </thead>
+	    <tbody id="data_table">
+	      <?php
+	      $counter = 0;
+	      if (isset($onboardingItemArrRecord)) {
+		  ?>
+		  <?php foreach ($onboardingItemArrRecord as $onboardingItemObjRecord) { ?>
+		      <tr class="onboardingItemTr">
+			<td class="onboardingItemTd">
+			  <select name="onboardingItemDropdown <?php echo $counter; ?>" size=1 class="selectOnboardingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
+			    <option value="">Choose here</option>
+			    <?php foreach ($onboardingItemTitleArrRecord as $intIndex => $onboardingItemTitleObjRecord) { ?>
+				<?php $onboardingItemObjRecord['title'] === $onboardingItemTitleObjRecord['title'] ? $selected = "selected" : $selected = ''; ?>
+	    		    <option value="<?php echo $onboardingItemTitleObjRecord['id']; ?>" <?php echo $selected; ?>>
+				  <?php echo $onboardingItemTitleObjRecord['title']; ?>
+	    		    </option>
+			    <?php } ?>
+			  </select>
+			</td>
+			<td class="description">
+			  <?php echo $onboardingItemObjRecord['description']; ?>
+			</td>
+			<td class="departmentOwner">
+			  <?php echo $onboardingItemObjRecord['department_owner']; ?>
+			</td>
+			<td class="isOffboardingItem">
+			  <?php echo $onboardingItemObjRecord['is_offboarding_item']; ?>
+			</td>
+			<td class="removeOnboardingItemButton">
+			  <a href="#"><span class="removeOnboardingItemButton" title="Remove this item">&#x2716;</span></a>
+			</td>
+		      </tr>
+		      <?php
+		      $counter ++;
+		  }
+		  ?>
+	      <?php } ?>
+	      <tr class="appendOnboardingItemTr" style="display:none;">
+		<td class="onboardingItemTd">
+		  <select name="appendOnboardingItemDropdown" size=1 class="selectOnboardingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
+		    <option value="" selected>Choose here</option>
+		    <?php foreach ($onboardingItemTitleArrRecord as $intIndex => $onboardingItemTitleObjRecord) { ?>
+    		    <option value="<?php echo $onboardingItemTitleObjRecord['id']; ?>">
+			  <?php echo $onboardingItemTitleObjRecord['title']; ?>
+    		    </option>
+		    <?php } ?>
+		  </select>
+		</td>
+		<td class="description">
+		</td>
+		<td class="departmentOwner">
+		</td>
+		<td class="isOffboardingItem">
+		</td>
+		<td class="removeOnboardingItemButton">
+		  <a href="#"><span class="removeOnboardingItemButton" title="Remove this item"></span></a>
+		</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	</fieldset>
       <!--<input type="button" id="addOnboardingItem" title="Add a new onboarding item for this template" value="Add new item"/>-->
 	<!-- need to add a bar containing title, description, department owner, is_offboarding_item, status, is_managerial for onboarding items -->
 	<!-- would need ajax to append a dropdown to add onboarding items -->

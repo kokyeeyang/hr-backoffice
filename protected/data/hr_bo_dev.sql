@@ -441,15 +441,15 @@ ALTER TABLE admin
 ALTER TABLE admin
   MODIFY COLUMN admin_id int(11) NOT NULL AUTO_INCREMENT;
 
-CREATE TABLE onboarding_checklist_user_mapping (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `checklist_items_mapping_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+CREATE TABLE onboarding_checklist_items_user_mapping (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `onboarding_checklist_items_mapping_id` int(11) UNSIGNED NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` varchar(40) NULL,
   PRIMARY KEY (`id`),  
   FOREIGN KEY (user_id) REFERENCES admin(admin_id),
-  FOREIGN KEY (checklist_items_mapping_id) REFERENCES onboarding_checklist_items_mapping(id)
+  FOREIGN KEY (onboarding_checklist_items_mapping_id) REFERENCES onboarding_checklist_items_mapping(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE department CHANGE department_title title varchar(80);
