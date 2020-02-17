@@ -40,9 +40,8 @@ fieldset {
   margin-bottom:20px;
 }
 
-button #appendOnboardingItem {
-  margin-bottom: 10px;
-  margin-top: 10px;
+#appendOnboardingItem {
+  margin-top:10px;
 }
 
 
