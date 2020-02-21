@@ -23,11 +23,13 @@ var OnboardingShowAllOnboardingItems = function () {
         success: function (data)
         {
           if (data != null && data.result != false) {
+            console.log(data.result);
             alert('This onboarding item belongs to template ' + data.result + '. Please delete in that template(s) first');
             //uncheck the boxes for onboarding item that still belong in templates
             $('#deleteCheckBox' + $(objElement).val()).prop('checked', false);
 
           } else if (data != null && data.result == false) {
+            console.log('bye');
           }
         },
         error: function (request, status, err)

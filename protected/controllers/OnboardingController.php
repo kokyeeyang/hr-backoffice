@@ -472,10 +472,10 @@ class OnboardingController extends Controller {
 	if (Yii::app()->request->isAjaxRequest) {
 	    $queryString = $id;
 	    $queryResult = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TITLE;
-	    $columnName = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TITLE_ID;
+	    $columnName = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_ITEM_ID;
 
 	    $onboardingChecklistTemplateTitle = OnboardingChecklistItemsMapping::model()->queryForOnboardingTemplateInformation($queryString, $queryResult, $columnName);
-	    var_dump($onboardingChecklistTemplateTitle);exit;
+
 	    $aResult['result'] = $onboardingChecklistTemplateTitle;
 	}
 	echo(json_encode($aResult));

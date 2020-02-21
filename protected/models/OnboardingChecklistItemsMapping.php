@@ -43,21 +43,21 @@ class OnboardingChecklistItemsMapping extends AppActiveRecord {
 
     //checking whether onboarding checklist contains this item or not 
     public function queryForOnboardingTemplateInformation($queryString, $queryResult, $columnName) {
+
 	$sql = 'SELECT ' . $queryResult;
 	$sql .= ' FROM onboarding_checklist_template OCT';
 	$sql .= ' INNER JOIN ' . self::$tableName . ' OCIM';
-	$sql .= ' OCIM.checklist_template_id = OCT.id ';
-	$sql .= 'WHERE ' . $columnName . ' = "' . $queryString . '"';
+	$sql .= ' ON OCIM.checklist_template_id = OCT.id ';
+	$sql .= 'WHERE OCIM.' . OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_ITEM_ID . ' = ' . $queryString;
 
 	$objConnection = Yii::app()->db;
 	$objCommand = $objConnection->createCommand($sql);
 	$arrData = $objCommand->queryAll($sql);
-
 	if (!empty($arrData)) {
 	    foreach ($arrData as $objData) {
 		$finalResult[] = $objData['title'];
 	    }
-	    return $arrData[$queryResult];
+	    return $finalResult;
 	} else {
 	    return false;
 	}
