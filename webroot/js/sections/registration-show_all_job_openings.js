@@ -44,12 +44,14 @@ var RegistrationShowAllJobOpenings = function () {
         success: function (data)
         {
           if (data != null && data.result != false) {
-            alert('There are still applicants for your chosen job opening, please delete them first.');
+            alert('There are still candidates : ' + data.result + 'for your chosen job opening, please delete them first.');
+            console.log('data is not null');
+//             console.log(data.result);
             //uncheck the boxes for departments that still have users
             $('#deleteCheckBox' + $(objElement).val()).prop('checked', false);
 
           } else if (data != null && data.result == false) {
-
+console.log('data is null');
           }
         },
         error: function (request, status, err)
@@ -119,7 +121,7 @@ var RegistrationShowAllJobOpenings = function () {
         {
           if (data != null && data.result != false) {
 //            alert(data.result);
-            alert('hellooooooooooo');
+//            alert();
 //            alert('There are candidates belonging to your chosen job opening, please delete them first.');
             //uncheck the boxes for departments that still have users
             $('#deleteCheckBox' + $(objElement).val()).prop('checked', false);

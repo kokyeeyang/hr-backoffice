@@ -836,27 +836,25 @@ class RegistrationController extends Controller {
 	$offerLetterDepartmentArray = $this->getParam('department', '');
 
 //	$departmentArrayInsideDatabase = EmploymentOfferLetterTemplatesMapping::model()->findDepartmentById($id);
-
 //	foreach ($departmentArrayInsideDatabase as $departmentObjectInsideDatabase) {
 //	    $result = array_diff($offerLetterDepartmentArray, $departmentObjectInsideDatabase);
 //	}
-
 //	if ($result != null) {
-	    $columnName = OfferLetterMappingEnum::OFFER_LETTER_ID;
-	    $condition = $columnName . ' = ' . $id;
-	    EmploymentOfferLetterTemplatesMapping::model()->deleteAll($condition);
+	$columnName = OfferLetterMappingEnum::OFFER_LETTER_ID;
+	$condition = $columnName . ' = ' . $id;
+	EmploymentOfferLetterTemplatesMapping::model()->deleteAll($condition);
 
-	    foreach ($offerLetterDepartmentArray as $offerLetterDepartmentObj) {
-		$offerLetterMappingObjModel = new EmploymentOfferLetterTemplatesMapping;
-		$offerLetterMappingObjModel->offer_letter_template_id = $id;
-		$offerLetterMappingObjModel->department_id = $offerLetterDepartmentObj;
-		$offerLetterMappingObjModel->save();
-	    }
+	foreach ($offerLetterDepartmentArray as $offerLetterDepartmentObj) {
+	    $offerLetterMappingObjModel = new EmploymentOfferLetterTemplatesMapping;
+	    $offerLetterMappingObjModel->offer_letter_template_id = $id;
+	    $offerLetterMappingObjModel->department_id = $offerLetterDepartmentObj;
+	    $offerLetterMappingObjModel->save();
+	}
 //	}
 
 	EmploymentOfferLetterTemplates::model()->updateAll(
-	    ['offer_letter_title' => $this->getParam('offerLetterTitle', ''), 'offer_letter_description' => $this->getParam('offerLetterDescription', ''), 'is_managerial' => $this->getParam('offerLetterIsManagerial', ''), 
-		'offer_letter_content'=>$this->getParam('offerLetterTemplate', ''), 'modified_by' => Yii::app()->user->id], $offerLetterCondition);
+	    ['offer_letter_title' => $this->getParam('offerLetterTitle', ''), 'offer_letter_description' => $this->getParam('offerLetterDescription', ''), 'is_managerial' => $this->getParam('offerLetterIsManagerial', ''),
+		'offer_letter_content' => $this->getParam('offerLetterTemplate', ''), 'modified_by' => Yii::app()->user->id], $offerLetterCondition);
 
 	$this->redirect(['showOfferLetterTemplates']);
     }
@@ -1137,8 +1135,8 @@ class RegistrationController extends Controller {
 	    $queryResult = EmploymentCandidateEnum::FULL_NAME;
 	    $columnName = EmploymentCandidateEnum::JOB_ID;
 	    //to confirm whether there are any candidates applied under this job opening
-	    $candidateName = EmploymentCandidate::model()->queryForCandidateInformation($queryString, $queryResult, $columnName);
-	    $aResult['result'] = $candidateName;
+	    $candidateNames = EmploymentCandidate::model()->queryForCandidateInformation($queryString, $queryResult, $columnName);
+	    $aResult['result'] = $candidateNames;
 	}
 	echo(json_encode($aResult));
 	Yii::app()->end();
