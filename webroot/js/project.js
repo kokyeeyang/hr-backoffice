@@ -342,11 +342,9 @@ var Project = function() {
 					else if($('#admin-activity-log-list-form').length > 0 && (typeof Report) == 'object'){
 						Report.init();
 					}
-					//testing for department list
-					else if($('#departments-list').length > 0 && (typeof Department) == 'object'){
-						Department.init();
+					else if($('#jobopening-list').length > 0 && (typeof RegistrationShowAllJobOpenings) == 'object'){
+						RegistrationShowAllJobOpenings.init();
 					}
-
 					// else if($('#department-list-test').length > 0 && (typeof Department) == 'object'){
 					// 	Department.init();
 					// } 

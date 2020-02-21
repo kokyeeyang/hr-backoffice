@@ -252,7 +252,7 @@ class PageHelper {
     private static function prepareDeleteCheckbox($formData, $dataObject, $dataUrlTag, $foreignKeyCheckUrl){
 
 	$tableBody = '<td>';
-	$tableBody .= '<input ' . $dataUrlTag . $foreignKeyCheckUrl . ' type="checkbox" name="deleteCheckBox[]" id="deleteCheckBox' . $dataObject['id'] . '" class="deleteCheckBox"' . 'value="' . $dataObject['id'] .'">';
+	$tableBody .= '<input data-url="' . $foreignKeyCheckUrl . '" type="checkbox" name="deleteCheckBox[]" id="deleteCheckBox' . $dataObject['id'] . '" class="deleteCheckBox"' . 'value="' . $dataObject['id'] .'">';
 	$tableBody .= '</td>';
 
 	return $tableBody;

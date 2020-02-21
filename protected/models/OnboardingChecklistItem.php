@@ -69,7 +69,11 @@ class OnboardingChecklistItem extends AppActiveRecord {
 	public function deleteOnboardingItem($deleteOnboardingItemIds){
 	    foreach($deleteOnboardingItemIds as $deleteOnboardingItemId){
 		$condition = 'id = ' . $deleteOnboardingItemId;
-		OnboardingChecklistItem::model()->deleteAll($condition);
+		$deleteItem = OnboardingChecklistItem::model()->deleteAll($condition);
+		
+		if($deleteItem == null){
+		    echo 'Please delete this item from the onboarding checklist first';
+		}
 	    }
 	}
 	

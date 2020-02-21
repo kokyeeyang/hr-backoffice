@@ -45,25 +45,24 @@ class OnboardingChecklistTemplate extends AppActiveRecord {
 
 	return $arrData;
     }
-    
-    public function findAllOnboardingChecklistTemplates($strSortBy=false, $intPage=false, $numPerPage=false){
+
+    public function findAllOnboardingChecklistTemplates($strSortBy = false, $intPage = false, $numPerPage = false) {
 	$sql = 'SELECT id, title, description ';
 	$sql .= 'FROM ' . self::$tableName;
 	$sql .= ' ORDER BY ' . $strSortBy;
 	$sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
-	
+
 	$objConnection = Yii::app()->db;
 	$objCommand = $objConnection->createCommand($sql);
 	$arrData = $objCommand->queryAll($sql);
-	
+
 	return $arrData;
     }
-    
-    public function deleteOnboardingTemplates($deleteOnboardingChecklistIds){
-	foreach($deleteOnboardingChecklistIds as $deleteOnboardingChecklistId){
+
+    public function deleteOnboardingTemplates($deleteOnboardingChecklistIds) {
+	foreach ($deleteOnboardingChecklistIds as $deleteOnboardingChecklistId) {
 	    $deleteCondition = 'id = ' . $deleteOnboardingChecklistId;
 	    OnboardingChecklistTemplate::model()->deleteAll($deleteCondition);
 	}
     }
-
 }

@@ -72,7 +72,7 @@ class PageEnum {
 	    "alert-data-msg" => array(
 		"msg-confirm-delete" => "Are you sure that you want to delete the selected job openings?",
 		"msg-select-delete" => "Please select a job opening that you would like to delete!"),
-	    "data-url" => "",
+	    "data-url" => "data-url=",
 	    "foreign-key-check" => "",
 	    "column-link-to-details" => "",
 	    "form-action-view-selected" => "",
@@ -83,7 +83,6 @@ class PageEnum {
 	    "data-email-details" => array("id", "job_title"),
 	    "clickable-button-title" => "Generate Email",
 	    "foreign-key-check" => "registration/checkCandidateJobOpeningExist",
-	    "msg-foreign-key-id" => "candidateJobOpeningExist",
 	    "msg-foreign-key" => "Please delete the candidates under this job opening first.",
 	    "column-details-query" => "",
 	    "column-details-model" => ""
@@ -127,10 +126,10 @@ class PageEnum {
 		"msg-confirm-delete" => "Are you sure that you want to delete the selected onboarding item?",
 		"msg-select-delete" => "Please select a onboarding item that you would like to delete!"),
 	    "data-url" => "",
-	    "foreign-key-check" => "",
+	    "foreign-key-check" => "onboarding/checkOnboardingItemExistInTemplate",
 	    "column-link-to-details" => "title",
 	    "form-action-view-selected" => "onboarding/viewSelectedOnboardingItem",
-	    "msg-foreign-key" => ""
+	    "msg-foreign-key" => "Delete this onboarding item from their respective checklist template first"
 	),
 	"Onboarding Checklist Template" =>
 	array(
