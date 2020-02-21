@@ -157,13 +157,10 @@ class EmploymentCandidate extends AppActiveRecord {
 	$arrData = $objCommand->queryAll();
 
 	if (!empty($arrData)) {
-//	    foreach ($arrData as $objData) {
-//		$finalArray[] = $objData;
-//	    }
-	    $finalReturn = implode(", ", $arrData);
-	    
-	    var_dump($arrData);
-	    return $arrData;
+	    foreach ($arrData as $objData) {
+		$finalArray[] = $objData['full_name'];
+	    }
+	    return $finalArray;
 	} else {
 	    return false;
 	}

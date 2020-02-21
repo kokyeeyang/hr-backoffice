@@ -44,14 +44,12 @@ var RegistrationShowAllJobOpenings = function () {
         success: function (data)
         {
           if (data != null && data.result != false) {
-            alert('There are still candidates : ' + data.result + 'for your chosen job opening, please delete them first.');
-            console.log('data is not null');
-//             console.log(data.result);
+            alert('There are still candidates : ' + data.result + ' for your chosen job opening, please delete them first.');
+
             //uncheck the boxes for departments that still have users
             $('#deleteCheckBox' + $(objElement).val()).prop('checked', false);
 
           } else if (data != null && data.result == false) {
-console.log('data is null');
           }
         },
         error: function (request, status, err)
@@ -106,36 +104,33 @@ console.log('data is null');
     }
   }
 
-  function _check_if_job_opening_has_candidates(objElement, objEvent) {
-    if ($(objElement).val() != '')
-    {
-      $.ajax({
-        type: 'post',
-        //pass in department id to query inside admin table
-        url: $(objElement).attr('data-url') + '/' + $(objElement).val(),
-        data: {
-          job_id: $(objElement).val()
-        },
-        dataType: 'json',
-        success: function (data)
-        {
-          if (data != null && data.result != false) {
-//            alert(data.result);
-//            alert();
-//            alert('There are candidates belonging to your chosen job opening, please delete them first.');
-            //uncheck the boxes for departments that still have users
-            $('#deleteCheckBox' + $(objElement).val()).prop('checked', false);
-
-          } else if (data != null && data.result == false) {
-          }
-        },
-        error: function (request, status, err)
-        {
-          alert('wrong');
-        }
-      });
-    }
-  }
+//  function _check_if_job_opening_has_candidates(objElement, objEvent) {
+//    if ($(objElement).val() != '')
+//    {
+//      $.ajax({
+//        type: 'post',
+//        //pass in department id to query inside admin table
+//        url: $(objElement).attr('data-url') + '/' + $(objElement).val(),
+//        data: {
+//          job_id: $(objElement).val()
+//        },
+//        dataType: 'json',
+//        success: function (data)
+//        {
+//          if (data != null && data.result != false) {
+//            //uncheck the boxes for departments that still have users
+//            $('#deleteCheckBox' + $(objElement).val()).prop('checked', false);
+//
+//          } else if (data != null && data.result == false) {
+//          }
+//        },
+//        error: function (request, status, err)
+//        {
+//          alert('wrong');
+//        }
+//      });
+//    }
+//  }
 
   function _initGenerateEmail() {
     $('input.generateEmail').unbind('click').click(function (objEvent) {
