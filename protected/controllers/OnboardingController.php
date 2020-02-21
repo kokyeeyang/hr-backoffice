@@ -475,7 +475,7 @@ class OnboardingController extends Controller {
 	    $columnName = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TITLE_ID;
 
 	    $onboardingChecklistTemplateTitle = OnboardingChecklistItemsMapping::model()->queryForOnboardingTemplateInformation($queryString, $queryResult, $columnName);
-
+	    var_dump($onboardingChecklistTemplateTitle);exit;
 	    $aResult['result'] = $onboardingChecklistTemplateTitle;
 	}
 	echo(json_encode($aResult));

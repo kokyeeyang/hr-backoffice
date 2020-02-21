@@ -17,44 +17,41 @@ var OnboardingShowAllOnboardingItems = function () {
         //pass in onboarding item id to query inside item mapping table
         url: $(objElement).attr('data-url') + '/' + $(objElement).val(),
         data: {
-          job_id: $(objElement).val()
+          onboarding_item_id: $(objElement).val()
         },
         dataType: 'json',
         success: function (data)
         {
-          if (data != null && data.result != false) {
-            alert('This onboarding item belongs to template ' + data.result);
-            //uncheck the boxes for departments that still have users
+//          if (data != null && data.result != false) {
+            alert('This onboarding item belongs to template ' + data.result + '. Please delete in that template first');
+            //uncheck the boxes for onboarding item that still belong in templates
             $('#deleteCheckBox' + $(objElement).val()).prop('checked', false);
 
-          } else if (data != null && data.result == false) {
-          }
+//          } else if (data != null && data.result == false) {
+//          }
         },
         error: function (request, status, err)
         {
+          console.log('wrong');
           alert('wrong');
         }
       });
     }
   }
 
-  function _view_selected_onboarding_item(objElement, objEvent) {
-    $('#onboardingitems-list').attr('action', $(objElement).attr('data-view-url')).submit();
-  }
-  
   function _initCheckIfOnboardingItemBelongsToTemplate(){
-    $('#deleteJobOpeningButton').unbind('click').click(function (objEvent) {
-      OnboardingShowAllOnboardingItems.check_if_onboarding_item_belongs_to_template;
+     $('.deleteCheckBox').unbind('change').change(function (objEvent) {
+      OnboardingShowAllOnboardingItems.check_if_onboarding_item_belongs_to_template(this, objEvent);
     });
   }
 
   function _init() {
     $(function () {
+      OnboardingShowAllOnboardingItems.initCheckIfOnboardingItemBelongsToTemplate();
       $('#deleteOnboardingItemButton').unbind('click').click(function (objEvent) {
         OnboardingShowAllOnboardingItems.check_if_deletion_is_selected(this, objEvent);
       });
       
-      OnboardingShowAllOnboardingItems.initCheckIfOnboardingItemBelongsToTemplate();
       
     });
   }

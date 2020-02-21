@@ -118,7 +118,9 @@ var RegistrationShowAllJobOpenings = function () {
         success: function (data)
         {
           if (data != null && data.result != false) {
-            alert('There are candidates belonging to your chosen job opening, please delete them first.');
+//            alert(data.result);
+            alert('hellooooooooooo');
+//            alert('There are candidates belonging to your chosen job opening, please delete them first.');
             //uncheck the boxes for departments that still have users
             $('#deleteCheckBox' + $(objElement).val()).prop('checked', false);
 
@@ -156,7 +158,6 @@ var RegistrationShowAllJobOpenings = function () {
   function _initFilterResults() {
 //    $("#label_filter").on("keyup", function () {
     $("#label_filter").unbind('keyup').keyup(function () {
-      console.log('jelly');
       var value = $(this).val().toLowerCase();
       $("#data_table tr").filter(function () {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
