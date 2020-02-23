@@ -342,25 +342,22 @@ class RegistrationController extends Controller {
         $startTime = microtime(true);
         $arrRecords = EmploymentJobOpening::model()->findAll(array('order' => 'id ASC'));
         $strSortKey = $this->getParam('sort_key', '');
-        if (isset($_POST['label_filter']) && $_POST['label_filter'] != false) {
-            var_dump($strSortKey);
+        $searchResult = false;
+        var_dump($_POST);
+        if ($_POST != false) {
             $searchResult = $this->getParam($_POST['label_filter'], '');
+            $strSortKey = $this->getParam('sort_key', '');
             $objPagination = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, false, CommonEnum::RETURN_PAGINATION, $searchResult);
-//        var_dump('i am here!!!!! = ' . $searchResult);
             $objCriteria = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, false, CommonEnum::RETURN_CRITERIA, $searchResult);
             $arrRecords = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, false, CommonEnum::RETURN_TABLE_ARRAY, $searchResult);
-        } else {
-            $searchResult = false;
         }
+        
         $pageType = EmploymentJobOpeningEnum::JOB_OPENING;
 
         $objPagination = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, false, CommonEnum::RETURN_PAGINATION, $searchResult);
-//        var_dump('i am here!!!!! = ' . $searchResult);
+        var_dump($objPagination);
         $objCriteria = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, false, CommonEnum::RETURN_CRITERIA, $searchResult);
         $arrRecords = $this->getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, false, CommonEnum::RETURN_TABLE_ARRAY, $searchResult);
-//        if ($_REQUEST['label_filter']){
-//            
-//        }
 
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'jobopening-list' && Yii::app()->request->isAjaxRequest) {
             $aResult = [];
@@ -1002,17 +999,22 @@ class RegistrationController extends Controller {
         }
     }
 
+//    private function getStrSortByList($strSortKey, $tableName, $tableNameInSql = false, $pageVar, $searchResult = null) {
     private function getStrSortByList($strSortKey, $tableName, $tableNameInSql = false, $pageVar, $searchResult = null) {
-
+        var_dump('strSortKey = ' . $strSortKey);
+        var_dump('tableName = ' . $tableName);
+        var_dump('tableNameInSql = ' . $tableNameInSql);
+        var_dump('pageVar = ' . $pageVar);
+        var_dump('searchResult = ' . $searchResult);
         $strSortBy = self::getStrSortBy($strSortKey, $tableName);
 
         $objCriteria = new CDbCriteria();
         $objCriteria->order = $strSortBy;
-        if ($searchResult != null) {
-            $objCriteria->condition = 'job_title = ' . $searchResult;
+        
+        if (array_key_exists('label_filter', $_POST) && $_POST['label_filter'] != null) {
+            $objCriteria->condition = 'job_title = "' . $_POST['label_filter'] . '"';
         }
-        echo('hellllooooo');
-        var_dump($objCriteria);
+ 
         $intCount = $tableName::model()->count($objCriteria);
         $objPagination = new CPagination($intCount);
         $objPagination->setPageSize(Yii::app()->params['numPerPage']);
@@ -1048,6 +1050,7 @@ class RegistrationController extends Controller {
 
             case CommonEnum::RETURN_TABLE_ARRAY:
                 $tableArr = $tableName::model()->findAll($objCriteria);
+                var_dump($tableArr);
                 return $tableArr;
                 break;
         }
@@ -1252,7 +1255,7 @@ class RegistrationController extends Controller {
             if ($candidateStatusObjModel->save()) {
                 $this->redirect(array('showAllCandidateStatus'));
             }
-        }
+        }   
     }
 
 }

@@ -137,7 +137,7 @@ class PageHelper {
         //testing for filtering function, to resubmit show all function
 //        $contentBody .= '';
                 
-	$contentBody .= '<input type="button" value="' . $addNewButtonLabel . '" class="addNewButton">';
+	$contentBody .= '<input type="button" value="' . $addNewButtonLabel . '" class="addNewButton" name="addNewButton">';
 	$contentBody .= '</a>';
 	$contentBody .= '</h4>';
 
@@ -164,7 +164,7 @@ class PageHelper {
 	    $deleteColumnHeader .= '<div class="sort_wrapper_inner">';
 	    $deleteColumnHeader .= '<div class="sort_label_wrapper">';
 	    $deleteColumnHeader .= '<div class="sort_label">';
-	    $deleteColumnHeader .= '<input type="button" title="' . $deleteButtonTitle . '" id="delete' . $entityName . 'Button" value="Delete" data-delete-url="' . $formUrlDeleteSelected . '" class="deleteButton">';
+	    $deleteColumnHeader .= '<input type="button" title="' . $deleteButtonTitle . '" id="delete' . $entityName . 'Button" value="Delete" data-delete-url="' . $formUrlDeleteSelected . '" class="deleteButton" name="deleteButton">';
 	    $deleteColumnHeader .= '</div>';
 	    $deleteColumnHeader .= '</div>';
 	    $deleteColumnHeader .= '</div>';
@@ -247,7 +247,8 @@ class PageHelper {
 	  $buttonVariables[$emailVariable] = $dataObject[$emailVariable];
 	}
 	
-	$tableBody .= '<input type="button" class="' . $formData['send-email-button-id'] . '" ' . $formData['data-email-url-tag'] . Yii::app()->createUrl($formData['data-email-url'], $buttonVariables) . ' value="' . $clickableButtonTitle . '">';
+	$tableBody .= '<input type="button" class="' . $formData['send-email-button-id'] . '" ' . $formData['data-email-url-tag']
+                . Yii::app()->createUrl($formData['data-email-url'], $buttonVariables) . ' value="' . $clickableButtonTitle . '" name="' . $formData['send-email-button-id'] . '">';
 	$tableBody .= '</td>';
 
 	return $tableBody;

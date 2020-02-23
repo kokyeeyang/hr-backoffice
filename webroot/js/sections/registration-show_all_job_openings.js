@@ -156,7 +156,6 @@ var RegistrationShowAllJobOpenings = function () {
     function _initFilterResults() {
         $("#label_filter").unbind('keypress').keypress(function(e){
             if(e.which == 13){
-//                console.log('hello');
                 $("#jobopening-list").submit;
             }
         });
