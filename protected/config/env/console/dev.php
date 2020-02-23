@@ -28,6 +28,6 @@ return array(
 		// application-level parameters that can be accessed
 		// using Yii::app()->params['paramName']
 		'params'=>array(
-			'allowedAccessIP' 	=> array('192.168.56.1', '192.168.6.106', '192.168.6.107', '211.24.92.109', '115.132.129.67') // The IPs that are allowed to access the application for doing testing
+			'allowedAccessIP' 	=> array('192.168.56.1', '192.168.6.106', '192.168.6.107', '211.24.92.109', '175.136.85.79') // The IPs that are allowed to access the application for doing testing
 		),
 	);

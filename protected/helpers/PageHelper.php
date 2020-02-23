@@ -128,11 +128,15 @@ class PageHelper {
 	//prepare variable for use later
 	$formUrlAddNew = Yii::app()->createUrl($formData['form-action-add-new']);
 	$addNewButtonLabel = Yii::t('app', $formData['add-new-record-title']);
+//        $formUrlShowAll = Yii::app()->createUrl($formData['form-action-show-all']);
 	$filterResults = Yii::t('app', 'Filter results');
 
 	$contentBody = '<h4 class="widget_title">';
 	$contentBody .= '<input type="text" value="" placeholder="' . $filterResults . '" name="label_filter" id="label_filter" style="width:30%"/>';
 	$contentBody .= '<a href="' . $formUrlAddNew . '">';
+        //testing for filtering function, to resubmit show all function
+//        $contentBody .= '';
+                
 	$contentBody .= '<input type="button" value="' . $addNewButtonLabel . '" class="addNewButton">';
 	$contentBody .= '</a>';
 	$contentBody .= '</h4>';
