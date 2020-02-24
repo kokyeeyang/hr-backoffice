@@ -152,12 +152,11 @@ var RegistrationShowAllJobOpenings = function () {
     });
   }
 
-//need to redo this, currently does not filter through results in all pages
-//  function _initFilterResults() {
-//    $("#label_filter").unbind('keypress').keypress(function (e) {
-//      $('form').submit;
-//    });
-//  }
+  function _initFilterResults() {
+    $("#label_filter").unbind('keypress').keypress(function (e) {
+      $('form').submit;
+    });
+  }
 
   function _init() {
     $(function () {

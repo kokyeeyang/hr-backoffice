@@ -8,8 +8,8 @@ var OnboardingShowAllOnboardingItems = function () {
       }
     }
   }
-  
-  function _check_if_onboarding_item_belongs_to_template(objElement, objEvent){
+
+  function _check_if_onboarding_item_belongs_to_template(objElement, objEvent) {
     if ($(objElement).val() != '')
     {
       $.ajax({
@@ -40,20 +40,25 @@ var OnboardingShowAllOnboardingItems = function () {
     }
   }
 
-  function _initCheckIfOnboardingItemBelongsToTemplate(){
-     $('.deleteCheckBox').unbind('change').change(function (objEvent) {
+  function _initCheckIfOnboardingItemBelongsToTemplate() {
+    $('.deleteCheckBox').unbind('change').change(function (objEvent) {
       OnboardingShowAllOnboardingItems.check_if_onboarding_item_belongs_to_template(this, objEvent);
+    });
+  }
+
+  function _initFilterResults() {
+    $("#label_filter").unbind('keypress').keypress(function (e) {
+      $('form').submit;
     });
   }
 
   function _init() {
     $(function () {
       OnboardingShowAllOnboardingItems.initCheckIfOnboardingItemBelongsToTemplate();
+      OnboardingShowAllOnboardingItems.initFilterResults();
       $('#deleteOnboardingItemButton').unbind('click').click(function (objEvent) {
         OnboardingShowAllOnboardingItems.check_if_deletion_is_selected(this, objEvent);
       });
-      
-      
     });
   }
 
@@ -61,7 +66,8 @@ var OnboardingShowAllOnboardingItems = function () {
     init: _init,
     check_if_deletion_is_selected: _check_if_deletion_is_selected,
     check_if_onboarding_item_belongs_to_template: _check_if_onboarding_item_belongs_to_template,
-    initCheckIfOnboardingItemBelongsToTemplate: _initCheckIfOnboardingItemBelongsToTemplate
+    initCheckIfOnboardingItemBelongsToTemplate: _initCheckIfOnboardingItemBelongsToTemplate,
+    initFilterResults: _initFilterResults
   }
 
 }();
