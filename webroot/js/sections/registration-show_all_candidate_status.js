@@ -11,12 +11,6 @@ var RegistrationShowAllCandidateStatus = function() {
 
 	function _init(){
 		$(function() {
-		  $("#label_filter").on("keyup", function() {
-		    var value = $(this).val().toLowerCase();
-		    $("#data_table tr").filter(function() {
-		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-		    });
-		  });
 
   		$('#deleteCandidateStatusButton').on('click', function(objEvent){
 				RegistrationShowAllCandidateStatus.check_if_deletion_is_selected(this, objEvent);
