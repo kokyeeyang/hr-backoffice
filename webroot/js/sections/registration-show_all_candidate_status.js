@@ -11,7 +11,9 @@ var RegistrationShowAllCandidateStatus = function () {
 
   function _initFilterResults() {
     $("#label_filter").unbind('keypress').keypress(function (e) {
-      $('form').submit;
+      if (e.which == 13) {
+        $('form').submit;
+      }
     });
   }
 

@@ -104,34 +104,6 @@ var RegistrationShowAllJobOpenings = function () {
     }
   }
 
-//  function _check_if_job_opening_has_candidates(objElement, objEvent) {
-//    if ($(objElement).val() != '')
-//    {
-//      $.ajax({
-//        type: 'post',
-//        //pass in department id to query inside admin table
-//        url: $(objElement).attr('data-url') + '/' + $(objElement).val(),
-//        data: {
-//          job_id: $(objElement).val()
-//        },
-//        dataType: 'json',
-//        success: function (data)
-//        {
-//          if (data != null && data.result != false) {
-//            //uncheck the boxes for departments that still have users
-//            $('#deleteCheckBox' + $(objElement).val()).prop('checked', false);
-//
-//          } else if (data != null && data.result == false) {
-//          }
-//        },
-//        error: function (request, status, err)
-//        {
-//          alert('wrong');
-//        }
-//      });
-//    }
-//  }
-
   function _initGenerateEmail() {
     $('input.generateEmail').unbind('click').click(function (objEvent) {
       RegistrationShowAllJobOpenings.generate_email(this, objEvent);
@@ -154,16 +126,20 @@ var RegistrationShowAllJobOpenings = function () {
 
   function _initFilterResults() {
     $("#label_filter").unbind('keypress').keypress(function (e) {
-      $('form').submit;
+      if (e.which == 13) {
+        $('form').submit;
+      }
     });
   }
 
   function _init() {
     $(function () {
-      RegistrationShowAllJobOpenings.initGenerateEmail();
-      RegistrationShowAllJobOpenings.initCheckIfJobOpeningHasApplicants();
-      RegistrationShowAllJobOpenings.initCheckIfDeletionIsSelected();
-      RegistrationShowAllJobOpenings.initFilterResults();
+      $(document).ready(function () {
+        RegistrationShowAllJobOpenings.initGenerateEmail();
+        RegistrationShowAllJobOpenings.initCheckIfJobOpeningHasApplicants();
+        RegistrationShowAllJobOpenings.initCheckIfDeletionIsSelected();
+        RegistrationShowAllJobOpenings.initFilterResults();
+      });
     });
   }
 

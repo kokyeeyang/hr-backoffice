@@ -49,6 +49,11 @@ class OnboardingChecklistTemplate extends AppActiveRecord {
     public function findAllOnboardingChecklistTemplates($strSortBy = false, $intPage = false, $numPerPage = false) {
 	$sql = 'SELECT id, title, description ';
 	$sql .= 'FROM ' . self::$tableName;
+	
+	if (isset($_POST['label_filter']) && $_POST['label_filter']) {
+	    $sql .= ' WHERE title LIKE "%' . $_POST['label_filter'] . '%"';
+	}
+	
 	$sql .= ' ORDER BY ' . $strSortBy;
 	$sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
 
@@ -65,4 +70,5 @@ class OnboardingChecklistTemplate extends AppActiveRecord {
 	    OnboardingChecklistTemplate::model()->deleteAll($deleteCondition);
 	}
     }
+
 }

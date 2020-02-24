@@ -166,16 +166,20 @@ class EmploymentCandidate extends AppActiveRecord {
 	}
     }
 
-    public static function findAllCandidates($strSortBy, $intPage, $numPerPage) {
+    public static function findAllCandidates($strSortBy, $intPage, $numPerPage, $filter = false) {
 	$sql = 'SELECT EC.id_no, EC.full_name, EC.created_date, ECS.title AS candidate_status, EC.job_id, EJO.job_title, EJO.department, EJO.interviewing_manager ';
 	$sql .= 'FROM employment_candidate EC ';
 	$sql .= 'INNER JOIN employment_job_opening EJO ';
 	$sql .= 'ON EC.job_id = EJO.id ';
 	$sql .= 'INNER JOIN employment_candidate_status ECS ';
-	$sql .= 'ON EC.candidate_status = ECS.id ';
-	$sql .= 'ORDER BY ' . $strSortBy;
+	$sql .= 'ON EC.candidate_status = ECS.id';
+	if ($filter != false){
+	    $sql .= ' WHERE ' . $filter;
+	}
+	$sql .= ' ORDER BY ' . $strSortBy;
 	$sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
-
+	
+	
 	$objConnection = Yii::app()->db;
 	$objCommand = $objConnection->createCommand($sql);
 	$arrData = $objCommand->queryAll($sql);

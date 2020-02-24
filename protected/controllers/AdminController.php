@@ -442,6 +442,7 @@ class AdminController extends Controller {
 
 	$objCriteria = new CDbCriteria();
 	$objCriteria->order = $strSortBy;
+	$objCriteria->condition = self::getObjCriteria($tableName);
 
 	$intCount = $tableName::model()->count($objCriteria);
 	$objPagination = new CPagination($intCount);
@@ -476,5 +477,14 @@ class AdminController extends Controller {
 	echo(json_encode($aResult));
 	Yii::app()->end();
     }
-
+    
+    private static function getObjCriteria($tableName){
+	if (array_key_exists('label_filter', $_POST) && $_POST['label_filter'] != null) {
+	    switch ($tableName) {
+		case AdminEnum::DEPARTMENT_TABLE:
+		    return 'title LIKE "%' . $_POST['label_filter'] . '%"';
+		    break;
+	    }
+	}
+    }
 }

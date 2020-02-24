@@ -81,9 +81,8 @@ class OnboardingController extends Controller {
 	$strSortKey = $this->getParam('sort_key', '');
 	$pageType = OnboardingItemEnum::ONBOARDING_ITEM;
 
-	$objPagination = $this->getStrSortByList($strSortKey, OnboardingItemEnum::ONBOARDING_ITEM_TABLE, false, CommonEnum::RETURN_PAGINATION);
-	$objCriteria = $this->getStrSortByList($strSortKey, OnboardingItemEnum::ONBOARDING_ITEM_TABLE, false, CommonEnum::RETURN_CRITERIA);
-	$onboardingItemsArr = $this->getStrSortByList($strSortKey, OnboardingItemEnum::ONBOARDING_ITEM_TABLE, OnboardingItemEnum::ONBOARDING_ITEM_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
+	$objPagination = self::getStrSortByList($strSortKey, OnboardingItemEnum::ONBOARDING_ITEM_TABLE, false, CommonEnum::RETURN_PAGINATION);
+	$onboardingItemsArr = self::getStrSortByList($strSortKey, OnboardingItemEnum::ONBOARDING_ITEM_TABLE, OnboardingItemEnum::ONBOARDING_ITEM_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
 
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'onboardingitems-list' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
@@ -109,7 +108,7 @@ class OnboardingController extends Controller {
 
 	$objCriteria = new CDbCriteria();
 	$objCriteria->order = $strSortBy;
-
+	
 	$intCount = $tableName::model()->count($objCriteria);
 	$objPagination = new CPagination($intCount);
 	$objPagination->setPageSize(Yii::app()->params['numPerPage']);

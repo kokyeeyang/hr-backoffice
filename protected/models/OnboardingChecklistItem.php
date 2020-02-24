@@ -55,8 +55,13 @@ class OnboardingChecklistItem extends AppActiveRecord {
 //		$sql .= 'FROM onboarding_checklist_items ECI ';
 		$sql .= 'FROM ' . self::$tableName . ' ECI ';
 		$sql .= 'INNER JOIN department D ';
-		$sql .= 'ON ECI.department_owner = D.id ';
-		$sql .= 'ORDER BY ' . $strSortBy;
+		$sql .= 'ON ECI.department_owner = D.id';
+		
+		if(isset($_POST['label_filter']) && $_POST['label_filter']){
+		    $sql .= ' WHERE ECI.title LIKE "%' . $_POST['label_filter'] . '%"';
+		}
+		
+		$sql .= ' ORDER BY ' . $strSortBy;
 		$sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
 		    
 		$objConnection = Yii::app()->db;

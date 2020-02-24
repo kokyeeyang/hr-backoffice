@@ -706,9 +706,9 @@ class RegistrationController extends Controller {
 	$pageType = OfferLetterEnum::OFFER_LETTER;
 	$strSortKey = $this->getParam('sort_key', '');
 
-	$objPagination = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL, CommonEnum::RETURN_PAGINATION);
-	$objCriteria = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL, CommonEnum::RETURN_CRITERIA);
-	$offerLetterArr = $this->getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
+	$objPagination = self::getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL, CommonEnum::RETURN_PAGINATION);
+//	$objCriteria = self::getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL, CommonEnum::RETURN_CRITERIA);
+	$offerLetterArr = self::getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
 
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'offerletter-list' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
@@ -792,11 +792,8 @@ class RegistrationController extends Controller {
 
 	$departmentArr = Department::model()->queryForDepartmentDetails($queryResults);
 
-	$currentFunction = Yii::app()->getController()->getAction()->controller->action->id;
-
 	if (isset($_GET['id']) && $id != null) {
-	    // $offerLetterArr = EmploymentOfferLetterTemplates::model()->findAll($offerLetterCondition);
-	    $offerLetterArr = EmploymentOfferLetterTemplates::model()->findAllOfferLetters(false, false, false, $offerLetterCondition);
+	    $offerLetterArr = EmploymentOfferLetterTemplates::model()->findAllOfferLetters(false, false, false, false, $offerLetterCondition);
 
 	    if ($offerLetterArr == null) {
 		throw new CHttpException(404, 'Offer letter template does not exist with the requested id.');
@@ -835,11 +832,6 @@ class RegistrationController extends Controller {
 	$offerLetterCondition = 'id = "' . $id . '"';
 	$offerLetterDepartmentArray = $this->getParam('department', '');
 
-//	$departmentArrayInsideDatabase = EmploymentOfferLetterTemplatesMapping::model()->findDepartmentById($id);
-//	foreach ($departmentArrayInsideDatabase as $departmentObjectInsideDatabase) {
-//	    $result = array_diff($offerLetterDepartmentArray, $departmentObjectInsideDatabase);
-//	}
-//	if ($result != null) {
 	$columnName = OfferLetterMappingEnum::OFFER_LETTER_ID;
 	$condition = $columnName . ' = ' . $id;
 	EmploymentOfferLetterTemplatesMapping::model()->deleteAll($condition);
@@ -850,7 +842,6 @@ class RegistrationController extends Controller {
 	    $offerLetterMappingObjModel->department_id = $offerLetterDepartmentObj;
 	    $offerLetterMappingObjModel->save();
 	}
-//	}
 
 	EmploymentOfferLetterTemplates::model()->updateAll(
 	    ['offer_letter_title' => $this->getParam('offerLetterTitle', ''), 'offer_letter_description' => $this->getParam('offerLetterDescription', ''), 'is_managerial' => $this->getParam('offerLetterIsManagerial', ''),
@@ -988,14 +979,13 @@ class RegistrationController extends Controller {
 	}
     }
 
-//    private function getStrSortByList($strSortKey, $tableName, $tableNameInSql = false, $pageVar, $searchResult = null) {
     private function getStrSortByList($strSortKey, $tableName, $tableNameInSql = false, $pageVar) {
 	$strSortBy = self::getStrSortBy($strSortKey, $tableName);
 
 	$objCriteria = new CDbCriteria();
 	$objCriteria->order = $strSortBy;
 	$objCriteria->condition = self::getObjCriteria($tableName);
-
+	
 	$intCount = $tableName::model()->count($objCriteria);
 	$objPagination = new CPagination($intCount);
 	$objPagination->setPageSize(Yii::app()->params['numPerPage']);
@@ -1014,16 +1004,30 @@ class RegistrationController extends Controller {
 		break;
 
 	    case CommonEnum::RETURN_TABLE_ARRAY_BY_SQL:
+		$filter = false;
+		
 		switch ($tableNameInSql) {
 		    case OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL:
 			$numPerPage = Yii::app()->params['numPerPage'];
-			$tableArr = EmploymentOfferLetterTemplates::model()->findAllOfferLetters($strSortBy, $intPage, $numPerPage, false);
+			
+//			$filter = false;
+			
+			if(isset($_POST['label_filter']) && $_POST['label_filter'] != false){
+			  $filter = 'offer_letter_title LIKE "%' . $this->getParam('label_filter', '') . '%"';
+			} 
+			
+			$tableArr = EmploymentOfferLetterTemplates::model()->findAllOfferLetters($strSortBy, $intPage, $numPerPage, true, $filter);
 			return $tableArr;
 			break;
 
 		    case EmploymentCandidateEnum::CANDIDATE_TABLE_IN_SQL:
+			
+			if(isset($_POST['label_filter']) && $_POST['label_filter'] != false){
+			  $filter = 'EC.full_name LIKE "%' . $_POST['label_filter'] . '%"';
+			} 
+			
 			$numPerPage = Yii::app()->params['numPerPage'];
-			$tableArr = EmploymentCandidate::model()->findAllCandidates($strSortBy, $intPage, $numPerPage);
+			$tableArr = EmploymentCandidate::model()->findAllCandidates($strSortBy, $intPage, $numPerPage, $filter);
 			return $tableArr;
 			break;
 		}
@@ -1040,16 +1044,16 @@ class RegistrationController extends Controller {
 	if (array_key_exists('label_filter', $_POST) && $_POST['label_filter'] != null) {
 	    switch ($tableName) {
 		case EmploymentJobOpeningEnum::JOB_OPENING_TABLE:
-		    return 'job_title = "' . $_POST['label_filter'] . '"';
+		    return 'job_title LIKE "%' . $_POST['label_filter'] . '%"';
 		    break;
 		case OfferLetterEnum::OFFER_LETTER_TABLE:
-		    return 'offer_letter_title = "' . $_POST['label_filter'] . '"';
+		    return 'offer_letter_title LIKE "%' . $_POST['label_filter'] . '%"';
 		    break;
 		case EmploymentCandidateEnum::CANDIDATE_TABLE:
-		    return 'full_name = "' . $_POST['label_filter'] . '"';
+		    return 'full_name LIKE "%' . $_POST['label_filter'] . '%"';
 		    break;
 		case EmploymentCandidateStatusEnum::CANDIDATE_STATUS_TABLE:
-		    return 'title = "' . $_POST['label_filter'] . '"';
+		    return 'title LIKE "%' . $_POST['label_filter'] . '%"';
 		    break;
 	    }
 	}

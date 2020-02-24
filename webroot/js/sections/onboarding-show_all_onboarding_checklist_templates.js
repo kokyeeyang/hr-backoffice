@@ -9,13 +9,11 @@ var OnboardingShowAllOnboardingChecklistTemplates = function () {
     }
   }
 
-  function _view_selected_onboarding_item(objElement, objEvent) {
-    $('#onboardingchecklisttemplates-list').attr('action', $(objElement).attr('data-view-url')).submit();
-  }
-
   function _initFilterResults() {
     $("#label_filter").unbind('keypress').keypress(function (e) {
-      $('form').submit;
+      if (e.which == 13) {
+        $('form').submit;
+      }
     });
   }
 
@@ -24,7 +22,6 @@ var OnboardingShowAllOnboardingChecklistTemplates = function () {
       $('#deleteOnboardingChecklistTemplateButton').on('click', function (objEvent) {
         OnboardingShowAllOnboardingChecklistTemplates.check_if_deletion_is_selected(this, objEvent);
       });
-
       OnboardingShowAllOnboardingChecklistTemplates.initFilterResults();
     });
   }
