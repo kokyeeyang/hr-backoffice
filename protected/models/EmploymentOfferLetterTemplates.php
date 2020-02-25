@@ -118,6 +118,12 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 	
 	if ($condition != false) {
 	    $sql .= ' GROUP BY EOLT.id';
+	    
+	    //on first load, sort records by created date, after that free to sort by whatever
+	    if($_POST == false && !isset($_POST["sort_key"])){
+		$strSortBy = 'EOLT.created_date DESC';
+	    }
+	    
 	    $sql .= ' ORDER BY ' . $strSortBy;
 	    $sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
 	} 

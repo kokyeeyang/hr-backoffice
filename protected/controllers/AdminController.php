@@ -439,7 +439,11 @@ class AdminController extends Controller {
 		$strSortBy = 'description ASC';
 		break;
 	}
-
+	
+	if($_POST == false && !isset($_POST["sort_key"])){
+	    $strSortBy = 'created_date DESC';
+	}
+	
 	$objCriteria = new CDbCriteria();
 	$objCriteria->order = $strSortBy;
 	$objCriteria->condition = self::getObjCriteria($tableName);

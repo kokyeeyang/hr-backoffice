@@ -54,6 +54,10 @@ class OnboardingChecklistTemplate extends AppActiveRecord {
 	    $sql .= ' WHERE title LIKE "%' . $_POST['label_filter'] . '%"';
 	}
 	
+	if ($_POST == false && !isset($_POST["sort_key"])) {
+	    $strSortBy = 'created_date DESC';
+	}
+	
 	$sql .= ' ORDER BY ' . $strSortBy;
 	$sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
 

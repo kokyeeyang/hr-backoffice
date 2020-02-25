@@ -105,9 +105,16 @@ class OnboardingController extends Controller {
     private function getStrSortByList($strSortKey, $tableName, $tableNameInSql = false, $pageVar) {
 
 	$strSortBy = self::getStrSortBy($strSortKey, $tableName);
-
+	
+	//for use in returning data from a single table
+	$order = $strSortBy;
+	
+	if($_POST == false && !isset($_POST["sort_key"])){
+	    $order = 'created_date DESC';
+	}
+	
 	$objCriteria = new CDbCriteria();
-	$objCriteria->order = $strSortBy;
+	$objCriteria->order = $order;
 	
 	$intCount = $tableName::model()->count($objCriteria);
 	$objPagination = new CPagination($intCount);
@@ -280,7 +287,6 @@ class OnboardingController extends Controller {
 	$pageType = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE;
 
 	$objPagination = $this->getStrSortByList($strSortKey, OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TABLE, false, CommonEnum::RETURN_PAGINATION);
-	$objCriteria = $this->getStrSortByList($strSortKey, OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TABLE, false, CommonEnum::RETURN_CRITERIA);
 	$onboardingChecklistTemplatesArr = $this->getStrSortByList($strSortKey, OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TABLE, OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
 
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'onboardingchecklisttemplates-list' && Yii::app()->request->isAjaxRequest) {

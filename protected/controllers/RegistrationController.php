@@ -705,9 +705,7 @@ class RegistrationController extends Controller {
     public function actionShowOfferLetterTemplates() {
 	$pageType = OfferLetterEnum::OFFER_LETTER;
 	$strSortKey = $this->getParam('sort_key', '');
-
 	$objPagination = self::getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL, CommonEnum::RETURN_PAGINATION);
-//	$objCriteria = self::getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL, CommonEnum::RETURN_CRITERIA);
 	$offerLetterArr = self::getStrSortByList($strSortKey, OfferLetterEnum::OFFER_LETTER_TABLE, OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
 
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'offerletter-list' && Yii::app()->request->isAjaxRequest) {
@@ -981,11 +979,18 @@ class RegistrationController extends Controller {
 
     private function getStrSortByList($strSortKey, $tableName, $tableNameInSql = false, $pageVar) {
 	$strSortBy = self::getStrSortBy($strSortKey, $tableName);
-
-	$objCriteria = new CDbCriteria();
-	$objCriteria->order = $strSortBy;
-	$objCriteria->condition = self::getObjCriteria($tableName);
+	//for use in one table cases
+	$order = $strSortBy;
 	
+	if($_POST == false && !isset($_POST["sort_key"])){
+	    $order = 'created_date DESC';
+	}
+	
+	$objCriteria = new CDbCriteria();
+	$objCriteria->order = $order;
+	//for filtering purposes
+	$objCriteria->condition = self::getObjCriteria($tableName);
+
 	$intCount = $tableName::model()->count($objCriteria);
 	$objPagination = new CPagination($intCount);
 	$objPagination->setPageSize(Yii::app()->params['numPerPage']);
@@ -1003,36 +1008,35 @@ class RegistrationController extends Controller {
 		return $objCriteria;
 		break;
 
+	    //for tables where we need to massage the data (inner join)
 	    case CommonEnum::RETURN_TABLE_ARRAY_BY_SQL:
 		$filter = false;
-		
+
 		switch ($tableNameInSql) {
 		    case OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL:
 			$numPerPage = Yii::app()->params['numPerPage'];
-			
-//			$filter = false;
-			
-			if(isset($_POST['label_filter']) && $_POST['label_filter'] != false){
-			  $filter = 'offer_letter_title LIKE "%' . $this->getParam('label_filter', '') . '%"';
-			} 
-			
+
+			if (isset($_POST['label_filter']) && $_POST['label_filter'] != false) {
+			    $filter = 'offer_letter_title LIKE "%' . $this->getParam('label_filter', '') . '%"';
+			}
+
 			$tableArr = EmploymentOfferLetterTemplates::model()->findAllOfferLetters($strSortBy, $intPage, $numPerPage, true, $filter);
 			return $tableArr;
 			break;
 
 		    case EmploymentCandidateEnum::CANDIDATE_TABLE_IN_SQL:
-			
-			if(isset($_POST['label_filter']) && $_POST['label_filter'] != false){
-			  $filter = 'EC.full_name LIKE "%' . $_POST['label_filter'] . '%"';
-			} 
-			
+
+			if (isset($_POST['label_filter']) && $_POST['label_filter'] != false) {
+			    $filter = 'EC.full_name LIKE "%' . $_POST['label_filter'] . '%"';
+			}
+
 			$numPerPage = Yii::app()->params['numPerPage'];
 			$tableArr = EmploymentCandidate::model()->findAllCandidates($strSortBy, $intPage, $numPerPage, $filter);
 			return $tableArr;
 			break;
 		}
 		break;
-
+	    //just selecting from one table
 	    case CommonEnum::RETURN_TABLE_ARRAY:
 		$tableArr = $tableName::model()->findAll($objCriteria);
 		return $tableArr;
