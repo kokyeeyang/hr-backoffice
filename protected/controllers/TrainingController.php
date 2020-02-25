@@ -76,7 +76,7 @@ class TrainingController extends Controller {
 	return $this->render('showAllTrainingItems', array('strSortKey' => $strSortKey, 'objPagination' => $objPagination, 'trainingItemArr' => $trainingItemArr, 'pageType' => $pageType));
     }
 
-    private static function getStrSortByList($strSortKey, $tableName, $tableNameInSql = false, $pageVar) {
+    private function getStrSortByList($strSortKey, $tableName, $tableNameInSql = false, $pageVar) {
 	$strSortBy = self::getStrSortBy($strSortKey, $tableName);
 	//for use in one table cases
 	$order = $strSortBy;
@@ -152,6 +152,28 @@ class TrainingController extends Controller {
 		return 'status ASC';
 		break;
 	}
+    }
+    
+    private static function getObjCriteria($tableName){
+	if (array_key_exists('label_filter', $_POST) && $_POST['label_filter'] != null) {
+	    switch ($tableName) {
+		case TrainingItemEnum::TRAINING_ITEM_TABLE:
+		    return 'title LIKE "%' . $_POST['label_filter'] . '%"';
+		    break;
+	    }
+	}
+    }
+    
+    public function actionAddNewTrainingItem(){
+	$breadcrumbTop = Yii::t('app', 'Add New Onboarding Checklist Item');
+	$title = Yii::t('app', 'Add new training item');
+	$widgetTitle = Yii::t('app', 'Add new training item');
+	$buttonTitle = Yii::t('app', 'Save');
+	$adminArr = Admin::model()->findAll();
+	$formAction = $this->createUrl('training/saveTrainingItem');
+	
+	return $this->render('trainingItemDetails', array('breadcrumbTop'=>$breadcrumbTop, 'title'=>$title, 'widgetTitle'=>$widgetTitle, 
+	    '$buttonTitle'=>$buttonTitle, 'adminArr'=>$adminArr, 'formAction'=>$formAction));
     }
 
 }
