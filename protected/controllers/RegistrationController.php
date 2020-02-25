@@ -982,7 +982,7 @@ class RegistrationController extends Controller {
 	//for use in one table cases
 	$order = $strSortBy;
 	
-	if($_POST == false && !isset($_POST["sort_key"])){
+	if ($_POST == false && $_POST["sort_key"] == false) {
 	    $order = 'created_date DESC';
 	}
 	

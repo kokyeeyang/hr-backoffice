@@ -440,7 +440,7 @@ class AdminController extends Controller {
 		break;
 	}
 	
-	if($_POST == false && !isset($_POST["sort_key"])){
+	if($_POST == false && $_POST["sort_key"] == false){
 	    $strSortBy = 'created_date DESC';
 	}
 	

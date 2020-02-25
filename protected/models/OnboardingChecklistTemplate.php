@@ -53,8 +53,8 @@ class OnboardingChecklistTemplate extends AppActiveRecord {
 	if (isset($_POST['label_filter']) && $_POST['label_filter']) {
 	    $sql .= ' WHERE title LIKE "%' . $_POST['label_filter'] . '%"';
 	}
-	
-	if ($_POST == false && !isset($_POST["sort_key"])) {
+	//on first load, sort data by created_date, after that sort by whatever
+	if($_POST == false && $_POST["sort_key"] == false){
 	    $strSortBy = 'created_date DESC';
 	}
 	

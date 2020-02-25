@@ -115,19 +115,19 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 	if ($filter != false) {
 	    $sql .= ' WHERE ' . $filter;
 	}
-	
+
 	if ($condition != false) {
 	    $sql .= ' GROUP BY EOLT.id';
-	    
+
 	    //on first load, sort records by created date, after that free to sort by whatever
-	    if($_POST == false && !isset($_POST["sort_key"])){
+	    if ($_POST == false && $_POST["sort_key"] == false) {
 		$strSortBy = 'EOLT.created_date DESC';
 	    }
-	    
+
 	    $sql .= ' ORDER BY ' . $strSortBy;
 	    $sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
-	} 
-	
+	}
+
 
 	$objConnection = Yii::app()->db;
 	$objCommand = $objConnection->createCommand($sql);
