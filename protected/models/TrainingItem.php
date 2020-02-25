@@ -41,7 +41,7 @@ class TrainingItem extends AppActiveRecord {
     }
 
     public function selectAllTrainingItems($strSortBy, $intPage, $numPerPage) {
-	$sql = 'SELECT TI.title, TI.description, A.admin_display_name AS responsibility, TI.created_date, TI.modified_date,';
+	$sql = 'SELECT TI.id, TI.title, TI.description, A.admin_display_name AS responsibility, TI.created_date, TI.modified_date,';
 	$sql .= ' CASE WHEN TI.status = 1';
 	$sql .= ' THEN "Active" ';
 	$sql .= ' WHEN TI.status = 0';
