@@ -58,6 +58,10 @@ class OnboardingChecklistTemplate extends AppActiveRecord {
 	    $strSortBy = 'created_date DESC';
 	}
 	
+	if ($_POST != false && $_POST["sort_key"] == false) {
+	    $strSortBy = 'created_date DESC';
+	}
+	
 	$sql .= ' ORDER BY ' . $strSortBy;
 	$sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
 

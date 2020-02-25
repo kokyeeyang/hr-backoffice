@@ -113,6 +113,10 @@ class OnboardingController extends Controller {
 	    $order = 'created_date DESC';
 	}
 	
+	if ($_POST != false && $_POST["sort_key"] == false){
+	    $order = 'created_date DESC';
+	}
+	
 	$objCriteria = new CDbCriteria();
 	$objCriteria->order = $order;
 	

@@ -58,9 +58,13 @@ class OnboardingChecklistItem extends AppActiveRecord {
 	if (isset($_POST['label_filter']) && $_POST['label_filter'] != false) {
 	    $sql .= ' WHERE ECI.title LIKE "%' . $_POST['label_filter'] . '%"';
 	}
-	
+
 	//on first load, sort data by created_date, after that sort by whatever
-	if($_POST == false && $_POST["sort_key"] == false){
+	if ($_POST == false && $_POST["sort_key"] == false) {
+	    $strSortBy = 'ECI.created_date DESC';
+	}
+
+	if ($_POST != false && $_POST["sort_key"] == false) {
 	    $strSortBy = 'ECI.created_date DESC';
 	}
 

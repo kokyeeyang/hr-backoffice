@@ -120,7 +120,11 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 	    $sql .= ' GROUP BY EOLT.id';
 
 	    //on first load, sort records by created date, after that free to sort by whatever
-	    if ($_POST == false && $_POST["sort_key"] == false) {
+	    if ($_POST == false && !isset($_POST["sort_key"])) {
+		$strSortBy = 'EOLT.created_date DESC';
+	    }
+
+	    if ($_POST != false && $_POST["sort_key"] == false) {
 		$strSortBy = 'EOLT.created_date DESC';
 	    }
 
