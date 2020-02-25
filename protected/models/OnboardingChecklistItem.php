@@ -105,7 +105,6 @@ class OnboardingChecklistItem extends AppActiveRecord {
 	$sql .= 'CASE WHEN OCI.is_offboarding_item = 1 THEN "Yes" ';
 	$sql .= 'WHEN OCI.is_offboarding_item = 0 THEN "No" ';
 	$sql .= 'END AS "is_offboarding_item" ';
-//	    $sql .= 'FROM onboarding_checklist_items OCI ';
 	$sql .= 'FROM ' . self::$tableName . ' OCI ';
 	$sql .= 'INNER JOIN department D ';
 	$sql .= 'ON OCI.department_owner = D.id';
@@ -126,7 +125,6 @@ class OnboardingChecklistItem extends AppActiveRecord {
 	$sql .= 'WHEN OCI.is_offboarding_item = 0 ';
 	$sql .= 'THEN "No" ';
 	$sql .= 'END AS "is_offboarding_item" ';
-//	    $sql .= 'FROM onboarding_checklist_items OCI ';
 	$sql .= 'FROM ' . self::$tableName . ' OCI ';
 	$sql .= 'INNER JOIN onboarding_checklist_items_mapping OCIM ';
 	$sql .= 'ON OCI.id = OCIM.checklist_item_id ';

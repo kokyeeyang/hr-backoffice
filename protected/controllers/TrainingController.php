@@ -57,8 +57,7 @@ class TrainingController extends Controller {
 	$strSortKey = $this->getParam('sort_key', '');
 
 	$objPagination = self::getStrSortByList($strSortKey, TrainingItemEnum::TRAINING_ITEM_TABLE, false, CommonEnum::RETURN_PAGINATION);
-//	$trainingItemArr = self::getStrSortByList($strSortKey, TrainingItemEnum::TRAINING_ITEM_TABLE, false, CommonEnum::RETURN_TABLE_ARRAY);
-	$trainingItemArr = self::getStrSortByList($strSortKey, false, TrainingItemEnum::TRAINING_ITEM_TABLE, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
+	$trainingItemArr = self::getStrSortByList($strSortKey, TrainingItemEnum::TRAINING_ITEM_TABLE, TrainingItemEnum::TRAINING_ITEM_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
 
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'trainingitems-list' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
@@ -114,8 +113,10 @@ class TrainingController extends Controller {
 
 	    //for tables where we need to massage the data (inner join)
 	    case CommonEnum::RETURN_TABLE_ARRAY_BY_SQL:
+		$numPerPage = Yii::app()->params['numPerPage'];
+
 		case TrainingItemEnum::TRAINING_ITEM_TABLE_IN_SQL:
-		    $trainingItemArr = TrainingItem::model()->selectAllTrainingItems();
+		    return TrainingItem::model()->selectAllTrainingItems($strSortBy, $intPage, $numPerPage);
 		    break;
 		break;
 
