@@ -1,121 +1,157 @@
 <?php
 
-class TrainingController extends Controller
-{
-	public function filters() {
-		return array(
-			'accessControl',
-		);
-	}
+class TrainingController extends Controller {
 
-	public function accessRules()
-  {
-		return array(
-			array(
-				'allow',  // allow all users to perform the RoleHelper's returned actions
-				'actions'=>RoleHelper::GetRole(self::$strController, false),
-				'users'=>array('*'),
-			),
-			array(
-				'allow', // allow authenticated admin user to perform the RoleHelper's returned actions
-				'actions'=>RoleHelper::GetRole(self::$strController, true),
-				'users'=>array('@'),
-			),
-			array(
-				'deny',  // deny all other users access
-				'users'=>array('*'),
-			),
-		);
-  }
+    public function filters() {
+	return array(
+	    'accessControl',
+	);
+    }
 
-	/**
-	 * This is the action to handle external exceptions.
-	 */
-	public function actionError()
-	{
-		if($error=Yii::app()->errorHandler->error)
-		{
-			if(Yii::app()->request->isAjaxRequest){
-				
-				if(Yii::app()->user->isGuest === false){
-					echo $error['message'];
-				} // - end: if
-				Yii::app()->end();
-			}
-			else{
-				$this->render('error', $error);
-			}
-		}
-	}
+    public function accessRules() {
+	return array(
+	    array(
+		'allow', // allow all users to perform the RoleHelper's returned actions
+		'actions' => RoleHelper::GetRole(self::$strController, false),
+		'users' => array('*'),
+	    ),
+	    array(
+		'allow', // allow authenticated admin user to perform the RoleHelper's returned actions
+		'actions' => RoleHelper::GetRole(self::$strController, true),
+		'users' => array('@'),
+	    ),
+	    array(
+		'deny', // deny all other users access
+		'users' => array('*'),
+	    ),
+	);
+    }
 
-	public function actionAddNewHire(){
-		$objModel = new EmploymentNewHire;
+    /**
+     * This is the action to handle external exceptions.
+     */
+    public function actionError() {
+	if ($error = Yii::app()->errorHandler->error) {
+	    if (Yii::app()->request->isAjaxRequest) {
 
-		$arrRecords = EmploymentCandidate::model()->findAll(array('order'=>'id ASC'));
-
-		return $this->render("addNewHire", array('objModel'=>$objModel, 'arrRecords'=>$arrRecords));
-	}
-
-	public function actionCheckForCandidateInformation(){
-		$aResult['result'] = false;
-		if(Yii::app()->request->isAjaxRequest){
-			$candidateName = $this->getParam('candidateName', '');
-			$aResult['result'] = EmploymentCandidate::model()->checkForCandidateInformation($candidateName);
-		}
-
-		echo(json_encode($aResult));
+		if (Yii::app()->user->isGuest === false) {
+		    echo $error['message'];
+		} // - end: if
 		Yii::app()->end();
+	    } else {
+		$this->render('error', $error);
+	    }
+	}
+    }
+
+    public function actionAddNewHire() {
+	$objModel = new EmploymentNewHire;
+
+	$arrRecords = EmploymentCandidate::model()->findAll(array('order' => 'id ASC'));
+
+	return $this->render("addNewHire", array('objModel' => $objModel, 'arrRecords' => $arrRecords));
+    }
+
+    public function actionShowAllTrainingItems() {
+	$pageType = TrainingItemEnum::TRAINING_ITEM;
+	$strSortKey = $this->getParam('sort_key', '');
+
+	$objPagination = self::getStrSortByList($strSortKey, TrainingItemEnum::TRAINING_ITEM_TABLE, false, CommonEnum::RETURN_PAGINATION);
+	$trainingItemArr = self::getStrSortByList($strSortKey, TrainingItemEnum::TRAINING_ITEM_TABLE, false, CommonEnum::RETURN_TABLE_ARRAY);
+	
+	if (isset($_POST['ajax']) && $_POST['ajax'] === 'trainingitems-list' && Yii::app()->request->isAjaxRequest) {
+	    $aResult = [];
+	    $aResult['result'] = 0;
+	    $aResult['content'] = '';
+	    $aResult['msg'] = '';
+
+	    $aResult['content'] = $this->renderPartial('showAllTrainingItems', ['strSortKey' => $strSortKey, 'objPagination' => $objPagination, 'trainingItemArr' => $trainingItemArr, 'pageType' => $pageType], true);
+
+	    if (!empty($aResult['content'])) {
+		$aResult['result'] = 1;
+	    }
+	    echo(json_encode($aResult));
+	    Yii::app()->end();
+	}
+	return $this->render('showAllTrainingItems', array('strSortKey' => $strSortKey, 'objPagination' => $objPagination, 'trainingItemArr' => $trainingItemArr, 'pageType' => $pageType));
+    }
+
+    private static function getStrSortByList($strSortKey, $tableName, $tableNameInSql = false, $pageVar) {
+	$strSortBy = self::getStrSortBy($strSortKey, $tableName);
+	//for use in one table cases
+	$order = $strSortBy;
+
+	if ($_POST == false && !isset($_POST["sort_key"])) {
+	    $order = 'created_date DESC';
 	}
 
-	public function actionShowAllHiresForOnboarding() {
-		$candidateCondition = 'candidate_status = 6';
-		
-		$hireArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
-		return $this->render("showAllHiresForOnboarding", array('hireArrRecords'=>$hireArrRecords));
+	if ($_POST != false && $_POST["sort_key"] == false) {
+	    $order = 'created_date DESC';
 	}
 
-	public function actionEditOnboardingItems() {
-		$onboardingItemArrRecords = TrainingOnboardingItems::model()->findAll();
-		return $this->render("editOnboardingItems", array('onboardingItemArrRecords'=>$onboardingItemArrRecords));
+	$objCriteria = new CDbCriteria();
+	$objCriteria->order = $order;
+	//for filtering purposes
+	$objCriteria->condition = self::getObjCriteria($tableName);
+
+	$intCount = $tableName::model()->count($objCriteria);
+	$objPagination = new CPagination($intCount);
+	$objPagination->setPageSize(Yii::app()->params['numPerPage']);
+	$objPagination->setCurrentPage($this->intPage);
+	$objPagination->applyLimit($objCriteria);
+
+	$intPage = $this->intPage;
+
+	switch ($pageVar) {
+	    case CommonEnum::RETURN_PAGINATION:
+		return $objPagination;
+		break;
+
+	    case CommonEnum::RETURN_CRITERIA:
+		return $objCriteria;
+		break;
+
+	    //for tables where we need to massage the data (inner join)
+	    case CommonEnum::RETURN_TABLE_ARRAY_BY_SQL:
+
+		break;
+
+	    //just selecting from one table
+	    case CommonEnum::RETURN_TABLE_ARRAY:
+		return $tableName::model()->findAll($objCriteria);
+		break;
 	}
+    }
 
-	public function actionSaveOnboardingItems(){
-		// TrainingOnboardingItems::model()->deleteAll();
-		var_dump($_POST);exit;
+    private static function getStrSortBy($strSortKey, $tableName) {
+	switch ($tableName) {
+	    case TrainingItemEnum::TRAINING_ITEM_TABLE:
+		return self::getTrainingItemList($strSortKey);
+		break;
 	}
+    }
 
-	public function actionViewSelectedOnboardingChecklist($id) {
-		$candidateCondition = 'candidate_id = ' . $id;
-		$onboardingChecklistArrRecords = TrainingOnboardingChecklist::model()->findAll($candidateCondition);
-		$currentUserPriv = Yii::app()->user->priv;
-
-		if ($currentUserPriv == "HR"){
-			$displayHrResponsibility = "block";
-		} else {
-			$displayHrResponsibility = "none";
-		}
-
-		$this->render("viewSelectedOnboardingChecklist", array('id'=>$id, 'onboardingChecklistArrRecords'=>$onboardingChecklistArrRecords, 'displayHrResponsibility'=>$displayHrResponsibility));
+    private static function getTrainingItemList($strSortKey) {
+	switch ($strSortKey) {
+	    case 'sort_title_desc':
+		return 'title DESC';
+		break;
+	    case 'sort_title_asc':
+		return 'title ASC';
+		break;
+	    case 'sort_description_desc':
+		return 'description DESC';
+		break;
+	    case 'sort_description_asc':
+		return 'description ASC';
+		break;
+	    case 'sort_status_desc':
+		return 'status DESC';
+		break;
+	    case 'sort_status_asc':
+		return 'status ASC';
+		break;
 	}
-
-	public function actionShowTrainingSchedules(){
-		$departments = EmploymentJobOpening::model()->queryForDistinctDepartment();
-
-		$this->render("showHiresForTraining", array('departments'=>$departments));
-	}
-
-	public function actionSaveOnboardingChecklist($id){
-		$completedItemIds = $this->getParam('completedCheckBox', '');
-		$uncompletedItemIds = $this->getParam('uncompletedCheckBox', '');
-
-		if($completedItemIds != ''){
-			TrainingOnboardingChecklist::model()->updateOnboardingChecklist($completedItemIds, $id);
-		} else if ($completedItemIds == ''){
-			TrainingOnboardingChecklist::model()->revertOnboardingChecklist($id);
-		}
-
-		$this->redirect(array('showAllHiresForOnboarding'));
-	}
-
+    }
 
 }

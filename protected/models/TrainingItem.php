@@ -4,8 +4,8 @@
 This is the model class for table "training_onboarding_items"
 */
 
-class TrainingOnboardingItems extends AppActiveRecord {
-	static $tableName = DB_TBL_PREFIX . 'training_onboarding_items';
+class TrainingItem extends AppActiveRecord {
+	static $tableName = DB_TBL_PREFIX . 'training_item';
 
 	public function tableName(){
 		return self::$tableName;
@@ -19,11 +19,14 @@ class TrainingOnboardingItems extends AppActiveRecord {
 
 	public function attributeLabels(){
 		return [
-			'onboarding_item' => Yii::t('app', 'onboarding_item'),
-			'category' => Yii::t('app', 'category'),
+			'title' => Yii::t('app', 'title'),
+			'description' => Yii::t('app', 'description'),
 			'responsibility' => Yii::t('app', 'responsibility'),
+			'status' => Yii::t('app', 'status'),
 			'created_date' => Yii::t('app', 'created_date'),
-			'created_by' => Yii::t('app', 'created_by')
+			'created_by' => Yii::t('app', 'created_by'),
+			'modified_date' => Yii::t('app', 'modified_date'),
+			'modified_by' => Yii::t('app', 'modified_by')
 		];
 	}
 
@@ -85,22 +88,5 @@ class TrainingOnboardingItems extends AppActiveRecord {
 			return false;
 		} 
 	}
-
-	// public function queryForHrResponsibility($currentUserPriv){
-	// 	$sql = 'SELECT responsibility ';
-	// 	$sql .= ' FROM ' . self::$tableName;
-	// 	$sql .= ' WHERE ' . 'responsibility = "' . $currentUserPriv . '"';
-
-	// 	$objConnection 	= Yii::app()->db;
-	// 	$objCommand		= $objConnection->createCommand($sql);
-	// 	$arrData		= $objCommand->queryAll();
-
-	// 	if (!empty($arrData)){
-	// 		return $arrData; 
-	// 	} else {
-	// 		return false;
-	// 	} 
-
-	// }	
 
 }

@@ -284,8 +284,6 @@ class RegistrationController extends Controller {
     public function actionShowAllCandidates() {
 	$strSortKey = $this->getParam('sort_key', '');
 
-	// $candidateArrRecords = EmploymentCandidate::model()->findAll(array('order'=>'id ASC'));
-
 	$jobTitleArrRecords = EmploymentJobOpening::model()->queryForAllJobs();
 
 	$objPagination = $this->getStrSortByList($strSortKey, EmploymentCandidateEnum::CANDIDATE_TABLE, EmploymentCandidateEnum::CANDIDATE_TABLE_IN_SQL, CommonEnum::RETURN_PAGINATION);
@@ -1197,12 +1195,10 @@ class RegistrationController extends Controller {
     }
 
     public function actionShowAllCandidateStatus() {
-	$arrRecords = EmploymentCandidateStatus::model()->findAll(array('order' => 'id ASC'));
 	$strSortKey = $this->getParam('sort_key', '');
 	$pageType = EmploymentCandidateStatusEnum::CANDIDATE_STATUS;
 
 	$objPagination = $this->getStrSortByList($strSortKey, EmploymentCandidateStatusEnum::CANDIDATE_STATUS_TABLE, false, CommonEnum::RETURN_PAGINATION);
-	$objCriteria = $this->getStrSortByList($strSortKey, EmploymentCandidateStatusEnum::CANDIDATE_STATUS_TABLE, false, CommonEnum::RETURN_CRITERIA);
 	$arrRecords = $this->getStrSortByList($strSortKey, EmploymentCandidateStatusEnum::CANDIDATE_STATUS_TABLE, false, CommonEnum::RETURN_TABLE_ARRAY);
 
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'candidatestatus-list' && Yii::app()->request->isAjaxRequest) {

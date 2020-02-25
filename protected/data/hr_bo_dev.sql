@@ -322,35 +322,19 @@ VALUES ("A", "Introduction and Welcome"),
 ("H", "Payroll Panda"),
 ("I", "Access Creation");
 
-CREATE TABLE training_onboarding_items (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `onboarding_item` varchar(300) NOT NULL,
-  `category` varchar(50) NOT NULL,
-  `responsibility` varchar(50) NOT NULL,
+CREATE TABLE training_item (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` varchar(300) NOT NULL,
+  `description` varchar(300) NOT NULL,
+  `responsibility` int(11) UNSIGNED NOT NULL,
+  `status` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` varchar(40) NULL,
-  PRIMARY KEY (`id`)
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(40) NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (responsibility) REFERENCES admin(admin_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO training_onboarding_items (onboarding_item, category, responsibility)
-VALUES ("Offer letter", "A", "HR"),
-("Induction form", "A", "HR"),
-("Insurance form", "A", "HR"),
-("Work place guideline", "A", "HR"),
-("Application form (ic,certs, resume, passport photo, payslip)", "A", "HR"),
-("Access card", "A", "HR"),
-("Personal particular form", "A", "HR"),
-("Organization chart", "B", "HR"),
-("Introduce to their immediate team & other departments", "B", "HR"),
-("Employee understand the key objectives of their role and how their role fits in to the wider organization", "C", "Line manager"),
-("Washrooms, pantry, entry and exit points, public transport, parking (if applicable) etc", "D", "HR"),
-("Office hours, lunch hours etc", "D", "HR"),
-("Employee understand their conditions of employment(Probation period, visa regulations if applicable etc)", "E", "HR"),
-("Training schedule", "F", "HR"),
-("Application for good conduct certification online : http://ekonsular.kln.gov.my/", "G", "HR"),
-("User training", "H", "HR"),
-("Email account, Asana, Bit8, Skype groups, Dropbox, Door access", "I", "Adrian"),
-("Live chats", "I", "Mahen")          
 
 ALTER TABLE employment_candidate
   ADD `remarks` varchar(400) NULL AFTER `candidate_signature_date`;
