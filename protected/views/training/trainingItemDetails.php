@@ -55,8 +55,8 @@
 		    <?php !isset($_GET['id']) ? $defaultOption = 'selected' : $defaultOption = ''; ?>
 		    <option value="" <?php echo $defaultOption ?> disabled hidden required>Choose here</option>
 		    <?php foreach ($adminArr as $adminObj) { ?>
-			<?php isset($_GET['id']) && $trainingItemObjRecord->department_owner == $departmentObj['id'] ? $selectedStatus = "selected" : $selectedStatus = ''; ?>
-    		    <option value="<?php echo $adminObj['id']; ?>" <?php echo $selectedStatus; ?>><?php echo $adminObj['admin_display_name']; ?></option>
+			<?php isset($_GET['id']) && $trainingItemObjRecord->department_owner == $departmentObj['admin_id'] ? $selectedStatus = "selected" : $selectedStatus = ''; ?>
+    		    <option value="<?php echo $adminObj['admin_id']; ?>" <?php echo $selectedStatus; ?>><?php echo $adminObj['admin_display_name']; ?></option>
 		    <?php } ?>
 		  </select>
 		</span>

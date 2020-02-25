@@ -160,11 +160,11 @@ class PageEnum {
 	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
 	    "form-id" => "trainingitems-list",
 	    "form-title" => "Training Items List",
-	    "form-action-show-all" => "onboarding/showAllTrainingItems",
-	    "form-action-add-new" => "onboarding/addNewTrainingItem",
+	    "form-action-show-all" => "training/showAllTrainingItems",
+	    "form-action-add-new" => "training/addNewTrainingItem",
 	    "add-new-record-title" => "Create",
 	    "table-header" => array("title", "description", "status"),
-	    "form-action-delete-selected" => "onboarding/deleteTrainingItems",
+	    "form-action-delete-selected" => "training/deleteTrainingItems",
 	    "column-details" => array("description", "status"),
 	    "alert-data-msg" => array(
 		"msg-confirm-delete" => "Are you sure that you want to delete the selected training items?",
@@ -172,7 +172,7 @@ class PageEnum {
 	    "data-url" => "",
 	    "foreign-key-check" => "",
 	    "column-link-to-details" => "title",
-	    "form-action-view-selected" => "onboarding/viewSelectedTrainingItem",
+	    "form-action-view-selected" => "training/viewSelectedTrainingItem",
 	    "msg-foreign-key" => ""
 	)
     );

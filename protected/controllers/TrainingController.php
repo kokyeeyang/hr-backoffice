@@ -173,7 +173,7 @@ class TrainingController extends Controller {
 	$formAction = $this->createUrl('training/saveTrainingItem');
 	
 	return $this->render('trainingItemDetails', array('breadcrumbTop'=>$breadcrumbTop, 'title'=>$title, 'widgetTitle'=>$widgetTitle, 
-	    '$buttonTitle'=>$buttonTitle, 'adminArr'=>$adminArr, 'formAction'=>$formAction));
+	    'buttonTitle'=>$buttonTitle, 'adminArr'=>$adminArr, 'formAction'=>$formAction));
     }
 
 }
