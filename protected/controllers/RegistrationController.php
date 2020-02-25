@@ -1037,7 +1037,7 @@ class RegistrationController extends Controller {
 			return $tableArr;
 			break;
 		}
-		break;
+//		break;
 	    //just selecting from one table
 	    case CommonEnum::RETURN_TABLE_ARRAY:
 		$tableArr = $tableName::model()->findAll($objCriteria);

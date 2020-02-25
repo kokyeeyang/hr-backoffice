@@ -57,8 +57,9 @@ class TrainingController extends Controller {
 	$strSortKey = $this->getParam('sort_key', '');
 
 	$objPagination = self::getStrSortByList($strSortKey, TrainingItemEnum::TRAINING_ITEM_TABLE, false, CommonEnum::RETURN_PAGINATION);
-	$trainingItemArr = self::getStrSortByList($strSortKey, TrainingItemEnum::TRAINING_ITEM_TABLE, false, CommonEnum::RETURN_TABLE_ARRAY);
-	
+//	$trainingItemArr = self::getStrSortByList($strSortKey, TrainingItemEnum::TRAINING_ITEM_TABLE, false, CommonEnum::RETURN_TABLE_ARRAY);
+	$trainingItemArr = self::getStrSortByList($strSortKey, false, TrainingItemEnum::TRAINING_ITEM_TABLE, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
+
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'trainingitems-list' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
 	    $aResult['result'] = 0;
@@ -113,7 +114,9 @@ class TrainingController extends Controller {
 
 	    //for tables where we need to massage the data (inner join)
 	    case CommonEnum::RETURN_TABLE_ARRAY_BY_SQL:
-
+		case TrainingItemEnum::TRAINING_ITEM_TABLE_IN_SQL:
+		    $trainingItemArr = TrainingItem::model()->selectAllTrainingItems();
+		    break;
 		break;
 
 	    //just selecting from one table
@@ -153,8 +156,8 @@ class TrainingController extends Controller {
 		break;
 	}
     }
-    
-    private static function getObjCriteria($tableName){
+
+    private static function getObjCriteria($tableName) {
 	if (array_key_exists('label_filter', $_POST) && $_POST['label_filter'] != null) {
 	    switch ($tableName) {
 		case TrainingItemEnum::TRAINING_ITEM_TABLE:
@@ -163,17 +166,30 @@ class TrainingController extends Controller {
 	    }
 	}
     }
-    
-    public function actionAddNewTrainingItem(){
-	$breadcrumbTop = Yii::t('app', 'Add New Onboarding Checklist Item');
+
+    public function actionAddNewTrainingItem() {
+	$breadcrumbTop = Yii::t('app', 'Add New Training Item');
 	$title = Yii::t('app', 'Add new training item');
-	$widgetTitle = Yii::t('app', 'Add new training item');
 	$buttonTitle = Yii::t('app', 'Save');
 	$adminArr = Admin::model()->findAll();
 	$formAction = $this->createUrl('training/saveTrainingItem');
-	
-	return $this->render('trainingItemDetails', array('breadcrumbTop'=>$breadcrumbTop, 'title'=>$title, 'widgetTitle'=>$widgetTitle, 
-	    'buttonTitle'=>$buttonTitle, 'adminArr'=>$adminArr, 'formAction'=>$formAction));
+
+	return $this->render('trainingItemDetails', array('breadcrumbTop' => $breadcrumbTop, 'title' => $title,
+		'buttonTitle' => $buttonTitle, 'adminArr' => $adminArr, 'formAction' => $formAction));
+    }
+
+    public function actionSaveTrainingItem() {
+	$trainingItemObjModel = new TrainingItem;
+	$trainingItemObjModel->title = $this->getParam('trainingItemTitle', '');
+	$trainingItemObjModel->description = $this->getParam('trainingItemDescription', '');
+	$trainingItemObjModel->responsibility = $this->getParam('responsibilityDropdown', '');
+	$trainingItemObjModel->status = $this->getParam('isActiveCheckbox', '');
+	$trainingItemObjModel->created_by = Yii::app()->user->id;
+	$trainingItemObjModel->save();
+
+	if ($trainingItemObjModel->save()) {
+	    $this->redirect(array('showAllTrainingItems'));
+	}
     }
 
 }

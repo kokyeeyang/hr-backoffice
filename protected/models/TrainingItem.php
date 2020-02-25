@@ -42,9 +42,13 @@ class TrainingItem extends AppActiveRecord {
 		return parent::model($className);
 	}	
 
-	public function obtainItemIds(){
-		$sql = 'SELECT id ';
-		$sql .= 'FROM ' . self::$tableName;
+	public function selectAllTrainingItems(){
+		$sql = 'SELECT *';
+		$sql .= ' FROM ' . self::$tableName;
+		$sql .= ' CASE WHEN status = 1';
+		$sql .= ' THEN "Active" ';
+		$sql .= ' WHEN status = 0';
+		$sql .= ' THEN "Inactive"';
 
 		$objConnection 	= Yii::app()->db;
 		$objCommand		= $objConnection->createCommand($sql);
@@ -52,38 +56,6 @@ class TrainingItem extends AppActiveRecord {
 
 		if (!empty($arrData)){
 			return $arrData; 
-		} else {
-			return false;
-		} 
-	}
-
-	public function queryForOnboardingItem($id){
-		$sql = 'SELECT onboarding_item ';
-		$sql .= ' FROM ' . self::$tableName;
-		$sql .= ' WHERE ' . 'id = ' . '"' . $id . '"';
-
-		$objConnection 	= Yii::app()->db;
-		$objCommand		= $objConnection->createCommand($sql);
-		$arrData		= $objCommand->queryRow();
-
-		if (!empty($arrData)){
-			return implode(" ", $arrData); 
-		} else {
-			return false;
-		} 
-	}
-
-	public function queryForResponsibility($id){
-		$sql = 'SELECT responsibility ';
-		$sql .= ' FROM ' . self::$tableName;
-		$sql .= ' WHERE ' . 'id = ' . '"' . $id . '"';
-
-		$objConnection 	= Yii::app()->db;
-		$objCommand		= $objConnection->createCommand($sql);
-		$arrData		= $objCommand->queryRow();
-
-		if (!empty($arrData)){
-			return implode(" ", $arrData); 
 		} else {
 			return false;
 		} 
