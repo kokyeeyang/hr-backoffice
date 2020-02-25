@@ -54,7 +54,7 @@ class OnboardingChecklistTemplate extends AppActiveRecord {
 	    $sql .= ' WHERE title LIKE "%' . $_POST['label_filter'] . '%"';
 	}
 	//on first load, sort data by created_date, after that sort by whatever
-	if($_POST == false && $_POST["sort_key"] == false){
+	if($_POST == false && !isset($_POST["sort_key"])){
 	    $strSortBy = 'created_date DESC';
 	}
 	

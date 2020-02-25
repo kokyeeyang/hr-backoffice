@@ -109,7 +109,7 @@ class OnboardingController extends Controller {
 	//for use in returning data from a single table
 	$order = $strSortBy;
 	
-	if($_POST == false && $_POST["sort_key"] == false){
+	if($_POST == false && !isset($_POST["sort_key"])){
 	    $order = 'created_date DESC';
 	}
 	
