@@ -5,7 +5,6 @@ class PageHelper {
 
 	//get predefined formData
 	$formData = PageEnum::FORM_DATA[$pageType];
-	var_dump($_POST);
 	//prepare variable for use later
 	$breadcrumbTop = $formData['breadcrumb-top'];
 	$breadcrumbBottom = $formData['breadcrumb-bottom'];
