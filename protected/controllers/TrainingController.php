@@ -119,9 +119,12 @@ class TrainingController extends Controller {
 			$numPerPage = Yii::app()->params['numPerPage'];
 			return TrainingItem::model()->selectAllTrainingItems($strSortBy, $intPage, $numPerPage);
 			break;
+		    case TrainingTemplateEnum::TRAINING_TEMPLATE_IN_SQL:
+			$numPerPage = Yii::app()->params['numPerPage'];
+			return TrainingTemplate::model()->selectAllTrainingTemplates($strSortBy, $intPage, $numPerPage);
+			break;
 		}
 		break;
-
 	}
     }
 
@@ -129,6 +132,9 @@ class TrainingController extends Controller {
 	switch ($tableName) {
 	    case TrainingItemEnum::TRAINING_ITEM_TABLE:
 		return self::getTrainingItemList($strSortKey);
+		break;
+	    case TrainingTemplateEnum::TRAINING_TEMPLATE_TABLE:
+		return self::getTrainingTemplateList($strSortKey);
 		break;
 	}
     }
@@ -152,6 +158,29 @@ class TrainingController extends Controller {
 		break;
 	    case 'sort_status_asc':
 		return 'status ASC';
+		break;
+	}
+    }
+
+    private static function getTrainingTemplateList($strSortKey) {
+	switch ($strSortKey) {
+	    case 'sort_title_desc':
+		return 'title DESC';
+		break;
+	    case 'sort_title_asc':
+		return 'title ASC';
+		break;
+	    case 'sort_description_desc':
+		return 'description DESC';
+		break;
+	    case 'sort_description_asc':
+		return 'description ASC';
+		break;
+	    case 'sort_department_desc':
+		return 'department DESC';
+		break;
+	    case 'sort_department_asc':
+		return 'department ASC';
 		break;
 	}
     }
@@ -228,8 +257,8 @@ class TrainingController extends Controller {
 
 	$this->redirect(array('showAllTrainingItems'));
     }
-    
-    public function actionDeleteTrainingItem(){
+
+    public function actionDeleteTrainingItem() {
 	$deleteTrainingItemIds = $this->getParam('deleteCheckBox', '');
 
 	if ($deleteTrainingItemIds != '') {
@@ -238,20 +267,20 @@ class TrainingController extends Controller {
 
 	$this->redirect(array('showAllOnboardingItems'));
     }
-    
-    public function actionAddNewTrainingTemplate(){
+
+    public function actionAddNewTrainingTemplate() {
 	
     }
-    
-    public function actionShowAllTrainingTemplates(){
-	$pageType = TrainingItemEnum::TRAINING_TEMPLATE;
+
+    public function actionShowAllTrainingTemplates() {
+	$pageType = TrainingTemplateEnum::TRAINING_TEMPLATE;
 	$strSortKey = $this->getParam('sort_key', '');
 
-	$objPagination = self::getStrSortByList($strSortKey, TrainingItemEnum::TRAINING_ITEM_TABLE, false, CommonEnum::RETURN_PAGINATION);
-	$trainingItemArr = self::getStrSortByList($strSortKey, TrainingItemEnum::TRAINING_ITEM_TABLE, TrainingItemEnum::TRAINING_ITEM_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
+	$objPagination = self::getStrSortByList($strSortKey, TrainingTemplateEnum::TRAINING_TEMPLATE_TABLE, false, CommonEnum::RETURN_PAGINATION);
+	$trainingTemplateArr = self::getStrSortByList($strSortKey, TrainingTemplateEnum::TRAINING_TEMPLATE_TABLE, TrainingTemplateEnum::TRAINING_ITEM_TEMPLATE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
     }
-    
-    public function actionDeleteTrainingTemplate(){
+
+    public function actionDeleteTrainingTemplate() {
 	
     }
 

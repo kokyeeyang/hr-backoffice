@@ -174,6 +174,28 @@ class PageEnum {
 	    "column-link-to-details" => "title",
 	    "form-action-view-selected" => "training/viewSelectedTrainingItem",
 	    "msg-foreign-key" => ""
+	),
+	"Training Template" =>
+	array(
+	    "entity-name" => "TrainingTemplate",
+	    "breadcrumb-top" => "Show All Training Templates",
+	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
+	    "form-id" => "trainingtemplates-list",
+	    "form-title" => "Training Templates List",
+	    "form-action-show-all" => "training/showAllTrainingTemplates",
+	    "form-action-add-new" => "training/addNewTrainingTemplate",
+	    "add-new-record-title" => "Create",
+	    "table-header" => array("title", "description", "department"),
+	    "form-action-delete-selected" => "training/deleteTrainingTemplates",
+	    "column-details" => array("description", "department"),
+	    "alert-data-msg" => array(
+		"msg-confirm-delete" => "Are you sure that you want to delete the selected training templates?",
+		"msg-select-delete" => "Please select a training template that you would like to delete!"),
+	    "data-url" => "",
+	    "foreign-key-check" => "",
+	    "column-link-to-details" => "title",
+	    "form-action-view-selected" => "training/viewSelectedTrainingTemplate",
+	    "msg-foreign-key" => ""
 	)
     );
 

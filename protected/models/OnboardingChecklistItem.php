@@ -124,7 +124,7 @@ class OnboardingChecklistItem extends AppActiveRecord {
 	$sql .= 'THEN "Yes" ';
 	$sql .= 'WHEN OCI.is_offboarding_item = 0 ';
 	$sql .= 'THEN "No" ';
-	$sql .= 'END AS "is_offboarding_item" ';
+	$sql .= 'END AS "is_offboarding_item", ';
 	$sql .= 'CASE WHEN OCI.is_managerial = 1 ';
 	$sql .= 'THEN "Yes" ';
 	$sql .= 'WHEN OCI.is_managerial = 0 ';
