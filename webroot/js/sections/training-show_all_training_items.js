@@ -18,7 +18,7 @@ var TrainingShowAllTrainingItems = function () {
   }
 
   function _initCheckIfDeletionIsSelected() {
-    $('#deleteCandidateStatusButton').on('click', function (objEvent) {
+    $('#deleteTrainingItemButton').on('click', function (objEvent) {
       TrainingShowAllTrainingItems.check_if_deletion_is_selected(this, objEvent);
     });
   }

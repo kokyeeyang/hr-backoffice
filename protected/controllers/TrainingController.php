@@ -211,22 +211,6 @@ class TrainingController extends Controller {
     }
 
     public function actionUpdateTrainingItem() {
-	$id = $this->getParam('onboardingItemId', '');
-	$onboardingItemCondition = 'id = "' . $id . '"';
-
-	$isOffBoarding = $this->getParam('isOffboardingCheckbox', '');
-
-	if ($this->getParam('isOffboardingCheckbox', '') == null) {
-	    $isOffBoarding = 0;
-	}
-
-	OnboardingChecklistItem::model()->updateAll([
-	    'title' => $this->getParam('onboardingItemName', ''), 'description' => $this->getParam('onboardingItemDescription', ''),
-	    'department_owner' => $this->getParam('responsibilityDropdown', ''), 'is_offboarding_item' => $isOffBoarding,
-	    'status' => $this->getParam('isActiveCheckbox', ''), 'is_managerial' => $this->getParam('isManagerialCheckbox', ''),
-	    'created_by' => Yii::app()->user->id
-	    ], $onboardingItemCondition);
-
 	$id = $this->getParam('trainingItemId', '');
 	$trainingItemCondition = 'id = ' . $id;
 
@@ -243,6 +227,16 @@ class TrainingController extends Controller {
 	    ), $trainingItemCondition);
 
 	$this->redirect(array('showAllTrainingItems'));
+    }
+    
+    public function actionDeleteTrainingItem(){
+	$deleteTrainingItemIds = $this->getParam('deleteCheckBox', '');
+
+	if ($deleteTrainingItemIds != '') {
+	    TrainingItem::model()->deleteTrainingItem($deleteTrainingItemIds);
+	}
+
+	$this->redirect(array('showAllOnboardingItems'));
     }
 
 }

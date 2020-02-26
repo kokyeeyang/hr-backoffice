@@ -50,11 +50,11 @@ class TrainingItem extends AppActiveRecord {
 	$sql .= ' FROM ' . self::$tableName . ' TI';
 	$sql .= ' INNER JOIN admin A';
 	$sql .= ' ON TI.responsibility = A.admin_id';
-	
+
 	if (isset($_POST['label_filter']) && $_POST['label_filter'] != false) {
 	    $sql .= ' WHERE TI.title LIKE "%' . $_POST['label_filter'] . '%"';
 	}
-	
+
 	if ($_POST == false && !isset($_POST["sort_key"])) {
 	    $strSortBy = 'TI.created_date DESC';
 	}
@@ -65,7 +65,7 @@ class TrainingItem extends AppActiveRecord {
 
 	$sql .= ' ORDER BY ' . $strSortBy;
 	$sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
-	
+
 	$objConnection = Yii::app()->db;
 	$objCommand = $objConnection->createCommand($sql);
 	$arrData = $objCommand->queryAll();
@@ -74,6 +74,17 @@ class TrainingItem extends AppActiveRecord {
 	    return $arrData;
 	} else {
 	    return false;
+	}
+    }
+
+    public function deleteTrainingItems($deleteTrainingItemIds) {
+	foreach($deleteTrainingItemIds as $deleteTrainingItemId){
+	    $condition = 'id = ' . $deleteTrainingItemId;
+	    $deleteItem = TrainingItem::model()->deleteAll($condition);
+
+	    if ($deleteItem == null) {
+		echo 'Please delete this item from the training template first';
+	    }
 	}
     }
 
