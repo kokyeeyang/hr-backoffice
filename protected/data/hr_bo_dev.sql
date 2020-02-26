@@ -456,3 +456,16 @@ CREATE TABLE employment_candidate_status (
   `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE training_template (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` varchar(160) NOT NULL,
+  `description` varchar(160) NULL,
+  `department_id` int(11) unsigned NOT NULL, 
+  `created_by` varchar(40) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(40) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (department_id) REFERENCES department(id) 
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;

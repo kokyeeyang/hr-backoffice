@@ -41,7 +41,9 @@ var OnboardingShowAllOnboardingItems = function () {
   }
 
   function _initCheckIfOnboardingItemBelongsToTemplate() {
-
+    $('.deleteCheckBox').unbind('change').change(function (objEvent) {
+      OnboardingShowAllOnboardingItems.check_if_onboarding_item_belongs_to_template(this, objEvent);
+    });
   }
 
   function _initFilterResults() {
@@ -56,8 +58,8 @@ var OnboardingShowAllOnboardingItems = function () {
     $(function () {
       OnboardingShowAllOnboardingItems.initCheckIfOnboardingItemBelongsToTemplate();
       OnboardingShowAllOnboardingItems.initFilterResults();
-      $('.deleteCheckBox').unbind('change').change(function (objEvent) {
-        OnboardingShowAllOnboardingItems.check_if_onboarding_item_belongs_to_template(this, objEvent);
+      $('#deleteOnboardingItemButton').on('click', function (objEvent) {
+        OnboardingShowAllOnboardingItems.check_if_deletion_is_selected(this, objEvent);
       });
     });
   }

@@ -84,6 +84,15 @@
 		  <div class="sort_wrapper_inner">
 		    <div class="sort_label_wrapper">
 		      <div class="sort_label">
+			<?php echo Yii::t('app', 'Is managerial'); ?>
+		      </div>
+		    </div>
+		  </div>
+		</th>
+		<th>
+		  <div class="sort_wrapper_inner">
+		    <div class="sort_label_wrapper">
+		      <div class="sort_label">
 			<?php echo Yii::t('app', 'Is offboarding item'); ?>
 		      </div>
 		    </div>
@@ -116,6 +125,9 @@
 			</td>
 			<td class="departmentOwner">
 			  <?php echo $onboardingItemObjRecord['department_owner']; ?>
+			</td>
+			<td class="isManagerial">
+			  <?php echo $onboardingItemObjRecord['is_managerial']; ?>
 			</td>
 			<td class="isOffboardingItem">
 			  <?php echo $onboardingItemObjRecord['is_offboarding_item']; ?>

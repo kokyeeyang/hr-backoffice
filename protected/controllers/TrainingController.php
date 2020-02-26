@@ -243,8 +243,12 @@ class TrainingController extends Controller {
 	
     }
     
-    public function actionShowAllTrainingTemplate(){
-	
+    public function actionShowAllTrainingTemplates(){
+	$pageType = TrainingItemEnum::TRAINING_TEMPLATE;
+	$strSortKey = $this->getParam('sort_key', '');
+
+	$objPagination = self::getStrSortByList($strSortKey, TrainingItemEnum::TRAINING_ITEM_TABLE, false, CommonEnum::RETURN_PAGINATION);
+	$trainingItemArr = self::getStrSortByList($strSortKey, TrainingItemEnum::TRAINING_ITEM_TABLE, TrainingItemEnum::TRAINING_ITEM_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
     }
     
     public function actionDeleteTrainingTemplate(){
