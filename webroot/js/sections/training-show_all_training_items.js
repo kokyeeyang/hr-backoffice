@@ -8,7 +8,7 @@ var TrainingShowAllTrainingItems = function () {
       }
     }
   }
-  
+
 //  function _check_if_training_item_belongs_to_template(objElement, objEvent) {
 //    if ($(objElement).val() != '')
 //    {
@@ -39,7 +39,7 @@ var TrainingShowAllTrainingItems = function () {
 //      });
 //    }
 //  }
-  
+
   function _initFilterResults() {
     $("#label_filter").unbind('keypress').keypress(function (e) {
       if (e.which == 13) {
@@ -48,22 +48,18 @@ var TrainingShowAllTrainingItems = function () {
     });
   }
 
-  function _initCheckIfDeletionIsSelected() {
+  function _init() {
+    TrainingShowAllTrainingItems.initCheckIfDeletionIsSelected();
+    TrainingShowAllTrainingItems.initFilterResults();
     $('#deleteTrainingItemButton').unbind('click').click(function (objEvent) {
       TrainingShowAllTrainingItems.check_if_deletion_is_selected(this, objEvent);
     });
   }
 
-  function _init() {
-    TrainingShowAllTrainingItems.initCheckIfDeletionIsSelected();
-    TrainingShowAllTrainingItems.initFilterResults();
-  }
-
   return {
     init: _init,
     check_if_deletion_is_selected: _check_if_deletion_is_selected,
-    initFilterResults: _initFilterResults,
-    initCheckIfDeletionIsSelected: _initCheckIfDeletionIsSelected
+    initFilterResults: _initFilterResults
 //    check_if_training_item_belongs_to_template: _check_if_training_item_belongs_to_template
   }
 }();

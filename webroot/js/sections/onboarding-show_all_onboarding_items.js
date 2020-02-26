@@ -39,22 +39,14 @@ var OnboardingShowAllOnboardingItems = function () {
       });
     }
   }
-  
-  function _initDeleteOnboardingItem(){
-     $('#deleteOnboardingItemButton').unbind('click').click(function (objEvent) {
-        OnboardingShowAllOnboardingItems.check_if_deletion_is_selected(this, objEvent);
-      });
-  }
 
   function _initCheckIfOnboardingItemBelongsToTemplate() {
-    $('.deleteCheckBox').unbind('change').change(function (objEvent) {
-      OnboardingShowAllOnboardingItems.check_if_onboarding_item_belongs_to_template(this, objEvent);
-    });
+
   }
 
   function _initFilterResults() {
     $("#label_filter").unbind('keypress').keypress(function (e) {
-      if(e.which == 13){
+      if (e.which == 13) {
         $('form').submit;
       }
     });
@@ -64,8 +56,9 @@ var OnboardingShowAllOnboardingItems = function () {
     $(function () {
       OnboardingShowAllOnboardingItems.initCheckIfOnboardingItemBelongsToTemplate();
       OnboardingShowAllOnboardingItems.initFilterResults();
-      OnboardingShowAllOnboardingItems.initDeleteOnboardingItem();
-     
+      $('.deleteCheckBox').unbind('change').change(function (objEvent) {
+        OnboardingShowAllOnboardingItems.check_if_onboarding_item_belongs_to_template(this, objEvent);
+      });
     });
   }
 
