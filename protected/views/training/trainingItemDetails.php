@@ -55,7 +55,7 @@
 		    <?php !isset($_GET['id']) ? $defaultOption = 'selected' : $defaultOption = ''; ?>
 		    <option value="" <?php echo $defaultOption ?> disabled hidden required>Choose here</option>
 		    <?php foreach ($adminArr as $adminObj) { ?>
-			<?php isset($_GET['id']) && $trainingItemObjRecord->department_owner == $departmentObj['admin_id'] ? $selectedStatus = "selected" : $selectedStatus = ''; ?>
+			<?php isset($_GET['id']) && $trainingItemObjRecord->responsibility == $adminObj['admin_id'] ? $selectedStatus = "selected" : $selectedStatus = ''; ?>
     		    <option value="<?php echo $adminObj['admin_id']; ?>" <?php echo $selectedStatus; ?>><?php echo $adminObj['admin_display_name']; ?></option>
 		    <?php } ?>
 		  </select>
@@ -80,8 +80,8 @@
 	</fieldset>
 	<span>
 	  <input type="submit" value="<?php echo $buttonTitle; ?>">
-	  <?php isset($_GET['id']) ? $onboardingItemId = $onboardingItemObjRecord->id : $onboardingItemId = '' ?>
-	  <input type="hidden" name="onboardingItemId" value="<?php echo $onboardingItemId ?>"/>             
+	  <?php isset($_GET['id']) ? $trainingItemId = $trainingItemObjRecord->id : $trainingItemId = '' ?>
+	  <input type="hidden" name="trainingItemId" value="<?php echo $trainingItemId ?>"/>             
 	</span>
       </table>
     </form>

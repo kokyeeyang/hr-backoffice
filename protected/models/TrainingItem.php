@@ -51,6 +51,10 @@ class TrainingItem extends AppActiveRecord {
 	$sql .= ' INNER JOIN admin A';
 	$sql .= ' ON TI.responsibility = A.admin_id';
 	
+	if (isset($_POST['label_filter']) && $_POST['label_filter'] != false) {
+	    $sql .= ' WHERE TI.title LIKE "%' . $_POST['label_filter'] . '%"';
+	}
+	
 	if ($_POST == false && !isset($_POST["sort_key"])) {
 	    $strSortBy = 'TI.created_date DESC';
 	}

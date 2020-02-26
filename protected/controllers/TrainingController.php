@@ -113,17 +113,15 @@ class TrainingController extends Controller {
 
 	    //for tables where we need to massage the data (inner join)
 	    case CommonEnum::RETURN_TABLE_ARRAY_BY_SQL:
-		$numPerPage = Yii::app()->params['numPerPage'];
 
-		case TrainingItemEnum::TRAINING_ITEM_TABLE_IN_SQL:
-		    return TrainingItem::model()->selectAllTrainingItems($strSortBy, $intPage, $numPerPage);
-		    break;
+		switch ($tableNameInSql) {
+		    case TrainingItemEnum::TRAINING_ITEM_TABLE_IN_SQL:
+			$numPerPage = Yii::app()->params['numPerPage'];
+			return TrainingItem::model()->selectAllTrainingItems($strSortBy, $intPage, $numPerPage);
+			break;
+		}
 		break;
 
-	    //just selecting from one table
-	    case CommonEnum::RETURN_TABLE_ARRAY:
-		return $tableName::model()->findAll($objCriteria);
-		break;
 	}
     }
 
@@ -191,6 +189,60 @@ class TrainingController extends Controller {
 	if ($trainingItemObjModel->save()) {
 	    $this->redirect(array('showAllTrainingItems'));
 	}
+    }
+
+    public function actionViewSelectedTrainingItem() {
+	$breadcrumbTop = Yii::t('app', 'Edit Training Item');
+	$title = Yii::t('app', 'Edit Training Item');
+	$buttonTitle = Yii::t('app', 'Update this item');
+	$formAction = $this->createUrl('training/updateTrainingItem');
+
+	$trainingItemId = $this->getParam('id', '', '', 'get');
+	$trainingItemCondition = 'id = ' . $trainingItemId;
+	$trainingItemObjRecord = TrainingItem::model()->find($trainingItemCondition);
+	$adminArr = Admin::model()->findAll();
+
+	if ($trainingItemObjRecord == null) {
+	    throw new CHttpException(404, 'Candidate does not exist with the requested id.');
+	}
+	return $this->render('trainingItemDetails', array('breadcrumbTop' => $breadcrumbTop, 'title' => $title, 'buttonTitle' => $buttonTitle,
+		'adminArr' => $adminArr, 'formAction' => $formAction, 'trainingItemObjRecord' => $trainingItemObjRecord
+	));
+    }
+
+    public function actionUpdateTrainingItem() {
+	$id = $this->getParam('onboardingItemId', '');
+	$onboardingItemCondition = 'id = "' . $id . '"';
+
+	$isOffBoarding = $this->getParam('isOffboardingCheckbox', '');
+
+	if ($this->getParam('isOffboardingCheckbox', '') == null) {
+	    $isOffBoarding = 0;
+	}
+
+	OnboardingChecklistItem::model()->updateAll([
+	    'title' => $this->getParam('onboardingItemName', ''), 'description' => $this->getParam('onboardingItemDescription', ''),
+	    'department_owner' => $this->getParam('responsibilityDropdown', ''), 'is_offboarding_item' => $isOffBoarding,
+	    'status' => $this->getParam('isActiveCheckbox', ''), 'is_managerial' => $this->getParam('isManagerialCheckbox', ''),
+	    'created_by' => Yii::app()->user->id
+	    ], $onboardingItemCondition);
+
+	$id = $this->getParam('trainingItemId', '');
+	$trainingItemCondition = 'id = ' . $id;
+
+	$status = $this->getParam('isActiveCheckbox', '');
+
+	if ($this->getParam('isActiveCheckbox', '') == null) {
+	    $status = 0;
+	}
+
+	TrainingItem::model()->updateAll(array(
+	    'title' => $this->getParam('trainingItemTitle', ''), 'description' => $this->getParam('trainingItemDescription', ''),
+	    'responsibility' => $this->getParam('responsibilityDropdown', ''), 'status' => $this->getParam('isActiveCheckbox', ''),
+	    'modified_by' => Yii::app()->user->id
+	    ), $trainingItemCondition);
+
+	$this->redirect(array('showAllTrainingItems'));
     }
 
 }
