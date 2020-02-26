@@ -238,5 +238,17 @@ class TrainingController extends Controller {
 
 	$this->redirect(array('showAllOnboardingItems'));
     }
+    
+    public function actionAddNewTrainingTemplate(){
+	
+    }
+    
+    public function actionShowAllTrainingTemplate(){
+	
+    }
+    
+    public function actionDeleteTrainingTemplate(){
+	
+    }
 
 }

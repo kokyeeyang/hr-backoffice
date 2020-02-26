@@ -42,6 +42,7 @@
 		<li class="dropdown"><a class="top_level_item" href="javascript:void(0);"><div class="icon icon-people"></div> <?php echo Yii::t('app', 'Training'); ?></a>
 			<ul>
 				<li><a href="<?php echo $this->createUrl('training/showAllTrainingItems'); ?>"><?php echo Yii::t('app', 'Training Items List'); ?></a></li>
+				<li><a href="<?php echo $this->createUrl('training/showAllTrainingTemplates'); ?>"><?php echo Yii::t('app', 'Training Templates List'); ?></a></li>
 			</ul>
 		</li>		
 	</ul>
