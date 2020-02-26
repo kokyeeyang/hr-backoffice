@@ -119,7 +119,7 @@ class TrainingController extends Controller {
 			$numPerPage = Yii::app()->params['numPerPage'];
 			return TrainingItem::model()->selectAllTrainingItems($strSortBy, $intPage, $numPerPage);
 			break;
-		    case TrainingTemplateEnum::TRAINING_TEMPLATE_IN_SQL:
+		    case TrainingTemplateEnum::TRAINING_TEMPLATE_TABLE_IN_SQL:
 			$numPerPage = Yii::app()->params['numPerPage'];
 			return TrainingTemplate::model()->selectAllTrainingTemplates($strSortBy, $intPage, $numPerPage);
 			break;
@@ -277,7 +277,23 @@ class TrainingController extends Controller {
 	$strSortKey = $this->getParam('sort_key', '');
 
 	$objPagination = self::getStrSortByList($strSortKey, TrainingTemplateEnum::TRAINING_TEMPLATE_TABLE, false, CommonEnum::RETURN_PAGINATION);
-	$trainingTemplateArr = self::getStrSortByList($strSortKey, TrainingTemplateEnum::TRAINING_TEMPLATE_TABLE, TrainingTemplateEnum::TRAINING_ITEM_TEMPLATE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
+	$trainingTemplateArr = self::getStrSortByList($strSortKey, TrainingTemplateEnum::TRAINING_TEMPLATE_TABLE, TrainingTemplateEnum::TRAINING_TEMPLATE_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
+
+	if (isset($_POST['ajax']) && $_POST['ajax'] === 'trainingtemplates-list' && Yii::app()->request->isAjaxRequest) {
+	    $aResult = [];
+	    $aResult['result'] = 0;
+	    $aResult['content'] = '';
+	    $aResult['msg'] = '';
+
+	    $aResult['content'] = $this->renderPartial('showAllTrainingTemplates', ['strSortKey' => $strSortKey, 'objPagination' => $objPagination, 'trainingTemplateArr' => $trainingTemplateArr, 'pageType' => $pageType], true);
+
+	    if (!empty($aResult['content'])) {
+		$aResult['result'] = 1;
+	    }
+	    echo(json_encode($aResult));
+	    Yii::app()->end();
+	}
+	return $this->render('showAllTrainingTemplates', array('strSortKey' => $strSortKey, 'objPagination' => $objPagination, 'trainingTemplateArr' => $trainingTemplateArr, 'pageType' => $pageType));
     }
 
     public function actionDeleteTrainingTemplate() {
