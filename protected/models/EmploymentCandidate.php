@@ -158,7 +158,7 @@ class EmploymentCandidate extends AppActiveRecord {
 
 	if (!empty($arrData)) {
 	    foreach ($arrData as $objData) {
-		$finalArray[] = $objData['full_name'];
+		$finalArray[] = $objData[$queryResult];
 	    }
 	    return $finalArray;
 	} else {

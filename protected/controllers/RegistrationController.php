@@ -404,6 +404,7 @@ class RegistrationController extends Controller {
 	$managerName = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::INTERVIEWING_MANAGER, EmploymentJobOpeningEnum::ID);
 	$jobTitle = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::CANDIDATE_JOB, EmploymentJobOpeningEnum::ID);
 	$candidateEmail = EmploymentCandidate::model()->queryForCandidateInformation($candidateName, EmploymentCandidateEnum::EMAIL_ADDRESS, EmploymentCandidateEnum::FULL_NAME);
+
 	$candidateStatus = 7;
 	$candidateCondition = 'id_no = "' . $candidateId . '"';
 
@@ -414,7 +415,6 @@ class RegistrationController extends Controller {
 	    $aResult['manager'] = $managerName;
 	    $aResult['jobTitle'] = $jobTitle;
 	    $aResult['candidateEmail'] = $candidateEmail;
-
 	    echo(json_encode($aResult));
 	}
 	Yii::app()->end();
@@ -652,25 +652,8 @@ class RegistrationController extends Controller {
 	$candidateId = $this->getParam('candidateId', '', '', 'get');
 	$candidateStatus = $this->getParam('dropdown', '');
 	$candidateCondition = 'id_no = "' . $candidateId . '"';
-	$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
 
 	EmploymentCandidate::model()->updateAll(['candidate_status' => $candidateStatus], $candidateCondition);
-
-	$trainingOnboardingChecklistCondition = 'candidate_id = "' . $candidateId . '"';
-	$duplicateCheck = TrainingOnboardingChecklist::model()->findAll($trainingOnboardingChecklistCondition);
-
-	// TODO: Still needs further work to generate onboarding checklist
-	// if ($candidateStatus == "6" && $duplicateCheck == false){
-	// 	$onboardingItemIds = TrainingOnboardingItems::model()->obtainItemIds();
-	// 	foreach($onboardingItemIds as $iKey => $onboardingItemId){
-	// 		$onboardingChecklistObjModel = new TrainingOnboardingChecklist;
-	// 		$onboardingChecklistObjModel->onboarding_item_id = implode(" ",$onboardingItemId);
-	// 		$onboardingChecklistObjModel->candidate_id = $candidateId;
-	// 		$onboardingChecklistObjModel->created_by = Yii::app()->user->id;
-	// 		$onboardingChecklistObjModel->save();
-	// 	}
-	// }
-
 
 	$this->redirect(array('showAllCandidates'));
     }
@@ -868,8 +851,7 @@ class RegistrationController extends Controller {
 	}
 
 	$finalOfferLetter = EmploymentOfferLetterTemplates::model()->searchAndReplaceOfferLetterTerms($candidateId, $jobId, $offerLetterTemplate);
-
-	$decodedFinalOfferLetter = htmlspecialchars_decode($finalOfferLetter["offer_letter_content"]);
+	$decodedFinalOfferLetter = htmlspecialchars_decode($finalOfferLetter);
 
 	$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 

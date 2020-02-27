@@ -71,15 +71,15 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 	$isManagerial = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::IS_MANAGERIAL_POSITION, EmploymentJobOpeningEnum::ID);
 	$department = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::DEPARTMENT, EmploymentJobOpeningEnum::ID);
 
-	//now look for the offer letter template
+	//now look for the offer letter template (array)
 	$offerLetterTemplate = EmploymentOfferLetterTemplates::model()->queryForOfferLetterTemplate($isManagerial, $department);
 
 	//assign terms into an array
-	$offerLetterTerms = [$candidateName, $candidateAddress, $candidateId, $regularSalary, $probationarySalary, $candidatePosition, $candidateSuperior];
+	$offerLetterTerms = [$candidateName[0], $candidateAddress[0], $candidateId[0], $regularSalary, $probationarySalary, $candidatePosition, $candidateSuperior];
 	$termsToBeReplaced = [OfferLetterEnum::CANDIDATE_NAME, OfferLetterEnum::CANDIDATE_ADDRESS, OfferLetterEnum::CANDIDATE_ID, OfferLetterEnum::REGULAR_SALARY, OfferLetterEnum::PROBATIONARY_SALARY, OfferLetterEnum::CANDIDATE_POSITION, OfferLetterEnum::CANDIDATE_SUPERIOR];
 	//replace terms in offer letter(case-insensitive)
-	$finalOfferLetter = str_ireplace($termsToBeReplaced, $offerLetterTerms, $offerLetterTemplate);
-
+	$finalOfferLetter = str_ireplace($termsToBeReplaced, $offerLetterTerms, $offerLetterTemplate['offer_letter_content']);
+	
 	return $finalOfferLetter;
     }
 

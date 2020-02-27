@@ -114,14 +114,11 @@
 			    <?php } ?>
 			  </select>
 			</td>
-			<td class="itemTitle">
-			  <?php echo $trainingItemObjRecord['title']; ?>
-			</td>
 			<td class="itemDescription">
 			  <?php echo $trainingItemObjRecord['description']; ?>
 			</td>
-			<td class="itemDepartment">
-			  <?php echo $trainingItemObjRecord['department']; ?>
+			<td class="itemResponsibility">
+			  <?php echo $trainingItemObjRecord['responsibility']; ?>
 			</td>
 			<td class="removeTrainingItemButton">
 			  <a href="#"><span class="removeTrainingItemButton" title="Remove this item">&#x2716;</span></a>
@@ -145,11 +142,9 @@
 		    <?php } ?>
 		  </select>
 		</td>
-		<td class="itemTitle">
-		</td>
 		<td class="itemDescription">
 		</td>
-		<td class="itemDepartment">
+		<td class="itemResponsibility">
 		</td>
 		<td class="removeTrainingItemButton">
 		  <a href="#"><span class="removeTrainingItemButton" title="Remove this item"></span></a>

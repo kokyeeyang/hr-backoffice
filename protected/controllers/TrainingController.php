@@ -272,7 +272,7 @@ class TrainingController extends Controller {
 	$header = Yii::t('app', 'Add new Training Template');
 	$formAction = $this->createUrl('onboarding/saveTrainingTemplate');
 	$buttonShortTitle = Yii::t('app', 'Save');
-	$buttonClass = Yii::t('app', 'saveTemplateButton');
+	$buttonClass = Yii::t('app', 'saveTrainingTemplateButton');
 	$buttonTitle = Yii::t('app', 'Save this template');
 	
 	$trainingItemTitleArrRecord = TrainingItem::model()->queryForTrainingItemTitles();
@@ -281,7 +281,7 @@ class TrainingController extends Controller {
 	$departmentArr = Department::model()->queryForDepartmentDetails($departmentCondition);
 	$trainingTemplateDepartment = '';
 	
-	if (isset($_POST['ajax']) && $_POST['ajax'] === 'onboardingChecklistTemplateForm' && Yii::app()->request->isAjaxRequest) {
+	if (isset($_POST['ajax']) && $_POST['ajax'] === 'trainingTemplateForm' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
 	    $aResult['result'] = 0;
 	    $aResult['content'] = '';
@@ -292,7 +292,7 @@ class TrainingController extends Controller {
 	    //put in the new function to find training item details here
 	    $selectedOnboardingItem = TrainingItem::model()->findTrainingItemDetails($trainingItemId);
 	    $aResult['description'] = $selectedOnboardingItem[0]['description'];
-	    $aResult['department'] = $selectedOnboardingItem[0]['department'];
+	    $aResult['responsibility'] = $selectedOnboardingItem[0]['responsibility'];
 
 	    if (!empty($aResult['content'])) {
 		$aResult['result'] = 1;
@@ -313,7 +313,7 @@ class TrainingController extends Controller {
 
 	$objPagination = self::getStrSortByList($strSortKey, TrainingTemplateEnum::TRAINING_TEMPLATE_TABLE, false, CommonEnum::RETURN_PAGINATION);
 	$trainingTemplateArr = self::getStrSortByList($strSortKey, TrainingTemplateEnum::TRAINING_TEMPLATE_TABLE, TrainingTemplateEnum::TRAINING_TEMPLATE_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
-
+	
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'trainingtemplates-list' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
 	    $aResult['result'] = 0;
@@ -332,6 +332,10 @@ class TrainingController extends Controller {
     }
 
     public function actionDeleteTrainingTemplate() {
+	
+    }
+    
+    public function actionSaveTrainingTemplate() {
 	
     }
 

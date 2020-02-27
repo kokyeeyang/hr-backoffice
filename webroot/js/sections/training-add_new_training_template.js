@@ -15,13 +15,11 @@ var TrainingAddNewTrainingTemplate = function(){
         {
           if((typeof data['description']) !== 'undefined' && data !== null){
             var description = data['description'];
-            var department_owner = data['department'];
+            var responsibility = data['responsibility'];
             var remove_logo = '&#x2716;';
-            
             var objRow = $(objElement).closest('tr');
-
             objRow.find('.itemDescription').text(description);
-            objRow.find('.itemDepartment').text(department_owner);
+            objRow.find('.itemResponsibility').text(responsibility);
             objRow.find('span.removeTrainingItemButton').html(remove_logo);
           }
         }
@@ -48,12 +46,12 @@ var TrainingAddNewTrainingTemplate = function(){
       $(clonedRow).find('.selectTrainingItemTitle').attr('name', 'appended trainingItemDropdown ' + counter);
     }
 
-    // need to reinitiate the dropdown for onboarding title and the remove button after appending
+    // need to reinitiate the dropdown for training title and the remove button after appending
     TrainingAddNewTrainingTemplate.initTrainingItemDropdown();
-    TrainingAddNewTrainingTemplate.initRemoveTrainingChecklistItem();
+    TrainingAddNewTrainingTemplate.initRemoveTrainingItem();
   }
   
-  function _remove_training_checklist_item_row(objElement, objEvent){
+  function _remove_training_item_row(objElement, objEvent){
     var rowToBeRemoved = $(objElement).closest('tr');
     $(rowToBeRemoved).remove();
     
@@ -63,7 +61,7 @@ var TrainingAddNewTrainingTemplate = function(){
   
   function _initTrainingItemDropdown(){
     $('select[class="selectTrainingItemTitle"]').unbind('change').change(function(objEvent) {
-      TrainingAddNewTrainingTemplate.render_training_checklist_item_details(this, objEvent);
+      TrainingAddNewTrainingTemplate.render_training_item_details(this, objEvent);
       $('.saveTrainingTemplateButton').prop('disabled', false);
     });
   }
@@ -82,7 +80,7 @@ var TrainingAddNewTrainingTemplate = function(){
   
   function _init(){
     $(function() {
-      TrainingAddNewTrainingTemplate.initTrainingtemDropdown();
+      TrainingAddNewTrainingTemplate.initTrainingItemDropdown();
       TrainingAddNewTrainingTemplate.initAppendNewTrainingItem();
       TrainingAddNewTrainingTemplate.initRemoveTrainingItem();
     });
@@ -90,12 +88,12 @@ var TrainingAddNewTrainingTemplate = function(){
   
   return {
     init : _init,
-    initOnboardingItemDropdown : _initOnboardingItemDropdown,
-    initAppendNewOnboardingChecklistItem : _initAppendNewOnboardingChecklistItem,
-    initRemoveOnboardingChecklistItem : _initRemoveOnboardingChecklistItem,
+    initTrainingItemDropdown : _initTrainingItemDropdown,
+    initAppendNewTrainingItem : _initAppendNewTrainingItem,
+    initRemoveTrainingItem : _initRemoveTrainingItem,
     render_training_item_details : _render_training_item_details,
-    append_new_onboarding_checklist_item : _append_new_onboarding_checklist_item,
-    remove_onboarding_checklist_item_row : _remove_onboarding_checklist_item_row
+    append_new_training_item : _append_new_training_item,
+    remove_training_item_row : _remove_training_item_row
   }
 }();
 TrainingAddNewTrainingTemplate.init();

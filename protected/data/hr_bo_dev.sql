@@ -469,3 +469,12 @@ CREATE TABLE training_template (
   PRIMARY KEY (`id`),
   FOREIGN KEY (department_id) REFERENCES department(id) 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE training_items_mapping (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `training_item_id` int(11) UNSIGNED NOT NULL,
+  `training_template_id` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (training_item_id) REFERENCES training_item(id),
+  FOREIGN KEY (training_template_id) REFERENCES training_template(id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
