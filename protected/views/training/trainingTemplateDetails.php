@@ -17,7 +17,7 @@
 	<input type="hidden" name="templateId" value="<?php echo isset($templateId) ? $templateId : ''; ?>">
 	<fieldset class="fieldset">
 	  <legend class="legend">
-	    <?php echo Yii::t('app', '1.  this template'); ?>
+	    <?php echo Yii::t('app', '1.  Template details'); ?>
 	  </legend>
 	  <div class="grid_block">
 	    <div class="lable_block">
@@ -48,7 +48,7 @@
 	</fieldset>
 	<fieldset class="fieldset">
 	  <legend class="legend" title="<?php echo Yii::t('app', 'Which department(s) is this training template for?'); ?>">
-	    <?php echo Yii::t('app', '2. More details'); ?>
+	    <?php echo Yii::t('app', '2. Department'); ?>
 	  </legend>
 	  <div id="department-dropdown" style="margin-top: 10px; margin-bottom: 10px;">
 	    <?php foreach ($departmentArr as $iKey => $departmentObj) { ?>
@@ -87,7 +87,7 @@
 		  <div class="sort_wrapper_inner">
 		    <div class="sort_label_wrapper">
 		      <div class="sort_label">
-			<?php echo Yii::t('app', 'Department'); ?>
+			<?php echo Yii::t('app', 'Responsibility'); ?>
 		      </div>
 		    </div>
 		  </div>
@@ -136,10 +136,12 @@
 		<td class="trainingItemTd">
 		  <select name="appendTrainingItemDropdown" size=1 class="selectTrainingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
 		    <option value="" selected>Choose here</option>
-		    <?php foreach ($trainingItemTitleArrRecord as $intIndex => $trainingItemTitleObjRecord) { ?>
-    		    <option value="<?php echo $trainingItemTitleObjRecord['id']; ?>">
-			  <?php echo $trainingItemTitleObjRecord['title']; ?>
-    		    </option>
+		    <?php if ($trainingItemTitleArrRecord != null) { ?>
+			<?php foreach ($trainingItemTitleArrRecord as $intIndex => $trainingItemTitleObjRecord) { ?>
+			    <option value="<?php echo $trainingItemTitleObjRecord['id']; ?>">
+			      <?php echo $trainingItemTitleObjRecord['title']; ?>
+			    </option>
+			<?php } ?>
 		    <?php } ?>
 		  </select>
 		</td>

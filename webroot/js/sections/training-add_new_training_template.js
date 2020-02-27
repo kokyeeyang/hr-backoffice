@@ -29,10 +29,10 @@ var TrainingAddNewTrainingTemplate = function(){
     }
   }
   
-  function _append_new_onboarding_checklist_item(objElement, objEvent){
+  function _append_new_training_item(objElement, objEvent){
     var dataTable = $('#data_table');
 
-    var appendRow = $('tr.appendOnboardingItemTr');
+    var appendRow = $('tr.appendTrainingItemTr');
 
     //deciding to put list_even or list_odd for the front end
     var counter = parseInt($('#hiddenVal').val());
@@ -41,19 +41,19 @@ var TrainingAddNewTrainingTemplate = function(){
     var numberAfterModulus = counter%2;
 
     if (numberAfterModulus == 1){
-      var clonedRow = $(appendRow).clone().attr('class', 'appendedOnboardingItemTr list_odd').show().appendTo(dataTable);
-      $(clonedRow).find('.selectOnboardingItemTitle').attr('name', 'appended onboardingItemDropdown ' + counter);
+      var clonedRow = $(appendRow).clone().attr('class', 'appendedTrainingItemTr list_odd').show().appendTo(dataTable);
+      $(clonedRow).find('.selectTrainingItemTitle').attr('name', 'appended trainingItemDropdown ' + counter);
     } else {
-      var clonedRow = $(appendRow).clone().attr('class', 'appendedOnboardingItemTr list_even').show().appendTo(dataTable);
-      $(clonedRow).find('.selectOnboardingItemTitle').attr('name', 'appended onboardingItemDropdown ' + counter);
+      var clonedRow = $(appendRow).clone().attr('class', 'appendedTrainingItemTr list_even').show().appendTo(dataTable);
+      $(clonedRow).find('.selectTrainingItemTitle').attr('name', 'appended trainingItemDropdown ' + counter);
     }
 
     // need to reinitiate the dropdown for onboarding title and the remove button after appending
-    TrainingAddNewTrainingTemplate.initOnboardingItemDropdown();
-    TrainingAddNewTrainingTemplate.initRemoveOnboardingChecklistItem();
+    TrainingAddNewTrainingTemplate.initTrainingItemDropdown();
+    TrainingAddNewTrainingTemplate.initRemoveTrainingChecklistItem();
   }
   
-  function _remove_onboarding_checklist_item_row(objElement, objEvent){
+  function _remove_training_checklist_item_row(objElement, objEvent){
     var rowToBeRemoved = $(objElement).closest('tr');
     $(rowToBeRemoved).remove();
     
@@ -61,30 +61,30 @@ var TrainingAddNewTrainingTemplate = function(){
     counter --;
   }
   
-  function _initOnboardingItemDropdown(){
-    $('select[class="selectOnboardingItemTitle"]').unbind('change').change(function(objEvent) {
-      TrainingAddNewTrainingTemplate.render_onboarding_checklist_item_details(this, objEvent);
-      $('.saveOnboardingChecklistTemplateButton').prop('disabled', false);
+  function _initTrainingItemDropdown(){
+    $('select[class="selectTrainingItemTitle"]').unbind('change').change(function(objEvent) {
+      TrainingAddNewTrainingTemplate.render_training_checklist_item_details(this, objEvent);
+      $('.saveTrainingTemplateButton').prop('disabled', false);
     });
   }
   
-  function _initAppendNewOnboardingChecklistItem(){
-    $(':button#appendOnboardingItem').unbind('click').click(function(objEvent){
-      TrainingAddNewTrainingTemplate.append_new_onboarding_checklist_item(this, objEvent);
+  function _initAppendNewTrainingItem(){
+    $(':button#appendTrainingItem').unbind('click').click(function(objEvent){
+      TrainingAddNewTrainingTemplate.append_new_training_item(this, objEvent);
     });
   }
   
-  function _initRemoveOnboardingChecklistItem(){
-    $('td.removeOnboardingItemButton a').unbind('click').click(function(objEvent){
-      TrainingAddNewTrainingTemplate.remove_onboarding_checklist_item_row(this, objEvent);
+  function _initRemoveTrainingItem(){
+    $('td.removeTrainingItemButton a').unbind('click').click(function(objEvent){
+      TrainingAddNewTrainingTemplate.remove_training_item_row(this, objEvent);
     });
   }
   
   function _init(){
     $(function() {
-      TrainingAddNewTrainingTemplate.initOnboardingItemDropdown();
-      TrainingAddNewTrainingTemplate.initAppendNewOnboardingChecklistItem();
-      TrainingAddNewTrainingTemplate.initRemoveOnboardingChecklistItem();
+      TrainingAddNewTrainingTemplate.initTrainingtemDropdown();
+      TrainingAddNewTrainingTemplate.initAppendNewTrainingItem();
+      TrainingAddNewTrainingTemplate.initRemoveTrainingItem();
     });
   }
   
