@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/Projects/hrbo/protected/views/training/showAllTrainingTemplates.php</file>
+            <file>file:/D:/Projects/hrbo/protected/enum/PageEnum.php</file>
+            <file>file:/D:/Projects/hrbo/protected/enum/TrainingTemplateEnum.php</file>
+            <file>file:/D:/Projects/hrbo/protected/views/training/trainingTemplateDetails.php</file>
+            <file>file:/D:/Projects/hrbo/protected/models/TrainingTemplate.php</file>
+            <file>file:/D:/Projects/hrbo/protected/views/training/showAllTrainingItems.php</file>
+            <file>file:/D:/Projects/hrbo/protected/models/OnboardingChecklistItem.php</file>
+            <file>file:/D:/Projects/hrbo/protected/models/TrainingItem.php</file>
+            <file>file:/D:/Projects/hrbo/protected/controllers/TrainingController.php</file>
+            <file>file:/D:/Projects/hrbo/protected/views/layouts/left_nav.php</file>
+            <file>file:/D:/Projects/hrbo/protected/views/onboarding/onboardingChecklistTemplateDetails.php</file>
+            <file>file:/D:/Projects/hrbo/webroot/js/sections/onboarding-show_all_onboarding_items.js</file>
+            <file>file:/D:/Projects/hrbo/protected/enum/TrainingItemEnum.php</file>
+            <file>file:/D:/Projects/hrbo/protected/views/registration/offerLetterDetails.php</file>
+        </group>
+    </open-files>
+</project-private>

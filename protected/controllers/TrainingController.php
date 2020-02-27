@@ -269,7 +269,35 @@ class TrainingController extends Controller {
     }
 
     public function actionAddNewTrainingTemplate() {
+	$header = Yii::t('app', 'Add new Training Template');
+	$formAction = $this->createUrl('onboarding/saveTrainingTemplate');
+	$trainingItemTitleArrRecord = TrainingItem::model()->queryForTrainingItemTitles();
+	$buttonShortTitle = Yii::t('app', 'Save');
+	$buttonClass = Yii::t('app', 'saveTemplateButton');
+	$buttonTitle = Yii::t('app', 'Save this template');
 	
+	if (isset($_POST['ajax']) && $_POST['ajax'] === 'onboardingChecklistTemplateForm' && Yii::app()->request->isAjaxRequest) {
+	    $aResult = [];
+	    $aResult['result'] = 0;
+	    $aResult['content'] = '';
+	    $aResult['msg'] = '';
+
+	    //comes from ajax
+	    $trainingItemId = $this->getParam('training_item_id');
+	    //put in the new function to find training item details here
+	    $selectedOnboardingItem = TrainingItem::model()->findTrainingItemDetails($trainingItemId);
+	    $aResult['description'] = $selectedOnboardingItem[0]['description'];
+	    $aResult['department'] = $selectedOnboardingItem[0]['department'];
+
+	    if (!empty($aResult['content'])) {
+		$aResult['result'] = 1;
+	    }
+	    echo(json_encode($aResult));
+	    Yii::app()->end();
+	}
+	
+	$this->render('trainingTemplateDetails', array('header' => $header, 'formAction' => $formAction, 'trainingItemTitleArrRecord' => $trainingItemTitleArrRecord,
+	    'buttonShortTitle' => $buttonShortTitle, 'buttonClass' => $buttonClass, 'buttonTitle' => $buttonTitle));
     }
 
     public function actionShowAllTrainingTemplates() {

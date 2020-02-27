@@ -87,5 +87,43 @@ class TrainingItem extends AppActiveRecord {
 	    }
 	}
     }
+    
+    public function queryForTrainingItemTitles(){
+	$sql = 'SELECT id, title FROM ' . self::$tableName;
+	$sql .= ' WHERE status = 1';
+	
+	$objConnection = Yii::app()->db;
+	$objCommand = $objConnection->createCommand($sql);
+	$arrData = $objCommand->queryAll();
+	
+	if (!empty($arrData)) {
+	    return $arrData;
+	} else {
+	    return false;
+	}
+    }
+    
+    public function findTrainingItemDetails($trainingItemId){
+	$sql = 'SELECT TI.id, TI.title, TI.description, A.admin_display_name AS responsibility,';
+	$sql .= ' CASE WHEN TI.status = 1';
+	$sql .= ' THEN "Active" ';
+	$sql .= ' WHEN TI.status = 0';
+	$sql .= ' THEN "Inactive"';
+	$sql .= ' END AS status';
+	$sql .= ' FROM ' . self::$tableName . ' TI';
+	$sql .= ' INNER JOIN admin A';
+	$sql .= ' ON TI.responsibility = A.admin_id';
+	$sql .= ' WHERE TI.id = ' . $trainingItemId;
+	
+	$objConnection = Yii::app()->db;
+	$objCommand = $objConnection->createCommand($sql);
+	$arrData = $objCommand->queryAll();
+	
+	if (!empty($arrData)) {
+	    return $arrData;
+	} else {
+	    return false;
+	}
+    }
 
 }

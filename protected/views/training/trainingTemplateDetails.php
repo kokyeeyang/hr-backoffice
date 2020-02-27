@@ -47,18 +47,16 @@
 	  </div>
 	</fieldset>
 	<fieldset class="fieldset">
-	  <legend class="legend" title="<?php echo Yii::t('app', 'Which department(s) is this offer letter template for?'); ?>">
+	  <legend class="legend" title="<?php echo Yii::t('app', 'Which department(s) is this training template for?'); ?>">
 	    <?php echo Yii::t('app', '2. More details'); ?>
 	  </legend>
 	  <div id="department-dropdown" style="margin-top: 10px; margin-bottom: 10px;">
 	    <?php foreach ($departmentArr as $iKey => $departmentObj) { ?>
-		<?php $checkedStatus = preg_match("/" . $departmentObj['title'] . "/", $offerLetterDepartment) ? 'checked' : '' ?>
+		<?php $checkedStatus = preg_match("/" . $departmentObj['title'] . "/", $trainingTemplateDepartment) ? 'checked' : '' ?>
     	    <input type="checkbox" name="department[]" value="<?php echo $departmentObj['id']; ?>" class="department-dropdown" id="<?php echo $departmentObj['title']; ?>" <?php echo $checkedStatus; ?> >
     	    <label for="<?php echo $departmentObj['title']; ?>"><?php echo $departmentObj['title']; ?></label>
 	    <?php } ?>
 	  </div>
-	  <input type="checkbox" name="offerLetterIsManagerial" id="offerLetterIsManagerial" value="1" class="department-dropdown" <?php echo $offerLetterIsManagerial == 1 ? 'checked' : '' ?>>
-	  <label for="offerLetterIsManagerial">Is for a managerial position</label>
 	</fieldset>
 	<fieldset class="fieldset">
 	  <legend class="legend">
@@ -89,25 +87,7 @@
 		  <div class="sort_wrapper_inner">
 		    <div class="sort_label_wrapper">
 		      <div class="sort_label">
-			<?php echo Yii::t('app', 'Department owner'); ?>
-		      </div>
-		    </div>
-		  </div>
-		</th>
-		<th>
-		  <div class="sort_wrapper_inner">
-		    <div class="sort_label_wrapper">
-		      <div class="sort_label">
-			<?php echo Yii::t('app', 'Is managerial'); ?>
-		      </div>
-		    </div>
-		  </div>
-		</th>
-		<th>
-		  <div class="sort_wrapper_inner">
-		    <div class="sort_label_wrapper">
-		      <div class="sort_label">
-			<?php echo Yii::t('app', 'Is offboarding item'); ?>
+			<?php echo Yii::t('app', 'Department'); ?>
 		      </div>
 		    </div>
 		  </div>
@@ -119,35 +99,32 @@
 	    <tbody id="data_table">
 	      <?php
 	      $counter = 0;
-	      if (isset($onboardingItemArrRecord)) {
+	      if (isset($trainingItemArrRecord)) {
 		  ?>
-		  <?php foreach ($onboardingItemArrRecord as $onboardingItemObjRecord) { ?>
-		      <tr class="onboardingItemTr">
-			<td class="onboardingItemTd">
-			  <select name="onboardingItemDropdown <?php echo $counter; ?>" size=1 class="selectOnboardingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
+		  <?php foreach ($trainingItemArrRecord as $trainingItemObjRecord) { ?>
+		      <tr class="trainingItemTr">
+			<td class="trainingItemTd">
+			  <select name="trainingItemDropdown <?php echo $counter; ?>" size=1 class="selectTrainingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
 			    <option value="">Choose here</option>
-			    <?php foreach ($onboardingItemTitleArrRecord as $intIndex => $onboardingItemTitleObjRecord) { ?>
-				<?php $onboardingItemObjRecord['title'] === $onboardingItemTitleObjRecord['title'] ? $selected = "selected" : $selected = ''; ?>
-	    		    <option value="<?php echo $onboardingItemTitleObjRecord['id']; ?>" <?php echo $selected; ?>>
-				  <?php echo $onboardingItemTitleObjRecord['title']; ?>
+			    <?php foreach ($trainingItemTitleArrRecord as $intIndex => $trainingItemTitleObjRecord) { ?>
+				<?php $trainingItemTitleObjRecord['title'] === $trainingItemTitleObjRecord['title'] ? $selected = "selected" : $selected = ''; ?>
+	    		    <option value="<?php echo $trainingItemTitleObjRecord['id']; ?>" <?php echo $selected; ?>>
+				  <?php echo $trainingItemTitleObjRecord['title']; ?>
 	    		    </option>
 			    <?php } ?>
 			  </select>
 			</td>
-			<td class="description">
-			  <?php echo $onboardingItemObjRecord['description']; ?>
+			<td class="itemTitle">
+			  <?php echo $trainingItemObjRecord['title']; ?>
 			</td>
-			<td class="departmentOwner">
-			  <?php echo $onboardingItemObjRecord['department_owner']; ?>
+			<td class="itemDescription">
+			  <?php echo $trainingItemObjRecord['description']; ?>
 			</td>
-			<td class="isManagerial">
-			  <?php echo $onboardingItemObjRecord['is_managerial']; ?>
+			<td class="itemDepartment">
+			  <?php echo $trainingItemObjRecord['department']; ?>
 			</td>
-			<td class="isOffboardingItem">
-			  <?php echo $onboardingItemObjRecord['is_offboarding_item']; ?>
-			</td>
-			<td class="removeOnboardingItemButton">
-			  <a href="#"><span class="removeOnboardingItemButton" title="Remove this item">&#x2716;</span></a>
+			<td class="removeTrainingItemButton">
+			  <a href="#"><span class="removeTrainingItemButton" title="Remove this item">&#x2716;</span></a>
 			</td>
 		      </tr>
 		      <?php
@@ -155,34 +132,34 @@
 		  }
 		  ?>
 	      <?php } ?>
-	      <tr class="appendOnboardingItemTr" style="display:none;">
-		<td class="onboardingItemTd">
-		  <select name="appendOnboardingItemDropdown" size=1 class="selectOnboardingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
+	      <tr class="appendTrainingItemTr" style="display:none;">
+		<td class="trainingItemTd">
+		  <select name="appendTrainingItemDropdown" size=1 class="selectTrainingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
 		    <option value="" selected>Choose here</option>
-		    <?php foreach ($onboardingItemTitleArrRecord as $intIndex => $onboardingItemTitleObjRecord) { ?>
-    		    <option value="<?php echo $onboardingItemTitleObjRecord['id']; ?>">
-			  <?php echo $onboardingItemTitleObjRecord['title']; ?>
+		    <?php foreach ($trainingItemTitleArrRecord as $intIndex => $trainingItemTitleObjRecord) { ?>
+    		    <option value="<?php echo $trainingItemTitleObjRecord['id']; ?>">
+			  <?php echo $trainingItemTitleObjRecord['title']; ?>
     		    </option>
 		    <?php } ?>
 		  </select>
 		</td>
-		<td class="description">
+		<td class="itemTitle">
 		</td>
-		<td class="departmentOwner">
+		<td class="itemDescription">
 		</td>
-		<td class="isOffboardingItem">
+		<td class="itemDepartment">
 		</td>
-		<td class="removeOnboardingItemButton">
-		  <a href="#"><span class="removeOnboardingItemButton" title="Remove this item"></span></a>
+		<td class="removeTrainingItemButton">
+		  <a href="#"><span class="removeTrainingItemButton" title="Remove this item"></span></a>
 		</td>
 	      </tr>
 	    </tbody>
 	  </table>
-	  <!-- need to add a bar containing title, description, department owner, is_offboarding_item, status, is_managerial for onboarding items -->
-	  <!-- would need ajax to append a dropdown to add onboarding items -->
-	  <!-- would need to pass php array containing all the onboarding items that are available in the database into a dropdown menu for users to choose-->
-	  <!-- ajax would then populate the data for the onboarding item that the user chose -->
-	  <button type="button" id="appendOnboardingItem" title="Add more onboarding items to this template">+</button>
+	  <!-- need to add a bar containing title, description, department owner, is_offboarding_item, status, is_managerial for training items -->
+	  <!-- would need ajax to append a dropdown to add training items -->
+	  <!-- would need to pass php array containing all the training items that are available in the database into a dropdown menu for users to choose-->
+	  <!-- ajax would then populate the data for the training item that the user chose -->
+	  <button type="button" id="appendTrainingItem" title="Add more training items to this template">+</button>
 	</fieldset>
 	<button title="<?php echo $buttonTitle; ?>" class="<?php echo $buttonClass; ?>" disabled><?php echo $buttonShortTitle; ?></button>
       </div>
