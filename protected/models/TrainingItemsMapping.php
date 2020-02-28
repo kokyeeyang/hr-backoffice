@@ -3,7 +3,7 @@
 /**
   This is the model class for table "training_items_mapping"
  */
-class TrainingTemplateMapping extends AppActiveRecord {
+class TrainingItemsMapping extends AppActiveRecord {
 
     static $tableName = DB_TBL_PREFIX . 'training_items_mapping';
 

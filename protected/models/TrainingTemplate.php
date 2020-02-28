@@ -40,10 +40,13 @@ class TrainingTemplate extends AppActiveRecord {
     }
 
     public function selectAllTrainingTemplates($strSortBy, $intPage, $numPerPage) {
-	$sql = 'SELECT TT.id, TT.title, TT.description, D.title AS department, TT.created_date, TT.modified_date ';
+	$sql = 'SELECT TT.id, TT.title, TT.description, GROUP_CONCAT(D.title SEPARATOR ", ") AS department, TT.created_date, TT.modified_date ';
 	$sql .= 'FROM training_template TT ';
+	$sql .= 'INNER JOIN training_templates_mapping TTM ';
+	$sql .= 'ON TTM.training_template_id = TT.id ';
 	$sql .= 'INNER JOIN department D ';
-	$sql .= 'ON TT.department_id = D.id';
+	$sql .= 'ON TTM.department_id = D.id ';
+	$sql .= 'GROUP BY TT.id';
 
 	if (isset($_POST['label_filter']) && $_POST['label_filter'] != false) {
 	    $sql .= ' WHERE TT.title LIKE "%' . $_POST['label_filter'] . '%"';

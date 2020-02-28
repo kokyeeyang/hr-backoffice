@@ -354,7 +354,6 @@ class TrainingController extends Controller {
 	    $trainingTemplatesMappingObjModel->save();
 	}
 
-
 	foreach ($arrayKeys as $arrayKey) {
 	    $match = preg_match('%trainingItemDropdown%', $arrayKey);
 	    if ($match != null && $this->getParam($arrayKey, '') != null) {
@@ -366,6 +365,54 @@ class TrainingController extends Controller {
 	}
 	
 	$this->redirect(array('showAllTrainingTemplates'));
+    }
+    
+    public function actionViewSelectedTrainingTemplate(){
+	$header = Yii::t('app', 'Edit Training Template');
+	$formAction = $this->createUrl('training/updateTrainingTemplate');
+	$buttonShortTitle = Yii::t('app', 'Update');
+	$buttonClass = Yii::t('app', 'updateTrainingTemplateButton');
+	$buttonTitle = Yii::t('app', 'Update this template');
+
+	$trainingItemTitleArrRecord = TrainingItem::model()->queryForTrainingItemTitles();
+	$departmentId = 'id';
+	$departmentCondition = DepartmentEnum::DEPARTMENT_TITLE . ',' . $departmentId;
+	$departmentArr = Department::model()->queryForDepartmentDetails($departmentCondition);
+	
+	$trainingTemplateId = $this->getParam('id', '', '', 'get');
+	$trainingTemplateCondition = 'id = ' . $trainingTemplateId;
+	$trainingTemplateObjRecord = TrainingTemplate::model()->find($trainingTemplateCondition);
+	
+	$trainingTemplateDepartment = TrainingTemplatesMapping::model()->queryForTrainingTemplateDepartments($trainingTemplateId);
+	
+	if (isset($_POST['ajax']) && $_POST['ajax'] === 'trainingTemplateForm' && Yii::app()->request->isAjaxRequest){
+	    $aResult = [];
+	    $aResult['result'] = 0;
+	    $aResult['content'] = '';
+	    $aResult['msg'] = '';
+	    
+	    $trainingTemplateId = $this->getParam('training_item_id');
+	    
+	    $selectedTrainingItem = TrainingItem::model()->findTrainingItemDetails($trainingItemId);
+	    $aResult['title'] = $selectedTrainingItem[0]['title'];
+	    $aResult['description'] = $selectedTrainingItem[0]['description'];
+	    $aResult['department'] = $selectedTrainingItem[0]['department'];
+	    
+	    if (!empty($aResult['content'])) {
+		$aResult['result'] = 1;
+	    }
+	    echo(json_encode($aResult));
+	    Yii::app()->end();
+	}
+	
+	if ($trainingTemplateObjRecord == null) {
+	    throw new CHttpException(404, 'Training template does not exist with the requested id.');
+	}
+	
+	$this->render('trainingTemplateDetails', array('header'=>$header, 'formAction'=>$formAction, 'buttonShortTitle'=>$buttonShortTitle, 
+	    'buttonClass'=>$buttonClass, 'buttonTitle'=>$buttonTitle, 'trainingItemTitleArrRecord'=>$trainingItemTitleArrRecord, 
+	    'departmentArr'=>$departmentArr, 'trainingTemplateObjRecord'=>$trainingTemplateObjRecord, 'trainingTemplateDepartment'=>$trainingTemplateDepartment 
+	));
     }
 
 }

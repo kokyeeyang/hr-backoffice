@@ -33,5 +33,23 @@ class TrainingTemplatesMapping extends AppActiveRecord {
     public static function model($className = __CLASS__) {
 	return parent::model($className);
     }
+    
+    public function queryForTrainingTemplateDepartments($trainingTemplateId){
+	$sql = 'SELECT TTM.id, D.title ';
+	$sql .= 'FROM training_templates_mapping ';
+	$sql .= 'WHERE training_template_id = ' . $trainingTemplateId;
+	$sql .= 'INNER JOIN department D ';
+	$sql .= 'ON TTM.department_id = D.id';
+	
+	$objConnection = Yii::app()->db;
+	$objCommand = $objConnection->createCommand($sql);
+	$arrData = $objCommand->queryAll($sql);
+
+	if ($arrData != '') {
+	    return $arrData;
+	} else {
+	    return 'No data is found';
+	}
+    }
 
 }

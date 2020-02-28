@@ -111,7 +111,7 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 	$sql .= 'ON EOLTM.offer_letter_template_id = EOLT.id ';
 	$sql .= 'INNER JOIN department D ';
 	$sql .= 'ON EOLTM.department_id = D.id';
-
+	
 	if ($filter != false) {
 	    $sql .= ' WHERE ' . $filter;
 	}
