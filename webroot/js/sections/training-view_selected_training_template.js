@@ -67,7 +67,13 @@ var TrainingViewSelectedTrainingTemplate = function(){
   }
   
   function _initInputBoxes(){
-    $('.inputBoxes').unbind('change').change(function(objEvent) {
+    $('input.inputBoxes').unbind('keypress').keypress(function(objEvent) {
+      $('.updateTrainingTemplateButton').prop('disabled', false);
+    });
+  }
+  
+  function _initTextArea(){
+    $('textarea#templateDescription').unbind('keypress').keypress(function(objEvent) {
       $('.updateTrainingTemplateButton').prop('disabled', false);
     });
   }
@@ -90,6 +96,7 @@ var TrainingViewSelectedTrainingTemplate = function(){
       TrainingViewSelectedTrainingTemplate.initAppendNewTrainingItem();
       TrainingViewSelectedTrainingTemplate.initRemoveTrainingItem();
       TrainingViewSelectedTrainingTemplate.initInputBoxes();
+      TrainingViewSelectedTrainingTemplate.initTextArea();
     });
   }
   
@@ -99,6 +106,7 @@ var TrainingViewSelectedTrainingTemplate = function(){
     initAppendNewTrainingItem : _initAppendNewTrainingItem,
     initRemoveTrainingItem : _initRemoveTrainingItem,
     initInputBoxes : _initInputBoxes,
+    initTextArea : _initTextArea,
     render_training_item_details : _render_training_item_details,
     append_new_training_item : _append_new_training_item,
     remove_training_item_row : _remove_training_item_row

@@ -59,12 +59,24 @@ var OnboardingViewSelectedOnboardingChecklistTemplate = function () {
     var rowToBeRemoved = $(objElement).closest('tr');
     $(rowToBeRemoved).remove();
     $('.updateOnboardingChecklistTemplateButton').prop('disabled', false);
-    
+
     var counter = parseInt($('#hiddenVal').val());
     counter--;
     $('#hiddenVal').val(counter);
   }
 
+  function _initInputBoxes() {
+    $('input#templateTitle').unbind('keypress').keypress(function (objEvent) {
+      $('.updateOnboardingTemplateButton').prop('disabled', false);
+    });
+  }
+
+  function _initTextArea() {
+    $('textarea#templateDescription').unbind('keypress').keypress(function (objEvent) {
+      $('.updateOnboardingTemplateButton').prop('disabled', false);
+    });
+  }
+  
   function _initOnboardingItemDropdown() {
     $('select[class="selectOnboardingItemTitle"]').unbind('change').change(function (objEvent) {
       OnboardingViewSelectedOnboardingChecklistTemplate.render_onboarding_checklist_item_details(this, objEvent);
@@ -97,6 +109,8 @@ var OnboardingViewSelectedOnboardingChecklistTemplate = function () {
       OnboardingViewSelectedOnboardingChecklistTemplate.initAppendNewOnboardingChecklistItem();
       OnboardingViewSelectedOnboardingChecklistTemplate.initRemoveOnboardingChecklistItem();
       OnboardingViewSelectedOnboardingChecklistTemplate.initDeleteOnboardingChecklistItem();
+      OnboardingViewSelectedOnboardingChecklistTemplate.initTextArea();
+      OnboardingViewSelectedOnboardingChecklistTemplate.initInputBoxes();
     });
   }
 
@@ -106,6 +120,8 @@ var OnboardingViewSelectedOnboardingChecklistTemplate = function () {
     initAppendNewOnboardingChecklistItem: _initAppendNewOnboardingChecklistItem,
     initRemoveOnboardingChecklistItem: _initRemoveOnboardingChecklistItem,
     initDeleteOnboardingChecklistItem: _initDeleteOnboardingChecklistItem,
+    initTextArea: _initTextArea,
+    initInputBoxes: _initInputBoxes,
     render_onboarding_checklist_item_details: _render_onboarding_checklist_item_details,
     append_new_onboarding_checklist_item: _append_new_onboarding_checklist_item,
     remove_onboarding_checklist_item_row: _remove_onboarding_checklist_item_row,
