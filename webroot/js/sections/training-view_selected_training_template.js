@@ -68,6 +68,7 @@ var TrainingViewSelectedTrainingTemplate = function(){
   
   function _initAppendNewTrainingItem(){
     $(':button#appendTrainingItem').unbind('click').click(function(objEvent){
+      console.log('hello');
       TrainingViewSelectedTrainingTemplate.append_new_training_item(this, objEvent);
     });
   }

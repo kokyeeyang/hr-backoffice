@@ -99,7 +99,7 @@
 	    <tbody id="data_table">
 	      <?php
 	      $counter = 0;
-	      if (isset($trainingItemArrRecord)) {
+	      if (isset($trainingItemsInTemplate) && $trainingItemsInTemplate != false) {
 		  ?>
 		  <?php foreach ($trainingItemsInTemplate as $trainingItemInTemplate) { ?>
 		      <tr class="trainingItemTr">

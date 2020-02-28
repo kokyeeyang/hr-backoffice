@@ -97,7 +97,3 @@ var TrainingAddNewTrainingTemplate = function(){
   }
 }();
 TrainingAddNewTrainingTemplate.init();
-
-
-
-

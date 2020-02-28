@@ -446,7 +446,7 @@ class OnboardingController extends Controller {
 	$buttonShortTitle = Yii::t('app', 'Update');
 	$buttonClass = Yii::t('app', 'updateOnboardingChecklistTemplateButton');
 	$buttonTitle = Yii::t('app', 'Update this template');
-
+	
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'onboardingChecklistTemplateForm' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
 	    $aResult['result'] = 0;

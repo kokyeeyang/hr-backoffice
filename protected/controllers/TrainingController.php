@@ -391,7 +391,7 @@ class TrainingController extends Controller {
 	$conditionForTrainingItemsInTemplate = 'TIM.training_template_id = ' . $trainingTemplateId;
 	
 	$trainingItemsInTemplate = TrainingItem::model()->findTrainingItemDetails($conditionForTrainingItemsInTemplate, true);
-	
+
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'trainingTemplateForm' && Yii::app()->request->isAjaxRequest){
 	    $aResult = [];
 	    $aResult['result'] = 0;
