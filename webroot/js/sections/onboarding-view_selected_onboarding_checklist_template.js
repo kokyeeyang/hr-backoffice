@@ -67,13 +67,13 @@ var OnboardingViewSelectedOnboardingChecklistTemplate = function () {
 
   function _initInputBoxes() {
     $('input#templateTitle').unbind('keypress').keypress(function (objEvent) {
-      $('.updateOnboardingTemplateButton').prop('disabled', false);
+      $('.updateOnboardingChecklistTemplateButton').prop('disabled', false);
     });
   }
 
   function _initTextArea() {
     $('textarea#templateDescription').unbind('keypress').keypress(function (objEvent) {
-      $('.updateOnboardingTemplateButton').prop('disabled', false);
+      $('.updateOnboardingChecklistTemplateButton').prop('disabled', false);
     });
   }
   
