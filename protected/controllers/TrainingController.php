@@ -348,20 +348,20 @@ class TrainingController extends Controller {
 	$departmentIds = $this->getParam('department', '');
 
 	foreach ($departmentIds as $departmentId) {
-	    $trainingTemplateMappingObjModel = new TrainingTemplateMapping;
-	    $trainingTemplateMappingObjModel->training_template_id = $trainingTemplateObjModel->id;
-	    $trainingTemplateMappingObjModel->department_id = $departmentId;
-	    $trainingTemplateMappingObjModel->save();
+	    $trainingTemplatesMappingObjModel = new TrainingTemplatesMapping;
+	    $trainingTemplatesMappingObjModel->training_template_id = $trainingTemplateObjModel->id;
+	    $trainingTemplatesMappingObjModel->department_id = $departmentId;
+	    $trainingTemplatesMappingObjModel->save();
 	}
 
 
 	foreach ($arrayKeys as $arrayKey) {
 	    $match = preg_match('%trainingItemDropdown%', $arrayKey);
 	    if ($match != null && $this->getParam($arrayKey, '') != null) {
-		$trainingItemMappingObjModel = new TrainingItemMapping;
-		$trainingItemMappingObjModel->training_item_id = $this->getParam($arrayKey, '');
-		$trainingItemMappingObjModel->training_template_id = $trainingTemplateObjModel->id;
-		$trainingItemMappingObjModel->save();
+		$trainingItemsMappingObjModel = new TrainingItemsMapping;
+		$trainingItemsMappingObjModel->training_item_id = $this->getParam($arrayKey, '');
+		$trainingItemsMappingObjModel->training_template_id = $trainingTemplateObjModel->id;
+		$trainingItemsMappingObjModel->save();
 	    }
 	}
 	

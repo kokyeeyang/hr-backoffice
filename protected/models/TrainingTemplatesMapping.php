@@ -1,11 +1,11 @@
 <?php
 
 /**
-  This is the model class for table "training_template_mapping"
+  This is the model class for table "training_templates_mapping"
  */
-class TrainingTemplateMapping extends AppActiveRecord {
+class TrainingTemplatesMapping extends AppActiveRecord {
 
-    static $tableName = DB_TBL_PREFIX . 'training_template_mapping';
+    static $tableName = DB_TBL_PREFIX . 'training_templates_mapping';
 
     public function tableName() {
 	return self::$tableName;
