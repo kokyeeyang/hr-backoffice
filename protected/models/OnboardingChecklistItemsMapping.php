@@ -62,5 +62,11 @@ class OnboardingChecklistItemsMapping extends AppActiveRecord {
 	    return false;
 	}
     }
+    
+    public function queryForForeignKey($deleteOnboardingChecklistIds){
+	foreach ($deleteOnboardingChecklistIds as $deleteOnboardingChecklistId) {
+	    
+	}
+    }
 
 }

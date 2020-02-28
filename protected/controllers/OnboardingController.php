@@ -105,21 +105,21 @@ class OnboardingController extends Controller {
     private function getStrSortByList($strSortKey, $tableName, $tableNameInSql = false, $pageVar) {
 
 	$strSortBy = self::getStrSortBy($strSortKey, $tableName);
-	
+
 	//for use in returning data from a single table
 	$order = $strSortBy;
-	
-	if($_POST == false && !isset($_POST["sort_key"])){
+
+	if ($_POST == false && !isset($_POST["sort_key"])) {
 	    $order = 'created_date DESC';
 	}
-	
-	if ($_POST != false && $_POST["sort_key"] == false){
+
+	if ($_POST != false && $_POST["sort_key"] == false) {
 	    $order = 'created_date DESC';
 	}
-	
+
 	$objCriteria = new CDbCriteria();
 	$objCriteria->order = $order;
-	
+
 	$intCount = $tableName::model()->count($objCriteria);
 	$objPagination = new CPagination($intCount);
 	$objPagination->setPageSize(Yii::app()->params['numPerPage']);
@@ -379,8 +379,9 @@ class OnboardingController extends Controller {
 	$deleteOnboardingChecklistIds = $this->getParam('deleteCheckBox', '');
 
 	if ($deleteOnboardingChecklistIds != '') {
-	    OnboardingChecklistTemplate::model()->deleteOnboardingTemplates($deleteOnboardingChecklistIds);
+	    //would need to delete in onboarding_checklist_user_mapping, onboarding_checklist_item_action when the tables are up 
 	    OnboardingChecklistItemsMapping::model()->deleteOnboardingItemsMapping($deleteOnboardingChecklistIds);
+	    OnboardingChecklistTemplate::model()->deleteOnboardingTemplates($deleteOnboardingChecklistIds);
 	}
 
 	$this->redirect(array('showAllOnboardingChecklistTemplates'));

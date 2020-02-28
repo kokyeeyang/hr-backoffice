@@ -270,17 +270,17 @@ class TrainingController extends Controller {
 
     public function actionAddNewTrainingTemplate() {
 	$header = Yii::t('app', 'Add new Training Template');
-	$formAction = $this->createUrl('onboarding/saveTrainingTemplate');
+	$formAction = $this->createUrl('training/saveTrainingTemplate');
 	$buttonShortTitle = Yii::t('app', 'Save');
 	$buttonClass = Yii::t('app', 'saveTrainingTemplateButton');
 	$buttonTitle = Yii::t('app', 'Save this template');
-	
+
 	$trainingItemTitleArrRecord = TrainingItem::model()->queryForTrainingItemTitles();
 	$departmentId = 'id';
 	$departmentCondition = DepartmentEnum::DEPARTMENT_TITLE . ',' . $departmentId;
 	$departmentArr = Department::model()->queryForDepartmentDetails($departmentCondition);
 	$trainingTemplateDepartment = '';
-	
+
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'trainingTemplateForm' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
 	    $aResult['result'] = 0;
@@ -300,7 +300,7 @@ class TrainingController extends Controller {
 	    echo(json_encode($aResult));
 	    Yii::app()->end();
 	}
-	
+
 	$this->render('trainingTemplateDetails', array('header' => $header, 'formAction' => $formAction, 'trainingItemTitleArrRecord' => $trainingItemTitleArrRecord,
 	    'buttonShortTitle' => $buttonShortTitle, 'buttonClass' => $buttonClass, 'buttonTitle' => $buttonTitle, 'departmentArr' => $departmentArr,
 	    'trainingTemplateDepartment' => $trainingTemplateDepartment
@@ -313,7 +313,7 @@ class TrainingController extends Controller {
 
 	$objPagination = self::getStrSortByList($strSortKey, TrainingTemplateEnum::TRAINING_TEMPLATE_TABLE, false, CommonEnum::RETURN_PAGINATION);
 	$trainingTemplateArr = self::getStrSortByList($strSortKey, TrainingTemplateEnum::TRAINING_TEMPLATE_TABLE, TrainingTemplateEnum::TRAINING_TEMPLATE_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
-	
+
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'trainingtemplates-list' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
 	    $aResult['result'] = 0;
@@ -334,9 +334,38 @@ class TrainingController extends Controller {
     public function actionDeleteTrainingTemplate() {
 	
     }
-    
+
     public function actionSaveTrainingTemplate() {
+	$arrayKeys = array_keys($_POST);
 	
+	$trainingTemplateObjModel = new TrainingTemplate;
+	$trainingTemplateObjModel->title = $this->getParam('templateTitle', '');
+	$trainingTemplateObjModel->description = $this->getParam('templateDescription', '');
+	$trainingTemplateObjModel->created_by = Yii::app()->user->id;
+	$trainingTemplateObjModel->modified_by = Yii::app()->user->id;
+	$trainingTemplateObjModel->save();
+
+	$departmentIds = $this->getParam('department', '');
+
+	foreach ($departmentIds as $departmentId) {
+	    $trainingTemplateMappingObjModel = new TrainingTemplateMapping;
+	    $trainingTemplateMappingObjModel->training_template_id = $trainingTemplateObjModel->id;
+	    $trainingTemplateMappingObjModel->department_id = $departmentId;
+	    $trainingTemplateMappingObjModel->save();
+	}
+
+
+	foreach ($arrayKeys as $arrayKey) {
+	    $match = preg_match('%trainingItemDropdown%', $arrayKey);
+	    if ($match != null && $this->getParam($arrayKey, '') != null) {
+		$trainingItemMappingObjModel = new TrainingItemMapping;
+		$trainingItemMappingObjModel->training_item_id = $this->getParam($arrayKey, '');
+		$trainingItemMappingObjModel->training_template_id = $trainingTemplateObjModel->id;
+		$trainingItemMappingObjModel->save();
+	    }
+	}
+	
+	$this->redirect(array('showAllTrainingTemplates'));
     }
 
 }

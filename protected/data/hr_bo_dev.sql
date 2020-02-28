@@ -461,7 +461,7 @@ CREATE TABLE training_template (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `title` varchar(160) NOT NULL,
   `description` varchar(160) NULL,
-  `department_id` int(11) unsigned NOT NULL, 
+  `department_id` int(11) UNSIGNED NOT NULL, 
   `created_by` varchar(40) NOT NULL,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_by` varchar(40) NOT NULL,
@@ -476,5 +476,14 @@ CREATE TABLE training_items_mapping (
   `training_template_id` int(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (training_item_id) REFERENCES training_item(id),
+  FOREIGN KEY (training_template_id) REFERENCES training_template(id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE training_template_mapping (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `training_template_id` int(11) UNSIGNED NOT NULL,
+  `department_id` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (department_id) REFERENCES department(id),
   FOREIGN KEY (training_template_id) REFERENCES training_template(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
