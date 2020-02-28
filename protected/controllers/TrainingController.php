@@ -113,7 +113,7 @@ class TrainingController extends Controller {
 
 	    //for tables where we need to massage the data (inner join)
 	    case CommonEnum::RETURN_TABLE_ARRAY_BY_SQL:
-
+		$filter = false;
 		switch ($tableNameInSql) {
 		    case TrainingItemEnum::TRAINING_ITEM_TABLE_IN_SQL:
 			$numPerPage = Yii::app()->params['numPerPage'];
@@ -283,6 +283,7 @@ class TrainingController extends Controller {
 	$departmentCondition = DepartmentEnum::DEPARTMENT_TITLE . ',' . $departmentId;
 	$departmentArr = Department::model()->queryForDepartmentDetails($departmentCondition);
 	$trainingTemplateDepartment = '';
+	$trainingTemplateObjRecord = false;
 
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'trainingTemplateForm' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
@@ -291,11 +292,11 @@ class TrainingController extends Controller {
 	    $aResult['msg'] = '';
 
 	    //comes from ajax
-	    $trainingItemId = $this->getParam('training_item_id');
+	    $condition = 'TI.id = ' . $this->getParam('training_item_id');
 	    //put in the new function to find training item details here
-	    $selectedOnboardingItem = TrainingItem::model()->findTrainingItemDetails($trainingItemId);
-	    $aResult['description'] = $selectedOnboardingItem[0]['description'];
-	    $aResult['responsibility'] = $selectedOnboardingItem[0]['responsibility'];
+	    $selectedTrainingItem = TrainingItem::model()->findTrainingItemDetails($condition, false);
+	    $aResult['description'] = $selectedTrainingItem[0]['description'];
+	    $aResult['responsibility'] = $selectedTrainingItem[0]['responsibility'];
 
 	    if (!empty($aResult['content'])) {
 		$aResult['result'] = 1;
@@ -306,7 +307,7 @@ class TrainingController extends Controller {
 
 	$this->render('trainingTemplateDetails', array('header' => $header, 'formAction' => $formAction, 'trainingItemTitleArrRecord' => $trainingItemTitleArrRecord,
 	    'buttonShortTitle' => $buttonShortTitle, 'buttonClass' => $buttonClass, 'buttonTitle' => $buttonTitle, 'departmentArr' => $departmentArr,
-	    'trainingTemplateDepartment' => $trainingTemplateDepartment
+	    'trainingTemplateDepartment' => $trainingTemplateDepartment, 'trainingTemplateObjRecord' => $trainingTemplateObjRecord
 	));
     }
 
@@ -376,7 +377,8 @@ class TrainingController extends Controller {
 	$buttonShortTitle = Yii::t('app', 'Update');
 	$buttonClass = Yii::t('app', 'updateTrainingTemplateButton');
 	$buttonTitle = Yii::t('app', 'Update this template');
-
+	$templateId = $this->getParam('id', '', '', 'get');
+	
 	$trainingItemTitleArrRecord = TrainingItem::model()->queryForTrainingItemTitles();
 	$departmentId = 'id';
 	$departmentCondition = DepartmentEnum::DEPARTMENT_TITLE . ',' . $departmentId;
@@ -386,16 +388,18 @@ class TrainingController extends Controller {
 	$trainingTemplateCondition = 'TT.id = ' . $trainingTemplateId;
 	$trainingTemplateObjRecord = TrainingTemplate::model()->selectAllTrainingTemplates(false, false, false, false, $trainingTemplateCondition);
 	
-	var_dump($trainingTemplateObjRecord);exit;
+	$conditionForTrainingItemsInTemplate = 'TIM.training_template_id = ' . $trainingTemplateId;
+	
+	$trainingItemsInTemplate = TrainingItem::model()->findTrainingItemDetails($conditionForTrainingItemsInTemplate, true);
+	
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'trainingTemplateForm' && Yii::app()->request->isAjaxRequest){
 	    $aResult = [];
 	    $aResult['result'] = 0;
 	    $aResult['content'] = '';
 	    $aResult['msg'] = '';
 	    
-	    $trainingTemplateId = $this->getParam('training_item_id');
-	    
-	    $selectedTrainingItem = TrainingItem::model()->findTrainingItemDetails($trainingItemId);
+	    $condition = 'TI.id = ' . $this->getParam('training_item_id');
+	    $selectedTrainingItem = TrainingItem::model()->findTrainingItemDetails($condition, false);
 	    $aResult['title'] = $selectedTrainingItem[0]['title'];
 	    $aResult['description'] = $selectedTrainingItem[0]['description'];
 	    $aResult['department'] = $selectedTrainingItem[0]['department'];
@@ -413,7 +417,8 @@ class TrainingController extends Controller {
 	
 	$this->render('trainingTemplateDetails', array('header'=>$header, 'formAction'=>$formAction, 'buttonShortTitle'=>$buttonShortTitle, 
 	    'buttonClass'=>$buttonClass, 'buttonTitle'=>$buttonTitle, 'trainingItemTitleArrRecord'=>$trainingItemTitleArrRecord, 
-	    'departmentArr'=>$departmentArr, 'trainingTemplateObjRecord'=>$trainingTemplateObjRecord 
+	    'departmentArr'=>$departmentArr, 'trainingTemplateObjRecord'=>$trainingTemplateObjRecord[0], 'templateId'=>$templateId,
+	    'trainingItemsInTemplate'=>$trainingItemsInTemplate
 	));
     }
 

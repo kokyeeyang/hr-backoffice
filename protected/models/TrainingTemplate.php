@@ -61,10 +61,10 @@ class TrainingTemplate extends AppActiveRecord {
 	    if ($_POST != false && $_POST["sort_key"] == false) {
 		$strSortBy = 'TT.created_date DESC';
 	    }
+	    $sql .= ' ORDER BY ' . $strSortBy;
+	    $sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
 	}
 
-	$sql .= ' ORDER BY ' . $strSortBy;
-	$sql .= ' LIMIT ' . CommonHelper::calculatePagination($intPage, $numPerPage) . ', ' . $numPerPage;
 
 	$objConnection = Yii::app()->db;
 	$objCommand = $objConnection->createCommand($sql);

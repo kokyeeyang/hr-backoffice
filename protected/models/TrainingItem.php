@@ -103,7 +103,8 @@ class TrainingItem extends AppActiveRecord {
 	}
     }
     
-    public function findTrainingItemDetails($trainingItemId){
+    //used in both view selected training item and also when finding training items that belongs to a particular template
+    public function findTrainingItemDetails($condition, $innerJoin){
 	$sql = 'SELECT TI.id, TI.title, TI.description, A.admin_display_name AS responsibility,';
 	$sql .= ' CASE WHEN TI.status = 1';
 	$sql .= ' THEN "Active" ';
@@ -113,8 +114,13 @@ class TrainingItem extends AppActiveRecord {
 	$sql .= ' FROM ' . self::$tableName . ' TI';
 	$sql .= ' INNER JOIN admin A';
 	$sql .= ' ON TI.responsibility = A.admin_id';
-	$sql .= ' WHERE TI.id = ' . $trainingItemId;
 	
+	if($innerJoin != false){
+	    $sql .= ' INNER JOIN training_items_mapping TIM';
+	    $sql .= ' ON TI.id = TIM.training_item_id ';
+	}
+	
+	$sql .= ' WHERE ' . $condition;
 	$objConnection = Yii::app()->db;
 	$objCommand = $objConnection->createCommand($sql);
 	$arrData = $objCommand->queryAll();

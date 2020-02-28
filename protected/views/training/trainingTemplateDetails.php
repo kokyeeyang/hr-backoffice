@@ -27,7 +27,7 @@
 	      </div>
 	      <div class="lables2">
 		<span>
-		  <?php isset($templateId) ? $templateTitle = $trainingTemplateObjRecord->title : $templateTitle = '' ?>
+		  <?php isset($templateId) ? $templateTitle = $trainingTemplateObjRecord['title'] : $templateTitle = '' ?>
 		  <input type="text" name="templateTitle" id="templateTitle" value="<?php echo $templateTitle; ?>"/>
 		</span>
 	      </div>
@@ -39,7 +39,7 @@
 	      </div>
 	      <div class="lables2">
 		<span>
-		  <?php isset($templateId) ? $templateDescription = $trainingTemplateObjRecord->description : $templateDescription = '' ?>
+		  <?php isset($templateId) ? $templateDescription = $trainingTemplateObjRecord['description'] : $templateDescription = '' ?>
 		  <textarea name="templateDescription" id="templateDescription" rows="3" cols="22"><?php echo $templateDescription; ?></textarea>
 		</span>
 	      </div>
@@ -52,7 +52,7 @@
 	  </legend>
 	  <div id="department-dropdown" style="margin-top: 10px; margin-bottom: 10px;">
 	    <?php foreach ($departmentArr as $iKey => $departmentObj) { ?>
-		<?php $checkedStatus = preg_match("/" . $departmentObj['title'] . "/", $trainingTemplateDepartment) ? 'checked' : '' ?>
+		<?php $checkedStatus = preg_match("/" . $departmentObj['title'] . "/", $trainingTemplateObjRecord['department']) ? 'checked' : '' ?>
     	    <input type="checkbox" name="department[]" value="<?php echo $departmentObj['id']; ?>" class="department-dropdown" id="<?php echo $departmentObj['title']; ?>" <?php echo $checkedStatus; ?> >
     	    <label for="<?php echo $departmentObj['title']; ?>"><?php echo $departmentObj['title']; ?></label>
 	    <?php } ?>
@@ -101,13 +101,13 @@
 	      $counter = 0;
 	      if (isset($trainingItemArrRecord)) {
 		  ?>
-		  <?php foreach ($trainingItemArrRecord as $trainingItemObjRecord) { ?>
+		  <?php foreach ($trainingItemsInTemplate as $trainingItemInTemplate) { ?>
 		      <tr class="trainingItemTr">
 			<td class="trainingItemTd">
 			  <select name="trainingItemDropdown <?php echo $counter; ?>" size=1 class="selectTrainingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
 			    <option value="">Choose here</option>
 			    <?php foreach ($trainingItemTitleArrRecord as $intIndex => $trainingItemTitleObjRecord) { ?>
-				<?php $trainingItemTitleObjRecord['title'] === $trainingItemTitleObjRecord['title'] ? $selected = "selected" : $selected = ''; ?>
+				<?php $trainingItemTitleObjRecord['title'] === $trainingItemInTemplate['title'] ? $selected = "selected" : $selected = ''; ?>
 	    		    <option value="<?php echo $trainingItemTitleObjRecord['id']; ?>" <?php echo $selected; ?>>
 				  <?php echo $trainingItemTitleObjRecord['title']; ?>
 	    		    </option>
@@ -115,10 +115,10 @@
 			  </select>
 			</td>
 			<td class="itemDescription">
-			  <?php echo $trainingItemObjRecord['description']; ?>
+			  <?php echo $trainingItemInTemplate['description']; ?>
 			</td>
 			<td class="itemResponsibility">
-			  <?php echo $trainingItemObjRecord['responsibility']; ?>
+			  <?php echo $trainingItemInTemplate['responsibility']; ?>
 			</td>
 			<td class="removeTrainingItemButton">
 			  <a href="#"><span class="removeTrainingItemButton" title="Remove this item">&#x2716;</span></a>
