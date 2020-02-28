@@ -36,10 +36,10 @@ class TrainingTemplatesMapping extends AppActiveRecord {
     
     public function queryForTrainingTemplateDepartments($trainingTemplateId){
 	$sql = 'SELECT TTM.id, D.title ';
-	$sql .= 'FROM training_templates_mapping ';
-	$sql .= 'WHERE training_template_id = ' . $trainingTemplateId;
+	$sql .= 'FROM training_templates_mapping TTM ';
 	$sql .= 'INNER JOIN department D ';
-	$sql .= 'ON TTM.department_id = D.id';
+	$sql .= 'ON TTM.department_id = D.id ';
+	$sql .= 'WHERE training_template_id = ' . $trainingTemplateId;
 	
 	$objConnection = Yii::app()->db;
 	$objCommand = $objConnection->createCommand($sql);

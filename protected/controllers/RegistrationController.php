@@ -994,8 +994,6 @@ class RegistrationController extends Controller {
 
 	    //for tables where we need to massage the data (inner join)
 	    case CommonEnum::RETURN_TABLE_ARRAY_BY_SQL:
-		$filter = false;
-
 		switch ($tableNameInSql) {
 		    case OfferLetterEnum::OFFER_LETTER_TABLE_IN_SQL:
 			$numPerPage = Yii::app()->params['numPerPage'];

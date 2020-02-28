@@ -101,7 +101,7 @@ class TrainingController extends Controller {
 	$objPagination->applyLimit($objCriteria);
 
 	$intPage = $this->intPage;
-
+	
 	switch ($pageVar) {
 	    case CommonEnum::RETURN_PAGINATION:
 		return $objPagination;
@@ -121,7 +121,10 @@ class TrainingController extends Controller {
 			break;
 		    case TrainingTemplateEnum::TRAINING_TEMPLATE_TABLE_IN_SQL:
 			$numPerPage = Yii::app()->params['numPerPage'];
-			return TrainingTemplate::model()->selectAllTrainingTemplates($strSortBy, $intPage, $numPerPage);
+			if (isset($_POST['label_filter']) && $_POST['label_filter'] != false) {
+			    $filter = 'TT.title LIKE "%' . $this->getParam('label_filter', '') . '%"';
+			}
+			return TrainingTemplate::model()->selectAllTrainingTemplates($strSortBy, $intPage, $numPerPage, true, $filter);
 			break;
 		}
 		break;
@@ -232,7 +235,7 @@ class TrainingController extends Controller {
 	$adminArr = Admin::model()->findAll();
 
 	if ($trainingItemObjRecord == null) {
-	    throw new CHttpException(404, 'Candidate does not exist with the requested id.');
+	    throw new CHttpException(404, 'Training item does not exist with the requested id.');
 	}
 	return $this->render('trainingItemDetails', array('breadcrumbTop' => $breadcrumbTop, 'title' => $title, 'buttonTitle' => $buttonTitle,
 		'adminArr' => $adminArr, 'formAction' => $formAction, 'trainingItemObjRecord' => $trainingItemObjRecord
@@ -265,7 +268,7 @@ class TrainingController extends Controller {
 	    TrainingItem::model()->deleteTrainingItem($deleteTrainingItemIds);
 	}
 
-	$this->redirect(array('showAllOnboardingItems'));
+	$this->redirect(array('showAllTrainingItems'));
     }
 
     public function actionAddNewTrainingTemplate() {
@@ -380,11 +383,10 @@ class TrainingController extends Controller {
 	$departmentArr = Department::model()->queryForDepartmentDetails($departmentCondition);
 	
 	$trainingTemplateId = $this->getParam('id', '', '', 'get');
-	$trainingTemplateCondition = 'id = ' . $trainingTemplateId;
-	$trainingTemplateObjRecord = TrainingTemplate::model()->find($trainingTemplateCondition);
+	$trainingTemplateCondition = 'TT.id = ' . $trainingTemplateId;
+	$trainingTemplateObjRecord = TrainingTemplate::model()->selectAllTrainingTemplates(false, false, false, false, $trainingTemplateCondition);
 	
-	$trainingTemplateDepartment = TrainingTemplatesMapping::model()->queryForTrainingTemplateDepartments($trainingTemplateId);
-	
+	var_dump($trainingTemplateObjRecord);exit;
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'trainingTemplateForm' && Yii::app()->request->isAjaxRequest){
 	    $aResult = [];
 	    $aResult['result'] = 0;
@@ -411,7 +413,7 @@ class TrainingController extends Controller {
 	
 	$this->render('trainingTemplateDetails', array('header'=>$header, 'formAction'=>$formAction, 'buttonShortTitle'=>$buttonShortTitle, 
 	    'buttonClass'=>$buttonClass, 'buttonTitle'=>$buttonTitle, 'trainingItemTitleArrRecord'=>$trainingItemTitleArrRecord, 
-	    'departmentArr'=>$departmentArr, 'trainingTemplateObjRecord'=>$trainingTemplateObjRecord, 'trainingTemplateDepartment'=>$trainingTemplateDepartment 
+	    'departmentArr'=>$departmentArr, 'trainingTemplateObjRecord'=>$trainingTemplateObjRecord 
 	));
     }
 
