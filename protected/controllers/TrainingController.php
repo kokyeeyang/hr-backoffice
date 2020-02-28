@@ -400,10 +400,10 @@ class TrainingController extends Controller {
 	    
 	    $condition = 'TI.id = ' . $this->getParam('training_item_id');
 	    $selectedTrainingItem = TrainingItem::model()->findTrainingItemDetails($condition, false);
+	    
 	    $aResult['title'] = $selectedTrainingItem[0]['title'];
 	    $aResult['description'] = $selectedTrainingItem[0]['description'];
-	    $aResult['department'] = $selectedTrainingItem[0]['department'];
-	    
+	    $aResult['responsibility'] = $selectedTrainingItem[0]['responsibility'];
 	    if (!empty($aResult['content'])) {
 		$aResult['result'] = 1;
 	    }

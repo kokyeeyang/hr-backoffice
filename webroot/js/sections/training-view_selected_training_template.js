@@ -62,13 +62,18 @@ var TrainingViewSelectedTrainingTemplate = function(){
   function _initTrainingItemDropdown(){
     $('select[class="selectTrainingItemTitle"]').unbind('change').change(function(objEvent) {
       TrainingViewSelectedTrainingTemplate.render_training_item_details(this, objEvent);
-      $('.saveTrainingTemplateButton').prop('disabled', false);
+      $('.updateTrainingTemplateButton').prop('disabled', false);
+    });
+  }
+  
+  function _initInputBoxes(){
+    $('.inputBoxes').unbind('change').change(function(objEvent) {
+      $('.updateTrainingTemplateButton').prop('disabled', false);
     });
   }
   
   function _initAppendNewTrainingItem(){
     $(':button#appendTrainingItem').unbind('click').click(function(objEvent){
-      console.log('hello');
       TrainingViewSelectedTrainingTemplate.append_new_training_item(this, objEvent);
     });
   }
@@ -84,6 +89,7 @@ var TrainingViewSelectedTrainingTemplate = function(){
       TrainingViewSelectedTrainingTemplate.initTrainingItemDropdown();
       TrainingViewSelectedTrainingTemplate.initAppendNewTrainingItem();
       TrainingViewSelectedTrainingTemplate.initRemoveTrainingItem();
+      TrainingViewSelectedTrainingTemplate.initInputBoxes();
     });
   }
   
@@ -92,6 +98,7 @@ var TrainingViewSelectedTrainingTemplate = function(){
     initTrainingItemDropdown : _initTrainingItemDropdown,
     initAppendNewTrainingItem : _initAppendNewTrainingItem,
     initRemoveTrainingItem : _initRemoveTrainingItem,
+    initInputBoxes : _initInputBoxes,
     render_training_item_details : _render_training_item_details,
     append_new_training_item : _append_new_training_item,
     remove_training_item_row : _remove_training_item_row

@@ -28,7 +28,7 @@
 	      <div class="lables2">
 		<span>
 		  <?php isset($templateId) ? $templateTitle = $trainingTemplateObjRecord['title'] : $templateTitle = '' ?>
-		  <input type="text" name="templateTitle" id="templateTitle" value="<?php echo $templateTitle; ?>"/>
+		  <input type="text" name="templateTitle" id="templateTitle" class="inputBoxes" value="<?php echo $templateTitle; ?>"/>
 		</span>
 	      </div>
 	    </div>
@@ -40,7 +40,7 @@
 	      <div class="lables2">
 		<span>
 		  <?php isset($templateId) ? $templateDescription = $trainingTemplateObjRecord['description'] : $templateDescription = '' ?>
-		  <textarea name="templateDescription" id="templateDescription" rows="3" cols="22"><?php echo $templateDescription; ?></textarea>
+		  <textarea name="templateDescription" id="templateDescription" class="inputBoxes" rows="3" cols="22"><?php echo $templateDescription; ?></textarea>
 		</span>
 	      </div>
 	    </div>
