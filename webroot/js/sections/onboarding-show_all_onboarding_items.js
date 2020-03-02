@@ -58,7 +58,7 @@ var OnboardingShowAllOnboardingItems = function () {
     $(function () {
       OnboardingShowAllOnboardingItems.initCheckIfOnboardingItemBelongsToTemplate();
       OnboardingShowAllOnboardingItems.initFilterResults();
-      $('#deleteOnboardingItemButton').on('click', function (objEvent) {
+      $('#deleteOnboardingItemButton').unbind('click').click(function (objEvent) {
         OnboardingShowAllOnboardingItems.check_if_deletion_is_selected(this, objEvent);
       });
     });

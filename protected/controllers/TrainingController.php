@@ -335,7 +335,7 @@ class TrainingController extends Controller {
 	return $this->render('showAllTrainingTemplates', array('strSortKey' => $strSortKey, 'objPagination' => $objPagination, 'trainingTemplateArr' => $trainingTemplateArr, 'pageType' => $pageType));
     }
 
-    public function actionDeleteTrainingTemplate() {
+    public function actionDeleteTrainingTemplates() {
 	//delete from training_template and also training_template_mapping table
 	$deleteTrainingTemplateIds = $this->getParam('deleteCheckBox', '');
 

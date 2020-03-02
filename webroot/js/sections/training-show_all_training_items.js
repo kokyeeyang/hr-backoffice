@@ -18,10 +18,12 @@ var TrainingShowAllTrainingItems = function () {
   }
 
   function _init() {
-    $('#deleteTrainingItemButton').on('click', function (objEvent) {
-      TrainingShowAllTrainingItems.check_if_deletion_is_selected(this, objEvent);
+    $(function () {
+      $('#deleteTrainingItemButton').on('click', function (objEvent) {
+        TrainingShowAllTrainingItems.check_if_deletion_is_selected(this, objEvent);
+      });
+      TrainingShowAllTrainingItems.initFilterResults();
     });
-    TrainingShowAllTrainingItems.initFilterResults();
   }
 
   return {

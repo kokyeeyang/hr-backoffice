@@ -64,7 +64,8 @@ class RoleHelper {
 		    $arrActionsList = array_merge($arrActionsList, ['showAllTrainingItems', 'deleteTrainingItems', 'viewSelectedTrainingItem',
 			'addNewTrainingItem', 'updateTrainingItem', 'saveTrainingItem',
 			'showAllTrainingTemplates', 'deleteTrainingTemplate', 'viewSelectedTrainingTemplate',
-			'addNewTrainingTemplate', 'updateTrainingTemplate', 'saveTrainingTemplate'
+			'addNewTrainingTemplate', 'updateTrainingTemplate', 'saveTrainingTemplate',
+			'deleteTrainingTemplates'
 		    ]);
 		}
 		break;
