@@ -340,6 +340,8 @@ class TrainingController extends Controller {
 	$deleteTrainingTemplateIds = $this->getParam('deleteCheckBox', '');
 
 	if ($deleteTrainingTemplateIds != '') {
+	    //need to delete training_items_mapping as well
+	    TrainingItemsMapping::model()->deleteTrainingItemMappings($deleteTrainingTemplateIds);
 	    TrainingTemplatesMapping::model()->deleteTrainingTemplateMappings($deleteTrainingTemplateIds);
 	    TrainingTemplate::model()->deleteTrainingTemplates($deleteTrainingTemplateIds);
 	}
@@ -428,6 +430,31 @@ class TrainingController extends Controller {
 	    'departmentArr'=>$departmentArr, 'trainingTemplateObjRecord'=>$trainingTemplateObjRecord[0], 'templateId'=>$templateId,
 	    'trainingItemsInTemplate'=>$trainingItemsInTemplate
 	));
+    }
+    
+    public function actionCheckTrainingItemExistInTemplate($id) {
+	$aResult['result'] = false;
+	if(Yii::app()->request->isAjaxRequest){
+	    $queryString = $id;
+	    $aResult['result'] = TrainingItemsMapping::model()->queryForTrainingTemplateInformation($queryString);
+	}
+	echo(json_encode($aResult));
+	Yii::app()->end();
+    }
+    
+      public function actionCheckOnboardingItemExistInTemplate($id) {
+	$aResult['result'] = false;
+	if (Yii::app()->request->isAjaxRequest) {
+	    $queryString = $id;
+	    $queryResult = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TITLE;
+	    $columnName = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_ITEM_ID;
+
+	    $onboardingChecklistTemplateTitle = OnboardingChecklistItemsMapping::model()->queryForOnboardingTemplateInformation($queryString, $queryResult, $columnName);
+
+	    $aResult['result'] = $onboardingChecklistTemplateTitle;
+	}
+	echo(json_encode($aResult));
+	Yii::app()->end();
     }
 
 }

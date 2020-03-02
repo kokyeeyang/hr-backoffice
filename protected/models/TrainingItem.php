@@ -78,7 +78,7 @@ class TrainingItem extends AppActiveRecord {
     }
 
     public function deleteTrainingItems($deleteTrainingItemIds) {
-	foreach($deleteTrainingItemIds as $deleteTrainingItemId){
+	foreach ($deleteTrainingItemIds as $deleteTrainingItemId) {
 	    $condition = 'id = ' . $deleteTrainingItemId;
 	    $deleteItem = TrainingItem::model()->deleteAll($condition);
 
@@ -87,24 +87,24 @@ class TrainingItem extends AppActiveRecord {
 	    }
 	}
     }
-    
-    public function queryForTrainingItemTitles(){
+
+    public function queryForTrainingItemTitles() {
 	$sql = 'SELECT id, title FROM ' . self::$tableName;
 	$sql .= ' WHERE status = 1';
-	
+
 	$objConnection = Yii::app()->db;
 	$objCommand = $objConnection->createCommand($sql);
 	$arrData = $objCommand->queryAll();
-	
+
 	if (!empty($arrData)) {
 	    return $arrData;
 	} else {
 	    return false;
 	}
     }
-    
+
     //used in both view selected training item and also when finding training items that belongs to a particular template
-    public function findTrainingItemDetails($condition, $innerJoin){
+    public function findTrainingItemDetails($condition, $innerJoin) {
 	$sql = 'SELECT TI.id, TI.title, TI.description, A.admin_display_name AS responsibility,';
 	$sql .= ' CASE WHEN TI.status = 1';
 	$sql .= ' THEN "Active" ';
@@ -114,17 +114,17 @@ class TrainingItem extends AppActiveRecord {
 	$sql .= ' FROM ' . self::$tableName . ' TI';
 	$sql .= ' INNER JOIN admin A';
 	$sql .= ' ON TI.responsibility = A.admin_id';
-	
-	if($innerJoin != false){
+
+	if ($innerJoin != false) {
 	    $sql .= ' INNER JOIN training_items_mapping TIM';
 	    $sql .= ' ON TI.id = TIM.training_item_id ';
 	}
-	
+
 	$sql .= ' WHERE ' . $condition;
 	$objConnection = Yii::app()->db;
 	$objCommand = $objConnection->createCommand($sql);
 	$arrData = $objCommand->queryAll();
-	
+
 	if (!empty($arrData)) {
 	    return $arrData;
 	} else {
