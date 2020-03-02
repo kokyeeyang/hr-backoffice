@@ -78,8 +78,8 @@ class TrainingTemplate extends AppActiveRecord {
     }
 
     public function deleteTrainingTemplates($deleteTrainingTemplateIds) {
-	foreach ($deleteTrainingItemIds as $deleteTrainingItemId) {
-	    $condition = 'id = ' . $deleteTrainingItemId;
+	foreach ($deleteTrainingTemplateIds as $deleteTrainingTemplateIds) {
+	    $condition = 'id = ' . $deleteTrainingTemplateIds;
 	    TrainingTemplate::model()->deleteAll($condition);
 	}
     }

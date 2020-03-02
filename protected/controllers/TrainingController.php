@@ -336,7 +336,15 @@ class TrainingController extends Controller {
     }
 
     public function actionDeleteTrainingTemplate() {
-	
+	//delete from training_template and also training_template_mapping table
+	$deleteTrainingTemplateIds = $this->getParam('deleteCheckBox', '');
+
+	if ($deleteTrainingTemplateIds != '') {
+	    TrainingTemplatesMapping::model()->deleteTrainingTemplateMappings($deleteTrainingTemplateIds);
+	    TrainingTemplate::model()->deleteTrainingTemplates($deleteTrainingTemplateIds);
+	}
+
+	$this->redirect(array('showAllTrainingTemplates'));
     }
 
     public function actionSaveTrainingTemplate() {
