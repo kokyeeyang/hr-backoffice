@@ -10,7 +10,7 @@ var TrainingShowAllTrainingItems = function () {
   }
   
   function _check_if_training_item_belongs_to_template(objElement, objEvent) {
-    if ($(objElement.val() != ''))
+    if ($(objElement).val() != '')
     {
       $.ajax({
         type: 'post',
@@ -22,12 +22,13 @@ var TrainingShowAllTrainingItems = function () {
         dataType: 'json',
         success: function (data)
         {
+          console.log(data);
           if (data != null && data.result != false){
-            alert('This training item belongs to training template ' + data.result + '. Please delete it in the respective templates first.');
+            alert('This training item belongs to the following training template : \r\n ' + data.result + '. \r\n Please delete it in the respective templates first.');
             //uncheck the boxes for training item that still belong in templates
             $('#deleteCheckBox' + $(objElement).val()).prop('checked', false);
           } else if (data == null && data.result == false){
-            console.log('bye');
+          
           }
         },
         error: function (request, status, err)
@@ -43,6 +44,12 @@ var TrainingShowAllTrainingItems = function () {
       if (e.which == 13) {
         $('form').submit;
       }
+    });
+  }
+  
+  function _initCheckIfTrainingItemBelongsToTemplate() {
+    $(".deleteCheckBox").unbind('change').change(function(objEvent) {
+      TrainingShowAllTrainingItems.check_if_training_item_belongs_to_template(this, objEvent);
     });
   }
 

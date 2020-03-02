@@ -170,7 +170,7 @@ class PageEnum {
 		"msg-confirm-delete" => "Are you sure that you want to delete the selected training items?",
 		"msg-select-delete" => "Please select a training item that you would like to delete!"),
 	    "data-url" => "",
-	    "foreign-key-check" => "",
+	    "foreign-key-check" => "training/checkTrainingItemExistInTemplate",
 	    "column-link-to-details" => "title",
 	    "form-action-view-selected" => "training/viewSelectedTrainingItem",
 	    "msg-foreign-key" => ""

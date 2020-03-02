@@ -65,7 +65,7 @@ class RoleHelper {
 			'addNewTrainingItem', 'updateTrainingItem', 'saveTrainingItem',
 			'showAllTrainingTemplates', 'deleteTrainingTemplate', 'viewSelectedTrainingTemplate',
 			'addNewTrainingTemplate', 'updateTrainingTemplate', 'saveTrainingTemplate',
-			'deleteTrainingTemplates'
+			'deleteTrainingTemplates', 'checkTrainingItemExistInTemplate'
 		    ]);
 		}
 		break;

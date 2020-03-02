@@ -88,9 +88,9 @@ class TrainingTemplate extends AppActiveRecord {
 
 	$sql = ' SELECT title';
 	$sql .= ' FROM ' . self::$tableName . ' TT';
-	$sql .= ' INNER JOIN training_template_mapping TTM';
-	$sql .= ' ON TTM.checklist_template_id = TT.id';
-	$sql .= ' WHERE TTM.checklist_template_id = ' . $queryString;
+	$sql .= ' INNER JOIN training_items_mapping TIM';
+	$sql .= ' ON TIM.training_template_id = TT.id';
+	$sql .= ' WHERE TIM.training_item_id = ' . $queryString;
 
 	$objConnection = Yii::app()->db;
 	$objCommand = $objConnection->createCommand($sql);

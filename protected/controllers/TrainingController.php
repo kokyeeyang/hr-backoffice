@@ -435,26 +435,10 @@ class TrainingController extends Controller {
     public function actionCheckTrainingItemExistInTemplate($id) {
 	$aResult['result'] = false;
 	if(Yii::app()->request->isAjaxRequest){
-	    $queryString = $id;
-	    $aResult['result'] = TrainingItemsMapping::model()->queryForTrainingTemplateInformation($queryString);
+	    $aResult['result'] = TrainingTemplate::model()->queryForTrainingTemplateInformation($id);
 	}
 	echo(json_encode($aResult));
 	Yii::app()->end();
     }
     
-      public function actionCheckOnboardingItemExistInTemplate($id) {
-	$aResult['result'] = false;
-	if (Yii::app()->request->isAjaxRequest) {
-	    $queryString = $id;
-	    $queryResult = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TITLE;
-	    $columnName = OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_ITEM_ID;
-
-	    $onboardingChecklistTemplateTitle = OnboardingChecklistItemsMapping::model()->queryForOnboardingTemplateInformation($queryString, $queryResult, $columnName);
-
-	    $aResult['result'] = $onboardingChecklistTemplateTitle;
-	}
-	echo(json_encode($aResult));
-	Yii::app()->end();
-    }
-
 }
