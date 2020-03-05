@@ -1,6 +1,12 @@
 <div class="breadcrumb">
   <div class="breadcrumb_wrapper">
-    <div class="breadcrumb-top"><?php echo $header; ?></div>
+    <div class="breadcrumb-top">
+      <a class="top_level_item" href="<?php echo $this->createUrl('training/showAllTrainingTemplates'); ?>">
+	<?php echo Yii::t('app', 'Training Templates List'); ?>
+      </a>
+      >
+      <?php echo $header; ?>
+    </div>
     <div class="breadcrumb-bottom breadcrumb-bottom-people">
       <div class="title">
         <span><?php echo $header; ?></span>
