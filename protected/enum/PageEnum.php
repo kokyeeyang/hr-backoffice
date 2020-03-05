@@ -10,7 +10,7 @@ class PageEnum {
     const FORM_DATA = array("Department" =>
 	array(
 	    "entity-name" => "Department",
-	    "breadcrumb-top" => "Show All Departments",
+	    "breadcrumb-top" => "Departments List",
 	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
 	    "form-id" => "department-list",
 	    "form-action-show-all" => "admin/showAllDepartments",
@@ -34,7 +34,7 @@ class PageEnum {
 	"Offer Letter" =>
 	array(
 	    "entity-name" => "OfferLetter",
-	    "breadcrumb-top" => "Create",
+	    "breadcrumb-top" => "Offer Letters List",
 	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
 	    "form-id" => "offerletter-list",
 	    "form-title" => "Offer Letter List",
@@ -59,7 +59,7 @@ class PageEnum {
 	"Job Opening" =>
 	array(
 	    "entity-name" => "JobOpening",
-	    "breadcrumb-top" => "Show All Job Openings",
+	    "breadcrumb-top" => "Job Openings List",
 	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
 	    "form-id" => "jobopening-list",
 	    "form-action-show-all" => "registration/showAllJobOpenings",
@@ -90,7 +90,7 @@ class PageEnum {
 	"Candidate Status" =>
 	array(
 	    "entity-name" => "CandidateStatus",
-	    "breadcrumb-top" => "Show All Candidate Status",
+	    "breadcrumb-top" => "Candidate Status List",
 	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
 	    "form-id" => "candidatestatus-list",
 	    "form-title" => "Candidate Status List",
@@ -112,7 +112,7 @@ class PageEnum {
 	"Onboarding Item" =>
 	array(
 	    "entity-name" => "OnboardingItem",
-	    "breadcrumb-top" => "Show All Onboarding Items",
+	    "breadcrumb-top" => "Onboarding Items List",
 	    "breadcrumb-bottom" => "breadcrumb-bottom-people",
 	    "form-id" => "onboardingitems-list",
 	    "form-title" => "Onboarding Item List",
@@ -134,7 +134,7 @@ class PageEnum {
 	"Onboarding Checklist Template" =>
 	array(
 	    "entity-name" => "OnboardingChecklistTemplate",
-	    "breadcrumb-top" => "Show All Onboarding Checklist Templates",
+	    "breadcrumb-top" => "Onboarding Checklist Templates List",
 	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
 	    "form-id" => "onboardingchecklisttemplates-list",
 	    "form-title" => "Onboarding Checklist Template List",
@@ -156,7 +156,7 @@ class PageEnum {
 	"Training Item" =>
 	array(
 	    "entity-name" => "TrainingItem",
-	    "breadcrumb-top" => "Show All Training Items",
+	    "breadcrumb-top" => "Training Items List",
 	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
 	    "form-id" => "trainingitems-list",
 	    "form-title" => "Training Items List",
@@ -178,7 +178,7 @@ class PageEnum {
 	"Training Template" =>
 	array(
 	    "entity-name" => "TrainingTemplate",
-	    "breadcrumb-top" => "Show All Training Templates",
+	    "breadcrumb-top" => "Training Templates List",
 	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
 	    "form-id" => "trainingtemplates-list",
 	    "form-title" => "Training Templates List",

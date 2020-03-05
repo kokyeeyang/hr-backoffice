@@ -1,6 +1,10 @@
 <div class="breadcrumb">
   <div class="breadcrumb_wrapper">
     <div class="breadcrumb-top">
+      <a class="top_level_item" href="<?php echo $this->createUrl('admin/showAllDepartments'); ?>">
+	<?php echo Yii::t('app', 'Departments List'); ?>
+      </a>
+      >
       <?php echo $header; ?>
     </div>
     <div class="breadcrumb-bottom breadcrumb-bottom-chart">
