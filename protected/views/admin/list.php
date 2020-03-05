@@ -131,7 +131,9 @@
 	<?php if (isset($arrRecords[0])) { ?>		
 	    <?php foreach ($arrRecords as $intIndex => $objRecord) { ?>
 		<tr>
-		  <td><?php echo $objRecord->admin_username; ?></td>
+		  <td>
+		    <?php echo $objRecord->admin_username; ?>
+		  </td>
 		  <td><?php echo $objRecord->admin_display_name; ?></td>
 		  <td><?php echo Admin::getStatusLabel($objRecord->admin_status); ?></td>
 		  <td><?php echo $objRecord->admin_priv; ?></td>

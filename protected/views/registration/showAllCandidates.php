@@ -1,6 +1,6 @@
 <div class="breadcrumb">
 	<div class="breadcrumb_wrapper">
-		<div class="breadcrumb-top"><?php echo Yii::t('app', 'Show All Candidates'); ?></div>
+		<div class="breadcrumb-top"><?php echo Yii::t('app', 'Candidates List'); ?></div>
 		<div class="breadcrumb-bottom breadcrumb-bottom-people">
 			<div class="title">
 				<span><?php echo Yii::t('app', 'Candidates'); ?></span>
