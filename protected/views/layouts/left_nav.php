@@ -15,10 +15,9 @@
 
 		if(isset(Yii::app()->user->priv) && in_array(Yii::app()->user->priv, ['admin', 'hr'])){ 
 		?>
-		<li class="dropdown"><a class="top_level_item" href="javascript:void(0);"><div class="icon icon-key"></div> <?php echo Yii::t('app', 'Settings'); ?></a>
+		<li class="dropdown"><a class="top_level_item" href="javascript:void(0);"><div class="icon icon-gears"></div> <?php echo Yii::t('app', 'Settings'); ?></a>
 			<ul>
 				<li><a class="btnGetAdminList" rel="<?php echo $this->createUrl('admin/list'); ?>" href="javascript:void(0);"><?php echo Yii::t('app', 'Users List'); ?></a></li>
-				<li><a class="btnGetAdminForm" rel="<?php echo $this->createUrl('admin/add'); ?>" href="javascript:void(0);"><?php echo Yii::t('app', 'Add User'); ?></a></li>
 				<li><a href="<?php echo $this->createUrl('registration/showOfferLetterTemplates'); ?>"><?php echo Yii::t('app', 'Offer Letters List'); ?></a></li>
 				<li><a href="<?php echo $this->createUrl('admin/showAllDepartments'); ?>"><?php echo Yii::t('app', 'Departments List'); ?></a></li>
 				<li><a href="<?php echo $this->createUrl('registration/showAllCandidateStatus'); ?>"><?php echo Yii::t('app', 'Candidate Status List'); ?></a></li>
@@ -33,13 +32,13 @@
 				<li><a href="<?php echo $this->createUrl('registration/showAllJobOpenings'); ?>"><?php echo Yii::t('app', 'Job Openings List'); ?></a></li>
 			</ul>
 		</li>
-		<li class="dropdown"><a class="top_level_item" href="javascript:void(0);"><div class="icon icon-people"></div> <?php echo Yii::t('app', 'Onboarding'); ?></a>
+		<li class="dropdown"><a class="top_level_item" href="javascript:void(0);"><div class="icon icon-dashboard"></div> <?php echo Yii::t('app', 'Onboarding'); ?></a>
 			<ul>
 				<li><a href="<?php echo $this->createUrl('onboarding/showAllOnboardingItems'); ?>"><?php echo Yii::t('app', 'Onboarding Item List'); ?></a></li>
 				<li><a href="<?php echo $this->createUrl('onboarding/showAllOnboardingChecklistTemplates'); ?>"><?php echo Yii::t('app', 'Onboarding Checklist Template List'); ?></a></li>
 			</ul>
 		</li>
-		<li class="dropdown"><a class="top_level_item" href="javascript:void(0);"><div class="icon icon-people"></div> <?php echo Yii::t('app', 'Training'); ?></a>
+		<li class="dropdown"><a class="top_level_item" href="javascript:void(0);"><div class="icon icon-dashboard"></div> <?php echo Yii::t('app', 'Training'); ?></a>
 			<ul>
 				<li><a href="<?php echo $this->createUrl('training/showAllTrainingItems'); ?>"><?php echo Yii::t('app', 'Training Items List'); ?></a></li>
 				<li><a href="<?php echo $this->createUrl('training/showAllTrainingTemplates'); ?>"><?php echo Yii::t('app', 'Training Templates List'); ?></a></li>

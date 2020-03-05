@@ -11,7 +11,7 @@ class PageEnum {
 	array(
 	    "entity-name" => "Department",
 	    "breadcrumb-top" => "Departments List",
-	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
+	    "breadcrumb-bottom" => "breadcrumb-bottom-gears",
 	    "form-id" => "department-list",
 	    "form-action-show-all" => "admin/showAllDepartments",
 	    "form-action-add-new" => "admin/addNewDepartment",
@@ -35,7 +35,7 @@ class PageEnum {
 	array(
 	    "entity-name" => "OfferLetter",
 	    "breadcrumb-top" => "Offer Letters List",
-	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
+	    "breadcrumb-bottom" => "breadcrumb-bottom-gears",
 	    "form-id" => "offerletter-list",
 	    "form-title" => "Offer Letter List",
 	    "form-action-show-all" => "registration/showOfferLetterTemplates",
@@ -60,7 +60,7 @@ class PageEnum {
 	array(
 	    "entity-name" => "JobOpening",
 	    "breadcrumb-top" => "Job Openings List",
-	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
+	    "breadcrumb-bottom" => "breadcrumb-bottom-people",
 	    "form-id" => "jobopening-list",
 	    "form-action-show-all" => "registration/showAllJobOpenings",
 	    "form-action-add-new" => "registration/addNewJobOpenings",
@@ -91,7 +91,7 @@ class PageEnum {
 	array(
 	    "entity-name" => "CandidateStatus",
 	    "breadcrumb-top" => "Candidate Status List",
-	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
+	    "breadcrumb-bottom" => "breadcrumb-bottom-gears",
 	    "form-id" => "candidatestatus-list",
 	    "form-title" => "Candidate Status List",
 	    "form-action-show-all" => "registration/showAllCandidateStatus",
@@ -113,7 +113,7 @@ class PageEnum {
 	array(
 	    "entity-name" => "OnboardingItem",
 	    "breadcrumb-top" => "Onboarding Items List",
-	    "breadcrumb-bottom" => "breadcrumb-bottom-people",
+	    "breadcrumb-bottom" => "breadcrumb-bottom-dashboard",
 	    "form-id" => "onboardingitems-list",
 	    "form-title" => "Onboarding Item List",
 	    "form-action-show-all" => "onboarding/showAllOnboardingItems",
@@ -135,7 +135,7 @@ class PageEnum {
 	array(
 	    "entity-name" => "OnboardingChecklistTemplate",
 	    "breadcrumb-top" => "Onboarding Checklist Templates List",
-	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
+	    "breadcrumb-bottom" => "breadcrumb-bottom-dashboard",
 	    "form-id" => "onboardingchecklisttemplates-list",
 	    "form-title" => "Onboarding Checklist Template List",
 	    "form-action-show-all" => "onboarding/showAllOnboardingChecklistTemplates",
@@ -157,7 +157,7 @@ class PageEnum {
 	array(
 	    "entity-name" => "TrainingItem",
 	    "breadcrumb-top" => "Training Items List",
-	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
+	    "breadcrumb-bottom" => "breadcrumb-bottom-dashboard",
 	    "form-id" => "trainingitems-list",
 	    "form-title" => "Training Items List",
 	    "form-action-show-all" => "training/showAllTrainingItems",
@@ -179,7 +179,7 @@ class PageEnum {
 	array(
 	    "entity-name" => "TrainingTemplate",
 	    "breadcrumb-top" => "Training Templates List",
-	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
+	    "breadcrumb-bottom" => "breadcrumb-bottom-dashboard",
 	    "form-id" => "trainingtemplates-list",
 	    "form-title" => "Training Templates List",
 	    "form-action-show-all" => "training/showAllTrainingTemplates",

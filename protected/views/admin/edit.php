@@ -3,7 +3,6 @@
 		<div class="breadcrumb-top"><?php echo Yii::t('app', 'Admin User Management') . ' - ' . Yii::t('app', 'Edit Admin'); ?></div>
 		<div class="breadcrumb-bottom breadcrumb-bottom-key">
 			<div class="title">
-				<span><?php echo Yii::t('app', 'Edit Admin'); ?></span>
 			</div>
 		</div>
 	</div>
