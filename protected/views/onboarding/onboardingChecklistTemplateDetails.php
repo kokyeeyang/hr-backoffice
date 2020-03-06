@@ -33,7 +33,7 @@
 	      </div>
 	      <div class="lables2">
 		<span>
-		  <?php isset($templateId) ? $templateTitle = $onboardingTemplateObjRecord->title : $templateTitle = '' ?>
+		  <?php isset($templateId) ? $templateTitle = $onboardingTemplateObjRecord['title'] : $templateTitle = '' ?>
 		  <input type="text" name="templateTitle" id="templateTitle" value="<?php echo $templateTitle; ?>"/>
 		</span>
 	      </div>
@@ -45,7 +45,7 @@
 	      </div>
 	      <div class="lables2">
 		<span>
-		  <?php isset($templateId) ? $templateDescription = $onboardingTemplateObjRecord->description : $templateDescription = '' ?>
+		  <?php isset($templateId) ? $templateDescription = $onboardingTemplateObjRecord['description'] : $templateDescription = '' ?>
 		  <textarea name="templateDescription" id="templateDescription" rows="3" cols="22"><?php echo $templateDescription; ?></textarea>
 		</span>
 	      </div>

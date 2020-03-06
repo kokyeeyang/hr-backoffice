@@ -331,6 +331,8 @@ class OnboardingController extends Controller {
 	$departmentId = 'id';
 	$departmentCondition = DepartmentEnum::DEPARTMENT_TITLE . ',' . $departmentId;
 	$departmentArr = Department::model()->queryForDepartmentDetails($departmentCondition);
+	
+	$onboardingTemplateObjRecord = false;
 
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'onboardingChecklistTemplateForm' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
@@ -353,7 +355,7 @@ class OnboardingController extends Controller {
 	}
 
 	$this->render('onboardingChecklistTemplateDetails', array('header' => $header, 'formAction' => $formAction, 'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord,
-	    'buttonShortTitle' => $buttonShortTitle, 'buttonClass' => $buttonClass, 'buttonTitle' => $buttonTitle, 'departmentArr' => $departmentArr
+	    'buttonShortTitle' => $buttonShortTitle, 'buttonClass' => $buttonClass, 'buttonTitle' => $buttonTitle, 'departmentArr' => $departmentArr, 'onboardingTemplateObjRecord' => $onboardingTemplateObjRecord
 	));
     }
 
@@ -395,6 +397,7 @@ class OnboardingController extends Controller {
 	    //delete from onboarding_checklist_template_mapping
 	    OnboardingChecklistItemsMapping::model()->deleteOnboardingItemsMapping($deleteOnboardingChecklistIds);
 	    OnboardingChecklistTemplate::model()->deleteOnboardingTemplates($deleteOnboardingChecklistIds);
+	    OnboardingChecklistTemplatesMapping::model()->deleteOnboardingChecklistTemplateMappings($deleteOnboardingChecklistIds);
 	}
 
 	$this->redirect(array('showAllOnboardingChecklistTemplates'));
@@ -428,7 +431,15 @@ class OnboardingController extends Controller {
 	$onboardingChecklistTemplateObjModel->save();
 
 	$arrayKeys = array_keys($_POST);
-
+	$departmentIds = $this->getParam('department', '');
+	
+	foreach ($departmentIds as $departmentId) {
+	    $onboardingChecklistTemplatesMappingObjModel = new OnboardingChecklistTemplatesMapping;
+	    $onboardingChecklistTemplatesMappingObjModel->onboarding_checklist_template_id = $trainingTemplateObjModel->id;
+	    $onboardingChecklistTemplatesMappingObjModel->department_id = $departmentId;
+	    $onboardingChecklistTemplatesMappingObjModel->save();
+	}
+	
 	foreach ($arrayKeys as $arrayKey) {
 	    $match = preg_match('%onboardingItemDropdown%', $arrayKey);
 	    if ($match != null && $this->getParam($arrayKey, '') != null) {
