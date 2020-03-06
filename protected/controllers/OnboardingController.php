@@ -320,6 +320,10 @@ class OnboardingController extends Controller {
 	$buttonClass = Yii::t('app', 'saveOnboardingChecklistTemplateButton');
 	$buttonTitle = Yii::t('app', 'Save this template');
 
+	$departmentId = 'id';
+	$departmentCondition = DepartmentEnum::DEPARTMENT_TITLE . ',' . $departmentId;
+	$departmentArr = Department::model()->queryForDepartmentDetails($departmentCondition);
+
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'onboardingChecklistTemplateForm' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
 	    $aResult['result'] = 0;
@@ -341,7 +345,7 @@ class OnboardingController extends Controller {
 	}
 
 	$this->render('onboardingChecklistTemplateDetails', array('header' => $header, 'formAction' => $formAction, 'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord,
-	    'buttonShortTitle' => $buttonShortTitle, 'buttonClass' => $buttonClass, 'buttonTitle' => $buttonTitle
+	    'buttonShortTitle' => $buttonShortTitle, 'buttonClass' => $buttonClass, 'buttonTitle' => $buttonTitle, 'departmentArr' => $departmentArr
 	));
     }
 
@@ -446,7 +450,11 @@ class OnboardingController extends Controller {
 	$buttonShortTitle = Yii::t('app', 'Update');
 	$buttonClass = Yii::t('app', 'updateOnboardingChecklistTemplateButton');
 	$buttonTitle = Yii::t('app', 'Update this template');
-	
+
+	$departmentId = 'id';
+	$departmentCondition = DepartmentEnum::DEPARTMENT_TITLE . ',' . $departmentId;
+	$departmentArr = Department::model()->queryForDepartmentDetails($departmentCondition);
+
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'onboardingChecklistTemplateForm' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
 	    $aResult['result'] = 0;
@@ -474,7 +482,9 @@ class OnboardingController extends Controller {
 	$this->render('onboardingChecklistTemplateDetails', array('header' => $header, 'formAction' => $formAction, 'onboardingTemplateObjRecord' => $onboardingTemplateObjRecord,
 	    'onboardingItemArrRecord' => $onboardingItemArrRecord, 'breadcrumbTop' => $breadcrumbTop, 'title' => $title,
 	    'widgetTitle' => $widgetTitle, 'buttonShortTitle' => $buttonShortTitle, 'templateId' => $templateId,
-	    'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord, 'buttonClass' => $buttonClass, 'buttonTitle' => $buttonTitle));
+	    'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord, 'buttonClass' => $buttonClass, 'buttonTitle' => $buttonTitle,
+	    'departmentArr' => $departmentArr
+	));
     }
 
     public function actionCheckOnboardingItemExistInTemplate($id) {
