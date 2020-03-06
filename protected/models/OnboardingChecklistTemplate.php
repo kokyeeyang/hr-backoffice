@@ -73,7 +73,11 @@ class OnboardingChecklistTemplate extends AppActiveRecord {
 	$objCommand = $objConnection->createCommand($sql);
 	$arrData = $objCommand->queryAll($sql);
 
-	return $arrData;
+	if (!empty($arrData)) {
+	    return $arrData;
+	} else {
+	    return false;
+	}
     }
     
     public function viewSelectedOnboardingChecklistTemplateDetails($filter){
@@ -84,13 +88,13 @@ class OnboardingChecklistTemplate extends AppActiveRecord {
 	$sql .= 'INNER JOIN department D ';
 	$sql .= 'ON OCTM.department_id = D.id ';
 	$sql .= 'WHERE OCT.id = ' . $filter;
-	$sql .= 'GROUP BY OCT.id';
+	$sql .= ' GROUP BY OCT.id';
 	
 	$objConnection = Yii::app()->db;
 	$objCommand = $objConnection->createCommand($sql);
 	$arrData = $objCommand->queryAll($sql);
 	
-	return $arrData;
+	return $arrData[0];
     }
 
     public function deleteOnboardingTemplates($deleteOnboardingChecklistIds) {

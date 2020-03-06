@@ -75,7 +75,11 @@ class OnboardingChecklistItem extends AppActiveRecord {
 	$objCommand = $objConnection->createCommand($sql);
 	$arrData = $objCommand->queryAll($sql);
 
-	return $arrData;
+	if (!empty($arrData)) {
+	    return $arrData;
+	} else {
+	    return false;
+	}
     }
 
     public function deleteOnboardingItem($deleteOnboardingItemIds) {

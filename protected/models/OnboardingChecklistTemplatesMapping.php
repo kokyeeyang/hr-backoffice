@@ -33,7 +33,7 @@ class OnboardingChecklistTemplatesMapping extends AppActiveRecord {
 
     public function deleteOnboardingChecklistTemplateMappings($deleteOnboardingChecklistTemplateIds) {
 	foreach ($deleteOnboardingChecklistTemplateIds as $deleteOnboardingChecklistTemplateId) {
-	    $condition = 'training_template_id = ' . $deleteOnboardingChecklistTemplateId;
+	    $condition = 'onboarding_checklist_template_id = ' . $deleteOnboardingChecklistTemplateId;
 	    OnboardingChecklistTemplatesMapping::model()->deleteAll($condition);
 	}
     }

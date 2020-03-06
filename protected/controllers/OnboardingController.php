@@ -300,7 +300,7 @@ class OnboardingController extends Controller {
 
 	$objPagination = $this->getStrSortByList($strSortKey, OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TABLE, false, CommonEnum::RETURN_PAGINATION);
 	$onboardingChecklistTemplatesArr = $this->getStrSortByList($strSortKey, OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TABLE, OnboardingChecklistTemplateEnum::ONBOARDING_CHECKLIST_TEMPLATE_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
-
+var_dump($onboardingChecklistTemplatesArr);exit;
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'onboardingchecklisttemplates-list' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
 	    $aResult['result'] = 0;
@@ -396,8 +396,8 @@ class OnboardingController extends Controller {
 	    //would need to delete in onboarding_checklist_user_mapping, onboarding_checklist_item_action when the tables are up 
 	    //delete from onboarding_checklist_template_mapping
 	    OnboardingChecklistItemsMapping::model()->deleteOnboardingItemsMapping($deleteOnboardingChecklistIds);
-	    OnboardingChecklistTemplate::model()->deleteOnboardingTemplates($deleteOnboardingChecklistIds);
 	    OnboardingChecklistTemplatesMapping::model()->deleteOnboardingChecklistTemplateMappings($deleteOnboardingChecklistIds);
+	    OnboardingChecklistTemplate::model()->deleteOnboardingTemplates($deleteOnboardingChecklistIds);
 	}
 
 	$this->redirect(array('showAllOnboardingChecklistTemplates'));
@@ -435,7 +435,7 @@ class OnboardingController extends Controller {
 	
 	foreach ($departmentIds as $departmentId) {
 	    $onboardingChecklistTemplatesMappingObjModel = new OnboardingChecklistTemplatesMapping;
-	    $onboardingChecklistTemplatesMappingObjModel->onboarding_checklist_template_id = $trainingTemplateObjModel->id;
+	    $onboardingChecklistTemplatesMappingObjModel->onboarding_checklist_template_id = $onboardingChecklistTemplateObjModel->id;
 	    $onboardingChecklistTemplatesMappingObjModel->department_id = $departmentId;
 	    $onboardingChecklistTemplatesMappingObjModel->save();
 	}
@@ -462,6 +462,7 @@ class OnboardingController extends Controller {
 
 //	$onboardingTemplateObjRecord = OnboardingChecklistTemplate::model()->find($onboardingTemplateItemCondition);
 	$onboardingTemplateObjRecord = OnboardingChecklistTemplate::model()->viewSelectedOnboardingChecklistTemplateDetails($templateId);
+
 	$formAction = $this->createUrl('onboarding/updateOnboardingChecklistTemplate');
 
 	$header = Yii::t('app', 'Onboarding Checklist Template');
