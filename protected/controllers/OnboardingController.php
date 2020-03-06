@@ -444,12 +444,13 @@ class OnboardingController extends Controller {
 
     public function actionViewSelectedOnboardingChecklistTemplate($id) {
 	$templateId = $this->getParam('id', '', '', 'get');
-	$onboardingTemplateItemCondition = 'id = ' . $templateId;
+//	$onboardingTemplateItemCondition = 'id = ' . $templateId;
 	$onboardingItemTitleArrRecord = OnboardingChecklistItem::model()->queryForOnboardingItemTitles();
 
 	$onboardingItemArrRecord = OnboardingChecklistItem::model()->findAllOnboardingItemsInTemplate($templateId);
 
-	$onboardingTemplateObjRecord = OnboardingChecklistTemplate::model()->find($onboardingTemplateItemCondition);
+//	$onboardingTemplateObjRecord = OnboardingChecklistTemplate::model()->find($onboardingTemplateItemCondition);
+	$onboardingTemplateObjRecord = OnboardingChecklistTemplate::model()->viewSelectedOnboardingChecklistTemplateDetails($templateId);
 	$formAction = $this->createUrl('onboarding/updateOnboardingChecklistTemplate');
 
 	$header = Yii::t('app', 'Onboarding Checklist Template');
