@@ -106,7 +106,7 @@ class OnboardingChecklistItem extends AppActiveRecord {
     public function findOnboardingItemDetails($onboardingItemId) {
 	$sql = 'SELECT OCI.description, D.title AS department_owner, ';
 	$sql .= 'CASE WHEN OCI.is_offboarding_item = 1 THEN "Yes" ';
-	$sql .= 'WHEN OCI.is_offboarding_item = 0 THEN "No", ';
+	$sql .= 'WHEN OCI.is_offboarding_item = 0 THEN "No" ';
 	$sql .= 'END AS "is_offboarding_item", ';
 	$sql .= 'CASE WHEN OCI.is_managerial = 1 THEN "Yes" ';
 	$sql .= 'WHEN OCI.is_managerial = 0 THEN "No" ';
