@@ -174,6 +174,8 @@
 		</td>
 		<td class="departmentOwner">
 		</td>
+		<td class="isManagerial">
+		</td>
 		<td class="isOffboardingItem">
 		</td>
 		<td class="removeOnboardingItemButton">
