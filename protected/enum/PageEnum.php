@@ -141,9 +141,9 @@ class PageEnum {
 	    "form-action-show-all" => "onboarding/showAllOnboardingChecklistTemplates",
 	    "form-action-add-new" => "onboarding/addNewOnboardingChecklistTemplate",
 	    "add-new-record-title" => "Create",
-	    "table-header" => array("title", "description"),
+	    "table-header" => array("title", "description", "department"),
 	    "form-action-delete-selected" => "onboarding/deleteOnboardingChecklistTemplates",
-	    "column-details" => array("description"),
+	    "column-details" => array("description", "department"),
 	    "alert-data-msg" => array(
 		"msg-confirm-delete" => "Are you sure that you want to delete the selected onboarding checklist template?",
 		"msg-select-delete" => "Please select a template that you would like to delete!"),

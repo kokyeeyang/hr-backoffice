@@ -234,6 +234,14 @@ class OnboardingController extends Controller {
 	    case 'sort_description_asc' :
 		return 'description ASC';
 		break;
+	    
+	    case 'sort_department_asc';
+		return 'department ASC';
+		break;
+	    
+	    case 'sort_department_desc';
+		return 'department DESC';
+		break;
 	}
     }
 
@@ -384,6 +392,7 @@ class OnboardingController extends Controller {
 
 	if ($deleteOnboardingChecklistIds != '') {
 	    //would need to delete in onboarding_checklist_user_mapping, onboarding_checklist_item_action when the tables are up 
+	    //delete from onboarding_checklist_template_mapping
 	    OnboardingChecklistItemsMapping::model()->deleteOnboardingItemsMapping($deleteOnboardingChecklistIds);
 	    OnboardingChecklistTemplate::model()->deleteOnboardingTemplates($deleteOnboardingChecklistIds);
 	}

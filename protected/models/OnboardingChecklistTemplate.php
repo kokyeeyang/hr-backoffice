@@ -47,8 +47,12 @@ class OnboardingChecklistTemplate extends AppActiveRecord {
     }
 
     public function findAllOnboardingChecklistTemplates($strSortBy = false, $intPage = false, $numPerPage = false) {
-	$sql = 'SELECT id, title, description ';
-	$sql .= 'FROM ' . self::$tableName;
+	$sql = 'SELECT OCT.id, OCT.title, OCT.description, GROUP_CONCAT(D.title SEPARATOR ", ") AS department';
+	$sql .= 'FROM ' . self::$tableName . ' OCT ';
+	$sql .= 'INNER JOIN onboarding_checklist_templates_mapping OCTM ';
+	$sql .= 'ON OCTM.training_template_id = OCT.id ';
+	$sql .= 'INNER JOIN department D ';
+	$sql .= 'ON OCTM.department_id = D.id ';
 	
 	if (isset($_POST['label_filter']) && $_POST['label_filter']) {
 	    $sql .= ' WHERE title LIKE "%' . $_POST['label_filter'] . '%"';
