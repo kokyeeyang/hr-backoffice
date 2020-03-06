@@ -360,8 +360,8 @@ class OnboardingController extends Controller {
     }
 
     public function actionUpdateOnboardingChecklistTemplate() {
-
 	$templateId = $this->getParam('templateId', '');
+	$templateDepartments = $this->getParam('department', '');
 	$arrayKeys = array_keys($_POST);
 	foreach ($arrayKeys as $arrayKey) {
 	    $match = preg_match('%onboardingItemDropdown%', $arrayKey);
@@ -375,7 +375,17 @@ class OnboardingController extends Controller {
 	$arrayKeys = array_keys($_POST);
 	$condition = 'checklist_template_id = ' . $templateId;
 	OnboardingChecklistItemsMapping::model()->deleteAll($condition);
-
+	
+	$onboardingChecklistTemplateCondition = 'onboarding_checklist_template_id = ' . $templateId;
+	OnboardingChecklistTemplatesMapping::model()->deleteAll($onboardingChecklistTemplateCondition);
+	
+	foreach ($templateDepartments as $templateDepartment){
+	    $onboardingTemplateMappingObjModel = new OnboardingChecklistTemplatesMapping;
+	    $onboardingTemplateMappingObjModel->department_id = $templateDepartment;
+	    $onboardingTemplateMappingObjModel->onboarding_checklist_template_id = $templateId;
+	    $onboardingTemplateMappingObjModel->save();
+	}
+	
 	foreach ($arrayKeys as $arrayKey) {
 	    $match = preg_match('%onboardingItemDropdown%', $arrayKey);
 	    if ($match != null && $this->getParam($arrayKey, '') != null) {
@@ -385,7 +395,7 @@ class OnboardingController extends Controller {
 		$onboardingItemMappingObjModel->save();
 	    }
 	}
-
+	
 	$this->redirect(array('showAllOnboardingChecklistTemplates'));
     }
 
@@ -394,7 +404,7 @@ class OnboardingController extends Controller {
 
 	if ($deleteOnboardingChecklistIds != '') {
 	    //would need to delete in onboarding_checklist_user_mapping, onboarding_checklist_item_action when the tables are up 
-	    //delete from onboarding_checklist_template_mapping
+	    //must delete from mapping tables first to prevent foreign key error
 	    OnboardingChecklistItemsMapping::model()->deleteOnboardingItemsMapping($deleteOnboardingChecklistIds);
 	    OnboardingChecklistTemplatesMapping::model()->deleteOnboardingChecklistTemplateMappings($deleteOnboardingChecklistIds);
 	    OnboardingChecklistTemplate::model()->deleteOnboardingTemplates($deleteOnboardingChecklistIds);

@@ -164,7 +164,7 @@
 	  <!-- ajax would then populate the data for the training item that the user chose -->
 	  <button type="button" id="appendTrainingItem" title="Add more training items to this template">+</button>
 	</fieldset>
-	<button title="<?php echo $buttonTitle; ?>" class="<?php echo $buttonClass; ?>" disabled><?php echo $buttonShortTitle; ?></button>
+	<button title="<?php echo $buttonTitle; ?>" class="<?php echo $buttonClass; ?>" <?php isset($templateId) ? $disabledStatus = '' : $disabledStatus = 'disabled'; ?> <?php echo $disabledStatus ?>><?php echo $buttonShortTitle; ?></button>
       </div>
     </form>
   </div>

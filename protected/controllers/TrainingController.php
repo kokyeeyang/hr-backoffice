@@ -317,7 +317,7 @@ class TrainingController extends Controller {
 
 	$objPagination = self::getStrSortByList($strSortKey, TrainingTemplateEnum::TRAINING_TEMPLATE_TABLE, false, CommonEnum::RETURN_PAGINATION);
 	$trainingTemplateArr = self::getStrSortByList($strSortKey, TrainingTemplateEnum::TRAINING_TEMPLATE_TABLE, TrainingTemplateEnum::TRAINING_TEMPLATE_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
-var_dump($trainingTemplateArr);exit;
+
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'trainingtemplates-list' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
 	    $aResult['result'] = 0;
@@ -439,6 +439,45 @@ var_dump($trainingTemplateArr);exit;
 	}
 	echo(json_encode($aResult));
 	Yii::app()->end();
+    }
+    
+    public function actionUpdateTrainingTemplate(){
+	$templateId = $this->getParam('templateId', '');
+	$arrayKeys = array_keys($_POST);
+	foreach ($arrayKeys as $arrayKey) {
+	    $match = preg_match('%trainingItemDropdown%', $arrayKey);
+	}
+
+	$updateCondition = 'id = ' . $templateId;
+	TrainingTemplate::model()->updateAll([
+	    'title' => $this->getParam('templateTitle', ''), 'description' => $this->getParam('templateDescription', '')
+	    ], $updateCondition);
+
+	$arrayKeys = array_keys($_POST);
+	$condition = 'training_template_id = ' . $templateId;
+	TrainingItemsMapping::model()->deleteAll($condition);
+
+	foreach ($arrayKeys as $arrayKey) {
+	    $match = preg_match('%trainingItemDropdown%', $arrayKey);
+	    if ($match != null && $this->getParam($arrayKey, '') != null) {
+		$trainingItemsMappingObjModel = new TrainingItemsMapping;
+		$trainingItemsMappingObjModel->training_item_id = $this->getParam($arrayKey, '');
+		$trainingItemsMappingObjModel->training_template_id = $templateId;
+		$trainingItemsMappingObjModel->save();
+	    }
+	}
+	
+	$templateDepartments = $this->getParam('department', '');
+	TrainingTemplatesMapping::model()->deleteAll($condition);
+	
+	foreach($templateDepartments as $templateDepartment){
+	    $trainingTemplatesMappingObjModel = new TrainingTemplatesMapping();
+	    $trainingTemplatesMappingObjModel->training_template_id = $templateId;
+	    $trainingTemplatesMappingObjModel->department_id = $templateDepartment;
+	    $trainingTemplatesMappingObjModel->save();
+	}
+
+	$this->redirect(array('showAllTrainingTemplates'));
     }
     
 }

@@ -123,7 +123,7 @@
 	    <tbody id="data_table">
 	      <?php
 	      $counter = 0;
-	      if (isset($onboardingItemArrRecord)) {
+	      if (isset($onboardingItemArrRecord) && $onboardingItemArrRecord != false) {
 		  ?>
 		  <?php foreach ($onboardingItemArrRecord as $onboardingItemObjRecord) { ?>
 		      <tr class="onboardingItemTr">
