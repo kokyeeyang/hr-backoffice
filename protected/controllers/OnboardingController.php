@@ -346,6 +346,7 @@ class OnboardingController extends Controller {
 	    $aResult['description'] = $selectedOnboardingItem[0]['description'];
 	    $aResult['department_owner'] = $selectedOnboardingItem[0]['department_owner'];
 	    $aResult['is_offboarding_item'] = $selectedOnboardingItem[0]['is_offboarding_item'];
+	    $aResult['is_managerial'] = $selectedOnboardingItem[0]['is_managerial'];
 
 	    if (!empty($aResult['content'])) {
 		$aResult['result'] = 1;
@@ -497,6 +498,7 @@ class OnboardingController extends Controller {
 	    $aResult['description'] = $selectedOnboardingItem[0]['description'];
 	    $aResult['department_owner'] = $selectedOnboardingItem[0]['department_owner'];
 	    $aResult['is_offboarding_item'] = $selectedOnboardingItem[0]['is_offboarding_item'];
+	    $aResult['is_managerial'] = $selectedOnboardingItem[0]['is_managerial'];
 
 	    if (!empty($aResult['content'])) {
 		$aResult['result'] = 1;
