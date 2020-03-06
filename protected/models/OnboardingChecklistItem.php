@@ -74,7 +74,6 @@ class OnboardingChecklistItem extends AppActiveRecord {
 	$objConnection = Yii::app()->db;
 	$objCommand = $objConnection->createCommand($sql);
 	$arrData = $objCommand->queryAll($sql);
-
 	if (!empty($arrData)) {
 	    return $arrData;
 	} else {
@@ -147,7 +146,11 @@ class OnboardingChecklistItem extends AppActiveRecord {
 	$objCommand = $objConnection->createCommand($sql);
 	$arrData = $objCommand->queryAll($sql);
 
-	return $arrData;
+	if (!empty($arrData)) {
+	    return $arrData;
+	} else {
+	    return false;
+	}
     }
 
 }

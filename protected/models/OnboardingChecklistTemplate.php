@@ -53,6 +53,7 @@ class OnboardingChecklistTemplate extends AppActiveRecord {
 	$sql .= 'ON OCTM.onboarding_checklist_template_id = OCT.id ';
 	$sql .= 'INNER JOIN department D ';
 	$sql .= 'ON OCTM.department_id = D.id ';
+	$sql .= 'GROUP BY OCT.id';
 	
 	if (isset($_POST['label_filter']) && $_POST['label_filter']) {
 	    $sql .= ' WHERE OCT.title LIKE "%' . $_POST['label_filter'] . '%"';
