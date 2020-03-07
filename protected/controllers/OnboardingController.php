@@ -491,5 +491,9 @@ class OnboardingController extends Controller {
 	echo(json_encode($aResult));
 	Yii::app()->end();
     }
-
+    
+    public function actionAssignOnboardingChecklistItems(){
+        //takes in department_id, is_managerial as params
+    }
+    
 }
