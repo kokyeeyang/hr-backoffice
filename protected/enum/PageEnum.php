@@ -10,8 +10,8 @@ class PageEnum {
     const FORM_DATA = array("Department" =>
 	array(
 	    "entity-name" => "Department",
-	    "breadcrumb-top" => "Show All Departments",
-	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
+	    "breadcrumb-top" => "Departments List",
+	    "breadcrumb-bottom" => "breadcrumb-bottom-gears",
 	    "form-id" => "department-list",
 	    "form-action-show-all" => "admin/showAllDepartments",
 	    "form-action-add-new" => "admin/addNewDepartment",
@@ -34,8 +34,8 @@ class PageEnum {
 	"Offer Letter" =>
 	array(
 	    "entity-name" => "OfferLetter",
-	    "breadcrumb-top" => "Create",
-	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
+	    "breadcrumb-top" => "Offer Letters List",
+	    "breadcrumb-bottom" => "breadcrumb-bottom-gears",
 	    "form-id" => "offerletter-list",
 	    "form-title" => "Offer Letter List",
 	    "form-action-show-all" => "registration/showOfferLetterTemplates",
@@ -59,8 +59,8 @@ class PageEnum {
 	"Job Opening" =>
 	array(
 	    "entity-name" => "JobOpening",
-	    "breadcrumb-top" => "Show All Job Openings",
-	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
+	    "breadcrumb-top" => "Job Openings List",
+	    "breadcrumb-bottom" => "breadcrumb-bottom-people",
 	    "form-id" => "jobopening-list",
 	    "form-action-show-all" => "registration/showAllJobOpenings",
 	    "form-action-add-new" => "registration/addNewJobOpenings",
@@ -90,8 +90,8 @@ class PageEnum {
 	"Candidate Status" =>
 	array(
 	    "entity-name" => "CandidateStatus",
-	    "breadcrumb-top" => "Show All Candidate Status",
-	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
+	    "breadcrumb-top" => "Candidate Status List",
+	    "breadcrumb-bottom" => "breadcrumb-bottom-gears",
 	    "form-id" => "candidatestatus-list",
 	    "form-title" => "Candidate Status List",
 	    "form-action-show-all" => "registration/showAllCandidateStatus",
@@ -112,8 +112,8 @@ class PageEnum {
 	"Onboarding Item" =>
 	array(
 	    "entity-name" => "OnboardingItem",
-	    "breadcrumb-top" => "Show All Onboarding Items",
-	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
+	    "breadcrumb-top" => "Onboarding Items List",
+	    "breadcrumb-bottom" => "breadcrumb-bottom-dashboard",
 	    "form-id" => "onboardingitems-list",
 	    "form-title" => "Onboarding Item List",
 	    "form-action-show-all" => "onboarding/showAllOnboardingItems",
@@ -134,16 +134,16 @@ class PageEnum {
 	"Onboarding Checklist Template" =>
 	array(
 	    "entity-name" => "OnboardingChecklistTemplate",
-	    "breadcrumb-top" => "Show All Onboarding Checklist Templates",
-	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
+	    "breadcrumb-top" => "Onboarding Checklist Templates List",
+	    "breadcrumb-bottom" => "breadcrumb-bottom-dashboard",
 	    "form-id" => "onboardingchecklisttemplates-list",
 	    "form-title" => "Onboarding Checklist Template List",
 	    "form-action-show-all" => "onboarding/showAllOnboardingChecklistTemplates",
 	    "form-action-add-new" => "onboarding/addNewOnboardingChecklistTemplate",
 	    "add-new-record-title" => "Create",
-	    "table-header" => array("title", "description"),
+	    "table-header" => array("title", "description", "department"),
 	    "form-action-delete-selected" => "onboarding/deleteOnboardingChecklistTemplates",
-	    "column-details" => array("description"),
+	    "column-details" => array("description", "department"),
 	    "alert-data-msg" => array(
 		"msg-confirm-delete" => "Are you sure that you want to delete the selected onboarding checklist template?",
 		"msg-select-delete" => "Please select a template that you would like to delete!"),
@@ -156,8 +156,8 @@ class PageEnum {
 	"Training Item" =>
 	array(
 	    "entity-name" => "TrainingItem",
-	    "breadcrumb-top" => "Show All Training Items",
-	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
+	    "breadcrumb-top" => "Training Items List",
+	    "breadcrumb-bottom" => "breadcrumb-bottom-dashboard",
 	    "form-id" => "trainingitems-list",
 	    "form-title" => "Training Items List",
 	    "form-action-show-all" => "training/showAllTrainingItems",
@@ -170,7 +170,7 @@ class PageEnum {
 		"msg-confirm-delete" => "Are you sure that you want to delete the selected training items?",
 		"msg-select-delete" => "Please select a training item that you would like to delete!"),
 	    "data-url" => "",
-	    "foreign-key-check" => "",
+	    "foreign-key-check" => "training/checkTrainingItemExistInTemplate",
 	    "column-link-to-details" => "title",
 	    "form-action-view-selected" => "training/viewSelectedTrainingItem",
 	    "msg-foreign-key" => ""
@@ -178,8 +178,8 @@ class PageEnum {
 	"Training Template" =>
 	array(
 	    "entity-name" => "TrainingTemplate",
-	    "breadcrumb-top" => "Show All Training Templates",
-	    "breadcrumb-bottom" => "breadcrumb-bottom-key",
+	    "breadcrumb-top" => "Training Templates List",
+	    "breadcrumb-bottom" => "breadcrumb-bottom-dashboard",
 	    "form-id" => "trainingtemplates-list",
 	    "form-title" => "Training Templates List",
 	    "form-action-show-all" => "training/showAllTrainingTemplates",

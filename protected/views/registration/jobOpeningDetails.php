@@ -1,6 +1,12 @@
 <div class="breadcrumb">
   <div class="breadcrumb_wrapper">
-    <div class="breadcrumb-top"><?php echo Yii::t('app', 'Add New Job Openings'); ?></div>
+    <div class="breadcrumb-top">
+      <a class="top_level_item" href="<?php echo $this->createUrl('registration/showAllJobOpenings'); ?>">
+	<?php echo Yii::t('app', 'Job Openings List'); ?>
+      </a>
+      >
+      <?php echo Yii::t('app', 'Add New Job Openings'); ?>
+    </div>
     <div class="breadcrumb-bottom breadcrumb-bottom-people">
       <div class="title">
         <span><?php echo Yii::t('app', 'Add new job openings'); ?></span>

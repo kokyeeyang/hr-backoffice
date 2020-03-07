@@ -335,8 +335,18 @@ class TrainingController extends Controller {
 	return $this->render('showAllTrainingTemplates', array('strSortKey' => $strSortKey, 'objPagination' => $objPagination, 'trainingTemplateArr' => $trainingTemplateArr, 'pageType' => $pageType));
     }
 
-    public function actionDeleteTrainingTemplate() {
-	
+    public function actionDeleteTrainingTemplates() {
+	//delete from training_template and also training_template_mapping table
+	$deleteTrainingTemplateIds = $this->getParam('deleteCheckBox', '');
+
+	if ($deleteTrainingTemplateIds != '') {
+	    //need to delete training_items_mapping as well
+	    TrainingItemsMapping::model()->deleteTrainingItemMappings($deleteTrainingTemplateIds);
+	    TrainingTemplatesMapping::model()->deleteTrainingTemplateMappings($deleteTrainingTemplateIds);
+	    TrainingTemplate::model()->deleteTrainingTemplates($deleteTrainingTemplateIds);
+	}
+
+	$this->redirect(array('showAllTrainingTemplates'));
     }
 
     public function actionSaveTrainingTemplate() {
@@ -421,5 +431,53 @@ class TrainingController extends Controller {
 	    'trainingItemsInTemplate'=>$trainingItemsInTemplate
 	));
     }
+    
+    public function actionCheckTrainingItemExistInTemplate($id) {
+	$aResult['result'] = false;
+	if(Yii::app()->request->isAjaxRequest){
+	    $aResult['result'] = TrainingTemplate::model()->queryForTrainingTemplateInformation($id);
+	}
+	echo(json_encode($aResult));
+	Yii::app()->end();
+    }
+    
+    public function actionUpdateTrainingTemplate(){
+	$templateId = $this->getParam('templateId', '');
+	$arrayKeys = array_keys($_POST);
+	foreach ($arrayKeys as $arrayKey) {
+	    $match = preg_match('%trainingItemDropdown%', $arrayKey);
+	}
 
+	$updateCondition = 'id = ' . $templateId;
+	TrainingTemplate::model()->updateAll([
+	    'title' => $this->getParam('templateTitle', ''), 'description' => $this->getParam('templateDescription', '')
+	    ], $updateCondition);
+
+	$arrayKeys = array_keys($_POST);
+	$condition = 'training_template_id = ' . $templateId;
+	TrainingItemsMapping::model()->deleteAll($condition);
+
+	foreach ($arrayKeys as $arrayKey) {
+	    $match = preg_match('%trainingItemDropdown%', $arrayKey);
+	    if ($match != null && $this->getParam($arrayKey, '') != null) {
+		$trainingItemsMappingObjModel = new TrainingItemsMapping;
+		$trainingItemsMappingObjModel->training_item_id = $this->getParam($arrayKey, '');
+		$trainingItemsMappingObjModel->training_template_id = $templateId;
+		$trainingItemsMappingObjModel->save();
+	    }
+	}
+	
+	$templateDepartments = $this->getParam('department', '');
+	TrainingTemplatesMapping::model()->deleteAll($condition);
+	
+	foreach($templateDepartments as $templateDepartment){
+	    $trainingTemplatesMappingObjModel = new TrainingTemplatesMapping();
+	    $trainingTemplatesMappingObjModel->training_template_id = $templateId;
+	    $trainingTemplatesMappingObjModel->department_id = $templateDepartment;
+	    $trainingTemplatesMappingObjModel->save();
+	}
+
+	$this->redirect(array('showAllTrainingTemplates'));
+    }
+    
 }

@@ -296,7 +296,15 @@ class AdminController extends Controller {
 	    case 'sort_display_name_asc':
 		$strSortBy = 'admin_display_name ASC';
 		break;
+	    
+	    case 'sort_privilege_desc':
+		$strSortBy = 'admin_priv DESC';
+		break;
 
+	    case 'sort_privilege_asc':
+		$strSortBy = 'admin_priv ASC';
+		break;
+	    
 	    case 'sort_username_desc':
 		$strSortBy = 'admin_username DESC';
 		break;

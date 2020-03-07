@@ -8,7 +8,37 @@ var TrainingShowAllTrainingItems = function () {
       }
     }
   }
-
+  
+  function _check_if_training_item_belongs_to_template(objElement, objEvent) {
+    if ($(objElement).val() != '')
+    {
+      $.ajax({
+        type: 'post',
+        //pass in training item id to query inside training_item_mapping table
+        url: $(objElement).attr('data-url') + '/' + $(objElement).val(),
+        data: {
+          training_item_id: $(objElement).val()
+        },
+        dataType: 'json',
+        success: function (data)
+        {
+          console.log(data);
+          if (data != null && data.result != false){
+            alert('This training item belongs to the following training template : \r\n ' + data.result + '. \r\n Please delete it in the respective templates first.');
+            //uncheck the boxes for training item that still belong in templates
+            $('#deleteCheckBox' + $(objElement).val()).prop('checked', false);
+          } else if (data == null && data.result == false){
+          
+          }
+        },
+        error: function (request, status, err)
+        {
+          alert('something went wrong');
+        }
+      });
+    }
+  }
+  
   function _initFilterResults() {
     $("#label_filter").unbind('keypress').keypress(function (e) {
       if (e.which == 13) {
@@ -16,18 +46,29 @@ var TrainingShowAllTrainingItems = function () {
       }
     });
   }
+  
+  function _initCheckIfTrainingItemBelongsToTemplate() {
+    $(".deleteCheckBox").unbind('change').change(function(objEvent) {
+      TrainingShowAllTrainingItems.check_if_training_item_belongs_to_template(this, objEvent);
+    });
+  }
 
   function _init() {
-    $('#deleteTrainingItemButton').on('click', function (objEvent) {
-      TrainingShowAllTrainingItems.check_if_deletion_is_selected(this, objEvent);
+    $(function () {
+      $('#deleteTrainingItemButton').on('click', function (objEvent) {
+        TrainingShowAllTrainingItems.check_if_deletion_is_selected(this, objEvent);
+      });
+      TrainingShowAllTrainingItems.initFilterResults();
+      TrainingShowAllTrainingItems.initCheckIfTrainingItemBelongsToTemplate();
     });
-    TrainingShowAllTrainingItems.initFilterResults();
   }
 
   return {
     init: _init,
     check_if_deletion_is_selected: _check_if_deletion_is_selected,
-    initFilterResults: _initFilterResults
+    check_if_training_item_belongs_to_template: _check_if_training_item_belongs_to_template,
+    initFilterResults: _initFilterResults,
+    initCheckIfTrainingItemBelongsToTemplate: _initCheckIfTrainingItemBelongsToTemplate
   }
 }();
 TrainingShowAllTrainingItems.init();

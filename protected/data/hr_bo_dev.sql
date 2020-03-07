@@ -487,3 +487,12 @@ CREATE TABLE training_templates_mapping (
   FOREIGN KEY (department_id) REFERENCES department(id),
   FOREIGN KEY (training_template_id) REFERENCES training_template(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE onboarding_checklist_templates_mapping (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `onboarding_checklist_template_id` int(11) UNSIGNED NOT NULL,
+  `department_id` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (department_id) REFERENCES department(id),
+  FOREIGN KEY (onboarding_checklist_template_id) REFERENCES onboarding_checklist_template(id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;

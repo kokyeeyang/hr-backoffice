@@ -74,8 +74,11 @@ class OnboardingChecklistItem extends AppActiveRecord {
 	$objConnection = Yii::app()->db;
 	$objCommand = $objConnection->createCommand($sql);
 	$arrData = $objCommand->queryAll($sql);
-
-	return $arrData;
+	if (!empty($arrData)) {
+	    return $arrData;
+	} else {
+	    return false;
+	}
     }
 
     public function deleteOnboardingItem($deleteOnboardingItemIds) {
@@ -104,7 +107,10 @@ class OnboardingChecklistItem extends AppActiveRecord {
 	$sql = 'SELECT OCI.description, D.title AS department_owner, ';
 	$sql .= 'CASE WHEN OCI.is_offboarding_item = 1 THEN "Yes" ';
 	$sql .= 'WHEN OCI.is_offboarding_item = 0 THEN "No" ';
-	$sql .= 'END AS "is_offboarding_item" ';
+	$sql .= 'END AS "is_offboarding_item", ';
+	$sql .= 'CASE WHEN OCI.is_managerial = 1 THEN "Yes" ';
+	$sql .= 'WHEN OCI.is_managerial = 0 THEN "No" ';
+	$sql .= 'END AS "is_managerial" ';
 	$sql .= 'FROM ' . self::$tableName . ' OCI ';
 	$sql .= 'INNER JOIN department D ';
 	$sql .= 'ON OCI.department_owner = D.id';
@@ -143,7 +149,11 @@ class OnboardingChecklistItem extends AppActiveRecord {
 	$objCommand = $objConnection->createCommand($sql);
 	$arrData = $objCommand->queryAll($sql);
 
-	return $arrData;
+	if (!empty($arrData)) {
+	    return $arrData;
+	} else {
+	    return false;
+	}
     }
 
 }

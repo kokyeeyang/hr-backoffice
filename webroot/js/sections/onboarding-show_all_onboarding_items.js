@@ -23,8 +23,7 @@ var OnboardingShowAllOnboardingItems = function () {
         success: function (data)
         {
           if (data != null && data.result != false) {
-            console.log(data.result);
-            alert('This onboarding item belongs to template ' + data.result + '. Please delete in that template(s) first');
+            alert('This onboarding item belongs to the following template : \r\n ' + data.result + '. Please delete in that template(s) first');
             //uncheck the boxes for onboarding item that still belong in templates
             $('#deleteCheckBox' + $(objElement).val()).prop('checked', false);
 
@@ -58,7 +57,7 @@ var OnboardingShowAllOnboardingItems = function () {
     $(function () {
       OnboardingShowAllOnboardingItems.initCheckIfOnboardingItemBelongsToTemplate();
       OnboardingShowAllOnboardingItems.initFilterResults();
-      $('#deleteOnboardingItemButton').on('click', function (objEvent) {
+      $('#deleteOnboardingItemButton').unbind('click').click(function (objEvent) {
         OnboardingShowAllOnboardingItems.check_if_deletion_is_selected(this, objEvent);
       });
     });

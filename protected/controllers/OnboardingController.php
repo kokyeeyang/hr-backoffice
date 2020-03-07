@@ -234,6 +234,14 @@ class OnboardingController extends Controller {
 	    case 'sort_description_asc' :
 		return 'description ASC';
 		break;
+	    
+	    case 'sort_department_asc';
+		return 'department ASC';
+		break;
+	    
+	    case 'sort_department_desc';
+		return 'department DESC';
+		break;
 	}
     }
 
@@ -320,6 +328,12 @@ class OnboardingController extends Controller {
 	$buttonClass = Yii::t('app', 'saveOnboardingChecklistTemplateButton');
 	$buttonTitle = Yii::t('app', 'Save this template');
 
+	$departmentId = 'id';
+	$departmentCondition = DepartmentEnum::DEPARTMENT_TITLE . ',' . $departmentId;
+	$departmentArr = Department::model()->queryForDepartmentDetails($departmentCondition);
+	
+	$onboardingTemplateObjRecord = false;
+
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'onboardingChecklistTemplateForm' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
 	    $aResult['result'] = 0;
@@ -332,6 +346,7 @@ class OnboardingController extends Controller {
 	    $aResult['description'] = $selectedOnboardingItem[0]['description'];
 	    $aResult['department_owner'] = $selectedOnboardingItem[0]['department_owner'];
 	    $aResult['is_offboarding_item'] = $selectedOnboardingItem[0]['is_offboarding_item'];
+	    $aResult['is_managerial'] = $selectedOnboardingItem[0]['is_managerial'];
 
 	    if (!empty($aResult['content'])) {
 		$aResult['result'] = 1;
@@ -341,13 +356,13 @@ class OnboardingController extends Controller {
 	}
 
 	$this->render('onboardingChecklistTemplateDetails', array('header' => $header, 'formAction' => $formAction, 'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord,
-	    'buttonShortTitle' => $buttonShortTitle, 'buttonClass' => $buttonClass, 'buttonTitle' => $buttonTitle
+	    'buttonShortTitle' => $buttonShortTitle, 'buttonClass' => $buttonClass, 'buttonTitle' => $buttonTitle, 'departmentArr' => $departmentArr, 'onboardingTemplateObjRecord' => $onboardingTemplateObjRecord
 	));
     }
 
     public function actionUpdateOnboardingChecklistTemplate() {
-
 	$templateId = $this->getParam('templateId', '');
+	$templateDepartments = $this->getParam('department', '');
 	$arrayKeys = array_keys($_POST);
 	foreach ($arrayKeys as $arrayKey) {
 	    $match = preg_match('%onboardingItemDropdown%', $arrayKey);
@@ -361,7 +376,17 @@ class OnboardingController extends Controller {
 	$arrayKeys = array_keys($_POST);
 	$condition = 'checklist_template_id = ' . $templateId;
 	OnboardingChecklistItemsMapping::model()->deleteAll($condition);
-
+	
+	$onboardingChecklistTemplateCondition = 'onboarding_checklist_template_id = ' . $templateId;
+	OnboardingChecklistTemplatesMapping::model()->deleteAll($onboardingChecklistTemplateCondition);
+	
+	foreach ($templateDepartments as $templateDepartment){
+	    $onboardingTemplateMappingObjModel = new OnboardingChecklistTemplatesMapping;
+	    $onboardingTemplateMappingObjModel->department_id = $templateDepartment;
+	    $onboardingTemplateMappingObjModel->onboarding_checklist_template_id = $templateId;
+	    $onboardingTemplateMappingObjModel->save();
+	}
+	
 	foreach ($arrayKeys as $arrayKey) {
 	    $match = preg_match('%onboardingItemDropdown%', $arrayKey);
 	    if ($match != null && $this->getParam($arrayKey, '') != null) {
@@ -371,7 +396,7 @@ class OnboardingController extends Controller {
 		$onboardingItemMappingObjModel->save();
 	    }
 	}
-
+	
 	$this->redirect(array('showAllOnboardingChecklistTemplates'));
     }
 
@@ -380,7 +405,9 @@ class OnboardingController extends Controller {
 
 	if ($deleteOnboardingChecklistIds != '') {
 	    //would need to delete in onboarding_checklist_user_mapping, onboarding_checklist_item_action when the tables are up 
+	    //must delete from mapping tables first to prevent foreign key error
 	    OnboardingChecklistItemsMapping::model()->deleteOnboardingItemsMapping($deleteOnboardingChecklistIds);
+	    OnboardingChecklistTemplatesMapping::model()->deleteOnboardingChecklistTemplateMappings($deleteOnboardingChecklistIds);
 	    OnboardingChecklistTemplate::model()->deleteOnboardingTemplates($deleteOnboardingChecklistIds);
 	}
 
@@ -415,7 +442,15 @@ class OnboardingController extends Controller {
 	$onboardingChecklistTemplateObjModel->save();
 
 	$arrayKeys = array_keys($_POST);
-
+	$departmentIds = $this->getParam('department', '');
+	
+	foreach ($departmentIds as $departmentId) {
+	    $onboardingChecklistTemplatesMappingObjModel = new OnboardingChecklistTemplatesMapping;
+	    $onboardingChecklistTemplatesMappingObjModel->onboarding_checklist_template_id = $onboardingChecklistTemplateObjModel->id;
+	    $onboardingChecklistTemplatesMappingObjModel->department_id = $departmentId;
+	    $onboardingChecklistTemplatesMappingObjModel->save();
+	}
+	
 	foreach ($arrayKeys as $arrayKey) {
 	    $match = preg_match('%onboardingItemDropdown%', $arrayKey);
 	    if ($match != null && $this->getParam($arrayKey, '') != null) {
@@ -431,12 +466,12 @@ class OnboardingController extends Controller {
 
     public function actionViewSelectedOnboardingChecklistTemplate($id) {
 	$templateId = $this->getParam('id', '', '', 'get');
-	$onboardingTemplateItemCondition = 'id = ' . $templateId;
 	$onboardingItemTitleArrRecord = OnboardingChecklistItem::model()->queryForOnboardingItemTitles();
 
 	$onboardingItemArrRecord = OnboardingChecklistItem::model()->findAllOnboardingItemsInTemplate($templateId);
 
-	$onboardingTemplateObjRecord = OnboardingChecklistTemplate::model()->find($onboardingTemplateItemCondition);
+	$onboardingTemplateObjRecord = OnboardingChecklistTemplate::model()->viewSelectedOnboardingChecklistTemplateDetails($templateId);
+
 	$formAction = $this->createUrl('onboarding/updateOnboardingChecklistTemplate');
 
 	$header = Yii::t('app', 'Onboarding Checklist Template');
@@ -446,7 +481,11 @@ class OnboardingController extends Controller {
 	$buttonShortTitle = Yii::t('app', 'Update');
 	$buttonClass = Yii::t('app', 'updateOnboardingChecklistTemplateButton');
 	$buttonTitle = Yii::t('app', 'Update this template');
-	
+
+	$departmentId = 'id';
+	$departmentCondition = DepartmentEnum::DEPARTMENT_TITLE . ',' . $departmentId;
+	$departmentArr = Department::model()->queryForDepartmentDetails($departmentCondition);
+
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'onboardingChecklistTemplateForm' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
 	    $aResult['result'] = 0;
@@ -459,6 +498,7 @@ class OnboardingController extends Controller {
 	    $aResult['description'] = $selectedOnboardingItem[0]['description'];
 	    $aResult['department_owner'] = $selectedOnboardingItem[0]['department_owner'];
 	    $aResult['is_offboarding_item'] = $selectedOnboardingItem[0]['is_offboarding_item'];
+	    $aResult['is_managerial'] = $selectedOnboardingItem[0]['is_managerial'];
 
 	    if (!empty($aResult['content'])) {
 		$aResult['result'] = 1;
@@ -474,7 +514,9 @@ class OnboardingController extends Controller {
 	$this->render('onboardingChecklistTemplateDetails', array('header' => $header, 'formAction' => $formAction, 'onboardingTemplateObjRecord' => $onboardingTemplateObjRecord,
 	    'onboardingItemArrRecord' => $onboardingItemArrRecord, 'breadcrumbTop' => $breadcrumbTop, 'title' => $title,
 	    'widgetTitle' => $widgetTitle, 'buttonShortTitle' => $buttonShortTitle, 'templateId' => $templateId,
-	    'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord, 'buttonClass' => $buttonClass, 'buttonTitle' => $buttonTitle));
+	    'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord, 'buttonClass' => $buttonClass, 'buttonTitle' => $buttonTitle,
+	    'departmentArr' => $departmentArr
+	));
     }
 
     public function actionCheckOnboardingItemExistInTemplate($id) {

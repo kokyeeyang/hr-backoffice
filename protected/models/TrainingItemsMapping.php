@@ -33,5 +33,11 @@ class TrainingItemsMapping extends AppActiveRecord {
     public static function model($className = __CLASS__) {
 	return parent::model($className);
     }
-
+    
+    public function deleteTrainingItemMappings($deleteTrainingTemplateIds) {
+	foreach($deleteTrainingTemplateIds as $deleteTrainingTemplateId){
+	    TrainingItemsMapping::model()->deleteAll($deleteTrainingTemplateId);
+	}
+    }
+    
 }

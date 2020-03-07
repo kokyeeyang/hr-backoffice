@@ -16,6 +16,7 @@ var OnboardingAddNewOnboardingChecklistTemplate = function(){
           if((typeof data['description']) !== 'undefined' && data !== null){
             var description = data['description'];
             var department_owner = data['department_owner'];
+            var is_managerial = data['is_managerial'];
             var is_offboarding_item = data['is_offboarding_item'];
             var remove_logo = '&#x2716;';
             
@@ -23,6 +24,7 @@ var OnboardingAddNewOnboardingChecklistTemplate = function(){
 
             objRow.find('.description').text(description);
             objRow.find('.departmentOwner').text(department_owner);
+            objRow.find('.isManagerial').text(is_managerial);
             objRow.find('.isOffboardingItem').text(is_offboarding_item);
             objRow.find('span.removeOnboardingItemButton').html(remove_logo);
           }

@@ -39,21 +39,21 @@ class TrainingTemplate extends AppActiveRecord {
 	return parent::model($className);
     }
 
-    public function selectAllTrainingTemplates($strSortBy=false, $intPage=false, $numPerPage=false, $condition = false, $filter = false) {
+    public function selectAllTrainingTemplates($strSortBy = false, $intPage = false, $numPerPage = false, $condition = false, $filter = false) {
 	$sql = 'SELECT TT.id, TT.title, TT.description, GROUP_CONCAT(D.title SEPARATOR ", ") AS department, TT.created_date, TT.modified_date ';
 	$sql .= 'FROM training_template TT ';
 	$sql .= 'INNER JOIN training_templates_mapping TTM ';
 	$sql .= 'ON TTM.training_template_id = TT.id ';
 	$sql .= 'INNER JOIN department D ';
 	$sql .= 'ON TTM.department_id = D.id ';
-	
-	if ($filter != false){
+
+	if ($filter != false) {
 	    $sql .= 'WHERE ' . $filter;
 	}
-	
+
 	if ($condition != false) {
 	    $sql .= 'GROUP BY TT.id';
-	    
+
 	    if ($_POST == false && !isset($_POST["sort_key"])) {
 		$strSortBy = 'TT.created_date DESC';
 	    }
@@ -78,9 +78,30 @@ class TrainingTemplate extends AppActiveRecord {
     }
 
     public function deleteTrainingTemplates($deleteTrainingTemplateIds) {
-	foreach ($deleteTrainingItemIds as $deleteTrainingItemId) {
-	    $condition = 'id = ' . $deleteTrainingItemId;
+	foreach ($deleteTrainingTemplateIds as $deleteTrainingTemplateIds) {
+	    $condition = 'id = ' . $deleteTrainingTemplateIds;
 	    TrainingTemplate::model()->deleteAll($condition);
+	}
+    }
+
+    public function queryForTrainingTemplateInformation($queryString) {
+
+	$sql = ' SELECT title';
+	$sql .= ' FROM ' . self::$tableName . ' TT';
+	$sql .= ' INNER JOIN training_items_mapping TIM';
+	$sql .= ' ON TIM.training_template_id = TT.id';
+	$sql .= ' WHERE TIM.training_item_id = ' . $queryString;
+
+	$objConnection = Yii::app()->db;
+	$objCommand = $objConnection->createCommand($sql);
+	$arrData = $objCommand->queryAll($sql);
+	if (!empty($arrData)) {
+	    foreach ($arrData as $objData) {
+		$finalResult[] = $objData['title'];
+	    }
+	    return $finalResult;
+	} else {
+	    return false;
 	}
     }
 

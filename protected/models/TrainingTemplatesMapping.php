@@ -51,5 +51,12 @@ class TrainingTemplatesMapping extends AppActiveRecord {
 	    return 'No data is found';
 	}
     }
+    
+    public function deleteTrainingTemplateMappings($deleteTrainingTemplateIds){
+	foreach($deleteTrainingTemplateIds as $deleteTrainingTemplateId){
+	    $condition = 'training_template_id = ' . $deleteTrainingTemplateId;
+	    TrainingTemplatesMapping::model()->deleteAll($condition);
+	}
+    }
 
 }

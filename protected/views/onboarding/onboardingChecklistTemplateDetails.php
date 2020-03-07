@@ -1,6 +1,12 @@
 <div class="breadcrumb">
   <div class="breadcrumb_wrapper">
-    <div class="breadcrumb-top"><?php echo $header; ?></div>
+    <div class="breadcrumb-top">
+      <a class="top_level_item" href="<?php echo $this->createUrl('onboarding/showAllOnboardingChecklistTemplates'); ?>">
+	<?php echo Yii::t('app', 'Onboarding Checklist Templates List'); ?>
+      </a>
+      >
+      <?php echo $header; ?>
+    </div>
     <div class="breadcrumb-bottom breadcrumb-bottom-people">
       <div class="title">
         <span><?php echo $header; ?></span>
@@ -27,7 +33,7 @@
 	      </div>
 	      <div class="lables2">
 		<span>
-		  <?php isset($templateId) ? $templateTitle = $onboardingTemplateObjRecord->title : $templateTitle = '' ?>
+		  <?php isset($templateId) ? $templateTitle = $onboardingTemplateObjRecord['title'] : $templateTitle = '' ?>
 		  <input type="text" name="templateTitle" id="templateTitle" value="<?php echo $templateTitle; ?>"/>
 		</span>
 	      </div>
@@ -39,11 +45,23 @@
 	      </div>
 	      <div class="lables2">
 		<span>
-		  <?php isset($templateId) ? $templateDescription = $onboardingTemplateObjRecord->description : $templateDescription = '' ?>
+		  <?php isset($templateId) ? $templateDescription = $onboardingTemplateObjRecord['description'] : $templateDescription = '' ?>
 		  <textarea name="templateDescription" id="templateDescription" rows="3" cols="22"><?php echo $templateDescription; ?></textarea>
 		</span>
 	      </div>
 	    </div>
+	  </div>
+	</fieldset>
+	<fieldset class="fieldset">
+	  <legend class="legend" title="<?php echo Yii::t('app', 'Which department(s) is this training template for?'); ?>">
+	    <?php echo Yii::t('app', '2. Department'); ?>
+	  </legend>
+	  <div id="department-dropdown" style="margin-top: 10px; margin-bottom: 10px;">
+	    <?php foreach ($departmentArr as $iKey => $departmentObj) { ?>
+		<?php $checkedStatus = preg_match("/" . $departmentObj['title'] . "/", $onboardingTemplateObjRecord['department']) ? 'checked' : '' ?>
+    	    <input type="checkbox" name="department[]" value="<?php echo $departmentObj['id']; ?>" class="department-dropdown" id="<?php echo $departmentObj['title']; ?>" <?php echo $checkedStatus; ?> >
+    	    <label for="<?php echo $departmentObj['title']; ?>"><?php echo $departmentObj['title']; ?></label>
+	    <?php } ?>
 	  </div>
 	</fieldset>
 	<fieldset class="fieldset">
@@ -105,7 +123,7 @@
 	    <tbody id="data_table">
 	      <?php
 	      $counter = 0;
-	      if (isset($onboardingItemArrRecord)) {
+	      if (isset($onboardingItemArrRecord) && $onboardingItemArrRecord != false) {
 		  ?>
 		  <?php foreach ($onboardingItemArrRecord as $onboardingItemObjRecord) { ?>
 		      <tr class="onboardingItemTr">
@@ -156,6 +174,8 @@
 		</td>
 		<td class="departmentOwner">
 		</td>
+		<td class="isManagerial">
+		</td>
 		<td class="isOffboardingItem">
 		</td>
 		<td class="removeOnboardingItemButton">
@@ -170,7 +190,7 @@
 	  <!-- ajax would then populate the data for the onboarding item that the user chose -->
 	  <button type="button" id="appendOnboardingItem" title="Add more onboarding items to this template">+</button>
 	</fieldset>
-	<button title="<?php echo $buttonTitle; ?>" class="<?php echo $buttonClass; ?>" disabled><?php echo $buttonShortTitle; ?></button>
+	<button title="<?php echo $buttonTitle; ?>" class="<?php echo $buttonClass; ?>" <?php isset($templateId) ? $disabledStatus = '' : $disabledStatus = 'disabled'; ?> <?php echo $disabledStatus ?>><?php echo $buttonShortTitle; ?></button>
       </div>
     </form>
   </div>

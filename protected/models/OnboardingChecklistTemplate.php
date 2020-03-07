@@ -47,19 +47,24 @@ class OnboardingChecklistTemplate extends AppActiveRecord {
     }
 
     public function findAllOnboardingChecklistTemplates($strSortBy = false, $intPage = false, $numPerPage = false) {
-	$sql = 'SELECT id, title, description ';
-	$sql .= 'FROM ' . self::$tableName;
+	$sql = 'SELECT OCT.id, OCT.title, OCT.description, GROUP_CONCAT(D.title SEPARATOR ", ") AS department ';
+	$sql .= 'FROM ' . self::$tableName . ' OCT ';
+	$sql .= 'INNER JOIN onboarding_checklist_templates_mapping OCTM ';
+	$sql .= 'ON OCTM.onboarding_checklist_template_id = OCT.id ';
+	$sql .= 'INNER JOIN department D ';
+	$sql .= 'ON OCTM.department_id = D.id ';
+	$sql .= 'GROUP BY OCT.id';
 	
 	if (isset($_POST['label_filter']) && $_POST['label_filter']) {
-	    $sql .= ' WHERE title LIKE "%' . $_POST['label_filter'] . '%"';
+	    $sql .= ' WHERE OCT.title LIKE "%' . $_POST['label_filter'] . '%"';
 	}
 	//on first load, sort data by created_date, after that sort by whatever
 	if($_POST == false && !isset($_POST["sort_key"])){
-	    $strSortBy = 'created_date DESC';
+	    $strSortBy = 'OCT.created_date DESC';
 	}
 	
 	if ($_POST != false && $_POST["sort_key"] == false) {
-	    $strSortBy = 'created_date DESC';
+	    $strSortBy = 'OCT.created_date DESC';
 	}
 	
 	$sql .= ' ORDER BY ' . $strSortBy;
@@ -69,7 +74,28 @@ class OnboardingChecklistTemplate extends AppActiveRecord {
 	$objCommand = $objConnection->createCommand($sql);
 	$arrData = $objCommand->queryAll($sql);
 
-	return $arrData;
+	if (!empty($arrData)) {
+	    return $arrData;
+	} else {
+	    return false;
+	}
+    }
+    
+    public function viewSelectedOnboardingChecklistTemplateDetails($filter){
+	$sql = 'SELECT OCT.id, OCT.title, OCT.description, GROUP_CONCAT(D.title SEPARATOR ", ") AS department ';
+	$sql .= 'FROM ' . self::$tableName . ' OCT ';
+	$sql .= 'INNER JOIN onboarding_checklist_templates_mapping OCTM ';
+	$sql .= 'ON OCTM.onboarding_checklist_template_id = OCT.id ';
+	$sql .= 'INNER JOIN department D ';
+	$sql .= 'ON OCTM.department_id = D.id ';
+	$sql .= 'WHERE OCT.id = ' . $filter;
+	$sql .= ' GROUP BY OCT.id';
+	
+	$objConnection = Yii::app()->db;
+	$objCommand = $objConnection->createCommand($sql);
+	$arrData = $objCommand->queryAll($sql);
+	
+	return $arrData[0];
     }
 
     public function deleteOnboardingTemplates($deleteOnboardingChecklistIds) {
