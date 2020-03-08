@@ -176,10 +176,12 @@ class OnboardingChecklistItem extends AppActiveRecord {
         $sql .= 'ON OCI.id = OCIM.checklist_item_id ';
         $sql .= 'INNER JOIN onboarding_checklist_template OCT ';
         $sql .= 'ON OCIM.checklist_template_id = OCT.id ';
-        $sql .= 'INNER JOIN department D ';
+        $sql .= 'INNER JOIN department D ON OCI.department_owner = D.id ';
+        $sql .= 'INNER JOIN onboarding_checklist_templates_mapping OCTM ';
+        $sql .= 'ON OCT.id = OCTM.onboarding_checklist_template_id ';
         $sql .= 'ON OCI.department_owner = D.id ';
         $sql .= 'WHERE OCI.is_managerial = ' . $isManagerial;
-        $sql .= ' AND OCIM.department_id = "' . $departmentId . '"';
+        $sql .= ' AND OCIM.department_id = ' . $departmentId;
         
         var_dump($sql);exit;
     }

@@ -337,15 +337,16 @@ class RegistrationController extends Controller {
     }
 
     public function actionShowAllJobOpenings() {
-	$startTime = microtime(true);
-	$arrRecords = EmploymentJobOpening::model()->findAll(array('order' => 'id ASC'));
+//	$arrRecords = EmploymentJobOpening::model()->findAll(array('order' => 'id ASC'));
+//	$arrRecords = EmploymentJobOpening::model()->findAllJobOpenings();
+//        var_dump($arrRecords);exit;
 	$strSortKey = $this->getParam('sort_key', '');
 	$pageType = EmploymentJobOpeningEnum::JOB_OPENING;
 
 	$objPagination = self::getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, false, CommonEnum::RETURN_PAGINATION);
 	$objCriteria = self::getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, false, CommonEnum::RETURN_CRITERIA);
-	$arrRecords = self::getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, false, CommonEnum::RETURN_TABLE_ARRAY);
-
+	$arrRecords = self::getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, EmploymentJobOpeningEnum::JOB_OPENING_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
+        
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'jobopening-list' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
 	    $aResult['result'] = 0;
@@ -1018,6 +1019,17 @@ class RegistrationController extends Controller {
 			$tableArr = EmploymentCandidate::model()->findAllCandidates($strSortBy, $intPage, $numPerPage, $filter);
 			return $tableArr;
 			break;
+                        
+                    case EmploymentJobOpeningEnum::JOB_OPENING_TABLE_IN_SQL:
+                        if (isset($_POST['label_filter']) && $_POST['label_filter'] != false) {
+			    $filter = 'EJO.title LIKE "%' . $_POST['label_filter'] . '%"';
+			}
+                        
+                        $numPerPage = Yii::app()->params['numPerPage'];
+                        return EmploymentJobOpening::model()->findAllJobOpenings($strSortBy, $intPage, $numPerPage, $filter);
+                        
+                    break;
+                        
 		}
 //		break;
 	    //just selecting from one table
