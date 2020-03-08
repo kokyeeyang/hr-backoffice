@@ -124,7 +124,7 @@ class OnboardingChecklistItem extends AppActiveRecord {
     }
 
     //looking for all onboarding items belonging to a particular onboarding checklist template
-    public function findAllOnboardingItemsInTemplate($departmentId, $templateId) {
+    public function findAllOnboardingItemsInTemplate($templateId) {
         $sql = 'SELECT OCI.id, OCI.title, OCI.description, D.title AS department_owner, ';
         $sql .= 'CASE WHEN OCI.is_offboarding_item = 1 ';
         $sql .= 'THEN "Yes" ';
@@ -143,15 +143,9 @@ class OnboardingChecklistItem extends AppActiveRecord {
         $sql .= 'ON OCIM.checklist_template_id = OCT.id ';
         $sql .= 'INNER JOIN department D ';
         $sql .= 'ON OCI.department_owner = D.id ';
-        
-        //not too sure
         $sql .= 'INNER JOIN onboarding_checklist_templates_mapping OCTM ';
         $sql .= 'ON D.id = OCTM.department_id ';
         $sql .= 'WHERE OCIM.checklist_template_id = ' . $templateId;
-        $sql .= 'AND OCTM.department_id = ' . $departmentId;
-        
-        var_dump($sql);exit;
-        //end not too sure
         
         $objConnection = Yii::app()->db;
         $objCommand = $objConnection->createCommand($sql);
@@ -166,7 +160,7 @@ class OnboardingChecklistItem extends AppActiveRecord {
 
     //find onboarding items to assign to new hirees
     public function findOnboardingItems($departmentId, $isManagerial) {
-        $sql = 'SELECT OCI.id, OCI.title, OCI.description, D.title AS department_owner, ';
+        $sql = 'SELECT OCI.id, OCI.title, OCI.description, D.id AS department_owner, ';
         $sql .= 'CASE WHEN OCI.is_offboarding_item = 1 ';
         $sql .= 'THEN "Yes" ';
         $sql .= 'WHEN OCI.is_offboarding_item = 0 ';
@@ -185,7 +179,9 @@ class OnboardingChecklistItem extends AppActiveRecord {
         $sql .= 'INNER JOIN department D ';
         $sql .= 'ON OCI.department_owner = D.id ';
         $sql .= 'WHERE OCI.is_managerial = ' . $isManagerial;
-        $sql .= ' AND OCIM.department_id = ' . $departmentId;
+        $sql .= ' AND OCIM.department_id = "' . $departmentId . '"';
+        
+        var_dump($sql);exit;
     }
 
 }

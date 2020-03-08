@@ -538,7 +538,7 @@ class OnboardingController extends Controller {
         //takes in department_id, is_managerial, candidate_id as params
         //so, involves data from onboarding_checklist_templates_mapping(departmentId), onboarding_checklist_items(isManagerial) do inner join
         //then assign it to candidateId
-        $onboardingChecklistItemsArr = OnboardingChecklistItem::model()->findOnboardingItems();
+        $onboardingChecklistItemsArr = OnboardingChecklistItem::model()->findOnboardingItems($departmentId, $isManagerial);
         //$onboardingChecklistItemsUserMappingObjModel = new OnboardingChecklistItemsUserMapping;
     }
     

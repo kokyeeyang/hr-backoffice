@@ -52,7 +52,7 @@ var RegistrationViewSelectedCandidate = function () {
     }
     
     function _generate_template(objElement, objEvent) {
-        $('#candidateForm').attr('action', $('#generateOnboardingChecklistTemplate')).submit();
+        $('#candidateForm').attr('action', $('#generateOnboardingChecklistTemplate').attr('data-generate-onboarding-url')).submit();
         //$('#candidateForm').attr('action', $('#generateTrainingTemplate')).submit();
     }
     
@@ -302,6 +302,7 @@ var RegistrationViewSelectedCandidate = function () {
             });
 
             $("input#generateOfferEmail").on('click', function (objEvent) {
+                console.log('hello');
                 if (confirm($('#msg-confirm-offer-email').attr('data-msg'))) {
                     if ($("input[name=sendEmailCheckbox]:checked").val() == "1") {
                         RegistrationViewSelectedCandidate.generate_offer_email(this, objEvent);
@@ -312,7 +313,7 @@ var RegistrationViewSelectedCandidate = function () {
                 }
             });
 
-            $("input[name=generateTemplateButton]").on('click', function (objEvent) {
+            $("input#generateTemplateButton").on('click', function (objEvent) {
                 if (confirm($('#msg-confirm-generate-template').attr('data-msg'))) {
                     RegistrationViewSelectedCandidate.generate_template(this, objEvent);
                     //will need to create one more function for creating user profile for this guy as well
