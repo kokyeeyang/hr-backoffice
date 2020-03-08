@@ -534,8 +534,12 @@ class OnboardingController extends Controller {
 	Yii::app()->end();
     }
     
-    public function actionAssignOnboardingChecklistItems(){
-        //takes in department_id, is_managerial as params
+    public function actionAssignOnboardingChecklistItems($candidateId, $departmentId, $isManagerial){
+        //takes in department_id, is_managerial, candidate_id as params
+        //so, involves data from onboarding_checklist_templates_mapping(departmentId), onboarding_checklist_items(isManagerial) do inner join
+        //then assign it to candidateId
+        $onboardingChecklistItemsArr = OnboardingChecklistItem::model()->findOnboardingItems();
+        //$onboardingChecklistItemsUserMappingObjModel = new OnboardingChecklistItemsUserMapping;
     }
     
 }

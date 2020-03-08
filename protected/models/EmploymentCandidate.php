@@ -182,13 +182,16 @@ class EmploymentCandidate extends AppActiveRecord {
 
         $objConnection = Yii::app()->db;
         $objCommand = $objConnection->createCommand($sql);
-        $arrData = $objCommand->queryAll($sql);
+        $arrData = $objCommand->queryAll();
 
         return $arrData;
     }
 
     public static function findCandidateInformation($condition) {
-        $sql = 'SELECT EC.id_no, EC.full_name, EC.created_date, ECS.title AS candidate_status, EC.job_id, EJO.job_title, EJO.department, EJO.interviewing_manager ';
+        $sql = 'SELECT EC.id_no, EC.full_name, EC.created_date, ECS.title AS candidate_status, EC.job_id, EC.address, EC.contact_no, EC.email_address, EC.date_of_birth, ';
+        $sql .= 'EC.marital_status, EC.gender, EC.nationality, EC.terminated_before, EC.termination_reason, EC.reference_consent, EC.refuse_reference_reason, EC.finding_method, EC.candidate_status, ';
+        $sql .= 'EC.candidate_agree_terms, EC.candidate_signature_date, EC.remarks, EC.candidate_image, EC.candidate_resume, ';
+        $sql .= 'EJO.job_title, EJO.department, EJO.interviewing_manager, EJO.is_managerial_position ';
         $sql .= 'FROM employment_candidate EC ';
         $sql .= 'INNER JOIN employment_job_opening EJO ';
         $sql .= 'ON EC.job_id = EJO.id ';
@@ -198,8 +201,8 @@ class EmploymentCandidate extends AppActiveRecord {
         
         $objConnection = Yii::app()->db;
         $objCommand = $objConnection->createCommand($sql);
-        $arrData = $objCommand->query($sql);
-        
+        $arrData = $objCommand->queryRow();
+
         if($arrData != null){
             return $arrData;
         } else if ($arrData == null){

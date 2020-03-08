@@ -441,12 +441,11 @@ class RegistrationController extends Controller {
 
     public function actionViewSelectedCandidate($candidateId) {
 	$candidateId = $this->getParam('candidateId', '', '', 'get');
-	$candidateCondition = 'id_no = "' . $candidateId . '"';
+	$candidateCondition = 'EC.id_no = "' . $candidateId . '"';
 	$otherCondition = 'candidate_id = "' . $candidateId . '"';
 //	$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
         //need another sql to find out what department this candidate's applied for job is
 	$candidateArrRecords = EmploymentCandidate::model()->findCandidateInformation($candidateCondition);
-var_dump($candidateArrRecords);exit;
 	if ($candidateArrRecords == null) {
 	    throw new CHttpException(404, 'Candidate does not exist with the requested id.');
 	}

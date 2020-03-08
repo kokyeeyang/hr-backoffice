@@ -37,5 +37,5 @@ class OnboardingChecklistTemplatesMapping extends AppActiveRecord {
 	    OnboardingChecklistTemplatesMapping::model()->deleteAll($condition);
 	}
     }
-
+    
 }

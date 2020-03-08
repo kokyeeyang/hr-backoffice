@@ -50,6 +50,15 @@ var RegistrationViewSelectedCandidate = function () {
     function _change_candidate_status_to_signed(objElement, objEvent) {
         $('#candidateForm').attr('action', $('#changeCandidateStatusToSigned').attr('data-signed-url')).submit();
     }
+    
+    function _generate_template(objElement, objEvent) {
+        $('#candidateForm').attr('action', $('#generateOnboardingChecklistTemplate')).submit();
+        //$('#candidateForm').attr('action', $('#generateTrainingTemplate')).submit();
+    }
+    
+//    function _generate_user(objElement, objEvent) {
+//        
+//    }
 
     function _init() {
         $(function () {
@@ -302,6 +311,13 @@ var RegistrationViewSelectedCandidate = function () {
                     }
                 }
             });
+
+            $("input[name=generateTemplateButton]").on('click', function (objEvent) {
+                if (confirm($('#msg-confirm-generate-template').attr('data-msg'))) {
+                    RegistrationViewSelectedCandidate.generate_template(this, objEvent);
+                    //will need to create one more function for creating user profile for this guy as well
+                }
+            });
         });
     }
 
@@ -310,7 +326,8 @@ var RegistrationViewSelectedCandidate = function () {
         generate_offer_email: _generate_offer_email,
         change_candidate_status: _change_candidate_status,
         change_candidate_status_to_signed: _change_candidate_status_to_signed,
-        download_pdf: _download_pdf
+        download_pdf: _download_pdf,
+        generate_template: _generate_template
     }
 }();
 RegistrationViewSelectedCandidate.init();
