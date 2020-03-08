@@ -315,7 +315,7 @@ class RegistrationController extends Controller {
 
 	$allManagers = Admin::model()->queryForManagers();
 	$departmentTitle = DepartmentEnum::DEPARTMENT_TITLE;
-	$departmentArr = Department::model()->queryForDepartmentDetails($departmentTitle);
+	$departmentArr = Department::model()->findAll();
 
 	$this->render("jobOpeningDetails", array('objModel' => $objModel, 'allManagers' => $allManagers, 'departmentArr' => $departmentArr));
     }
