@@ -160,28 +160,13 @@ class OnboardingChecklistItem extends AppActiveRecord {
 
     //find onboarding items to assign to new hirees
     public function findOnboardingItems($departmentId, $isManagerial) {
-        $sql = 'SELECT OCI.id, OCI.title, OCI.description, D.id AS department_owner, ';
-        $sql .= 'CASE WHEN OCI.is_offboarding_item = 1 ';
-        $sql .= 'THEN "Yes" ';
-        $sql .= 'WHEN OCI.is_offboarding_item = 0 ';
-        $sql .= 'THEN "No" ';
-        $sql .= 'END AS "is_offboarding_item", ';
-        $sql .= 'CASE WHEN OCI.is_managerial = 1 ';
-        $sql .= 'THEN "Yes" ';
-        $sql .= 'WHEN OCI.is_managerial = 0 ';
-        $sql .= 'THEN "No" ';
-        $sql .= 'END AS "is_managerial" ';
+        $sql = 'SELECT OCI.title AS "item_title", OCI.is_managerial, OCIM.checklist_template_id, OCT.title, OCTM.department_id ';
         $sql .= 'FROM ' . self::$tableName . ' OCI ';
-        $sql .= 'INNER JOIN onboarding_checklist_items_mapping OCIM ';
-        $sql .= 'ON OCI.id = OCIM.checklist_item_id ';
-        $sql .= 'INNER JOIN onboarding_checklist_template OCT ';
-        $sql .= 'ON OCIM.checklist_template_id = OCT.id ';
-        $sql .= 'INNER JOIN department D ON OCI.department_owner = D.id ';
-        $sql .= 'INNER JOIN onboarding_checklist_templates_mapping OCTM ';
-        $sql .= 'ON OCT.id = OCTM.onboarding_checklist_template_id ';
-        $sql .= 'ON OCI.department_owner = D.id ';
-        $sql .= 'WHERE OCI.is_managerial = ' . $isManagerial;
-        $sql .= ' AND OCIM.department_id = ' . $departmentId;
+	$sql .= 'INNER JOIN onboarding_checklist_items_mapping OCIM ON OCI.id = OCIM.checklist_item_id ';
+	$sql .= 'INNER JOIN onboarding_checklist_template OCT ON OCIM.checklist_template_id = OCT.id ';
+	$sql .= 'INNER JOIN onboarding_checklist_templates_mapping OCTM ON OCT.id = OCTM.onboarding_checklist_template_id ';
+	$sql .= 'WHERE OCI.is_managerial = ' . $isManagerial;
+	$sql .= ' AND OCTM.department_id = ' . $departmentId;
         
         var_dump($sql);exit;
     }
