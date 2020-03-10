@@ -1,8 +1,8 @@
 <?php
 
-class OnboardingChecklistItemsUserMapping extends AppActiveRecord {
+class TrainingItemsUserMapping extends AppActiveRecord {
 
-    static $tableName = DB_TBL_PREFIX . 'onboarding_checklist_items_user_mapping';
+    static $tableName = DB_TBL_PREFIX . 'training_items_user_mapping';
 
     public function tableName() {
 	return self::$tableName;
