@@ -1261,7 +1261,7 @@ class RegistrationController extends Controller {
 	//takes in department_id, is_managerial, candidate_id as params
 	//so, involves data from onboarding_checklist_templates_mapping(departmentId), onboarding_checklist_items(isManagerial) do inner join
 	//then assign it to admin_id after generating user
-	$userName = trim(strtolower($fullName), " ");
+	$userName = preg_replace('/\s+/', '', strtolower($fullName));
 	$randomPassword = Admin::model()->randomPassword(10, 1, "lower_case,upper_case,numbers,special_symbols");
 	$adminStatus = 1;
 
