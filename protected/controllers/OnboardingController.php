@@ -234,11 +234,11 @@ class OnboardingController extends Controller {
 	    case 'sort_description_asc' :
 		return 'description ASC';
 		break;
-	    
+
 	    case 'sort_department_asc';
 		return 'department ASC';
 		break;
-	    
+
 	    case 'sort_department_desc';
 		return 'department DESC';
 		break;
@@ -331,7 +331,7 @@ class OnboardingController extends Controller {
 	$departmentId = 'id';
 	$departmentCondition = DepartmentEnum::DEPARTMENT_TITLE . ',' . $departmentId;
 	$departmentArr = Department::model()->queryForDepartmentDetails($departmentCondition);
-	
+
 	$onboardingTemplateObjRecord = false;
 
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'onboardingChecklistTemplateForm' && Yii::app()->request->isAjaxRequest) {
@@ -376,17 +376,17 @@ class OnboardingController extends Controller {
 	$arrayKeys = array_keys($_POST);
 	$condition = 'checklist_template_id = ' . $templateId;
 	OnboardingChecklistItemsMapping::model()->deleteAll($condition);
-	
+
 	$onboardingChecklistTemplateCondition = 'onboarding_checklist_template_id = ' . $templateId;
 	OnboardingChecklistTemplatesMapping::model()->deleteAll($onboardingChecklistTemplateCondition);
-	
-	foreach ($templateDepartments as $templateDepartment){
+
+	foreach ($templateDepartments as $templateDepartment) {
 	    $onboardingTemplateMappingObjModel = new OnboardingChecklistTemplatesMapping;
 	    $onboardingTemplateMappingObjModel->department_id = $templateDepartment;
 	    $onboardingTemplateMappingObjModel->onboarding_checklist_template_id = $templateId;
 	    $onboardingTemplateMappingObjModel->save();
 	}
-	
+
 	foreach ($arrayKeys as $arrayKey) {
 	    $match = preg_match('%onboardingItemDropdown%', $arrayKey);
 	    if ($match != null && $this->getParam($arrayKey, '') != null) {
@@ -396,7 +396,7 @@ class OnboardingController extends Controller {
 		$onboardingItemMappingObjModel->save();
 	    }
 	}
-	
+
 	$this->redirect(array('showAllOnboardingChecklistTemplates'));
     }
 
@@ -443,14 +443,14 @@ class OnboardingController extends Controller {
 
 	$arrayKeys = array_keys($_POST);
 	$departmentIds = $this->getParam('department', '');
-	
+
 	foreach ($departmentIds as $departmentId) {
 	    $onboardingChecklistTemplatesMappingObjModel = new OnboardingChecklistTemplatesMapping;
 	    $onboardingChecklistTemplatesMappingObjModel->onboarding_checklist_template_id = $onboardingChecklistTemplateObjModel->id;
 	    $onboardingChecklistTemplatesMappingObjModel->department_id = $departmentId;
 	    $onboardingChecklistTemplatesMappingObjModel->save();
 	}
-	
+
 	foreach ($arrayKeys as $arrayKey) {
 	    $match = preg_match('%onboardingItemDropdown%', $arrayKey);
 	    if ($match != null && $this->getParam($arrayKey, '') != null) {
@@ -533,13 +533,28 @@ class OnboardingController extends Controller {
 	echo(json_encode($aResult));
 	Yii::app()->end();
     }
-    
-    public function actionAssignOnboardingChecklistItems($candidateId, $departmentId, $isManagerial){
-        //takes in department_id, is_managerial, candidate_id as params
-        //so, involves data from onboarding_checklist_templates_mapping(departmentId), onboarding_checklist_items(isManagerial) do inner join
-        //then assign it to candidateId
-        $onboardingChecklistItemsArr = OnboardingChecklistItem::model()->findOnboardingItems($departmentId, $isManagerial);
-        //$onboardingChecklistItemsUserMappingObjModel = new OnboardingChecklistItemsUserMapping;
+
+    public function actionAssignOnboardingChecklistItems($candidateId, $departmentId, $fullName, $isManagerial) {
+	//takes in department_id, is_managerial, candidate_id as params
+	//so, involves data from onboarding_checklist_templates_mapping(departmentId), onboarding_checklist_items(isManagerial) do inner join
+	//then assign it to admin_id after generating user
+	
+	$userName = trim(strtolower($fullName), " ");
+	var_dump($userName); exit;
+	$randomPassword = Admin::model()->randomPassword(10,1,"lower_case,upper_case,numbers,special_symbols");
+	
+	
+	
+	$onboardingChecklistItemsArr = OnboardingChecklistItem::model()->findOnboardingItems($departmentId, $isManagerial);
+	$onboardingChecklistItemsUserMappingObjModel = new OnboardingChecklistItemsUserMapping;
+	foreach ($onboardingChecklistItemsArr as $onboardingChecklistItemsObj) {
+	    $onboardingChecklistItemsUserMappingObjModel->onboarding_checklist_items_mapping_id = $onboardingChecklistItemsArr['id'];
+	    $onboardingChecklistItemsUserMappingObj->user_id = $candidateId;
+	    $onboardingChecklistItemsUserMappingObjModel->created_by = Yii::app()->user->id;
+	}
+	var_dump($onboardingChecklistItemsArr);
+	exit;
+	//$onboardingChecklistItemsUserMappingObjModel = new OnboardingChecklistItemsUserMapping;
     }
-    
+
 }
