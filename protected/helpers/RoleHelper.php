@@ -77,7 +77,7 @@ class RoleHelper {
 			'showAllOnboardingChecklistTemplates', 'addNewOnboardingChecklistTemplate', 'updateOnboardingChecklistTemplate',
 			'queryForOnboardingItemDetails', 'saveOnboardingChecklistTemplate',
 			'viewSelectedOnboardingChecklistTemplate', 'CheckOnboardingItemExistInTemplate', 'deleteOnboardingChecklistTemplates',
-                        'assignOnboardingChecklistItems'
+                        'assignItemsAndUserAccess'
 		    ]);
 		}
 		break;

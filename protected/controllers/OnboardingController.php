@@ -534,25 +534,56 @@ class OnboardingController extends Controller {
 	Yii::app()->end();
     }
 
-    public function actionAssignOnboardingChecklistItems($candidateId, $departmentId, $fullName, $isManagerial) {
+    public function actionAssignItemsAndUserAccess($candidateId, $departmentId, $fullName, $isManagerial) {
 	//takes in department_id, is_managerial, candidate_id as params
 	//so, involves data from onboarding_checklist_templates_mapping(departmentId), onboarding_checklist_items(isManagerial) do inner join
 	//then assign it to admin_id after generating user
 	
 	$userName = trim(strtolower($fullName), " ");
-	var_dump($userName); exit;
 	$randomPassword = Admin::model()->randomPassword(10,1,"lower_case,upper_case,numbers,special_symbols");
+	$adminStatus = 1;
 	
-	
+	if (Admin::model()->checkUsernameExist($userName) === false) {
+	    $adminObjModel = new Admin;
+	    $adminObjModel->admin_username = $userName;
+	    $adminObjModel->admin_password = sha1(implode('', $randomPassword));
+	    $adminObjModel->admin_display_name = $fullName;
+	    $adminObjModel->admin_status = $adminStatus;
+
+	    if($isManagerial == 1){
+	       $adminObjModel->admin_priv = 'manager';
+	    } else if ($isManagerial == 0){
+		$adminObjModel->admin_priv = 'normal user';
+	    }
+
+	    $adminObjModel->admin_department = $departmentId;
+	    $adminObjModel->admin_last_login = $this->strCurrentDatetime;
+	    $adminObjModel->admin_modified_datetime = $this->strCurrentDatetime;
+	    $adminObjModel->admin_datetime = $this->strCurrentDatetime;
+//	    $adminObjModel->save();
+	}
 	
 	$onboardingChecklistItemsArr = OnboardingChecklistItem::model()->findOnboardingItems($departmentId, $isManagerial);
-	$onboardingChecklistItemsUserMappingObjModel = new OnboardingChecklistItemsUserMapping;
 	foreach ($onboardingChecklistItemsArr as $onboardingChecklistItemsObj) {
-	    $onboardingChecklistItemsUserMappingObjModel->onboarding_checklist_items_mapping_id = $onboardingChecklistItemsArr['id'];
-	    $onboardingChecklistItemsUserMappingObj->user_id = $candidateId;
+	    $onboardingChecklistItemsUserMappingObjModel = new OnboardingChecklistItemsUserMapping;
+	    $onboardingChecklistItemsUserMappingObjModel->onboarding_checklist_items_mapping_id = $onboardingChecklistItemsObj['id'];
+	    $onboardingChecklistItemsUserMappingObj->user_id = $adminObjModel->id;
 	    $onboardingChecklistItemsUserMappingObjModel->created_by = Yii::app()->user->id;
 	}
-	var_dump($onboardingChecklistItemsArr);
+	
+	$trainingItemsArr = TrainingItem::model()->findTrainingItems($departmentId, $isManagerial);
+	foreach($trainingItemsArr as $trainingItemsObj){
+	    $trainingItemsUserMappingObjModel = new TrainingItemsUserMapping;
+	    $trainingItemsUserMappingObjModel->training_items_mapping_id = $trainingItemsObj['id'];
+	    $trainingItemsUserMappingObjModel->user_id = $adminObjModel->id;
+	    $trainingItemsUserMappingObjModel->created_by = Yii::app()->user->id;
+	}
+	
+	
+	var_dump('admin = ' . $adminObjModel);
+	var_dump('onboarding = ' . $onboardingChecklistItemsUserMappingObjModel);
+	var_dump('training = ' . $trainingItemsUserMappingObjModel);
+	
 	exit;
 	//$onboardingChecklistItemsUserMappingObjModel = new OnboardingChecklistItemsUserMapping;
     }

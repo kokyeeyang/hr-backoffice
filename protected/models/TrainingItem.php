@@ -131,5 +131,25 @@ class TrainingItem extends AppActiveRecord {
 	    return false;
 	}
     }
+    
+    public function findTrainingItems($departmentId, $isManagerial) {
+	$sql = 'SELECT TI.title AS "item_title", TIM.id, TI.is_managerial, TIM.checklist_template_id, TT.title, TTM.department_id ';
+        $sql .= 'FROM ' . self::$tableName . ' TI ';
+	$sql .= 'INNER JOIN training_items_mapping OCIM ON TI.id = TIM.training_item_id ';
+	$sql .= 'INNER JOIN training_template TT ON TIM.training_template_id = TT.id ';
+	$sql .= 'INNER JOIN training_templates_mapping TTM ON TT.id = TTM.training_template_id ';
+	$sql .= 'WHERE TI.is_managerial = ' . $isManagerial;
+	$sql .= ' AND TTM.department_id = ' . $departmentId;
+        
+        $objConnection = Yii::app()->db;
+        $objCommand = $objConnection->createCommand($sql);
+        $arrData = $objCommand->queryAll($sql);
+
+        if (!empty($arrData)) {
+            return $arrData;
+        } else {
+            return false;
+        }
+    }
 
 }
