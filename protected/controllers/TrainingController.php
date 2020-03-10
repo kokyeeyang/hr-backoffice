@@ -261,7 +261,7 @@ class TrainingController extends Controller {
 	$this->redirect(array('showAllTrainingItems'));
     }
 
-    public function actionDeleteTrainingItem() {
+    public function actionDeleteTrainingItems() {
 	$deleteTrainingItemIds = $this->getParam('deleteCheckBox', '');
 
 	if ($deleteTrainingItemIds != '') {

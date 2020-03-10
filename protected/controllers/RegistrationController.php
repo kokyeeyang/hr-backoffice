@@ -346,7 +346,7 @@ class RegistrationController extends Controller {
 	$objPagination = self::getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, false, CommonEnum::RETURN_PAGINATION);
 	$objCriteria = self::getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, false, CommonEnum::RETURN_CRITERIA);
 	$arrRecords = self::getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, EmploymentJobOpeningEnum::JOB_OPENING_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
-        
+
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'jobopening-list' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
 	    $aResult['result'] = 0;
@@ -445,7 +445,7 @@ class RegistrationController extends Controller {
 	$candidateCondition = 'EC.id_no = "' . $candidateId . '"';
 	$otherCondition = 'candidate_id = "' . $candidateId . '"';
 //	$candidateArrRecords = EmploymentCandidate::model()->findAll($candidateCondition);
-        //need another sql to find out what department this candidate's applied for job is
+	//need another sql to find out what department this candidate's applied for job is
 	$candidateArrRecords = EmploymentCandidate::model()->findCandidateInformation($candidateCondition);
 	if ($candidateArrRecords == null) {
 	    throw new CHttpException(404, 'Candidate does not exist with the requested id.');
@@ -962,15 +962,15 @@ class RegistrationController extends Controller {
 	$strSortBy = self::getStrSortBy($strSortKey, $tableName);
 	//for use in one table cases
 	$order = $strSortBy;
-	
+
 	if ($_POST == false && !isset($_POST["sort_key"])) {
 	    $order = 'created_date DESC';
 	}
-	
-	if ($_POST != false && $_POST["sort_key"] == false){
+
+	if ($_POST != false && $_POST["sort_key"] == false) {
 	    $order = 'created_date DESC';
 	}
-	
+
 	$objCriteria = new CDbCriteria();
 	$objCriteria->order = $order;
 	//for filtering purposes
@@ -1018,17 +1018,16 @@ class RegistrationController extends Controller {
 			$tableArr = EmploymentCandidate::model()->findAllCandidates($strSortBy, $intPage, $numPerPage, $filter);
 			return $tableArr;
 			break;
-                        
-                    case EmploymentJobOpeningEnum::JOB_OPENING_TABLE_IN_SQL:
-                        if (isset($_POST['label_filter']) && $_POST['label_filter'] != false) {
+
+		    case EmploymentJobOpeningEnum::JOB_OPENING_TABLE_IN_SQL:
+			if (isset($_POST['label_filter']) && $_POST['label_filter'] != false) {
 			    $filter = 'EJO.title LIKE "%' . $_POST['label_filter'] . '%"';
 			}
-                        
-                        $numPerPage = Yii::app()->params['numPerPage'];
-                        return EmploymentJobOpening::model()->findAllJobOpenings($strSortBy, $intPage, $numPerPage, $filter);
-                        
-                    break;
-                        
+
+			$numPerPage = Yii::app()->params['numPerPage'];
+			return EmploymentJobOpening::model()->findAllJobOpenings($strSortBy, $intPage, $numPerPage, $filter);
+
+			break;
 		}
 //		break;
 	    //just selecting from one table
@@ -1257,12 +1256,11 @@ class RegistrationController extends Controller {
 	    }
 	}
     }
-    
-        public function actionAssignItemsAndUserAccess($candidateId, $departmentId, $fullName, $isManagerial) {
+
+    public function actionAssignItemsAndUserAccess($candidateId, $departmentId, $fullName, $isManagerial) {
 	//takes in department_id, is_managerial, candidate_id as params
 	//so, involves data from onboarding_checklist_templates_mapping(departmentId), onboarding_checklist_items(isManagerial) do inner join
 	//then assign it to admin_id after generating user
-
 	$userName = trim(strtolower($fullName), " ");
 	$randomPassword = Admin::model()->randomPassword(10, 1, "lower_case,upper_case,numbers,special_symbols");
 	$adminStatus = 1;
@@ -1287,8 +1285,8 @@ class RegistrationController extends Controller {
 	    $adminObjModel->save();
 
 	    $onboardingChecklistItemsArr = OnboardingChecklistItem::model()->findOnboardingItems($departmentId, $isManagerial);
-	    
-	    if($onboardingChecklistItemsArr != false && isset($onboardingChecklistItemsArr)){
+
+	    if ($onboardingChecklistItemsArr != false && isset($onboardingChecklistItemsArr)) {
 		foreach ($onboardingChecklistItemsArr as $onboardingChecklistItemsObj) {
 		    $onboardingChecklistItemsUserMappingObjModel = new OnboardingChecklistItemsUserMapping;
 		    $onboardingChecklistItemsUserMappingObjModel->onboarding_checklist_items_mapping_id = $onboardingChecklistItemsObj['onboarding_checklist_items_mapping_id'];
@@ -1299,8 +1297,8 @@ class RegistrationController extends Controller {
 	    }
 
 	    $trainingItemsArr = TrainingItem::model()->findTrainingItems($departmentId);
-	    
-	    if($trainingItemsArr != false && isset($trainingItemsArr)){
+
+	    if ($trainingItemsArr != false && isset($trainingItemsArr)) {
 		foreach ($trainingItemsArr as $trainingItemsObj) {
 		    $trainingItemsUserMappingObjModel = new TrainingItemsUserMapping;
 		    $trainingItemsUserMappingObjModel->training_items_mapping_id = $trainingItemsObj['id'];
@@ -1309,11 +1307,10 @@ class RegistrationController extends Controller {
 		    $trainingItemsUserMappingObjModel->save();
 		}
 	    }
-	    $this->redirect(array('showAllCandidates'));
+	    $this->redirect(array('viewSelectedCandidate',), ['candidateId' => $candidateId]);
 	} else {
-	    throw new CHttpException(300, 'User already exist in system with the same name.');
+	    throw new CHttpException(422, 'User already exist in system with the same name.');
 	}
-
     }
 
 }

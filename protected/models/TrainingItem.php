@@ -77,7 +77,7 @@ class TrainingItem extends AppActiveRecord {
 	}
     }
 
-    public function deleteTrainingItems($deleteTrainingItemIds) {
+    public function deleteTrainingItem($deleteTrainingItemIds) {
 	foreach ($deleteTrainingItemIds as $deleteTrainingItemId) {
 	    $condition = 'id = ' . $deleteTrainingItemId;
 	    $deleteItem = TrainingItem::model()->deleteAll($condition);
