@@ -47,7 +47,7 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 	$sql .= 'INNER JOIN department D ';
 	$sql .= 'ON D.id = EOLTM.department_id ';
 	$sql .= 'WHERE EOLT.is_managerial = ' . $isManagerial;
-	$sql .= ' AND EOLTM.department_id = "' . $department . '"';
+	$sql .= ' AND EOLTM.department_id = ' . $department;
 
 	$objConnection = Yii::app()->db;
 	$objCommand = $objConnection->createCommand($sql);

@@ -846,7 +846,7 @@ class RegistrationController extends Controller {
 	//we need candidate id, address, candidate address, candidate position, superior, probationary salary, normal salary and also candidate name
 	//pick out the offer letter template based on $isManagerial and $department
 	$offerLetterTemplate = EmploymentOfferLetterTemplates::model()->queryForOfferLetterTemplate($isManagerial, $department);
-var_dump($offerLetterTemplate);exit;
+
 	if ($offerLetterTemplate == '') {
 	    echo OfferLetterEnum::OFFER_LETTER_NOT_FOUND_WARNING;
 	}
@@ -1256,6 +1256,64 @@ var_dump($offerLetterTemplate);exit;
 		$this->redirect(array('showAllCandidateStatus'));
 	    }
 	}
+    }
+    
+        public function actionAssignItemsAndUserAccess($candidateId, $departmentId, $fullName, $isManagerial) {
+	//takes in department_id, is_managerial, candidate_id as params
+	//so, involves data from onboarding_checklist_templates_mapping(departmentId), onboarding_checklist_items(isManagerial) do inner join
+	//then assign it to admin_id after generating user
+
+	$userName = trim(strtolower($fullName), " ");
+	$randomPassword = Admin::model()->randomPassword(10, 1, "lower_case,upper_case,numbers,special_symbols");
+	$adminStatus = 1;
+
+	if (Admin::model()->checkUsernameExist($userName) === false) {
+	    $adminObjModel = new Admin;
+	    $adminObjModel->admin_username = $userName;
+	    $adminObjModel->admin_password = sha1(implode('', $randomPassword));
+	    $adminObjModel->admin_display_name = $fullName;
+	    $adminObjModel->admin_status = $adminStatus;
+
+	    if ($isManagerial == 1) {
+		$adminObjModel->admin_priv = 'manager';
+	    } else if ($isManagerial == 0) {
+		$adminObjModel->admin_priv = 'normal user';
+	    }
+
+	    $adminObjModel->admin_department = $departmentId;
+	    $adminObjModel->admin_last_login = $this->strCurrentDatetime;
+	    $adminObjModel->admin_modified_datetime = $this->strCurrentDatetime;
+	    $adminObjModel->admin_datetime = $this->strCurrentDatetime;
+	    $adminObjModel->save();
+
+	    $onboardingChecklistItemsArr = OnboardingChecklistItem::model()->findOnboardingItems($departmentId, $isManagerial);
+	    
+	    if($onboardingChecklistItemsArr != false && isset($onboardingChecklistItemsArr)){
+		foreach ($onboardingChecklistItemsArr as $onboardingChecklistItemsObj) {
+		    $onboardingChecklistItemsUserMappingObjModel = new OnboardingChecklistItemsUserMapping;
+		    $onboardingChecklistItemsUserMappingObjModel->onboarding_checklist_items_mapping_id = $onboardingChecklistItemsObj['onboarding_checklist_items_mapping_id'];
+		    $onboardingChecklistItemsUserMappingObjModel->user_id = $adminObjModel->admin_id;
+		    $onboardingChecklistItemsUserMappingObjModel->created_by = Yii::app()->user->id;
+		    $onboardingChecklistItemsUserMappingObjModel->save();
+		}
+	    }
+
+	    $trainingItemsArr = TrainingItem::model()->findTrainingItems($departmentId);
+	    
+	    if($trainingItemsArr != false && isset($trainingItemsArr)){
+		foreach ($trainingItemsArr as $trainingItemsObj) {
+		    $trainingItemsUserMappingObjModel = new TrainingItemsUserMapping;
+		    $trainingItemsUserMappingObjModel->training_items_mapping_id = $trainingItemsObj['id'];
+		    $trainingItemsUserMappingObjModel->user_id = $adminObjModel->admin_id;
+		    $trainingItemsUserMappingObjModel->created_by = Yii::app()->user->id;
+		    $trainingItemsUserMappingObjModel->save();
+		}
+	    }
+	    $this->redirect(array('showAllCandidates'));
+	} else {
+	    throw new CHttpException(300, 'User already exist in system with the same name.');
+	}
+
     }
 
 }

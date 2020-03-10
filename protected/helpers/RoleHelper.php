@@ -22,7 +22,7 @@ class RoleHelper {
 			'updateOfferLetterTemplate', 'downloadPdf', 'uploadOfferLetterImages',
 			'searchAndReplaceTermsInOfferLetter', 'deleteSelectedOfferLetters', 'addNewOfferLetter',
 			'checkCandidateJobOpeningExist', 'showAllCandidateStatus', 'addNewCandidateStatus',
-			'saveCandidateStatus', 'deleteCandidateStatus'
+			'saveCandidateStatus', 'deleteCandidateStatus', 'assignItemsAndUserAccess'
 		    ]);
 		}
 		break;
@@ -76,8 +76,7 @@ class RoleHelper {
 			'viewSelectedOnboardingItem', 'deleteOnboardingItems', 'updateOnboardingItem',
 			'showAllOnboardingChecklistTemplates', 'addNewOnboardingChecklistTemplate', 'updateOnboardingChecklistTemplate',
 			'queryForOnboardingItemDetails', 'saveOnboardingChecklistTemplate',
-			'viewSelectedOnboardingChecklistTemplate', 'CheckOnboardingItemExistInTemplate', 'deleteOnboardingChecklistTemplates',
-                        'assignItemsAndUserAccess'
+			'viewSelectedOnboardingChecklistTemplate', 'CheckOnboardingItemExistInTemplate', 'deleteOnboardingChecklistTemplates'
 		    ]);
 		}
 		break;
