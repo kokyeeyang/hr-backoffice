@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <div class="breadcrumb">
   <div class="breadcrumb_wrapper">
     <div class="breadcrumb-top">
@@ -16,7 +17,11 @@
 </div>
 <div class="common_content_wrapper admin_form">
   <div class="common_content_inner_wrapper">
-    <h4 class="widget_title"></h4>
+    <h4 class="widget_title">
+      <button class="w3-bar-item w3-button" onclick="openTab('usermanagement')">User Management</button>
+      <button class="w3-bar-item w3-button" onclick="openTab('training')">Training</button>
+      <button class="w3-bar-item w3-button" onclick="openTab('onboarding')">Onboarding</button>
+    </h4>
     <?php $this->renderPartial('_form', array('objModel' => $objModel)); ?>
   </div>
 </div>

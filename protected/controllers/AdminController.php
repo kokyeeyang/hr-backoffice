@@ -180,7 +180,7 @@ class AdminController extends Controller {
 			    $objModel->admin_priv = $strPriv;
 			    $objModel->admin_department = $strDepartment;
 			    $objModel->admin_modified_datetime = $this->strCurrentDatetime;
-
+			    
 			    if ($strPassword !== '') {
 				$objModel->admin_password = sha1($strPassword);
 			    } // - end: if
