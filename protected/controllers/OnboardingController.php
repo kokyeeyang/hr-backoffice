@@ -538,11 +538,11 @@ class OnboardingController extends Controller {
 	//takes in department_id, is_managerial, candidate_id as params
 	//so, involves data from onboarding_checklist_templates_mapping(departmentId), onboarding_checklist_items(isManagerial) do inner join
 	//then assign it to admin_id after generating user
-	
+
 	$userName = trim(strtolower($fullName), " ");
-	$randomPassword = Admin::model()->randomPassword(10,1,"lower_case,upper_case,numbers,special_symbols");
+	$randomPassword = Admin::model()->randomPassword(10, 1, "lower_case,upper_case,numbers,special_symbols");
 	$adminStatus = 1;
-	
+
 	if (Admin::model()->checkUsernameExist($userName) === false) {
 	    $adminObjModel = new Admin;
 	    $adminObjModel->admin_username = $userName;
@@ -550,9 +550,9 @@ class OnboardingController extends Controller {
 	    $adminObjModel->admin_display_name = $fullName;
 	    $adminObjModel->admin_status = $adminStatus;
 
-	    if($isManagerial == 1){
-	       $adminObjModel->admin_priv = 'manager';
-	    } else if ($isManagerial == 0){
+	    if ($isManagerial == 1) {
+		$adminObjModel->admin_priv = 'manager';
+	    } else if ($isManagerial == 0) {
 		$adminObjModel->admin_priv = 'normal user';
 	    }
 
@@ -560,30 +560,35 @@ class OnboardingController extends Controller {
 	    $adminObjModel->admin_last_login = $this->strCurrentDatetime;
 	    $adminObjModel->admin_modified_datetime = $this->strCurrentDatetime;
 	    $adminObjModel->admin_datetime = $this->strCurrentDatetime;
-//	    $adminObjModel->save();
-	}
-	
-	$onboardingChecklistItemsArr = OnboardingChecklistItem::model()->findOnboardingItems($departmentId, $isManagerial);
-	foreach ($onboardingChecklistItemsArr as $onboardingChecklistItemsObj) {
-	    $onboardingChecklistItemsUserMappingObjModel = new OnboardingChecklistItemsUserMapping;
-	    $onboardingChecklistItemsUserMappingObjModel->onboarding_checklist_items_mapping_id = $onboardingChecklistItemsObj['id'];
-	    $onboardingChecklistItemsUserMappingObj->user_id = $adminObjModel->id;
-	    $onboardingChecklistItemsUserMappingObjModel->created_by = Yii::app()->user->id;
-	}
-	
-	$trainingItemsArr = TrainingItem::model()->findTrainingItems($departmentId, $isManagerial);
-	foreach($trainingItemsArr as $trainingItemsObj){
-	    $trainingItemsUserMappingObjModel = new TrainingItemsUserMapping;
-	    $trainingItemsUserMappingObjModel->training_items_mapping_id = $trainingItemsObj['id'];
-	    $trainingItemsUserMappingObjModel->user_id = $adminObjModel->id;
-	    $trainingItemsUserMappingObjModel->created_by = Yii::app()->user->id;
-	}
-	
-	
+	    $adminObjModel->save();
+
+	    $onboardingChecklistItemsArr = OnboardingChecklistItem::model()->findOnboardingItems($departmentId, $isManagerial);
+	    
+	    foreach ($onboardingChecklistItemsArr as $onboardingChecklistItemsObj) {
+		$onboardingChecklistItemsUserMappingObjModel = new OnboardingChecklistItemsUserMapping;
+		$onboardingChecklistItemsUserMappingObjModel->onboarding_checklist_items_mapping_id = $onboardingChecklistItemsObj['onboarding_checklist_items_mapping_id'];
+		$onboardingChecklistItemsUserMappingObjModel->user_id = $adminObjModel->admin_id;
+		$onboardingChecklistItemsUserMappingObjModel->created_by = Yii::app()->user->id;
+		$onboardingChecklistItemsUserMappingObjModel->save();
+	    }
+
+	    $trainingItemsArr = TrainingItem::model()->findTrainingItems($departmentId);
+	    foreach ($trainingItemsArr as $trainingItemsObj) {
+		$trainingItemsUserMappingObjModel = new TrainingItemsUserMapping;
+		$trainingItemsUserMappingObjModel->training_items_mapping_id = $trainingItemsObj['id'];
+		$trainingItemsUserMappingObjModel->user_id = $adminObjModel->admin_id;
+		$trainingItemsUserMappingObjModel->created_by = Yii::app()->user->id;
+		$trainingItemsUserMappingObjModel->save();
+	    }
 	var_dump('admin = ' . $adminObjModel);
 	var_dump('onboarding = ' . $onboardingChecklistItemsUserMappingObjModel);
 	var_dump('training = ' . $trainingItemsUserMappingObjModel);
-	
+	} else {
+	    throw new CHttpException(300, 'User already exist in system with the same name.');
+	}
+
+
+
 	exit;
 	//$onboardingChecklistItemsUserMappingObjModel = new OnboardingChecklistItemsUserMapping;
     }

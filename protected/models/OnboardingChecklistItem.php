@@ -160,14 +160,14 @@ class OnboardingChecklistItem extends AppActiveRecord {
 
     //find onboarding items to assign to new hirees
     public function findOnboardingItems($departmentId, $isManagerial) {
-        $sql = 'SELECT OCI.title AS "item_title", OCIM.id, OCI.is_managerial, OCIM.checklist_template_id, OCT.title, OCTM.department_id ';
+        $sql = 'SELECT OCI.title AS "item_title", OCIM.id AS "onboarding_checklist_items_mapping_id", OCI.is_managerial, OCIM.checklist_template_id, OCT.title, OCTM.department_id ';
         $sql .= 'FROM ' . self::$tableName . ' OCI ';
 	$sql .= 'INNER JOIN onboarding_checklist_items_mapping OCIM ON OCI.id = OCIM.checklist_item_id ';
 	$sql .= 'INNER JOIN onboarding_checklist_template OCT ON OCIM.checklist_template_id = OCT.id ';
 	$sql .= 'INNER JOIN onboarding_checklist_templates_mapping OCTM ON OCT.id = OCTM.onboarding_checklist_template_id ';
 	$sql .= 'WHERE OCI.is_managerial = ' . $isManagerial;
 	$sql .= ' AND OCTM.department_id = ' . $departmentId;
-        
+
         $objConnection = Yii::app()->db;
         $objCommand = $objConnection->createCommand($sql);
         $arrData = $objCommand->queryAll($sql);
