@@ -842,7 +842,6 @@ class RegistrationController extends Controller {
 	//to query what department the job belongs to
 	// $department = EmploymentJobOpening::model()->queryForCandidateDepartment($jobId);
 	$department = EmploymentJobOpening::model()->queryForCandidateInformation($jobId, EmploymentJobOpeningEnum::DEPARTMENT, EmploymentJobOpeningEnum::ID);
-
 	//we do the search and replacing of words here
 	//we need candidate id, address, candidate address, candidate position, superior, probationary salary, normal salary and also candidate name
 	//pick out the offer letter template based on $isManagerial and $department
