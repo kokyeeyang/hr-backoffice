@@ -564,33 +564,32 @@ class OnboardingController extends Controller {
 
 	    $onboardingChecklistItemsArr = OnboardingChecklistItem::model()->findOnboardingItems($departmentId, $isManagerial);
 	    
-	    foreach ($onboardingChecklistItemsArr as $onboardingChecklistItemsObj) {
-		$onboardingChecklistItemsUserMappingObjModel = new OnboardingChecklistItemsUserMapping;
-		$onboardingChecklistItemsUserMappingObjModel->onboarding_checklist_items_mapping_id = $onboardingChecklistItemsObj['onboarding_checklist_items_mapping_id'];
-		$onboardingChecklistItemsUserMappingObjModel->user_id = $adminObjModel->admin_id;
-		$onboardingChecklistItemsUserMappingObjModel->created_by = Yii::app()->user->id;
-		$onboardingChecklistItemsUserMappingObjModel->save();
+	    if($onboardingChecklistItemsArr != false && isset($onboardingChecklistItemsArr)){
+		foreach ($onboardingChecklistItemsArr as $onboardingChecklistItemsObj) {
+		    $onboardingChecklistItemsUserMappingObjModel = new OnboardingChecklistItemsUserMapping;
+		    $onboardingChecklistItemsUserMappingObjModel->onboarding_checklist_items_mapping_id = $onboardingChecklistItemsObj['onboarding_checklist_items_mapping_id'];
+		    $onboardingChecklistItemsUserMappingObjModel->user_id = $adminObjModel->admin_id;
+		    $onboardingChecklistItemsUserMappingObjModel->created_by = Yii::app()->user->id;
+		    $onboardingChecklistItemsUserMappingObjModel->save();
+		}
 	    }
 
 	    $trainingItemsArr = TrainingItem::model()->findTrainingItems($departmentId);
-	    foreach ($trainingItemsArr as $trainingItemsObj) {
-		$trainingItemsUserMappingObjModel = new TrainingItemsUserMapping;
-		$trainingItemsUserMappingObjModel->training_items_mapping_id = $trainingItemsObj['id'];
-		$trainingItemsUserMappingObjModel->user_id = $adminObjModel->admin_id;
-		$trainingItemsUserMappingObjModel->created_by = Yii::app()->user->id;
-		$trainingItemsUserMappingObjModel->save();
+	    
+	    if($trainingItemsArr != false && isset($trainingItemsArr)){
+		foreach ($trainingItemsArr as $trainingItemsObj) {
+		    $trainingItemsUserMappingObjModel = new TrainingItemsUserMapping;
+		    $trainingItemsUserMappingObjModel->training_items_mapping_id = $trainingItemsObj['id'];
+		    $trainingItemsUserMappingObjModel->user_id = $adminObjModel->admin_id;
+		    $trainingItemsUserMappingObjModel->created_by = Yii::app()->user->id;
+		    $trainingItemsUserMappingObjModel->save();
+		}
 	    }
-	var_dump('admin = ' . $adminObjModel);
-	var_dump('onboarding = ' . $onboardingChecklistItemsUserMappingObjModel);
-	var_dump('training = ' . $trainingItemsUserMappingObjModel);
+	    $this->redirect(array('viewSelectedCandidate'));
 	} else {
 	    throw new CHttpException(300, 'User already exist in system with the same name.');
 	}
 
-
-
-	exit;
-	//$onboardingChecklistItemsUserMappingObjModel = new OnboardingChecklistItemsUserMapping;
     }
 
 }

@@ -847,7 +847,7 @@ class RegistrationController extends Controller {
 	//we need candidate id, address, candidate address, candidate position, superior, probationary salary, normal salary and also candidate name
 	//pick out the offer letter template based on $isManagerial and $department
 	$offerLetterTemplate = EmploymentOfferLetterTemplates::model()->queryForOfferLetterTemplate($isManagerial, $department);
-
+var_dump($offerLetterTemplate);exit;
 	if ($offerLetterTemplate == '') {
 	    echo OfferLetterEnum::OFFER_LETTER_NOT_FOUND_WARNING;
 	}
