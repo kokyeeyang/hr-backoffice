@@ -1,4 +1,6 @@
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
 <div class="breadcrumb">
   <div class="breadcrumb_wrapper">
     <div class="breadcrumb-top">
@@ -18,10 +20,25 @@
 <div class="common_content_wrapper admin_form">
   <div class="common_content_inner_wrapper">
     <h4 class="widget_title">
-      <button class="w3-bar-item w3-button" onclick="openTab('usermanagement')">User Management</button>
-      <button class="w3-bar-item w3-button" onclick="openTab('training')">Training</button>
-      <button class="w3-bar-item w3-button" onclick="openTab('onboarding')">Onboarding</button>
+      <ul class="nav nav-tabs" style="height:50px;">
+	<button class="tablinks" onclick="openTab(event, 'usermanagement')">User Management</button>
+	<button class="tablinks" onclick="openTab(event, 'training')">Training</button>
+	<button class="tablinks" onclick="openTab(event, 'onboarding')">Onboarding</button>
+	<!--	<li><a href="#" onclick="openTab('usermanagement')">User Management</a></li>
+		<li><a href="#" onclick="openTab('training')">Training</a></li>
+		<li><a href="#" onclick="openTab('onboarding')">Onboarding</a></li>-->
+      </ul>
     </h4>
-    <?php $this->renderPartial('_form', array('objModel' => $objModel)); ?>
+    <div id="usermanagement" class="tabcontent">
+      <?php $this->renderPartial('_form', array('objModel' => $objModel)); ?>
+    </div>
+    <div id="onboarding" class="tabcontent">
+      <h3>Paris</h3>
+      <p>Paris is the capital of France.</p> 
+    </div>
+    <div id="training" class="tabcontent">
+      <h3>Paris</h3>
+      <p>Paris is the capital of France.</p> 
+    </div>
   </div>
 </div>
