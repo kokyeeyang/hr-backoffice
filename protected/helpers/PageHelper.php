@@ -297,7 +297,7 @@ class PageHelper {
 	$tableBody .= '</tr>';
 	$tableBody .= '</thead>';
 	$tableBody .= '<tbody>';
-	
+
 	foreach($dataObjects as $dataObject){
 	    foreach ($columnDetails as $columnDetail) {
 		$tableBody .= '<td>';

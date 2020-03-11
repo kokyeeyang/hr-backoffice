@@ -85,7 +85,8 @@
       <?php $this->renderPartial('_form', array('objModel' => $objModel)); ?>
     </div>
     <div id="onboarding" class="tabcontent">
-      <?php echo PageHelper::printTemplateItems($onboardingTab,$onboardingChecklistItems); ?>
+      <?php var_dump ($onboardingChecklistItems); ?>
+      <?php //echo PageHelper::printTemplateItems($onboardingTab,$onboardingChecklistItems); ?>
     </div>
     <div id="training" class="tabcontent">
       <h3>Training stuff</h3>

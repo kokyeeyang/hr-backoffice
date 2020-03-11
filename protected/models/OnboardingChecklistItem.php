@@ -180,12 +180,16 @@ class OnboardingChecklistItem extends AppActiveRecord {
     }
     
     public function findOnboardingItemsForThisUser($userId){
-	$sql = 'SELECT OCI.title AS "item_title", OCIM.id AS "onboarding_checklist_items_mapping_id", OCI.is_managerial, OCIM.checklist_template_id, OCT.title, OCTM.department_id ';
+//	$sql = 'SELECT OCI.title AS "item_title", OCIM.id AS "onboarding_checklist_items_mapping_id", OCI.is_managerial, OCIM.checklist_template_id, OCT.title, OCI.department_owner ';
+	$sql = 'SELECT OCI.title AS "item_title", OCIM.id AS "onboarding_checklist_items_mapping_id", OCIM.checklist_template_id, OCT.title, D.title, ';
+	$sql .= 'OCI.is_offboarding_item, ';
+	$sql .= 'CASE WHEN OCI.is_managerial = 1 THEN "Yes" IF OCI.is_managerial = 0 THEN "No" END AS "is_managerial" ';
         $sql .= 'FROM ' . self::$tableName . ' OCI ';
 	$sql .= 'INNER JOIN onboarding_checklist_items_mapping OCIM ON OCI.id = OCIM.checklist_item_id ';
 	$sql .= 'INNER JOIN onboarding_checklist_template OCT ON OCIM.checklist_template_id = OCT.id ';
 	$sql .= 'INNER JOIN onboarding_checklist_templates_mapping OCTM ON OCT.id = OCTM.onboarding_checklist_template_id ';
 	$sql .= 'INNER JOIN onboarding_checklist_items_user_mapping OCIUM ON OCIM.id = OCIUM.onboarding_checklist_items_mapping_id ';
+	$sql .= 'INNER JOIN department D ON OCI.department_owner = D.id ';
 	$sql .= 'WHERE OCIUM.user_id = ' . $userId;
 	
 	$objConnection = Yii::app()->db;
