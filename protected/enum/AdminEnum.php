@@ -6,5 +6,7 @@ Class AdminEnum {
 	const SAVE_BUTTON = 'Save';
 	const UPDATE_BUTTON = 'Update';
 	const DEPARTMENT_TABLE = 'Department';
+	const NEW_ONBOARDING = 'New Onboarding';
+	const NEW_TRAINING = 'New Training';
 
 }

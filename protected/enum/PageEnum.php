@@ -196,6 +196,12 @@ class PageEnum {
 	    "column-link-to-details" => "title",
 	    "form-action-view-selected" => "training/viewSelectedTrainingTemplate",
 	    "msg-foreign-key" => ""
+	),
+	//this is not for show all page
+	//for onboarding items for new hirees
+	"New Onboarding" =>
+	array(
+	    "table-header" => array("Title", "Description", "Department Owner", "Is Managerial", "Is Offboarding Item")
 	)
     );
 

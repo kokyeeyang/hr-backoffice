@@ -212,9 +212,10 @@ class AdminController extends Controller {
 		echo(json_encode($aResult));
 		Yii::app()->end();
 	    } else {
+		$onboardingTab = AdminEnum::NEW_ONBOARDING;
 		$objModel->admin_password = '';
 		$objModel->admin_display_name = Validator::decodetag($objModel->admin_display_name);
-		$aResult['content'] = $this->renderPartial('edit', array('objModel' => $objModel), true);
+		$aResult['content'] = $this->renderPartial('edit', array('objModel' => $objModel, 'onboardingTab' => $onboardingTab), true);
 	    }
 
 	    if (!empty($aResult['content'])) {

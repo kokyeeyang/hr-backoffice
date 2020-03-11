@@ -283,5 +283,33 @@ class PageHelper {
 
 	return $alertMessage;
     }
+    
+    public static function printTemplateItems($pageType){
+	
+	$formData = PageEnum::FORM_DATA[$pageType];
+	$tableHeaders = $formData['table-headers'];
+	
+	$tableBody = '<table class="widget_table grid">';
+	$tableBody .= '<tr>';
+	
+	foreach($tableHeaders as $tableHeader){
+	    
+	    $tableBody .= '<th>';
+	    $tableBody .= '<div class="sort_wrapper_inner">';
+	    $tableBody .= '<div class="sort_label_wrapper">';
+	    $tableBody .= '<div class="sort_label">';
+	    //put table header here
+	    $tableBody .= $tableHeader;
+	    $tableBody .= '</div>';
+	    $tableBody .= '</div>';
+	    $tableBody .= '</div>';
+	    $tableBody .= '</th>';
+	}
+	$tableBody .= '</tr>';
+	$tableBody .= '</table>';
+	    
+	    
+	   
+    }
 
 }
