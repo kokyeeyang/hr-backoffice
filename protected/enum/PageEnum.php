@@ -202,7 +202,7 @@ class PageEnum {
 	"New Onboarding" =>
 	array(
 	    "table-header" => array("Title", "Description", "Department Owner", "Is Managerial", "Is Offboarding Item", ""),
-	    "column-details" => array("item_title", "description", "department_owner", "")
+	    "column-details" => array("item_title", "description", "department_owner", "is_offboarding_item")
 	)
     );
 

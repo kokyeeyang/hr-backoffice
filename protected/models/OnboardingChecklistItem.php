@@ -185,7 +185,7 @@ class OnboardingChecklistItem extends AppActiveRecord {
 	$sql .= 'INNER JOIN onboarding_checklist_items_mapping OCIM ON OCI.id = OCIM.checklist_item_id ';
 	$sql .= 'INNER JOIN onboarding_checklist_template OCT ON OCIM.checklist_template_id = OCT.id ';
 	$sql .= 'INNER JOIN onboarding_checklist_templates_mapping OCTM ON OCT.id = OCTM.onboarding_checklist_template_id ';
-	$sql .= 'INNER JOIN onboarding_checklist_items_user_mapping OCIUM ON OCIM.id = OCIUM.onboarding_checklist_items_mapping_id';
+	$sql .= 'INNER JOIN onboarding_checklist_items_user_mapping OCIUM ON OCIM.id = OCIUM.onboarding_checklist_items_mapping_id ';
 	$sql .= 'WHERE OCIUM.user_id = ' . $userId;
 	
 	$objConnection = Yii::app()->db;
