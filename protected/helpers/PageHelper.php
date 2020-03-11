@@ -290,6 +290,9 @@ class PageHelper {
 	$formData = PageEnum::FORM_DATA[$pageType];
 	$tableHeaders = $formData['table-header'];
 	$columnDetails = $formData['column-details'];
+	$deleteButtonClass = $formData['delete-button-class'];
+	$deleteSpanClass = $formData['delete-span-class'];
+	
 	$tableBody = '<table class="widget_table grid">';
 	$tableBody .= '<thead>';
 	$tableBody .= '<tr>';
@@ -297,15 +300,21 @@ class PageHelper {
 	$tableBody .= '</tr>';
 	$tableBody .= '</thead>';
 	$tableBody .= '<tbody>';
-
-	foreach($dataObjects as $dataObject){
-	    foreach ($columnDetails as $columnDetail) {
-		$tableBody .= '<td>';
-		$tableBody .= $dataObject[$columnDetail];
-		$tableBody .= '</td>';
-	    }
-	}
 	
+//	if ($dataObjects != null && isset($dataObjects)){
+//	    foreach ($dataObjects as $dataObject) {
+//		$tableBody .= '<tr>';
+//		foreach ($columnDetails as $columnDetail) {
+//		    $tableBody .= '<td>';
+//		    $tableBody .= $dataObject[$columnDetail];
+//		    $tableBody .= '</td>';
+//		}
+//		$tableBody .= '</tr>';
+//	    }
+//	}
+	
+	$tableBody .= self::prepareTableDataForTemplateItems($dataObjects, $columnDetails, $deleteButtonClass, $deleteSpanClass);
+
 	$tableBody .= '</tbody>';
 	$tableBody .= '</table>';
 
@@ -327,6 +336,25 @@ class PageHelper {
 	    $tableBody .= '</th>';
 	}
 	return $tableBody;
+    }
+    
+    private static function prepareTableDataForTemplateItems($dataObjects, $columnDetails, $deleteButtonClass, $deleteSpanClass){
+	$tableBody = "";
+	if ($dataObjects != null && isset($dataObjects)){
+	    foreach ($dataObjects as $dataObject) {
+		$tableBody .= '<tr>';
+		foreach ($columnDetails as $columnDetail) {
+		    $tableBody .= '<td>';
+		    $tableBody .= $dataObject[$columnDetail];
+		    $tableBody .= '</td>';
+		}
+		$tableBody .= '<td class="' . $deleteButtonClass . '">';
+		$tableBody .= '<a href="#"><span class="' . $deleteSpanClass . '" title="Remove this item">&#x2716;</span></a>';
+		$tableBody .= '</td>';
+		$tableBody .= '</tr>';
+	    }
+	    return $tableBody;
+	}
     }
 
 }
