@@ -19,8 +19,8 @@
 </div>
 <div class="common_content_wrapper admin_form">
   <div class="common_content_inner_wrapper">
-    <h4 class="widget_title">
-      <ul class="nav nav-tabs" style="height:50px;">
+    <h4 class="widget_title" style="height:40px;">
+      <ul class="nav nav-tabs">
 	<button class="tablinks" onclick="openTab(event, 'usermanagement')">User Management</button>
 	<button class="tablinks" onclick="openTab(event, 'training')">Training</button>
 	<button class="tablinks" onclick="openTab(event, 'onboarding')">Onboarding</button>
