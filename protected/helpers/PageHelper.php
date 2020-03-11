@@ -287,13 +287,20 @@ class PageHelper {
     public static function printTemplateItems($pageType){
 	
 	$formData = PageEnum::FORM_DATA[$pageType];
-	$tableHeaders = $formData['table-headers'];
+	$tableHeaders = $formData['table-header'];
 	
 	$tableBody = '<table class="widget_table grid">';
 	$tableBody .= '<tr>';
-	
-	foreach($tableHeaders as $tableHeader){
+	$tableBody .= self::prepareTableHeaderForTemplateItems($tableHeaders);
+	$tableBody .= '</tr>';
+	$tableBody .= '</table>';
 	    
+	return $tableBody;
+    }
+    
+    private static function prepareTableHeaderForTemplateItems($tableHeaders){
+	$tableBody = "";
+	foreach($tableHeaders as $tableHeader){
 	    $tableBody .= '<th>';
 	    $tableBody .= '<div class="sort_wrapper_inner">';
 	    $tableBody .= '<div class="sort_label_wrapper">';
@@ -305,11 +312,7 @@ class PageHelper {
 	    $tableBody .= '</div>';
 	    $tableBody .= '</th>';
 	}
-	$tableBody .= '</tr>';
-	$tableBody .= '</table>';
-	    
-	    
-	   
+	return $tableBody;
     }
 
 }

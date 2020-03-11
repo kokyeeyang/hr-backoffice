@@ -178,5 +178,15 @@ class OnboardingChecklistItem extends AppActiveRecord {
             return false;
         }
     }
+    
+    public function findOnboardingItemsForThisUser($userId){
+	$sql = 'SELECT OCI.title AS "item_title", OCIM.id AS "onboarding_checklist_items_mapping_id", OCI.is_managerial, OCIM.checklist_template_id, OCT.title, OCTM.department_id ';
+        $sql .= 'FROM ' . self::$tableName . ' OCI ';
+	$sql .= 'INNER JOIN onboarding_checklist_items_mapping OCIM ON OCI.id = OCIM.checklist_item_id ';
+	$sql .= 'INNER JOIN onboarding_checklist_template OCT ON OCIM.checklist_template_id = OCT.id ';
+	$sql .= 'INNER JOIN onboarding_checklist_templates_mapping OCTM ON OCT.id = OCTM.onboarding_checklist_template_id ';
+	$sql .= 'INNER JOIN onboarding_checklist_items_user_mapping OCIUM ON OCTM.id = OCIUM.onboarding_checklist_items_mapping_id';
+	$sql .= 'WHERE OCIUM.user_id = ' . $userId;
+    }
 
 }

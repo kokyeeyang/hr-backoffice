@@ -66,6 +66,7 @@ class Admin extends AppActiveRecord {
 	    'admin_password' => Yii::t('app', 'Password'),
 	    'admin_status' => Yii::t('app', 'Status'),
 	    'admin_priv' => Yii::t('app', 'Privilege'),
+	    'admin_email_address' => Yii::t('app', 'Email Address'),
 	    'admin_login_retry_times' => Yii::t('app', 'Login Attempts'),
 	    'admin_display_name' => Yii::t('app', 'Name'),
 	    'admin_last_login' => Yii::t('app', 'Last Login')

@@ -1257,7 +1257,7 @@ class RegistrationController extends Controller {
 	}
     }
 
-    public function actionAssignItemsAndUserAccess($candidateId, $departmentId, $fullName, $isManagerial) {
+    public function actionAssignItemsAndUserAccess($candidateId, $departmentId, $fullName, $isManagerial, $emailAddress) {
 	//takes in department_id, is_managerial, candidate_id as params
 	//so, involves data from onboarding_checklist_templates_mapping(departmentId), onboarding_checklist_items(isManagerial) do inner join
 	//then assign it to admin_id after generating user
@@ -1268,6 +1268,7 @@ class RegistrationController extends Controller {
 	if (Admin::model()->checkUsernameExist($userName) === false) {
 	    $adminObjModel = new Admin;
 	    $adminObjModel->admin_username = $userName;
+	    $adminObjModel->admin_email_address = $emailAddress;
 	    $adminObjModel->admin_password = sha1(implode('', $randomPassword));
 	    $adminObjModel->admin_display_name = $fullName;
 	    $adminObjModel->admin_status = $adminStatus;
@@ -1295,7 +1296,6 @@ class RegistrationController extends Controller {
 		    $onboardingChecklistItemsUserMappingObjModel->save();
 		}
 	    }
-
 	    $trainingItemsArr = TrainingItem::model()->findTrainingItems($departmentId);
 
 	    if ($trainingItemsArr != false && isset($trainingItemsArr)) {
