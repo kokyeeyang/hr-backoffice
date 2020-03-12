@@ -196,6 +196,12 @@ var Admin = function () {
     document.getElementById(cityName).style.display = "block";
     evt.currentTarget.className += " active";
   }
+  
+  function _initRemoveOnboardingChecklistItem() {
+    $('td.removeItemButton a').unbind('click').click(function (objEvent) {
+      console.log('hello');
+    });
+  }
 
   function _init() {
     $(function () {
@@ -217,6 +223,7 @@ var Admin = function () {
     get_admin_list: _get_admin_list,
     get_admin_form: _get_admin_form,
     submit_admin_form: _submit_admin_form,
+    initRemoveOnboardingChecklistItem: _initRemoveOnboardingChecklistItem,
     init: _init
   }
 }();

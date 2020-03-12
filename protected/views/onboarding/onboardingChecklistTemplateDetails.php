@@ -19,7 +19,7 @@
   <div class="common_content_inner_wrapper">
     <form method="post" enctype="multipart/form-data" id="onboardingChecklistTemplateForm" name="onboardingChecklistTemplateForm" action="<?php echo $formAction; ?>">
       <div id="offer-letter-template-input" style="margin-bottom:10px; margin-top: 10px;">
-	<input type="hidden" id="hiddenVal" value="0"/>
+	<input type="hidden" id="hiddenVal" value="<?php echo isset($onboardingItemArrRecord)?count($onboardingItemArrRecord):0; ?>"/>
 	<input type="hidden" name="templateId" value="<?php echo isset($templateId) ? $templateId : ''; ?>">
 	<fieldset class="fieldset">
 	  <legend class="legend">
@@ -150,8 +150,8 @@
 			<td class="isOffboardingItem">
 			  <?php echo $onboardingItemObjRecord['is_offboarding_item']; ?>
 			</td>
-			<td class="removeOnboardingItemButton">
-			  <a href="#"><span class="removeOnboardingItemButton" title="Remove this item">&#x2716;</span></a>
+			<td class="removeItemButton">
+			  <a href="#"><span class="removeItemButton" title="Remove this item">&#x2716;</span></a>
 			</td>
 		      </tr>
 		      <?php
