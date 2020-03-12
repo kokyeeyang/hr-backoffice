@@ -20,7 +20,7 @@ var TrainingViewSelectedTrainingTemplate = function(){
             var objRow = $(objElement).closest('tr');
             objRow.find('.itemDescription').text(description);
             objRow.find('.itemResponsibility').text(responsibility);
-            objRow.find('span.removeTrainingItemButton').html(remove_logo);
+            objRow.find('span.removeItemButton').html(remove_logo);
           }
         }
       });
@@ -30,7 +30,7 @@ var TrainingViewSelectedTrainingTemplate = function(){
   function _append_new_training_item(objElement, objEvent){
     var dataTable = $('#data_table');
 
-    var appendRow = $('tr.appendTrainingItemTr');
+    var appendRow = $('tr.appendItemTr');
 
     //deciding to put list_even or list_odd for the front end
     var counter = parseInt($('#hiddenVal').val());
@@ -39,11 +39,11 @@ var TrainingViewSelectedTrainingTemplate = function(){
     var numberAfterModulus = counter%2;
 
     if (numberAfterModulus == 1){
-      var clonedRow = $(appendRow).clone().attr('class', 'appendedTrainingItemTr list_odd').show().appendTo(dataTable);
-      $(clonedRow).find('.selectTrainingItemTitle').attr('name', 'appended trainingItemDropdown ' + counter);
+      var clonedRow = $(appendRow).clone().attr('class', 'appendedItemTr list_odd').show().appendTo(dataTable);
+      $(clonedRow).find('.selectItemTitle').attr('name', 'appended itemDropdown ' + counter);
     } else {
-      var clonedRow = $(appendRow).clone().attr('class', 'appendedTrainingItemTr list_even').show().appendTo(dataTable);
-      $(clonedRow).find('.selectTrainingItemTitle').attr('name', 'appended trainingItemDropdown ' + counter);
+      var clonedRow = $(appendRow).clone().attr('class', 'appendedItemTr list_even').show().appendTo(dataTable);
+      $(clonedRow).find('.selectItemTitle').attr('name', 'appended itemDropdown ' + counter);
     }
 
     // need to reinitiate the dropdown for training title and the remove button after appending
@@ -60,32 +60,32 @@ var TrainingViewSelectedTrainingTemplate = function(){
   }
   
   function _initTrainingItemDropdown(){
-    $('select[class="selectTrainingItemTitle"]').unbind('change').change(function(objEvent) {
+    $('select[class="selectItemTitle"]').unbind('change').change(function(objEvent) {
       TrainingViewSelectedTrainingTemplate.render_training_item_details(this, objEvent);
-      $('.updateTrainingTemplateButton').prop('disabled', false);
+      $('.updateTemplateButton').prop('disabled', false);
     });
   }
   
   function _initInputBoxes(){
     $('input.inputBoxes').unbind('keypress').keypress(function(objEvent) {
-      $('.updateTrainingTemplateButton').prop('disabled', false);
+      $('.updateTemplateButton').prop('disabled', false);
     });
   }
   
   function _initTextArea(){
     $('textarea#templateDescription').unbind('keypress').keypress(function(objEvent) {
-      $('.updateTrainingTemplateButton').prop('disabled', false);
+      $('.updateTemplateButton').prop('disabled', false);
     });
   }
   
   function _initAppendNewTrainingItem(){
-    $(':button#appendTrainingItem').unbind('click').click(function(objEvent){
+    $(':button#appendItem').unbind('click').click(function(objEvent){
       TrainingViewSelectedTrainingTemplate.append_new_training_item(this, objEvent);
     });
   }
   
   function _initRemoveTrainingItem(){
-    $('td.removeTrainingItemButton a').unbind('click').click(function(objEvent){
+    $('td.removeItemButton a').unbind('click').click(function(objEvent){
       TrainingViewSelectedTrainingTemplate.remove_training_item_row(this, objEvent);
     });
   }

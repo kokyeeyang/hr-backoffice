@@ -385,7 +385,7 @@ class TrainingController extends Controller {
 	$header = Yii::t('app', 'Edit Training Template');
 	$formAction = $this->createUrl('training/updateTrainingTemplate');
 	$buttonShortTitle = Yii::t('app', 'Update');
-	$buttonClass = Yii::t('app', 'updateTrainingTemplateButton');
+	$buttonClass = Yii::t('app', 'updateTemplateButton');
 	$buttonTitle = Yii::t('app', 'Update this template');
 	$templateId = $this->getParam('id', '', '', 'get');
 	

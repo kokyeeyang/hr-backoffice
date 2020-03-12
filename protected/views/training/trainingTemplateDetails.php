@@ -108,9 +108,9 @@
 	      if (isset($trainingItemsInTemplate) && $trainingItemsInTemplate != false) {
 		  ?>
 		  <?php foreach ($trainingItemsInTemplate as $trainingItemInTemplate) { ?>
-		      <tr class="trainingItemTr">
-			<td class="trainingItemTd">
-			  <select name="trainingItemDropdown <?php echo $counter; ?>" size=1 class="selectTrainingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
+		      <tr class="itemTr">
+			<td class="itemTd">
+			  <select name="itemDropdown <?php echo $counter; ?>" size=1 class="selectItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
 			    <option value="">Choose here</option>
 			    <?php foreach ($trainingItemTitleArrRecord as $intIndex => $trainingItemTitleObjRecord) { ?>
 				<?php $trainingItemTitleObjRecord['title'] === $trainingItemInTemplate['title'] ? $selected = "selected" : $selected = ''; ?>
@@ -126,8 +126,8 @@
 			<td class="itemResponsibility">
 			  <?php echo $trainingItemInTemplate['responsibility']; ?>
 			</td>
-			<td class="removeTrainingItemButton">
-			  <a href="#"><span class="removeTrainingItemButton" title="Remove this item">&#x2716;</span></a>
+			<td class="removeItemButton">
+			  <a href="#"><span class="removeItemButton" title="Remove this item">&#x2716;</span></a>
 			</td>
 		      </tr>
 		      <?php
@@ -135,9 +135,9 @@
 		  }
 		  ?>
 	      <?php } ?>
-	      <tr class="appendTrainingItemTr" style="display:none;">
-		<td class="trainingItemTd">
-		  <select name="appendTrainingItemDropdown" size=1 class="selectTrainingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
+	      <tr class="appendItemTr" style="display:none;">
+		<td class="itemTd">
+		  <select name="appendItemDropdown" size=1 class="selectItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
 		    <option value="" selected>Choose here</option>
 		    <?php if ($trainingItemTitleArrRecord != null) { ?>
 			<?php foreach ($trainingItemTitleArrRecord as $intIndex => $trainingItemTitleObjRecord) { ?>
@@ -152,8 +152,8 @@
 		</td>
 		<td class="itemResponsibility">
 		</td>
-		<td class="removeTrainingItemButton">
-		  <a href="#"><span class="removeTrainingItemButton" title="Remove this item"></span></a>
+		<td class="removeItemButton">
+		  <a href="#"><span class="removeItemButton" title="Remove this item"></span></a>
 		</td>
 	      </tr>
 	    </tbody>
@@ -162,7 +162,7 @@
 	  <!-- would need ajax to append a dropdown to add training items -->
 	  <!-- would need to pass php array containing all the training items that are available in the database into a dropdown menu for users to choose-->
 	  <!-- ajax would then populate the data for the training item that the user chose -->
-	  <button type="button" id="appendTrainingItem" title="Add more training items to this template">+</button>
+	  <button type="button" id="appendItem" title="Add more training items to this template">+</button>
 	</fieldset>
 	<button title="<?php echo $buttonTitle; ?>" class="<?php echo $buttonClass; ?>" <?php isset($templateId) ? $disabledStatus = '' : $disabledStatus = 'disabled'; ?> <?php echo $disabledStatus ?>><?php echo $buttonShortTitle; ?></button>
       </div>
