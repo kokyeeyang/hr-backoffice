@@ -401,6 +401,7 @@ class TrainingController extends Controller {
 	$conditionForTrainingItemsInTemplate = 'TIM.training_template_id = ' . $trainingTemplateId;
 	
 	$trainingItemsInTemplate = TrainingItem::model()->findTrainingItemDetails($conditionForTrainingItemsInTemplate, true);
+	$numberOfTrainingItems = count($trainingItemsInTemplate);
 
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'trainingTemplateForm' && Yii::app()->request->isAjaxRequest){
 	    $aResult = [];
@@ -445,7 +446,7 @@ class TrainingController extends Controller {
 	$templateId = $this->getParam('templateId', '');
 	$arrayKeys = array_keys($_POST);
 	foreach ($arrayKeys as $arrayKey) {
-	    $match = preg_match('%trainingItemDropdown%', $arrayKey);
+	    $match = preg_match('%itemDropdown%', $arrayKey);
 	}
 
 	$updateCondition = 'id = ' . $templateId;
@@ -458,7 +459,7 @@ class TrainingController extends Controller {
 	TrainingItemsMapping::model()->deleteAll($condition);
 
 	foreach ($arrayKeys as $arrayKey) {
-	    $match = preg_match('%trainingItemDropdown%', $arrayKey);
+	    $match = preg_match('%itemDropdown%', $arrayKey);
 	    if ($match != null && $this->getParam($arrayKey, '') != null) {
 		$trainingItemsMappingObjModel = new TrainingItemsMapping;
 		$trainingItemsMappingObjModel->training_item_id = $this->getParam($arrayKey, '');

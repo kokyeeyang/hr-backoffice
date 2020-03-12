@@ -365,7 +365,7 @@ class OnboardingController extends Controller {
 	$templateDepartments = $this->getParam('department', '');
 	$arrayKeys = array_keys($_POST);
 	foreach ($arrayKeys as $arrayKey) {
-	    $match = preg_match('%onboardingItemDropdown%', $arrayKey);
+	    $match = preg_match('%itemDropdown%', $arrayKey);
 	}
 
 	$updateCondition = 'id = ' . $templateId;
@@ -388,7 +388,7 @@ class OnboardingController extends Controller {
 	}
 
 	foreach ($arrayKeys as $arrayKey) {
-	    $match = preg_match('%onboardingItemDropdown%', $arrayKey);
+	    $match = preg_match('%itemDropdown%', $arrayKey);
 	    if ($match != null && $this->getParam($arrayKey, '') != null) {
 		$onboardingItemMappingObjModel = new OnboardingChecklistItemsMapping;
 		$onboardingItemMappingObjModel->checklist_item_id = $this->getParam($arrayKey, '');
@@ -469,7 +469,7 @@ class OnboardingController extends Controller {
 	$onboardingItemTitleArrRecord = OnboardingChecklistItem::model()->queryForOnboardingItemTitles();
 
 	$onboardingItemArrRecord = OnboardingChecklistItem::model()->findAllOnboardingItemsInTemplate($templateId);
-
+	
 	$onboardingTemplateObjRecord = OnboardingChecklistTemplate::model()->viewSelectedOnboardingChecklistTemplateDetails($templateId);
 
 	$formAction = $this->createUrl('onboarding/updateOnboardingChecklistTemplate');
@@ -479,7 +479,7 @@ class OnboardingController extends Controller {
 	$title = Yii::t('app', 'Edit onboarding checklist template');
 	$widgetTitle = Yii::t('app', 'Edit onboarding checklist template');
 	$buttonShortTitle = Yii::t('app', 'Update');
-	$buttonClass = Yii::t('app', 'updateOnboardingChecklistTemplateButton');
+	$buttonClass = Yii::t('app', 'updateTemplateButton');
 	$buttonTitle = Yii::t('app', 'Update this template');
 
 	$departmentId = 'id';

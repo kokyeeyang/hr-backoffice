@@ -26,7 +26,7 @@ var OnboardingViewSelectedOnboardingChecklistTemplate = function () {
             objRow.find('.departmentOwner').text(department_owner);
             objRow.find('.isManagerial').text(is_managerial);
             objRow.find('.isOffboardingItem').text(is_offboarding_item);
-            objRow.find('span.removeOnboardingItemButton').html(remove_logo);
+            objRow.find('span.removeItemButton').html(remove_logo);
           }
         }
       });
@@ -36,7 +36,7 @@ var OnboardingViewSelectedOnboardingChecklistTemplate = function () {
   function _append_new_onboarding_checklist_item(objElement, objEvent) {
     var dataTable = $('#data_table');
 
-    var appendRow = $('tr.appendOnboardingItemTr');
+    var appendRow = $('tr.appendItemTr');
 
     //deciding to put list_even or list_odd for the front end
     var counter = $('#hiddenVal').val();
@@ -45,11 +45,11 @@ var OnboardingViewSelectedOnboardingChecklistTemplate = function () {
     var numberAfterModulus = counter % 2;
 
     if (numberAfterModulus == 1) {
-      var clonedRow = $(appendRow).clone().attr('class', 'appendedOnboardingItemTr list_odd').show().appendTo(dataTable);
-      $(clonedRow).find('.selectOnboardingItemTitle').attr('name', 'appended onboardingItemDropdown ' + counter);
+      var clonedRow = $(appendRow).clone().attr('class', 'appendedItemTr list_even').show().appendTo(dataTable);
+      $(clonedRow).find('.selectItemTitle').attr('name', 'appended itemDropdown ' + counter);
     } else {
-      var clonedRow = $(appendRow).clone().attr('class', 'appendedOnboardingItemTr list_even').show().appendTo(dataTable);
-      $(clonedRow).find('.selectOnboardingItemTitle').attr('name', 'appended onboardingItemDropdown ' + counter);
+      var clonedRow = $(appendRow).clone().attr('class', 'appendedItemTr list_odd').show().appendTo(dataTable);
+      $(clonedRow).find('.selectItemTitle').attr('name', 'appended itemDropdown ' + counter);
     }
 
     // need to reinitiate the dropdown for onboarding title and the remove button after appending
@@ -60,7 +60,7 @@ var OnboardingViewSelectedOnboardingChecklistTemplate = function () {
   function _remove_onboarding_checklist_item_row(objElement, objEvent) {
     var rowToBeRemoved = $(objElement).closest('tr');
     $(rowToBeRemoved).remove();
-    $('.updateOnboardingChecklistTemplateButton').prop('disabled', false);
+    $('.updateTemplateButton').prop('disabled', false);
 
     var counter = parseInt($('#hiddenVal').val());
     counter--;
@@ -69,39 +69,33 @@ var OnboardingViewSelectedOnboardingChecklistTemplate = function () {
 
   function _initInputBoxes() {
     $('input#templateTitle').unbind('keypress').keypress(function (objEvent) {
-      $('.updateOnboardingChecklistTemplateButton').prop('disabled', false);
+      $('.updateTemplateButton').prop('disabled', false);
     });
   }
 
   function _initTextArea() {
     $('textarea#templateDescription').unbind('keypress').keypress(function (objEvent) {
-      $('.updateOnboardingChecklistTemplateButton').prop('disabled', false);
+      $('.updateTemplateButton').prop('disabled', false);
     });
   }
   
   function _initOnboardingItemDropdown() {
-    $('select[class="selectOnboardingItemTitle"]').unbind('change').change(function (objEvent) {
+    $('select[class="selectItemTitle"]').unbind('change').change(function (objEvent) {
       OnboardingViewSelectedOnboardingChecklistTemplate.render_onboarding_checklist_item_details(this, objEvent);
-      $('.updateOnboardingChecklistTemplateButton').prop('disabled', false);
+      $('.updateTemplateButton').prop('disabled', false);
     });
   }
 
   function _initAppendNewOnboardingChecklistItem() {
-    $(':button#appendOnboardingItem').unbind('click').click(function (objEvent) {
+    $(':button#appendItem').unbind('click').click(function (objEvent) {
       OnboardingViewSelectedOnboardingChecklistTemplate.append_new_onboarding_checklist_item(this, objEvent);
     });
   }
 
   function _initRemoveOnboardingChecklistItem() {
-    $('td.removeOnboardingItemButton a').unbind('click').click(function (objEvent) {
+    $('td.removeItemButton a').unbind('click').click(function (objEvent) {
       OnboardingViewSelectedOnboardingChecklistTemplate.remove_onboarding_checklist_item_row(this, objEvent);
 
-    });
-  }
-
-  function _initDeleteOnboardingChecklistItem() {
-    $('td.deleteOnboardingItemButton a').unbind('click').click(function (objEvent) {
-      OnboardingViewSelectedOnboardingChecklistTemplate.delete_onboarding_checklist_item_record(this, objEvent);
     });
   }
 
@@ -110,7 +104,6 @@ var OnboardingViewSelectedOnboardingChecklistTemplate = function () {
       OnboardingViewSelectedOnboardingChecklistTemplate.initOnboardingItemDropdown();
       OnboardingViewSelectedOnboardingChecklistTemplate.initAppendNewOnboardingChecklistItem();
       OnboardingViewSelectedOnboardingChecklistTemplate.initRemoveOnboardingChecklistItem();
-      OnboardingViewSelectedOnboardingChecklistTemplate.initDeleteOnboardingChecklistItem();
       OnboardingViewSelectedOnboardingChecklistTemplate.initTextArea();
       OnboardingViewSelectedOnboardingChecklistTemplate.initInputBoxes();
     });
@@ -121,7 +114,6 @@ var OnboardingViewSelectedOnboardingChecklistTemplate = function () {
     initOnboardingItemDropdown: _initOnboardingItemDropdown,
     initAppendNewOnboardingChecklistItem: _initAppendNewOnboardingChecklistItem,
     initRemoveOnboardingChecklistItem: _initRemoveOnboardingChecklistItem,
-    initDeleteOnboardingChecklistItem: _initDeleteOnboardingChecklistItem,
     initTextArea: _initTextArea,
     initInputBoxes: _initInputBoxes,
     render_onboarding_checklist_item_details: _render_onboarding_checklist_item_details,

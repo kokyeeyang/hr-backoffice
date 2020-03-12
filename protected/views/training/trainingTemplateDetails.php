@@ -19,7 +19,7 @@
   <div class="common_content_inner_wrapper">
     <form method="post" enctype="multipart/form-data" id="trainingTemplateForm" name="trainingTemplateForm" action="<?php echo $formAction; ?>">
       <div id="offer-letter-template-input" style="margin-bottom:10px; margin-top: 10px;">
-	<input type="hidden" id="hiddenVal" value="0"/>
+	<input type="hidden" id="hiddenVal" value="<?php echo isset($trainingItemsInTemplate)?count($trainingItemsInTemplate):0; ?>"/>
 	<input type="hidden" name="templateId" value="<?php echo isset($templateId) ? $templateId : ''; ?>">
 	<fieldset class="fieldset">
 	  <legend class="legend">

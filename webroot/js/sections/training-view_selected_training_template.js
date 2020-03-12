@@ -39,10 +39,10 @@ var TrainingViewSelectedTrainingTemplate = function(){
     var numberAfterModulus = counter%2;
 
     if (numberAfterModulus == 1){
-      var clonedRow = $(appendRow).clone().attr('class', 'appendedItemTr list_odd').show().appendTo(dataTable);
+      var clonedRow = $(appendRow).clone().attr('class', 'appendedItemTr list_even').show().appendTo(dataTable);
       $(clonedRow).find('.selectItemTitle').attr('name', 'appended itemDropdown ' + counter);
     } else {
-      var clonedRow = $(appendRow).clone().attr('class', 'appendedItemTr list_even').show().appendTo(dataTable);
+      var clonedRow = $(appendRow).clone().attr('class', 'appendedItemTr list_odd').show().appendTo(dataTable);
       $(clonedRow).find('.selectItemTitle').attr('name', 'appended itemDropdown ' + counter);
     }
 
@@ -56,7 +56,9 @@ var TrainingViewSelectedTrainingTemplate = function(){
     $(rowToBeRemoved).remove();
     
     var counter = parseInt($('#hiddenVal').val());
+    
     counter --;
+    $('#hiddenVal').val(counter);
   }
   
   function _initTrainingItemDropdown(){

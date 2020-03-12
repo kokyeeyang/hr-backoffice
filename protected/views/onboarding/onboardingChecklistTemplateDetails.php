@@ -126,9 +126,9 @@
 	      if (isset($onboardingItemArrRecord) && $onboardingItemArrRecord != false) {
 		  ?>
 		  <?php foreach ($onboardingItemArrRecord as $onboardingItemObjRecord) { ?>
-		      <tr class="onboardingItemTr">
-			<td class="onboardingItemTd">
-			  <select name="onboardingItemDropdown <?php echo $counter; ?>" size=1 class="selectOnboardingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
+		      <tr class="itemTr">
+			<td class="itemTd">
+			  <select name="itemDropdown <?php echo $counter; ?>" size=1 class="selectItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
 			    <option value="">Choose here</option>
 			    <?php foreach ($onboardingItemTitleArrRecord as $intIndex => $onboardingItemTitleObjRecord) { ?>
 				<?php $onboardingItemObjRecord['title'] === $onboardingItemTitleObjRecord['title'] ? $selected = "selected" : $selected = ''; ?>
@@ -159,9 +159,9 @@
 		  }
 		  ?>
 	      <?php } ?>
-	      <tr class="appendOnboardingItemTr" style="display:none;">
-		<td class="onboardingItemTd">
-		  <select name="appendOnboardingItemDropdown" size=1 class="selectOnboardingItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
+	      <tr class="appendItemTr" style="display:none;">
+		<td class="itemTd">
+		  <select name="appendItemDropdown" size=1 class="selectItemTitle" data-render-url="<?php echo $_SERVER['PHP_SELF']; ?>">
 		    <option value="" selected>Choose here</option>
 		    <?php foreach ($onboardingItemTitleArrRecord as $intIndex => $onboardingItemTitleObjRecord) { ?>
     		    <option value="<?php echo $onboardingItemTitleObjRecord['id']; ?>">
@@ -178,8 +178,8 @@
 		</td>
 		<td class="isOffboardingItem">
 		</td>
-		<td class="removeOnboardingItemButton">
-		  <a href="#"><span class="removeOnboardingItemButton" title="Remove this item"></span></a>
+		<td class="removeItemButton">
+		  <a href="#"><span class="removeItemButton" title="Remove this item"></span></a>
 		</td>
 	      </tr>
 	    </tbody>
@@ -188,7 +188,7 @@
 	  <!-- would need ajax to append a dropdown to add onboarding items -->
 	  <!-- would need to pass php array containing all the onboarding items that are available in the database into a dropdown menu for users to choose-->
 	  <!-- ajax would then populate the data for the onboarding item that the user chose -->
-	  <button type="button" id="appendOnboardingItem" title="Add more onboarding items to this template">+</button>
+	  <button type="button" id="appendItem" title="Add more onboarding items to this template">+</button>
 	</fieldset>
 	<button title="<?php echo $buttonTitle; ?>" class="<?php echo $buttonClass; ?>" <?php isset($templateId) ? $disabledStatus = '' : $disabledStatus = 'disabled'; ?> <?php echo $disabledStatus ?>><?php echo $buttonShortTitle; ?></button>
       </div>
