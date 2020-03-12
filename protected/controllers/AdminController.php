@@ -328,7 +328,7 @@ class AdminController extends Controller {
 	$objPagination->setCurrentPage($this->intPage);
 	$objPagination->applyLimit($objCriteria);
 	$arrRecords = Admin::model()->findAll($objCriteria);
-
+	
 	return $this->renderPartial('list', array('strSortKey' => $strSortKey, 'arrRecords' => $arrRecords, 'objPagination' => $objPagination), true);
     }
 

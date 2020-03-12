@@ -349,7 +349,7 @@ class PageHelper {
 		    $tableBody .= '</td>';
 		}
 		$tableBody .= '<td class="' . $deleteButtonClass . '">';
-		$tableBody .= '<a href="#"><span class="' . $deleteSpanClass . '" title="Remove this item">&#x2716;</span></a>';
+		$tableBody .= '<a href="#"><span class="removeItemButton" title="Remove this item">&#x2716;</span></a>';
 		$tableBody .= '</td>';
 		$tableBody .= '</tr>';
 	    }
