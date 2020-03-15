@@ -788,7 +788,7 @@
                             <input type="button" id="changeCandidateStatusToSigned" data-signed-url="<?php echo $this->createUrl('registration/changeCandidateStatusToSigned', array('candidateId' => $candidateArrRecords['id_no'])); ?>" style="display:none;">
                             <input type="button" id="downloadPdf" data-download-url="<?php echo $this->createUrl('registration/downloadPdf', array('jobId' => $candidateArrRecords['job_id'], 'candidateName' => $candidateArrRecords['full_name'], 'candidateId' => $candidateArrRecords['id_no'])); ?>" style="display:none;">
                             <input id="generateOnboardingChecklistTemplate" data-generate-onboarding-url="<?php echo $this->createUrl('registration/assignItemsAndUserAccess', array('candidateId' => $candidateArrRecords['id_no'], 'departmentId'=>$candidateArrRecords['department'], 
-				'fullName'=>$candidateArrRecords['full_name'], 'isManagerial'=>$candidateArrRecords['is_managerial_position'], 'emailAddress'=>$candidateArrRecords['email_address'])); ?>" style="display:none;">
+				'fullName'=>$candidateArrRecords['full_name'], 'isManagerial'=>$candidateArrRecords['is_managerial_position'])); ?>" style="display:none;">
                         </div>
                         <div class="lable_block" id="generate_template_button">
                             <?php $generateTemplateButtonTitle = Yii::t('app', 'Generate onboarding, training template and user access for this candidate.'); ?>
