@@ -18,7 +18,7 @@ $this->breadcrumbs=array(
             </div>
 			<div class="item_row animate0 bounceIn logo"><center><img src="<?php echo HTTP_MEDIA_IMAGES . '/alllanguages/site_logo.png?sv='.SITE_VERSION;?>" alt="" /></center></div>
             <div class="item_row input_wrapper animate1 bounceIn">
-                <input placeholder="<?php echo Yii::t('app', 'Username'); ?>" type="text" value="<?php echo(isset($strUsername)?$strUsername:'');?>" name="login_username" id="login_username" />
+                <input placeholder="<?php echo Yii::t('app', 'Email Address'); ?>" type="text" value="<?php echo(isset($strUsername)?$strUsername:'');?>" name="login_emailaddress" id="login_emailaddress" />
             </div>
             <div class="item_row input_wrapper animate2 bounceIn">
 				<input placeholder="<?php echo Yii::t('app', 'Password'); ?>" type="password" value="" name="login_password" id="login_password" />

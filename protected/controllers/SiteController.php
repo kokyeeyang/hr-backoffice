@@ -93,7 +93,7 @@ class SiteController extends Controller
 
 		// collect user input data
 		if(!empty($_POST) && Yii::app()->request->isAjaxRequest){
-			$strUsername 	= $this->getParam('login_username', '', array('name' => Yii::t('app', 'Username'), 'required' => true));
+			$strEmailAddress 	= $this->getParam('login_emailaddress', '', array('name' => Yii::t('app', 'Username'), 'required' => true));
 
 			$strPassword 	= $this->getParam('login_password', '', array('name' => Yii::t('app', 'Password'), 'required' => true));
 			$strCaptcha	 	= strtolower($this->getParam('login_captcha',''));
@@ -112,7 +112,7 @@ class SiteController extends Controller
 			if(!$error = $this->objError->getError()){
 				if($whiteListIpCheck == false){
 					if(isset(Yii::app()->session['captcha_key']) && $strCaptcha == Yii::app()->session['captcha_key']) {
-						$model->attributes = array('admin_username' => $strUsername, 'admin_password' => $strPassword);
+						$model->attributes = array('admin_username' => $strEmailAddress, 'admin_password' => $strPassword);
 						
 						// validate user input and redirect to the previous page if valid
 						if($model->validate() && $model->login()){
@@ -121,19 +121,19 @@ class SiteController extends Controller
 							$aResult['msg'] 	= Yii::t('app', 'Login Success') . '<br/>' . Yii::t('app', 'HR Back Office');
 							$aResult['url']		= $this->createUrl('site/welcome');
 							//$aResult['url']		= Yii::app()->user->returnUrl;
-							Admin::resetLoginRetryTimes($strUsername);
-							AdminLoginLog::InsertLog($strUsername, AdminLoginLog::STATUS_SUCCESS, get_ip());
+							Admin::resetLoginRetryTimes($strEmailAddress);
+							AdminLoginLog::InsertLog($strEmailAddress, AdminLoginLog::STATUS_SUCCESS, get_ip());
 						} else {
-							Admin::increaseLoginRetryTimes($strUsername);
+							Admin::increaseLoginRetryTimes($strEmailAddress);
 							
-							if(Admin::getLoginRetryTimes($strUsername) > LoginForm::ALLOWED_LOGIN_RETRY_TIMES){ 
+							if(Admin::getLoginRetryTimes($strEmailAddress) > LoginForm::ALLOWED_LOGIN_RETRY_TIMES){ 
 								// Automatically deactivates the account when the failed login exceeded the allow limit
-								Admin::deactivateRecord($strUsername);
-								AdminLoginLog::InsertLog($strUsername, AdminLoginLog::STATUS_RETRY_OVER, get_ip());
+								Admin::deactivateRecord($strEmailAddress);
+								AdminLoginLog::InsertLog($strEmailAddress, AdminLoginLog::STATUS_RETRY_OVER, get_ip());
 								$aResult['msg'] = Yii::t('app', 'Login Failed') . '<hr/>' . Yii::t('app', 'Your account has been deactivated!');
 							} else {
 								$aResult['msg'] = Yii::t('app', 'Login Failed') . '<hr/>' . Yii::t('app', 'Username or password is incorrect!');
-								AdminLoginLog::InsertLog($strUsername, AdminLoginLog::STATUS_FAIL, get_ip());
+								AdminLoginLog::InsertLog($strEmailAddress, AdminLoginLog::STATUS_FAIL, get_ip());
 							} // - end: if else					
 						} // - end: if else
 					} else {
@@ -141,7 +141,7 @@ class SiteController extends Controller
 					} // - end: if else		
 				} elseif ($whiteListIpCheck == true){
 
-						$model->attributes = array('admin_username' => $strUsername, 'admin_password' => $strPassword);
+						$model->attributes = array('admin_username' => $strEmailAddress, 'admin_password' => $strPassword);
 						
 						// validate user input and redirect to the previous page if valid
 						if($model->validate() && $model->login()){
@@ -150,19 +150,19 @@ class SiteController extends Controller
 							$aResult['msg'] 	= Yii::t('app', 'Login Success') . '<br/>' . Yii::t('app', 'HR Back Office');
 							$aResult['url']		= $this->createUrl('site/welcome');
 							//$aResult['url']		= Yii::app()->user->returnUrl;
-							Admin::resetLoginRetryTimes($strUsername);
-							AdminLoginLog::InsertLog($strUsername, AdminLoginLog::STATUS_SUCCESS, get_ip());
+							Admin::resetLoginRetryTimes($strEmailAddress);
+							AdminLoginLog::InsertLog($strEmailAddress, AdminLoginLog::STATUS_SUCCESS, get_ip());
 						} else {
-							Admin::increaseLoginRetryTimes($strUsername);
+							Admin::increaseLoginRetryTimes($strEmailAddress);
 							
-							if(Admin::getLoginRetryTimes($strUsername) > LoginForm::ALLOWED_LOGIN_RETRY_TIMES){ 
+							if(Admin::getLoginRetryTimes($strEmailAddress) > LoginForm::ALLOWED_LOGIN_RETRY_TIMES){ 
 								// Automatically deactivates the account when the failed login exceeded the allow limit
-								Admin::deactivateRecord($strUsername);
-								AdminLoginLog::InsertLog($strUsername, AdminLoginLog::STATUS_RETRY_OVER, get_ip());
+								Admin::deactivateRecord($strEmailAddress);
+								AdminLoginLog::InsertLog($strEmailAddress, AdminLoginLog::STATUS_RETRY_OVER, get_ip());
 								$aResult['msg'] = Yii::t('app', 'Login Failed') . '<hr/>' . Yii::t('app', 'Your account has been deactivated!');
 							} else {
 								$aResult['msg'] = Yii::t('app', 'Login Failed') . '<hr/>' . Yii::t('app', 'Username or password is incorrect!');
-								AdminLoginLog::InsertLog($strUsername, AdminLoginLog::STATUS_FAIL, get_ip());
+								AdminLoginLog::InsertLog($strEmailAddress, AdminLoginLog::STATUS_FAIL, get_ip());
 							} // - end: if else					
 						} // - end: if else
 				}

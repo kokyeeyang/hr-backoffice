@@ -10,7 +10,7 @@ var SiteLogin = function() {
 			 type: 'post',
 			 url: $(objForm).attr('action'),
 			 data: {
-				login_username	: $(objForm).find('input[name=login_username]').val(),
+				login_emailaddress	: $(objForm).find('input[name=login_emailaddress]').val(),
 				login_password	: $(objForm).find('input[name=login_password]').val(),
 				login_captcha	: $(objForm).find('input[name=login_captcha]').val(),
 				lang			: $(objForm).find('input[name=lang]').val()
