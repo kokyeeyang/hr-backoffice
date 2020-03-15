@@ -496,3 +496,15 @@ CREATE TABLE onboarding_checklist_templates_mapping (
   FOREIGN KEY (department_id) REFERENCES department(id),
   FOREIGN KEY (onboarding_checklist_template_id) REFERENCES onboarding_checklist_template(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE training_items_user_mapping (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `training_items_mapping_id` int(11) UNSIGNED NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `completed` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(40) NULL,
+  PRIMARY KEY (`id`),  
+  FOREIGN KEY (user_id) REFERENCES admin(admin_id),
+  FOREIGN KEY (training_items_mapping_id) REFERENCES training_items_mapping(id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;

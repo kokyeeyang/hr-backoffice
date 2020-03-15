@@ -77,7 +77,7 @@ class TrainingItem extends AppActiveRecord {
 	}
     }
 
-    public function deleteTrainingItems($deleteTrainingItemIds) {
+    public function deleteTrainingItem($deleteTrainingItemIds) {
 	foreach ($deleteTrainingItemIds as $deleteTrainingItemId) {
 	    $condition = 'id = ' . $deleteTrainingItemId;
 	    $deleteItem = TrainingItem::model()->deleteAll($condition);
@@ -130,6 +130,25 @@ class TrainingItem extends AppActiveRecord {
 	} else {
 	    return false;
 	}
+    }
+    
+    public function findTrainingItems($departmentId) {
+	$sql = 'SELECT TI.title AS "item_title", TIM.id, TIM.training_template_id, TT.title, TTM.department_id ';
+        $sql .= 'FROM ' . self::$tableName . ' TI ';
+	$sql .= 'INNER JOIN training_items_mapping TIM ON TI.id = TIM.training_item_id ';
+	$sql .= 'INNER JOIN training_template TT ON TIM.training_template_id = TT.id ';
+	$sql .= 'INNER JOIN training_templates_mapping TTM ON TT.id = TTM.training_template_id ';
+	$sql .= 'WHERE TTM.department_id = ' . $departmentId;
+        
+        $objConnection = Yii::app()->db;
+        $objCommand = $objConnection->createCommand($sql);
+        $arrData = $objCommand->queryAll($sql);
+
+        if (!empty($arrData)) {
+            return $arrData;
+        } else {
+            return false;
+        }
     }
 
 }

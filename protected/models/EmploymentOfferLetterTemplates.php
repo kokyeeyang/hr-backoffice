@@ -40,14 +40,14 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
     }
 
     public function queryForOfferLetterTemplate($isManagerial, $department) {
-	$sql = 'SELECT offer_letter_content, D.title AS department ';
+	$sql = 'SELECT EOLT.offer_letter_content, D.title AS department ';
 	$sql .= 'FROM ' . self::$tableName . ' EOLT ';
 	$sql .= 'INNER JOIN employment_offer_letter_templates_mapping EOLTM ';
 	$sql .= 'ON EOLT.id = EOLTM.offer_letter_template_id ';
 	$sql .= 'INNER JOIN department D ';
 	$sql .= 'ON D.id = EOLTM.department_id ';
-	$sql .= 'WHERE is_managerial = ' . $isManagerial;
-	$sql .= ' AND title = "' . $department . '"';
+	$sql .= 'WHERE EOLT.is_managerial = ' . $isManagerial;
+	$sql .= ' AND EOLTM.department_id = ' . $department;
 
 	$objConnection = Yii::app()->db;
 	$objCommand = $objConnection->createCommand($sql);

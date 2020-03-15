@@ -180,7 +180,7 @@ class AdminController extends Controller {
 			    $objModel->admin_priv = $strPriv;
 			    $objModel->admin_department = $strDepartment;
 			    $objModel->admin_modified_datetime = $this->strCurrentDatetime;
-
+			    
 			    if ($strPassword !== '') {
 				$objModel->admin_password = sha1($strPassword);
 			    } // - end: if
@@ -212,9 +212,12 @@ class AdminController extends Controller {
 		echo(json_encode($aResult));
 		Yii::app()->end();
 	    } else {
+		$userId = (int) $id;
+		$onboardingChecklistItems = OnboardingChecklistItem::model()->findOnboardingItemsForThisUser($userId);
+		$onboardingTab = AdminEnum::NEW_ONBOARDING;
 		$objModel->admin_password = '';
 		$objModel->admin_display_name = Validator::decodetag($objModel->admin_display_name);
-		$aResult['content'] = $this->renderPartial('edit', array('objModel' => $objModel), true);
+		$aResult['content'] = $this->renderPartial('edit', array('objModel' => $objModel, 'onboardingTab' => $onboardingTab, 'onboardingChecklistItems' => $onboardingChecklistItems), true);
 	    }
 
 	    if (!empty($aResult['content'])) {
@@ -325,7 +328,7 @@ class AdminController extends Controller {
 	$objPagination->setCurrentPage($this->intPage);
 	$objPagination->applyLimit($objCriteria);
 	$arrRecords = Admin::model()->findAll($objCriteria);
-
+	
 	return $this->renderPartial('list', array('strSortKey' => $strSortKey, 'arrRecords' => $arrRecords, 'objPagination' => $objPagination), true);
     }
 

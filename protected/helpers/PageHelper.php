@@ -1,7 +1,8 @@
-<?php 
+<?php
+
 class PageHelper {
 
-    public static function printFormListingHeader($pageType){
+    public static function printFormListingHeader($pageType) {
 
 	//get predefined formData
 	$formData = PageEnum::FORM_DATA[$pageType];
@@ -25,7 +26,7 @@ class PageHelper {
 	return $formHeader;
     }
 
-    public static function printFormListingBody($pageType, $strSortKey, $deleteColumn = true, $dataObjects = null, $validateForeignKeyExist = false, $enableButton = false){
+    public static function printFormListingBody($pageType, $strSortKey, $deleteColumn = true, $dataObjects = null, $validateForeignKeyExist = false, $enableButton = false) {
 
 	//get predefined formData
 	$formData = PageEnum::FORM_DATA[$pageType];
@@ -62,20 +63,20 @@ class PageHelper {
     }
 
     /**
-    get sort key which will return either the 3 asc/desc/""
-    */
+      get sort key which will return either the 3 asc/desc/""
+     */
     private static function getSortKeyOrder($sortKey, $headerName) {
 	//prepare the columnName
-	$columnName = "sort_$headerName"; 
+	$columnName = "sort_$headerName";
 	$columnAsc = $columnName . "_asc";
 	$columnDesc = $columnName . "_desc";
 	$result = "";
 
 	//check if the current headerName matching the current sortKey
 	if ($sortKey === $columnAsc) {
-		$result = 'asc';
+	    $result = 'asc';
 	} else if ($sortKey === $columnDesc) {
-		$result = 'desc';
+	    $result = 'desc';
 	}
 
 	return $result;
@@ -122,20 +123,20 @@ class PageHelper {
 	return $headerTitle;
     }
 
-    private static function prepareWidgetTitle($formData){
+    private static function prepareWidgetTitle($formData) {
 
 	//prepare variable for use later
 	$formUrlAddNew = Yii::app()->createUrl($formData['form-action-add-new']);
 	$addNewButtonLabel = Yii::t('app', $formData['add-new-record-title']);
-	$inputBoxValue = isset($_POST['label_filter'])? $_POST['label_filter']: '';
+	$inputBoxValue = isset($_POST['label_filter']) ? $_POST['label_filter'] : '';
 	$filterResults = Yii::t('app', 'Filter results');
 
 	$contentBody = '<h4 class="widget_title">';
 	$contentBody .= '<input type="text" value="' . $inputBoxValue . '" placeholder="' . $filterResults . '" name="label_filter" id="label_filter" style="width:30%"/>';
 	$contentBody .= '<a href="' . $formUrlAddNew . '">';
-        //testing for filtering function, to resubmit show all function
+	//testing for filtering function, to resubmit show all function
 //        $contentBody .= '';
-                
+
 	$contentBody .= '<input type="button" value="' . $addNewButtonLabel . '" class="addNewButton" name="addNewButton">';
 	$contentBody .= '</a>';
 	$contentBody .= '</h4>';
@@ -192,33 +193,33 @@ class PageHelper {
 	// format the body of the table response here
 	$tableBody = "";
 	$tableBody .= '<tbody id="data_table">';
-	
 
-	if ($dataObjects != ''){
+
+	if ($dataObjects != '') {
 	    foreach ($dataObjects as $dataObject) {
 		$formUrlViewSelected = Yii::app()->createUrl($formData['form-action-view-selected'], ["id" => $dataObject["id"]]);
 
 		//TODO : find out what is the actual data structure of the table body
 		$tableBody .= '<tr>';
-		
+
 		//set the first column as hyperlink, this shall always be the name/title or anything that is prominent to this entity
 		//in short, anything that can be clicked to view more
 		if ($columnLinkToDetails != false) {
 		    $tableBody .= '<td>';
 		    $tableBody .= '<a href="' . $formUrlViewSelected . '">';
-		    $tableBody .= $dataObject[$columnLinkToDetails];	
+		    $tableBody .= $dataObject[$columnLinkToDetails];
 		    $tableBody .= '</a>';
 		    $tableBody .= '</td>';
 		}
-		
+
 		//all the subsequent column will be looped here
-		foreach($columnDetails as $columnDetail){
+		foreach ($columnDetails as $columnDetail) {
 		    $tableBody .= '<td>';
-		    $tableBody .= $dataObject[$columnDetail];	
+		    $tableBody .= $dataObject[$columnDetail];
 		    $tableBody .= '</td>';
 		}
 
-		if($enableButton === true){
+		if ($enableButton === true) {
 		    $tableBody .= self::prepareEnableButton($formData, $dataObject);
 		}
 
@@ -234,35 +235,35 @@ class PageHelper {
 
 	return $tableBody;
     }
-	
-    private static function prepareEnableButton($formData, $dataObject){
+
+    private static function prepareEnableButton($formData, $dataObject) {
 
 	$emailVariables = $formData['data-email-details'];
 	$clickableButtonTitle = $formData['clickable-button-title'];
 	$buttonVariables = [];
 	$tableBody = '<td>';
 
-	foreach($emailVariables as $emailVariable){
-	  $buttonVariables[$emailVariable] = $dataObject[$emailVariable];
+	foreach ($emailVariables as $emailVariable) {
+	    $buttonVariables[$emailVariable] = $dataObject[$emailVariable];
 	}
-	
+
 	$tableBody .= '<input type="button" class="' . $formData['send-email-button-id'] . '" ' . $formData['data-email-url-tag']
-                . Yii::app()->createUrl($formData['data-email-url'], $buttonVariables) . ' value="' . $clickableButtonTitle . '" name="' . $formData['send-email-button-id'] . '">';
+	    . Yii::app()->createUrl($formData['data-email-url'], $buttonVariables) . ' value="' . $clickableButtonTitle . '" name="' . $formData['send-email-button-id'] . '">';
 	$tableBody .= '</td>';
 
 	return $tableBody;
     }
-	
-    private static function prepareDeleteCheckbox($formData, $dataObject, $dataUrlTag, $foreignKeyCheckUrl){
+
+    private static function prepareDeleteCheckbox($formData, $dataObject, $dataUrlTag, $foreignKeyCheckUrl) {
 
 	$tableBody = '<td>';
-	$tableBody .= '<input data-url="' . $foreignKeyCheckUrl . '" type="checkbox" name="deleteCheckBox[]" id="deleteCheckBox' . $dataObject['id'] . '" class="deleteCheckBox"' . 'value="' . $dataObject['id'] .'">';
+	$tableBody .= '<input data-url="' . $foreignKeyCheckUrl . '" type="checkbox" name="deleteCheckBox[]" id="deleteCheckBox' . $dataObject['id'] . '" class="deleteCheckBox"' . 'value="' . $dataObject['id'] . '">';
 	$tableBody .= '</td>';
 
 	return $tableBody;
     }
 
-    public static function printFormListingAlertMessage($pageType){
+    public static function printFormListingAlertMessage($pageType) {
 
 	//get predefined formData
 	$formData = PageEnum::FORM_DATA[$pageType];
@@ -282,6 +283,78 @@ class PageHelper {
 	}
 
 	return $alertMessage;
+    }
+
+    public static function printTemplateItems($pageType, $dataObjects) {
+
+	$formData = PageEnum::FORM_DATA[$pageType];
+	$tableHeaders = $formData['table-header'];
+	$columnDetails = $formData['column-details'];
+	$deleteButtonClass = $formData['delete-button-class'];
+	$deleteSpanClass = $formData['delete-span-class'];
+	
+	$tableBody = '<table class="widget_table grid">';
+	$tableBody .= '<thead>';
+	$tableBody .= '<tr>';
+	$tableBody .= self::prepareTableHeaderForTemplateItems($tableHeaders);
+	$tableBody .= '</tr>';
+	$tableBody .= '</thead>';
+	$tableBody .= '<tbody>';
+	
+//	if ($dataObjects != null && isset($dataObjects)){
+//	    foreach ($dataObjects as $dataObject) {
+//		$tableBody .= '<tr>';
+//		foreach ($columnDetails as $columnDetail) {
+//		    $tableBody .= '<td>';
+//		    $tableBody .= $dataObject[$columnDetail];
+//		    $tableBody .= '</td>';
+//		}
+//		$tableBody .= '</tr>';
+//	    }
+//	}
+	
+	$tableBody .= self::prepareTableDataForTemplateItems($dataObjects, $columnDetails, $deleteButtonClass, $deleteSpanClass);
+
+	$tableBody .= '</tbody>';
+	$tableBody .= '</table>';
+
+	return $tableBody;
+    }
+
+    private static function prepareTableHeaderForTemplateItems($tableHeaders) {
+	$tableBody = "";
+	foreach ($tableHeaders as $tableHeader) {
+	    $tableBody .= '<th>';
+	    $tableBody .= '<div class="sort_wrapper_inner">';
+	    $tableBody .= '<div class="sort_label_wrapper">';
+	    $tableBody .= '<div class="sort_label">';
+	    //put table header here
+	    $tableBody .= $tableHeader;
+	    $tableBody .= '</div>';
+	    $tableBody .= '</div>';
+	    $tableBody .= '</div>';
+	    $tableBody .= '</th>';
+	}
+	return $tableBody;
+    }
+    
+    private static function prepareTableDataForTemplateItems($dataObjects, $columnDetails, $deleteButtonClass, $deleteSpanClass){
+	$tableBody = "";
+	if ($dataObjects != null && isset($dataObjects)){
+	    foreach ($dataObjects as $dataObject) {
+		$tableBody .= '<tr>';
+		foreach ($columnDetails as $columnDetail) {
+		    $tableBody .= '<td>';
+		    $tableBody .= $dataObject[$columnDetail];
+		    $tableBody .= '</td>';
+		}
+		$tableBody .= '<td class="' . $deleteButtonClass . '">';
+		$tableBody .= '<a href="#"><span class="removeItemButton" title="Remove this item">&#x2716;</span></a>';
+		$tableBody .= '</td>';
+		$tableBody .= '</tr>';
+	    }
+	    return $tableBody;
+	}
     }
 
 }
