@@ -21,7 +21,7 @@ class AdminIdentity extends CUserIdentity
 	 */
 	public function authenticate()
 	{
-		$objAdmin = Admin::model()->find('LOWER(admin_username)=:admin_username AND admin_status=:admin_status', array(':admin_username' => strtolower($this->username), ':admin_status'=> Admin::ACTIVE));
+		$objAdmin = Admin::model()->find('LOWER(admin_email_address)=:admin_email_address AND admin_status=:admin_status', array(':admin_email_address' => strtolower($this->email_address), ':admin_status'=> Admin::ACTIVE));
 
 		if($objAdmin === null){
 			$this->errorCode = self::ERROR_USERNAME_INVALID;
@@ -30,14 +30,14 @@ class AdminIdentity extends CUserIdentity
 
 			if(isset($objAdmin->admin_password) && $objAdmin->admin_password === sha1($this->password)){
 				$this->_id			= $objAdmin->admin_id;
-				$this->username		= $objAdmin->admin_username;
+				$this->email_address		= $objAdmin->admin_email_address;
 				$this->display_name	= $objAdmin->admin_display_name;
 				$this->last_login	= $objAdmin->admin_last_login;
 				$this->errorCode	= self::ERROR_NONE;
 
 				// Store the user info in session
 				$this->setState('id', $this->_id);
-				$this->setState('username', $this->username);
+				$this->setState('username', $this->email_address);
 				$this->setState('display_name', $this->display_name);
 				$this->setState('last_login', $this->last_login);
 				$this->setState('priv', $objAdmin->admin_priv);

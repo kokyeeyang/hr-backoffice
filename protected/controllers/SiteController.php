@@ -113,7 +113,7 @@ class SiteController extends Controller
 				if($whiteListIpCheck == false){
 					if(isset(Yii::app()->session['captcha_key']) && $strCaptcha == Yii::app()->session['captcha_key']) {
 						$model->attributes = array('admin_email_address' => $strEmailAddress, 'admin_password' => $strPassword);
-						var_dump($model);exit;
+						
 						// validate user input and redirect to the previous page if valid
 						if($model->validate() && $model->login()){
 							$aResult['result'] 	= 1;
