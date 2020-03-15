@@ -1268,7 +1268,7 @@ class RegistrationController extends Controller {
 	if (Admin::model()->checkUsernameExist($userName) === false) {
 	    $adminObjModel = new Admin;
 	    $adminObjModel->admin_username = $userName;
-	    $adminObjModel->admin_email_address = null;
+//	    $adminObjModel->admin_email_address = null;
 	    $adminObjModel->admin_password = sha1(implode('', $randomPassword));
 	    $adminObjModel->admin_display_name = $fullName;
 	    $adminObjModel->admin_status = $adminStatus;
