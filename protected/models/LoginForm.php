@@ -8,21 +8,21 @@ class LoginForm extends CFormModel
 {
 	const ALLOWED_LOGIN_RETRY_TIMES = 10;
 		
-	public $admin_username;
+	public $admin_email_address;
 	public $admin_password;
 
 	private $_identity;
 
 	/**
 	 * Declares the validation rules.
-	 * The rules state that admin_username and admin_password are required,
+	 * The rules state that admin_email_address and admin_password are required,
 	 * and admin_password needs to be authenticated.
 	 */
 	public function rules()
 	{
 		return array(
-			// admin_username and admin_password are required
-			array('admin_username, admin_password', 'required'),
+			// admin_email_address and admin_password are required
+			array('admin_email_address, admin_password', 'required'),
 			// admin_password needs to be authenticated
 			array('admin_password', 'authenticate'),
 		);
@@ -46,7 +46,7 @@ class LoginForm extends CFormModel
 	{
 		if(!$this->hasErrors())
 		{
-			$this->_identity=new AdminIdentity($this->admin_username, $this->admin_password);
+			$this->_identity=new AdminIdentity($this->admin_email_address, $this->admin_password);
 			
 			if(!$this->_identity->authenticate()){
 				$this->addError('admin_password', Yii::t('app', 'Password is incorrect!'));
@@ -55,14 +55,14 @@ class LoginForm extends CFormModel
 	}
 
 	/**
-	 * Logs in the user using the given admin_username and admin_password in the model.
+	 * Logs in the user using the given admin_email_address and admin_password in the model.
 	 * @return boolean whether login is successful
 	 */
 	public function login()
 	{
 		if($this->_identity===null)
 		{
-			$this->_identity=new AdminIdentity($this->admin_username, $this->admin_password);
+			$this->_identity=new AdminIdentity($this->admin_email_address, $this->admin_password);
 			$this->_identity->authenticate();
 		}
 		

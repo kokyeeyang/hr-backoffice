@@ -26,55 +26,55 @@ class Admin extends AppActiveRecord {
      * @return string the associated database table name
      */
     public function tableName() {
-	return self::$tableName;
+        return self::$tableName;
     }
 
     /**
      * @return array validation rules for model attributes.
      */
     public function rules() {
-	// NOTE: you should only define rules for those attributes that
-	// will receive user inputs.
-	return array(
-	    array('admin_email_address, admin_password, admin_display_name, admin_status, admin_priv, admin_email_address, admin_department, admin_last_login, admin_modified_datetime, admin_datetime', 'required'),
-	    array('admin_email_address', 'length', 'max' => 16),
-	    // No validation required(safe):
-	    array('admin_login_retry_times', 'safe'),
-	    // The following rule is used by search().
-	    // @todo Please remove those attributes that should not be searched.
-	    //array('id, username, password, email', 'safe', 'on'=>'search'),
-	);
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('admin_username, admin_password, admin_display_name, admin_status, admin_priv, admin_email_address, admin_department, admin_last_login, admin_modified_datetime, admin_datetime', 'required'),
+            array('admin_email_address', 'length', 'max' => 16),
+            // No validation required(safe):
+            array('admin_login_retry_times', 'safe'),
+                // The following rule is used by search().
+                // @todo Please remove those attributes that should not be searched.
+                //array('id, username, password, email', 'safe', 'on'=>'search'),
+        );
     }
 
     /**
      * @return array relational rules.
      */
     public function relations() {
-	// NOTE: you may need to adjust the relation name and the related
-	// class name for the relations automatically generated below.
-	return array(
-	);
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+        );
     }
 
     /**
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels() {
-	return array(
-	    'admin_id' => Yii::t('app', 'Admin ID'),
-	    'admin_email_address' => Yii::t('app', 'Username'),
-	    'admin_password' => Yii::t('app', 'Password'),
-	    'admin_status' => Yii::t('app', 'Status'),
-	    'admin_priv' => Yii::t('app', 'Privilege'),
-	    'admin_email_address' => Yii::t('app', 'Email Address'),
-	    'admin_login_retry_times' => Yii::t('app', 'Login Attempts'),
-	    'admin_display_name' => Yii::t('app', 'Name'),
-	    'admin_last_login' => Yii::t('app', 'Last Login')
-	);
+        return array(
+            'admin_id' => Yii::t('app', 'Admin ID'),
+            'admin_username' => Yii::t('app', 'Username'),
+            'admin_password' => Yii::t('app', 'Password'),
+            'admin_status' => Yii::t('app', 'Status'),
+            'admin_priv' => Yii::t('app', 'Privilege'),
+            'admin_email_address' => Yii::t('app', 'Email Address'),
+            'admin_login_retry_times' => Yii::t('app', 'Login Attempts'),
+            'admin_display_name' => Yii::t('app', 'Name'),
+            'admin_last_login' => Yii::t('app', 'Last Login')
+        );
     }
 
     public static function model($className = __CLASS__) {
-	return parent::model($className);
+        return parent::model($className);
     }
 
     /* public function beforeSave() {
@@ -91,15 +91,15 @@ class Admin extends AppActiveRecord {
 
     public static function getStatusLabel($intStatus) {
 
-	switch ($intStatus) {
-	    case self::INACTIVE:
-		return '<span class="css_freeze">' . Yii::t('app', 'Inactive') . '</span>';
-		break;
+        switch ($intStatus) {
+            case self::INACTIVE:
+                return '<span class="css_freeze">' . Yii::t('app', 'Inactive') . '</span>';
+                break;
 
-	    case self::ACTIVE:
-		return '<span class="css_active">' . Yii::t('app', 'Active') . '</span>';
-		break;
-	}
+            case self::ACTIVE:
+                return '<span class="css_active">' . Yii::t('app', 'Active') . '</span>';
+                break;
+        }
     }
 
     /*     * *
@@ -110,29 +110,29 @@ class Admin extends AppActiveRecord {
      */
 
     public function checkUsernameExist($strEmailAddress, $intExcludedAdminId = null) {
-	$sql = 'SELECT 
+        $sql = 'SELECT 
 					' . $this->tableName() . '_id
 				FROM ' .
-	    $this->tableName() . ' 
+                $this->tableName() . ' 
 				WHERE ' .
-	    $this->tableName() . '_email_address = "' . $strEmailAddress . '"';
+                $this->tableName() . '_email_address = "' . $strEmailAddress . '"';
 
-	// To exclude the passed-in AdminId param  		
-	if ($intExcludedAdminId !== null) {
-	    $sql .= '
+        // To exclude the passed-in AdminId param  		
+        if ($intExcludedAdminId !== null) {
+            $sql .= '
 				AND
 					' . $this->tableName() . '_id <> ' . (int) $intExcludedAdminId;
-	} // - end: if
+        } // - end: if
 
-	$objConnection = Yii::app()->db;
-	$objCommand = $objConnection->createCommand($sql);
-	$arrData = $objCommand->queryRow();
+        $objConnection = Yii::app()->db;
+        $objCommand = $objConnection->createCommand($sql);
+        $arrData = $objCommand->queryRow();
 
-	if (!empty($arrData['admin_id'])) {
-	    return true;
-	} else {
-	    return false;
-	} // - end: if else
+        if (!empty($arrData['admin_id'])) {
+            return true;
+        } else {
+            return false;
+        } // - end: if else
     }
 
     /*     * *
@@ -142,26 +142,26 @@ class Admin extends AppActiveRecord {
 
     public static function increaseLoginRetryTimes($strEmailAddress) {
 
-	if (empty($strEmailAddress)) {
-	    return false;
-	}
+        if (empty($strEmailAddress)) {
+            return false;
+        }
 
-	$sql = 'UPDATE ' .
-	    self::$tableName . ' 
+        $sql = 'UPDATE ' .
+                self::$tableName . ' 
 				SET ' .
-	    self::$tableName . '_login_retry_times = ' . self::$tableName . '_login_retry_times + 1
+                self::$tableName . '_login_retry_times = ' . self::$tableName . '_login_retry_times + 1
 				WHERE ' .
-	    self::$tableName . '_email_address = "' . $strEmailAddress . '"
+                self::$tableName . '_email_address = "' . $strEmailAddress . '"
 				LIMIT 1';
 
-	$objConnection = Yii::app()->db;
-	$objCommand = $objConnection->createCommand($sql);
+        $objConnection = Yii::app()->db;
+        $objCommand = $objConnection->createCommand($sql);
 
-	if (($intResults = $objCommand->execute()) > 0) {
-	    return true;
-	} else {
-	    return false;
-	} // - end: if else	
+        if (($intResults = $objCommand->execute()) > 0) {
+            return true;
+        } else {
+            return false;
+        } // - end: if else	
     }
 
     /*     * *
@@ -171,26 +171,26 @@ class Admin extends AppActiveRecord {
 
     public static function resetLoginRetryTimes($strEmailAddress) {
 
-	if (empty($strEmailAddress)) {
-	    return false;
-	}
+        if (empty($strEmailAddress)) {
+            return false;
+        }
 
-	$sql = 'UPDATE ' .
-	    self::$tableName . ' 
+        $sql = 'UPDATE ' .
+                self::$tableName . ' 
 				SET ' .
-	    self::$tableName . '_login_retry_times = 0
+                self::$tableName . '_login_retry_times = 0
 				WHERE ' .
-	    self::$tableName . '_email_address = "' . $strEmailAddress . '"
+                self::$tableName . '_email_address = "' . $strEmailAddress . '"
 				LIMIT 1';
 
-	$objConnection = Yii::app()->db;
-	$objCommand = $objConnection->createCommand($sql);
+        $objConnection = Yii::app()->db;
+        $objCommand = $objConnection->createCommand($sql);
 
-	if (($intResults = $objCommand->execute()) > 0) {
-	    return true;
-	} else {
-	    return false;
-	} // - end: if else	
+        if (($intResults = $objCommand->execute()) > 0) {
+            return true;
+        } else {
+            return false;
+        } // - end: if else	
     }
 
     /*     * *
@@ -200,26 +200,26 @@ class Admin extends AppActiveRecord {
 
     public static function deactivateRecord($strEmailAddress) {
 
-	if (empty($strEmailAddress)) {
-	    return false;
-	}
+        if (empty($strEmailAddress)) {
+            return false;
+        }
 
-	$sql = 'UPDATE ' .
-	    self::$tableName . ' 
+        $sql = 'UPDATE ' .
+                self::$tableName . ' 
 				SET ' .
-	    self::$tableName . '_status = ' . ADMIN::INACTIVE . '
+                self::$tableName . '_status = ' . ADMIN::INACTIVE . '
 				WHERE ' .
-	    self::$tableName . '_email_address = "' . $strEmailAddress . '"
+                self::$tableName . '_email_address = "' . $strEmailAddress . '"
 				LIMIT 1';
 
-	$objConnection = Yii::app()->db;
-	$objCommand = $objConnection->createCommand($sql);
+        $objConnection = Yii::app()->db;
+        $objCommand = $objConnection->createCommand($sql);
 
-	if (($intResults = $objCommand->execute()) > 0) {
-	    return true;
-	} else {
-	    return false;
-	} // - end: if else	
+        if (($intResults = $objCommand->execute()) > 0) {
+            return true;
+        } else {
+            return false;
+        } // - end: if else	
     }
 
     /*     * *
@@ -230,27 +230,27 @@ class Admin extends AppActiveRecord {
 
     public static function getLoginRetryTimes($strEmailAddress) {
 
-	if (empty($strEmailAddress)) {
-	    return 0;
-	}
+        if (empty($strEmailAddress)) {
+            return 0;
+        }
 
-	$sql = 'SELECT ' .
-	    self::$tableName . '_login_retry_times
+        $sql = 'SELECT ' .
+                self::$tableName . '_login_retry_times
 				FROM ' .
-	    self::$tableName . ' 
+                self::$tableName . ' 
 				WHERE ' .
-	    self::$tableName . '_email_address = "' . $strEmailAddress . '"
+                self::$tableName . '_email_address = "' . $strEmailAddress . '"
 				LIMIT 1';
 
-	$objConnection = Yii::app()->db;
-	$objCommand = $objConnection->createCommand($sql);
-	$arrData = $objCommand->queryRow();
+        $objConnection = Yii::app()->db;
+        $objCommand = $objConnection->createCommand($sql);
+        $arrData = $objCommand->queryRow();
 
-	if (!empty($arrData['admin_login_retry_times'])) {
-	    return (int) $arrData['admin_login_retry_times'];
-	} else {
-	    return 0;
-	} // - end: if else
+        if (!empty($arrData['admin_login_retry_times'])) {
+            return (int) $arrData['admin_login_retry_times'];
+        } else {
+            return 0;
+        } // - end: if else
     }
 
     /**
@@ -282,109 +282,109 @@ class Admin extends AppActiveRecord {
       } */
 
     public static function checkForCreatedBy($createdById) {
-	$sql = 'SELECT ' . self::$tableName . '_email_address ';
-	$sql .= 'FROM ' . self::$tableName;
-	$sql .= ' WHERE ' . self::$tableName . '_id = ' . $createdById;
+        $sql = 'SELECT ' . self::$tableName . '_email_address ';
+        $sql .= 'FROM ' . self::$tableName;
+        $sql .= ' WHERE ' . self::$tableName . '_id = ' . $createdById;
 
-	$objConnection = Yii::app()->db;
-	$objCommand = $objConnection->createCommand($sql);
-	$arrData = $objCommand->queryRow();
+        $objConnection = Yii::app()->db;
+        $objCommand = $objConnection->createCommand($sql);
+        $arrData = $objCommand->queryRow();
 
-	return $arrData['admin_email_address'];
+        return $arrData['admin_email_address'];
     }
 
     public static function checkForAdminPrivilege($createdAdminId, $controller) {
-	if ($createdAdminId) {
-	    $sql = 'SELECT ' . self::$tableName . '_priv ';
-	    $sql .= 'FROM ' . self::$tableName;
-	    $sql .= ' WHERE ' . self::$tableName . '_id = ' . $createdAdminId;
+        if ($createdAdminId) {
+            $sql = 'SELECT ' . self::$tableName . '_priv ';
+            $sql .= 'FROM ' . self::$tableName;
+            $sql .= ' WHERE ' . self::$tableName . '_id = ' . $createdAdminId;
 
-	    $objConnection = Yii::app()->db;
-	    $objCommand = $objConnection->createCommand($sql);
-	    $arrData = $objCommand->queryRow();
+            $objConnection = Yii::app()->db;
+            $objCommand = $objConnection->createCommand($sql);
+            $arrData = $objCommand->queryRow();
 
-	    $infinityDuration = '';
-	    $access = '';
+            $infinityDuration = '';
+            $access = '';
 
-	    if ($arrData['admin_priv'] == "admin" || $arrData['admin_priv'] == "hr") {
-		if ($controller == 'ip') {
-		    $infinityDuration = 9999;
-		    return $infinityDuration;
-		} else if ($controller == 'registration') {
-		    return $access;
-		}
-	    } else {
-		$access = 'disabled';
-		return $access;
-	    }
-	}
+            if ($arrData['admin_priv'] == "admin" || $arrData['admin_priv'] == "hr") {
+                if ($controller == 'ip') {
+                    $infinityDuration = 9999;
+                    return $infinityDuration;
+                } else if ($controller == 'registration') {
+                    return $access;
+                }
+            } else {
+                $access = 'disabled';
+                return $access;
+            }
+        }
     }
 
     public function queryForManagers() {
-	$sql = 'SELECT ' . self::$tableName . '_display_name';
-	$sql .= ' FROM ' . self::$tableName;
-	$sql .= ' WHERE ' . self::$tableName . '_priv != "normaluser"';
+        $sql = 'SELECT ' . self::$tableName . '_display_name';
+        $sql .= ' FROM ' . self::$tableName;
+        $sql .= ' WHERE ' . self::$tableName . '_priv != "normaluser"';
 
-	$objConnection = Yii::app()->db;
-	$objCommand = $objConnection->createCommand($sql);
-	$arrData = $objCommand->queryAll();
+        $objConnection = Yii::app()->db;
+        $objCommand = $objConnection->createCommand($sql);
+        $arrData = $objCommand->queryAll();
 
-	if ($arrData != null) {
-	    return $arrData;
-	} else {
-	    return false;
-	}
+        if ($arrData != null) {
+            return $arrData;
+        } else {
+            return false;
+        }
     }
 
     public function checkAdminDepartmentExist($id) {
-	$sql = 'SELECT ' . self::$tableName . '_email_address';
-	$sql .= ' FROM ' . self::$tableName;
-	$sql .= ' WHERE ' . self::$tableName . '_department = ' . $id;
+        $sql = 'SELECT ' . self::$tableName . '_email_address';
+        $sql .= ' FROM ' . self::$tableName;
+        $sql .= ' WHERE ' . self::$tableName . '_department = ' . $id;
 
-	$objConnection = Yii::app()->db;
-	$objCommand = $objConnection->createCommand($sql);
-	$arrData = $objCommand->queryRow();
+        $objConnection = Yii::app()->db;
+        $objCommand = $objConnection->createCommand($sql);
+        $arrData = $objCommand->queryRow();
 
-	if (!empty($arrData)) {
-	    return $arrData;
-	} else {
-	    return false;
-	}
+        if (!empty($arrData)) {
+            return $arrData;
+        } else {
+            return false;
+        }
     }
 
     function randomPassword($length, $count, $characters) {
 
-	// $length - the length of the generated password
-	// $count - number of passwords to be generated
-	// $characters - types of characters to be used in the password
-	// define variables used within the function    
-	$symbols = array();
-	$passwords = array();
-	$used_symbols = '';
-	$pass = '';
+        // $length - the length of the generated password
+        // $count - number of passwords to be generated
+        // $characters - types of characters to be used in the password
+        // define variables used within the function    
+        $symbols = array();
+        $passwords = array();
+        $used_symbols = '';
+        $pass = '';
 
-	// an array of different character types    
-	$symbols["lower_case"] = 'abcdefghijklmnopqrstuvwxyz';
-	$symbols["upper_case"] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-	$symbols["numbers"] = '1234567890';
-	$symbols["special_symbols"] = '!?~@#-_+<>[]{}';
+        // an array of different character types    
+        $symbols["lower_case"] = 'abcdefghijklmnopqrstuvwxyz';
+        $symbols["upper_case"] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $symbols["numbers"] = '1234567890';
+        $symbols["special_symbols"] = '!?~@#-_+<>[]{}';
 
-	$characters = explode(",", $characters); // get characters types to be used for the passsword
-	foreach ($characters as $key => $value) {
-	    $used_symbols .= $symbols[$value]; // build a string with all characters
-	}
-	$symbols_length = strlen($used_symbols) - 1; //strlen starts from 0 so to get number of characters deduct 1
+        $characters = explode(",", $characters); // get characters types to be used for the passsword
+        foreach ($characters as $key => $value) {
+            $used_symbols .= $symbols[$value]; // build a string with all characters
+        }
+        $symbols_length = strlen($used_symbols) - 1; //strlen starts from 0 so to get number of characters deduct 1
 
-	for ($p = 0; $p < $count; $p++) {
-	    $pass = '';
-	    for ($i = 0; $i < $length; $i++) {
-		$n = rand(0, $symbols_length); // get a random character from the string with all characters
-		$pass .= $used_symbols[$n]; // add the character to the password string
-	    }
-	    $passwords[] = $pass;
-	}
+        for ($p = 0; $p < $count; $p++) {
+            $pass = '';
+            for ($i = 0; $i < $length; $i++) {
+                $n = rand(0, $symbols_length); // get a random character from the string with all characters
+                $pass .= $used_symbols[$n]; // add the character to the password string
+            }
+            $passwords[] = $pass;
+        }
 
-	return $passwords; // return the generated password
+        return $passwords; // return the generated password
     }
 
 }

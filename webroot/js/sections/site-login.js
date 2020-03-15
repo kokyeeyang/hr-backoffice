@@ -30,7 +30,7 @@ var SiteLogin = function() {
 					var objDate = new Date();
 					var intTime	= objDate.getTime();
 					var strSrc	= $(objForm).find('#login_captcha_img').attr("src");
-					
+                                        
 					if(strSrc.indexOf('?') >= 0){
 						var arrTime = strSrc.split('&');
 

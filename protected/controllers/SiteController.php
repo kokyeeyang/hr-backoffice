@@ -93,7 +93,7 @@ class SiteController extends Controller
 
 		// collect user input data
 		if(!empty($_POST) && Yii::app()->request->isAjaxRequest){
-			$strEmailAddress 	= $this->getParam('login_emailaddress', '', array('name' => Yii::t('app', 'Username'), 'required' => true));
+			$strEmailAddress 	= $this->getParam('login_emailaddress', '', array('admin_email_address' => Yii::t('app', 'Email Address'), 'required' => true));
 
 			$strPassword 	= $this->getParam('login_password', '', array('name' => Yii::t('app', 'Password'), 'required' => true));
 			$strCaptcha	 	= strtolower($this->getParam('login_captcha',''));
@@ -101,7 +101,7 @@ class SiteController extends Controller
 			$aResult 			= array();
 			$aResult['result'] 	= 0;
 			$aResult['title'] 	= Yii::t('app', 'Login Failed');
-			$aResult['msg'] 	= Yii::t('app', 'Login Failed') . '<hr/>' . Yii::t('app', 'Username or password is incorrect!');
+			$aResult['msg'] 	= Yii::t('app', 'Login Failed') . '<hr/>' . Yii::t('app', 'Email address or password is incorrect!');
 	
 			$aResult['url']		= '';
 
@@ -113,7 +113,7 @@ class SiteController extends Controller
 				if($whiteListIpCheck == false){
 					if(isset(Yii::app()->session['captcha_key']) && $strCaptcha == Yii::app()->session['captcha_key']) {
 						$model->attributes = array('admin_email_address' => $strEmailAddress, 'admin_password' => $strPassword);
-						
+						var_dump($model);exit;
 						// validate user input and redirect to the previous page if valid
 						if($model->validate() && $model->login()){
 							$aResult['result'] 	= 1;
@@ -132,7 +132,7 @@ class SiteController extends Controller
 								AdminLoginLog::InsertLog($strEmailAddress, AdminLoginLog::STATUS_RETRY_OVER, get_ip());
 								$aResult['msg'] = Yii::t('app', 'Login Failed') . '<hr/>' . Yii::t('app', 'Your account has been deactivated!');
 							} else {
-								$aResult['msg'] = Yii::t('app', 'Login Failed') . '<hr/>' . Yii::t('app', 'Username or password is incorrect!');
+								$aResult['msg'] = Yii::t('app', 'Login Failed') . '<hr/>' . Yii::t('app', 'Email address or password is incorrect laaaa!');
 								AdminLoginLog::InsertLog($strEmailAddress, AdminLoginLog::STATUS_FAIL, get_ip());
 							} // - end: if else					
 						} // - end: if else
@@ -161,7 +161,7 @@ class SiteController extends Controller
 								AdminLoginLog::InsertLog($strEmailAddress, AdminLoginLog::STATUS_RETRY_OVER, get_ip());
 								$aResult['msg'] = Yii::t('app', 'Login Failed') . '<hr/>' . Yii::t('app', 'Your account has been deactivated!');
 							} else {
-								$aResult['msg'] = Yii::t('app', 'Login Failed') . '<hr/>' . Yii::t('app', 'Username or password is incorrect!');
+								$aResult['msg'] = Yii::t('app', 'Login Failed') . '<hr/>' . Yii::t('app', 'Email address or password is incorrect woooohoooooo!');
 								AdminLoginLog::InsertLog($strEmailAddress, AdminLoginLog::STATUS_FAIL, get_ip());
 							} // - end: if else					
 						} // - end: if else
@@ -190,7 +190,7 @@ class SiteController extends Controller
 	 */
 	public function actionWelcome()
 	{	
-		$arrRecords = AdminLoginLog::model() -> findAll(array('order'=>'admin_login_log_id DESC', 'condition' => 'admin_login_log_username = :admin_username', 'limit'=>10, 'params' => array(':admin_username' => Yii::app()->user->username)));
+		$arrRecords = AdminLoginLog::model() -> findAll(array('order'=>'admin_login_log_id DESC', 'condition' => 'admin_login_log_username = :admin_email_address', 'limit'=>10, 'params' => array(':admin_email_address' => Yii::app()->user->username)));
 		$purgeUnusedTokens = EmploymentLinkToken::model()->purgeUnusedTokens();
 
 		$this->render('welcome', array('model'=>$arrRecords));
