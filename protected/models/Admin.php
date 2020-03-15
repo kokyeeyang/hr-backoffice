@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'admin':
  * @property integer $admin_id
- * @property string $admin_username
+ * @property string $admin_email_address
  * @property string $admin_password
  * @property string $admin_display_name
  * @property integer $admin_status
@@ -36,8 +36,8 @@ class Admin extends AppActiveRecord {
 	// NOTE: you should only define rules for those attributes that
 	// will receive user inputs.
 	return array(
-	    array('admin_username, admin_password, admin_display_name, admin_status, admin_priv, admin_email_address, admin_department, admin_last_login, admin_modified_datetime, admin_datetime', 'required'),
-	    array('admin_username', 'length', 'max' => 16),
+	    array('admin_email_address, admin_password, admin_display_name, admin_status, admin_priv, admin_email_address, admin_department, admin_last_login, admin_modified_datetime, admin_datetime', 'required'),
+	    array('admin_email_address', 'length', 'max' => 16),
 	    // No validation required(safe):
 	    array('admin_login_retry_times', 'safe'),
 	    // The following rule is used by search().
@@ -62,7 +62,7 @@ class Admin extends AppActiveRecord {
     public function attributeLabels() {
 	return array(
 	    'admin_id' => Yii::t('app', 'Admin ID'),
-	    'admin_username' => Yii::t('app', 'Username'),
+	    'admin_email_address' => Yii::t('app', 'Username'),
 	    'admin_password' => Yii::t('app', 'Password'),
 	    'admin_status' => Yii::t('app', 'Status'),
 	    'admin_priv' => Yii::t('app', 'Privilege'),
@@ -109,13 +109,13 @@ class Admin extends AppActiveRecord {
       (2) False username available
      */
 
-    public function checkUsernameExist($strUsername, $intExcludedAdminId = null) {
+    public function checkUsernameExist($strEmailAddress, $intExcludedAdminId = null) {
 	$sql = 'SELECT 
 					' . $this->tableName() . '_id
 				FROM ' .
 	    $this->tableName() . ' 
 				WHERE ' .
-	    $this->tableName() . '_username = "' . $strUsername . '"';
+	    $this->tableName() . '_email_address = "' . $strEmailAddress . '"';
 
 	// To exclude the passed-in AdminId param  		
 	if ($intExcludedAdminId !== null) {
@@ -140,9 +140,9 @@ class Admin extends AppActiveRecord {
       Description	: To increase(by 1) the number of login retried times
      */
 
-    public static function increaseLoginRetryTimes($strUsername) {
+    public static function increaseLoginRetryTimes($strEmailAddress) {
 
-	if (empty($strUsername)) {
+	if (empty($strEmailAddress)) {
 	    return false;
 	}
 
@@ -151,7 +151,7 @@ class Admin extends AppActiveRecord {
 				SET ' .
 	    self::$tableName . '_login_retry_times = ' . self::$tableName . '_login_retry_times + 1
 				WHERE ' .
-	    self::$tableName . '_username = "' . $strUsername . '"
+	    self::$tableName . '_email_address = "' . $strEmailAddress . '"
 				LIMIT 1';
 
 	$objConnection = Yii::app()->db;
@@ -169,9 +169,9 @@ class Admin extends AppActiveRecord {
       Description	: To reset the number of login retried times to be nil
      */
 
-    public static function resetLoginRetryTimes($strUsername) {
+    public static function resetLoginRetryTimes($strEmailAddress) {
 
-	if (empty($strUsername)) {
+	if (empty($strEmailAddress)) {
 	    return false;
 	}
 
@@ -180,7 +180,7 @@ class Admin extends AppActiveRecord {
 				SET ' .
 	    self::$tableName . '_login_retry_times = 0
 				WHERE ' .
-	    self::$tableName . '_username = "' . $strUsername . '"
+	    self::$tableName . '_email_address = "' . $strEmailAddress . '"
 				LIMIT 1';
 
 	$objConnection = Yii::app()->db;
@@ -198,9 +198,9 @@ class Admin extends AppActiveRecord {
       Description	: To deactivate the record
      */
 
-    public static function deactivateRecord($strUsername) {
+    public static function deactivateRecord($strEmailAddress) {
 
-	if (empty($strUsername)) {
+	if (empty($strEmailAddress)) {
 	    return false;
 	}
 
@@ -209,7 +209,7 @@ class Admin extends AppActiveRecord {
 				SET ' .
 	    self::$tableName . '_status = ' . ADMIN::INACTIVE . '
 				WHERE ' .
-	    self::$tableName . '_username = "' . $strUsername . '"
+	    self::$tableName . '_email_address = "' . $strEmailAddress . '"
 				LIMIT 1';
 
 	$objConnection = Yii::app()->db;
@@ -228,9 +228,9 @@ class Admin extends AppActiveRecord {
       Return		: The number of login retried times
      */
 
-    public static function getLoginRetryTimes($strUsername) {
+    public static function getLoginRetryTimes($strEmailAddress) {
 
-	if (empty($strUsername)) {
+	if (empty($strEmailAddress)) {
 	    return 0;
 	}
 
@@ -239,7 +239,7 @@ class Admin extends AppActiveRecord {
 				FROM ' .
 	    self::$tableName . ' 
 				WHERE ' .
-	    self::$tableName . '_username = "' . $strUsername . '"
+	    self::$tableName . '_email_address = "' . $strEmailAddress . '"
 				LIMIT 1';
 
 	$objConnection = Yii::app()->db;
@@ -272,7 +272,7 @@ class Admin extends AppActiveRecord {
       $criteria=new CDbCriteria;
 
       $criteria->compare('admin_id', $this->admin_id);
-      $criteria->compare('admin_username',$this->admin_username, true);
+      $criteria->compare('admin_email_address',$this->admin_email_address, true);
       $criteria->compare('admin_display_name',$this->admin_display_name, true);
       $criteria->compare('admin_status',$this->admin_status, true);
 
@@ -282,7 +282,7 @@ class Admin extends AppActiveRecord {
       } */
 
     public static function checkForCreatedBy($createdById) {
-	$sql = 'SELECT ' . self::$tableName . '_username ';
+	$sql = 'SELECT ' . self::$tableName . '_email_address ';
 	$sql .= 'FROM ' . self::$tableName;
 	$sql .= ' WHERE ' . self::$tableName . '_id = ' . $createdById;
 
@@ -290,7 +290,7 @@ class Admin extends AppActiveRecord {
 	$objCommand = $objConnection->createCommand($sql);
 	$arrData = $objCommand->queryRow();
 
-	return $arrData['admin_username'];
+	return $arrData['admin_email_address'];
     }
 
     public static function checkForAdminPrivilege($createdAdminId, $controller) {
@@ -337,7 +337,7 @@ class Admin extends AppActiveRecord {
     }
 
     public function checkAdminDepartmentExist($id) {
-	$sql = 'SELECT ' . self::$tableName . '_username';
+	$sql = 'SELECT ' . self::$tableName . '_email_address';
 	$sql .= ' FROM ' . self::$tableName;
 	$sql .= ' WHERE ' . self::$tableName . '_department = ' . $id;
 
