@@ -290,9 +290,7 @@ class PageHelper {
 	$formData = PageEnum::FORM_DATA[$pageType];
 	$tableHeaders = $formData['table-header'];
 	$columnDetails = $formData['column-details'];
-	$deleteButtonClass = $formData['delete-button-class'];
-	$deleteSpanClass = $formData['delete-span-class'];
-	
+
 	$tableBody = '<table class="widget_table grid">';
 	$tableBody .= '<thead>';
 	$tableBody .= '<tr>';
@@ -300,7 +298,7 @@ class PageHelper {
 	$tableBody .= '</tr>';
 	$tableBody .= '</thead>';
 	$tableBody .= '<tbody id="data_table">';
-	
+
 //	if ($dataObjects != null && isset($dataObjects)){
 //	    foreach ($dataObjects as $dataObject) {
 //		$tableBody .= '<tr>';
@@ -312,11 +310,12 @@ class PageHelper {
 //		$tableBody .= '</tr>';
 //	    }
 //	}
-	
-	$tableBody .= self::prepareTableDataForTemplateItems($dataObjects, $columnDetails, $deleteButtonClass, $deleteSpanClass);
+
+	$tableBody .= self::prepareTableDataForTemplateItems($dataObjects, $columnDetails);
 
 	$tableBody .= '</tbody>';
 	$tableBody .= '</table>';
+	$tableBody .= '<button type="button" id="appendItem" title="Add more items to this template">+</button>';
 
 	return $tableBody;
     }
@@ -337,24 +336,36 @@ class PageHelper {
 	}
 	return $tableBody;
     }
-    
-    private static function prepareTableDataForTemplateItems($dataObjects, $columnDetails){
+
+    private static function prepareTableDataForTemplateItems($dataObjects, $columnDetails) {
 	$tableBody = "";
-	if ($dataObjects != null && isset($dataObjects)){
+	$ptn = "/_[a-z]?/";
+	if ($dataObjects != null && isset($dataObjects)) {
 	    foreach ($dataObjects as $dataObject) {
 		$tableBody .= '<tr class="itemTr">';
 		foreach ($columnDetails as $columnDetail) {
-		    $tableBody .= '<td class="' . $columnDetail . '">';
+		    $tableBody .= '<td class="' . self::dashesToCamelCase($columnDetail) . '">';
 		    $tableBody .= $dataObject[$columnDetail];
 		    $tableBody .= '</td>';
 		}
-		$tableBody .= '<td class="' . $deleteButtonClass . '">';
+		$tableBody .= '<td class="removeItemButton">';
 		$tableBody .= '<a href="#"><span class="removeItemButton" title="Remove this item">&#x2716;</span></a>';
 		$tableBody .= '</td>';
 		$tableBody .= '</tr>';
 	    }
 	    return $tableBody;
 	}
+    }
+
+    private static function dashesToCamelCase($string, $capitalizeFirstCharacter = false) {
+
+	$str = str_replace('_', '', ucwords($string, '_'));
+
+	if (!$capitalizeFirstCharacter) {
+	    $str = lcfirst($str);
+	}
+
+	return $str;
     }
 
 }

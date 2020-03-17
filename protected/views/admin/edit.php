@@ -1,19 +1,4 @@
-<script>
-    function openTab(evt, cityName) {
-      var i, tabcontent, tablinks;
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-      }
-      tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-      }
-      document.getElementById(cityName).style.display = "block";
-      evt.currentTarget.className += " active";
-    }
-</script>
-
+<?php echo CHtml::scriptFile(Yii::app()->request->baseUrl . "/js/sections/admin-edit.js"); ?>
 <div class="breadcrumb">
   <div class="breadcrumb_wrapper">
     <div class="breadcrumb-top">
@@ -43,7 +28,6 @@
       <?php $this->renderPartial('_form', array('objModel' => $objModel)); ?>
     </div>
     <div id="onboarding" class="tabcontent">
-      <?php //var_dump ($onboardingChecklistItems); ?>
       <?php echo PageHelper::printTemplateItems($onboardingTab,$onboardingChecklistItems); ?>
     </div>
     <div id="training" class="tabcontent">
