@@ -132,7 +132,9 @@
 	    <?php foreach ($arrRecords as $intIndex => $objRecord) { ?>
 		<tr>
 		  <td>
-		    <?php echo $objRecord->admin_username; ?>
+		    <div class="btnGetAdminForm" rel="<?php echo $this->createUrl('admin/edit', array('id' => $objRecord->admin_id)); ?>">
+		      <?php echo $objRecord->admin_username; ?>
+		    </div>
 		  </td>
 		  <td><?php echo $objRecord->admin_display_name; ?></td>
 		  <td><?php echo Admin::getStatusLabel($objRecord->admin_status); ?></td>

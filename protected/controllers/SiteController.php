@@ -132,12 +132,12 @@ class SiteController extends Controller
 								AdminLoginLog::InsertLog($strEmailAddress, AdminLoginLog::STATUS_RETRY_OVER, get_ip());
 								$aResult['msg'] = Yii::t('app', 'Login Failed') . '<hr/>' . Yii::t('app', 'Your account has been deactivated!');
 							} else {
-								$aResult['msg'] = Yii::t('app', 'Login Failed') . '<hr/>' . Yii::t('app', 'Email address or password is incorrect laaaa!');
+								$aResult['msg'] = Yii::t('app', 'Login Failed') . '<hr/>' . Yii::t('app', 'Email address or password is incorrect.');
 								AdminLoginLog::InsertLog($strEmailAddress, AdminLoginLog::STATUS_FAIL, get_ip());
 							} // - end: if else					
 						} // - end: if else
 					} else {
-						$aResult['msg'] = Yii::t('app', 'Login Failed') . '<hr/>' . Yii::t('app', 'Please re-enter the verification code');
+						$aResult['msg'] = Yii::t('app', 'Login Failed') . '<hr/>' . Yii::t('app', 'Please re-enter the verification code.');
 					} // - end: if else		
 				} elseif ($whiteListIpCheck == true){
 
@@ -161,7 +161,7 @@ class SiteController extends Controller
 								AdminLoginLog::InsertLog($strEmailAddress, AdminLoginLog::STATUS_RETRY_OVER, get_ip());
 								$aResult['msg'] = Yii::t('app', 'Login Failed') . '<hr/>' . Yii::t('app', 'Your account has been deactivated!');
 							} else {
-								$aResult['msg'] = Yii::t('app', 'Login Failed') . '<hr/>' . Yii::t('app', 'Email address or password is incorrect woooohoooooo!');
+								$aResult['msg'] = Yii::t('app', 'Login Failed') . '<hr/>' . Yii::t('app', 'Email address or password is incorrect.');
 								AdminLoginLog::InsertLog($strEmailAddress, AdminLoginLog::STATUS_FAIL, get_ip());
 							} // - end: if else					
 						} // - end: if else
