@@ -1,14 +1,14 @@
 <style>
-  body {font-family: Arial;}
+/*  body {font-family: Arial;}
 
-  /* Style the tab */
+   Style the tab 
   .tab {
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
   }
 
-  /* Style the buttons inside the tab */
+   Style the buttons inside the tab 
   .tab button {
     background-color: inherit;
     float: left;
@@ -20,23 +20,23 @@
     font-size: 17px;
   }
 
-  /* Change background color of buttons on hover */
+   Change background color of buttons on hover 
   .tab button:hover {
     background-color: #ddd;
   }
 
-  /* Create an active/current tablink class */
+   Create an active/current tablink class 
   .tab button.active {
     background-color: #ccc;
   }
 
-  /* Style the tab content */
+   Style the tab content 
   .tabcontent {
     display: none;
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
-  }/*
+  }/**/
 
 </style>
 
@@ -55,6 +55,9 @@
       evt.currentTarget.className += " active";
     }
 </script>
+
+<script src="admin-edit.js"></script>
+<style src="admin-edit.css"></style>
 
 <div class="breadcrumb">
   <div class="breadcrumb_wrapper">
