@@ -299,7 +299,7 @@ class PageHelper {
 	$tableBody .= self::prepareTableHeaderForTemplateItems($tableHeaders);
 	$tableBody .= '</tr>';
 	$tableBody .= '</thead>';
-	$tableBody .= '<tbody>';
+	$tableBody .= '<tbody id="data_table">';
 	
 //	if ($dataObjects != null && isset($dataObjects)){
 //	    foreach ($dataObjects as $dataObject) {
@@ -338,13 +338,13 @@ class PageHelper {
 	return $tableBody;
     }
     
-    private static function prepareTableDataForTemplateItems($dataObjects, $columnDetails, $deleteButtonClass, $deleteSpanClass){
+    private static function prepareTableDataForTemplateItems($dataObjects, $columnDetails){
 	$tableBody = "";
 	if ($dataObjects != null && isset($dataObjects)){
 	    foreach ($dataObjects as $dataObject) {
-		$tableBody .= '<tr>';
+		$tableBody .= '<tr class="itemTr">';
 		foreach ($columnDetails as $columnDetail) {
-		    $tableBody .= '<td>';
+		    $tableBody .= '<td class="' . $columnDetail . '">';
 		    $tableBody .= $dataObject[$columnDetail];
 		    $tableBody .= '</td>';
 		}
