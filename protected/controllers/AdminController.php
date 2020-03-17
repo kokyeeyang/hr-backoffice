@@ -214,10 +214,11 @@ class AdminController extends Controller {
 	    } else {
 		$userId = (int) $id;
 		$onboardingChecklistItems = OnboardingChecklistItem::model()->findOnboardingItemsForThisUser($userId);
+		$onboardingItemTitleArrRecord = OnboardingChecklistItem::model()->queryForOnboardingItemTitles();
 		$onboardingTab = AdminEnum::NEW_ONBOARDING;
 		$objModel->admin_password = '';
 		$objModel->admin_display_name = Validator::decodetag($objModel->admin_display_name);
-		$aResult['content'] = $this->renderPartial('edit', array('objModel' => $objModel, 'onboardingTab' => $onboardingTab, 'onboardingChecklistItems' => $onboardingChecklistItems), true);
+		$aResult['content'] = $this->renderPartial('edit', array('objModel' => $objModel, 'onboardingTab' => $onboardingTab, 'onboardingChecklistItems' => $onboardingChecklistItems, 'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord), true);
 	    }
 
 	    if (!empty($aResult['content'])) {

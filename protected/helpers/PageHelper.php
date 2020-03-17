@@ -285,7 +285,7 @@ class PageHelper {
 	return $alertMessage;
     }
 
-    public static function printTemplateItems($pageType, $dataObjects) {
+    public static function printTemplateItems($pageType, $dataObjects, $dropdownItemTitles) {
 
 	$formData = PageEnum::FORM_DATA[$pageType];
 	$tableHeaders = $formData['table-header'];
@@ -311,7 +311,7 @@ class PageHelper {
 //	    }
 //	}
 
-	$tableBody .= self::prepareTableDataForTemplateItems($dataObjects, $columnDetails);
+	$tableBody .= self::prepareTableDataForTemplateItems($dataObjects, $columnDetails, $dropdownItemTitles);
 
 	$tableBody .= '</tbody>';
 	$tableBody .= '</table>';
@@ -337,13 +337,27 @@ class PageHelper {
 	return $tableBody;
     }
 
-    private static function prepareTableDataForTemplateItems($dataObjects, $columnDetails) {
+    private static function prepareTableDataForTemplateItems($dataObjects, $columnDetails, $dropdownItemTitles) {
 	$tableBody = "";
 	$ptn = "/_[a-z]?/";
+	$counter = 0;
 	if ($dataObjects != null && isset($dataObjects)) {
 	    foreach ($dataObjects as $dataObject) {
 		$tableBody .= '<tr class="itemTr">';
 		foreach ($columnDetails as $columnDetail) {
+		    if($columnDetail == 'title'){
+			$tableBody .= '<td class="itemTd">';
+			$tableBody .= '<select name="itemDropdown ' . $counter . '" size=1 class="selectItemTitle" data-render-url="' . $_SERVER['PHP_SELF'] . '">';
+			$tableBody .= '<option value="">Choose here</option>';
+			foreach($dropdownItemTitles as $dropdownItemTitle){
+			    $dataObject[$columnDetail] === $dropdownItemTitle['title'] ? $selected = "selected" : $selected = '';
+			    $tableBody .= '<option value = "' . $dropdownItemTitle['id'] . '" ' . $selected;
+			    $tableBody .= $dropdownItemTitle['title'];
+			    $tableBody .= '</option>';
+			}
+			$tableBody .= '</select>';
+			$tableBody .= '</td>';
+		    }
 		    $tableBody .= '<td class="' . self::dashesToCamelCase($columnDetail) . '">';
 		    $tableBody .= $dataObject[$columnDetail];
 		    $tableBody .= '</td>';

@@ -961,8 +961,9 @@ var Project = function () {
     render_training_item_details: _render_training_item_details,
     append_new_training_item: _append_new_training_item,
     remove_training_item_row: _remove_training_item_row,
+    
+    openTab : _openTab
 
-    openTab: _openTab
   }
 }();
 Project.init();
