@@ -345,27 +345,29 @@ class PageHelper {
 	    foreach ($dataObjects as $dataObject) {
 		$tableBody .= '<tr class="itemTr">';
 		foreach ($columnDetails as $columnDetail) {
-		    if($columnDetail == 'title'){
+		    if($columnDetail == 'item_title'){
 			$tableBody .= '<td class="itemTd">';
 			$tableBody .= '<select name="itemDropdown ' . $counter . '" size=1 class="selectItemTitle" data-render-url="' . $_SERVER['PHP_SELF'] . '">';
 			$tableBody .= '<option value="">Choose here</option>';
 			foreach($dropdownItemTitles as $dropdownItemTitle){
 			    $dataObject[$columnDetail] === $dropdownItemTitle['title'] ? $selected = "selected" : $selected = '';
-			    $tableBody .= '<option value = "' . $dropdownItemTitle['id'] . '" ' . $selected;
+			    $tableBody .= '<option value = "' . $dropdownItemTitle['id'] . '" ' . $selected . '>';
 			    $tableBody .= $dropdownItemTitle['title'];
 			    $tableBody .= '</option>';
 			}
 			$tableBody .= '</select>';
 			$tableBody .= '</td>';
+		    } else {
+			$tableBody .= '<td class="' . self::dashesToCamelCase($columnDetail) . '">';
+			$tableBody .= $dataObject[$columnDetail];
+			$tableBody .= '</td>';
 		    }
-		    $tableBody .= '<td class="' . self::dashesToCamelCase($columnDetail) . '">';
-		    $tableBody .= $dataObject[$columnDetail];
-		    $tableBody .= '</td>';
 		}
 		$tableBody .= '<td class="removeItemButton">';
 		$tableBody .= '<a href="#"><span class="removeItemButton" title="Remove this item">&#x2716;</span></a>';
 		$tableBody .= '</td>';
 		$tableBody .= '</tr>';
+		$counter ++;
 	    }
 	    return $tableBody;
 	}
