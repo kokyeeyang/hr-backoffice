@@ -680,6 +680,8 @@ var Project = function () {
   }
 
   //start js codes for assigning onboarding items for new hirees
+  //work on this now!
+  //need to set an ajax form data to post to
   function _render_onboarding_item_details(objElement, objEvent) {
     if ($(objElement).val() != '') {
       var intOnboardingItemId = $(objElement).find(":selected").val();
@@ -687,7 +689,7 @@ var Project = function () {
         type: 'post',
         url: $(objElement).attr('data-render-url'),
         data: {
-          ajax: 'admin-form',
+          ajax: 'render-onboarding-item-details',
           onboarding_item_id: intOnboardingItemId
         },
         dataType: 'json',
@@ -696,11 +698,12 @@ var Project = function () {
           if ((typeof data['description']) !== 'undefined' && data !== null) {
             var remove_logo = '&#x2716;';
             var objRow = $(objElement).closest('tr');
+            
             objRow.find('.description').text(data['description']);
-            objRow.find('.departmentOwner').text(data['responsibility']);
-            objRow.find('.isManagerial').text(data['isManagerial']);
-            objRow.find('.isOffboardingItem').text(data['isOffboardingItem']);
-            objRow.find('span.removeItemButton').html(remove_logo);
+            objRow.find('.departmentOwner').text(data['department_owner']);
+            objRow.find('.isManagerial').text(data['is_managerial']);
+            objRow.find('.isOffboardingItem').text(data['is_offboarding_item']);
+            objRow.find('span.removeOnboardingTabItemButton').html(remove_logo);
           }
         }
       });
@@ -710,12 +713,13 @@ var Project = function () {
   function _append_new_onboarding_checklist_item(objElement, objEvent) {
     var dataTable = $('#data_table');
 
-    var appendRow = $('tr.appendItemTr');
-
+    var appendRow = $('tr.appendOnboardingTabItemTr');
+    
+    console.log(appendRow);
     //deciding to put list_even or list_odd for the front end
-    var counter = $('#hiddenVal').val();
+    var counter = $('#onboardingTabHiddenVal').val();
     counter++;
-    $('#hiddenVal').val(counter);
+    $('#onboardingTabHiddenVal').val(counter);
     var numberAfterModulus = counter % 2;
 
     if (numberAfterModulus == 1) {
@@ -755,13 +759,14 @@ var Project = function () {
 
   function _initOnboardingItemDropdown() {
     $('select[class="selectItemTitle"]').unbind('change').change(function (objEvent) {
-      Project.render_onboarding_checklist_item_details(this, objEvent);
+      Project.render_onboarding_item_details(this, objEvent);
       $('.updateTemplateButton').prop('disabled', false);
     });
   }
 
   function _initAppendNewOnboardingChecklistItem() {
-    $(':button#appendItem').unbind('click').click(function (objEvent) {
+    $(':button#appendOnboardingTabItem').unbind('click').click(function (objEvent) {
+      console.log('hello');
       Project.append_new_onboarding_checklist_item(this, objEvent);
     });
   }

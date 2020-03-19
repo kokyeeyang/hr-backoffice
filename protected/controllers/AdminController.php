@@ -180,7 +180,7 @@ class AdminController extends Controller {
 			    $objModel->admin_priv = $strPriv;
 			    $objModel->admin_department = $strDepartment;
 			    $objModel->admin_modified_datetime = $this->strCurrentDatetime;
-			    
+
 			    if ($strPassword !== '') {
 				$objModel->admin_password = sha1($strPassword);
 			    } // - end: if
@@ -208,6 +208,25 @@ class AdminController extends Controller {
 		    }
 		} else {
 		    $aResult['msg'] = Yii::t('app', 'Operation Failed') . '<br/>' . $error;
+		}
+		echo(json_encode($aResult));
+		Yii::app()->end();
+	    } else if ($_POST['ajax'] === 'render-onboarding-item-details') {
+		$aResult = [];
+		$aResult['result'] = 0;
+		$aResult['content'] = '';
+		$aResult['msg'] = '';
+
+		$onboardingItemId = $this->getParam('onboarding_item_id');
+		//put in the new function to find onboarding item details here
+		$selectedOnboardingItem = OnboardingChecklistItem::model()->findOnboardingItemDetails($onboardingItemId);
+		$aResult['description'] = $selectedOnboardingItem[0]['description'];
+		$aResult['department_owner'] = $selectedOnboardingItem[0]['department_owner'];
+		$aResult['is_offboarding_item'] = $selectedOnboardingItem[0]['is_offboarding_item'];
+		$aResult['is_managerial'] = $selectedOnboardingItem[0]['is_managerial'];
+
+		if (!empty($aResult['content'])) {
+		    $aResult['result'] = 1;
 		}
 		echo(json_encode($aResult));
 		Yii::app()->end();
@@ -300,7 +319,7 @@ class AdminController extends Controller {
 	    case 'sort_display_name_asc':
 		$strSortBy = 'admin_display_name ASC';
 		break;
-	    
+
 	    case 'sort_privilege_desc':
 		$strSortBy = 'admin_priv DESC';
 		break;
@@ -308,7 +327,7 @@ class AdminController extends Controller {
 	    case 'sort_privilege_asc':
 		$strSortBy = 'admin_priv ASC';
 		break;
-	    
+
 	    case 'sort_username_desc':
 		$strSortBy = 'admin_username DESC';
 		break;
@@ -329,7 +348,7 @@ class AdminController extends Controller {
 	$objPagination->setCurrentPage($this->intPage);
 	$objPagination->applyLimit($objCriteria);
 	$arrRecords = Admin::model()->findAll($objCriteria);
-	
+
 	return $this->renderPartial('list', array('strSortKey' => $strSortKey, 'arrRecords' => $arrRecords, 'objPagination' => $objPagination), true);
     }
 
@@ -451,15 +470,15 @@ class AdminController extends Controller {
 		$strSortBy = 'description ASC';
 		break;
 	}
-	
-	if($_POST == false && !isset($_POST["sort_key"])){
+
+	if ($_POST == false && !isset($_POST["sort_key"])) {
 	    $strSortBy = 'created_date DESC';
 	}
-	
+
 	if ($_POST != false && $_POST["sort_key"] == false) {
 	    $strSortBy = 'created_date DESC';
 	}
-	
+
 	$objCriteria = new CDbCriteria();
 	$objCriteria->order = $strSortBy;
 	$objCriteria->condition = self::getObjCriteria($tableName);
@@ -497,8 +516,8 @@ class AdminController extends Controller {
 	echo(json_encode($aResult));
 	Yii::app()->end();
     }
-    
-    private static function getObjCriteria($tableName){
+
+    private static function getObjCriteria($tableName) {
 	if (array_key_exists('label_filter', $_POST) && $_POST['label_filter'] != null) {
 	    switch ($tableName) {
 		case AdminEnum::DEPARTMENT_TABLE:
@@ -507,4 +526,5 @@ class AdminController extends Controller {
 	    }
 	}
     }
+
 }
