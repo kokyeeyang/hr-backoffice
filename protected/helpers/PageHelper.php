@@ -299,23 +299,11 @@ class PageHelper {
 	$tableBody .= '</thead>';
 	$tableBody .= '<tbody id="data_table">';
 
-//	if ($dataObjects != null && isset($dataObjects)){
-//	    foreach ($dataObjects as $dataObject) {
-//		$tableBody .= '<tr>';
-//		foreach ($columnDetails as $columnDetail) {
-//		    $tableBody .= '<td>';
-//		    $tableBody .= $dataObject[$columnDetail];
-//		    $tableBody .= '</td>';
-//		}
-//		$tableBody .= '</tr>';
-//	    }
-//	}
-
-	$tableBody .= self::prepareTableDataForTemplateItems($dataObjects, $columnDetails, $dropdownItemTitles);
+	$tableBody .= self::prepareTableDataForTemplateItems($dataObjects, $columnDetails, $dropdownItemTitles, $pageType);
 
 	$tableBody .= '</tbody>';
 	$tableBody .= '</table>';
-	$tableBody .= '<button type="button" id="appendItem" title="Add more items to this template">+</button>';
+	$tableBody .= '<button type="button" id="append' . $pageType . 'Item" title="Add more items to this template">+</button>';
 
 	return $tableBody;
     }
@@ -337,17 +325,19 @@ class PageHelper {
 	return $tableBody;
     }
 
-    private static function prepareTableDataForTemplateItems($dataObjects, $columnDetails, $dropdownItemTitles) {
+    private static function prepareTableDataForTemplateItems($dataObjects, $columnDetails, $dropdownItemTitles, $pageType) {
 	$tableBody = "";
 	$ptn = "/_[a-z]?/";
 	$counter = 0;
+	
 	if ($dataObjects != null && isset($dataObjects)) {
 	    foreach ($dataObjects as $dataObject) {
 		$tableBody .= '<tr class="itemTr">';
 		foreach ($columnDetails as $columnDetail) {
 		    if($columnDetail == 'item_title'){
 			$tableBody .= '<td class="itemTd">';
-			$tableBody .= '<select name="itemDropdown ' . $counter . '" size=1 class="selectItemTitle" data-render-url="' . $_SERVER['PHP_SELF'] . '">';
+			//we need to set a unique id or class for each onboarding and training tab
+			$tableBody .= '<select name="itemDropdown ' . $counter . '" size=1 class="'. lcfirst($pageType) .'Dropdown" data-render-url="' . $_SERVER['PHP_SELF'] . '">';
 			$tableBody .= '<option value="">Choose here</option>';
 			foreach($dropdownItemTitles as $dropdownItemTitle){
 			    $dataObject[$columnDetail] === $dropdownItemTitle['title'] ? $selected = "selected" : $selected = '';
@@ -364,7 +354,7 @@ class PageHelper {
 		    }
 		}
 		$tableBody .= '<td class="removeItemButton">';
-		$tableBody .= '<a href="#"><span class="removeItemButton" title="Remove this item">&#x2716;</span></a>';
+		$tableBody .= '<a href="#"><span class="remove'. $pageType .'ItemButton" title="Remove this item">&#x2716;</span></a>';
 		$tableBody .= '</td>';
 		$tableBody .= '</tr>';
 		$counter ++;

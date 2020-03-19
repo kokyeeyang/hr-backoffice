@@ -856,36 +856,40 @@ var Project = function () {
     });
   }
 
-  function _initAppendNewTrainingItem() {
-    $(':button#appendItem').unbind('click').click(function (objEvent) {
-      Project.append_new_training_item(this, objEvent);
-    });
-  }
+//  function _initAppendNewTrainingItem() {
+//    $(':button#appendItem').unbind('click').click(function (objEvent) {
+//      Project.append_new_training_item(this, objEvent);
+//    });
+//  }
 
   function _initRemoveTrainingItem() {
     $('td.removeItemButton a').unbind('click').click(function (objEvent) {
       Project.remove_training_item_row(this, objEvent);
     });
   }
-  
+
   //end assigning training items for new hirees
-  
-  function _openTab(evt, cityName) {
+
+  function _openTab(evt, tabName) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
       tabcontent[i].style.display = "none";
     }
+
     tablinks = document.getElementsByClassName("tablinks");
     for (i = 0; i < tablinks.length; i++) {
       tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
-    document.getElementById(cityName).style.display = "block";
+    document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
+
+    Project.initAppendNewOnboardingChecklistItem();
   }
 
   function _init() {
     $(function () {
+
       Project.logout();
       Project.change_theme();
       Project.set_grid();
@@ -908,7 +912,7 @@ var Project = function () {
       Project.initOnboardingInputBoxes();
 
       Project.initTrainingItemDropdown();
-      Project.initAppendNewTrainingItem();
+//      Project.initAppendNewTrainingItem();
       Project.initRemoveTrainingItem();
       Project.initTrainingInputBoxes();
       Project.initTrainingTextArea();
@@ -952,17 +956,17 @@ var Project = function () {
     render_onboarding_item_details: _render_onboarding_item_details,
     append_new_onboarding_checklist_item: _append_new_onboarding_checklist_item,
     remove_onboarding_checklist_item_row: _remove_onboarding_checklist_item_row,
-    
+
     initTrainingItemDropdown: _initTrainingItemDropdown,
-    initAppendNewTrainingItem: _initAppendNewTrainingItem,
+//    initAppendNewTrainingItem: _initAppendNewTrainingItem,
     initRemoveTrainingItem: _initRemoveTrainingItem,
     initTrainingInputBoxes: _initTrainingInputBoxes,
     initTrainingTextArea: _initTrainingTextArea,
     render_training_item_details: _render_training_item_details,
     append_new_training_item: _append_new_training_item,
     remove_training_item_row: _remove_training_item_row,
-    
-    openTab : _openTab
+
+    openTab: _openTab
 
   }
 }();

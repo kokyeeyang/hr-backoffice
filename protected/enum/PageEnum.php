@@ -199,7 +199,7 @@ class PageEnum {
 	),
 	//this is not for show all page
 	//for onboarding items for new hirees
-	"New Onboarding" =>
+	"OnboardingTab" =>
 	array(
 	    "table-header" => array("Title", "Description", "Department Owner", "Is Managerial", "Is Offboarding Item", ""),
 	    "column-details" => array("item_title", "description", "department_owner", "is_managerial", "is_offboarding_item"),
