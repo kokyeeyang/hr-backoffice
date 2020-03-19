@@ -157,7 +157,7 @@ class TrainingItem extends AppActiveRecord {
         $sql .= 'FROM ' . self::$tableName . ' TI ';
 	$sql .= 'INNER JOIN training_items_mapping TIM ON TI.id = TIM.training_item_id ';
 	$sql .= 'INNER JOIN training_items_user_mapping TIUM ON TIM.id = TIUM.training_items_mapping_id ';
-	$sql .= 'INNER JOIN admin A ON TI.responsibility = A.id ';
+	$sql .= 'INNER JOIN admin A ON TI.responsibility = A.admin_id ';
 	$sql .= 'WHERE TIUM.user_id = ' . $userId;
 
 	$objConnection = Yii::app()->db;

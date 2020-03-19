@@ -206,7 +206,7 @@ class PageEnum {
 	),
 	"TrainingTab" =>
 	array(
-	    "table-header" => array("Title", "Description", "Responsibility"),
+	    "table-header" => array("Title", "Description", "Responsibility", ""),
 	    "column-details" => array("item_title", "description", "responsibility")
 	)
     );
