@@ -860,11 +860,11 @@ var Project = function () {
     });
   }
 
-//  function _initAppendNewTrainingItem() {
-//    $(':button#appendItem').unbind('click').click(function (objEvent) {
-//      Project.append_new_training_item(this, objEvent);
-//    });
-//  }
+  function _initAppendNewTrainingItem() {
+    $(':button#appendTrainingTabItem').unbind('click').click(function (objEvent) {
+      Project.append_new_training_item(this, objEvent);
+    });
+  }
 
   function _initRemoveTrainingItem() {
     $('td.removeItemButton a').unbind('click').click(function (objEvent) {
@@ -916,7 +916,7 @@ var Project = function () {
       Project.initOnboardingInputBoxes();
 
       Project.initTrainingItemDropdown();
-//      Project.initAppendNewTrainingItem();
+      Project.initAppendNewTrainingItem();
       Project.initRemoveTrainingItem();
       Project.initTrainingInputBoxes();
       Project.initTrainingTextArea();
@@ -962,7 +962,7 @@ var Project = function () {
     remove_onboarding_checklist_item_row: _remove_onboarding_checklist_item_row,
 
     initTrainingItemDropdown: _initTrainingItemDropdown,
-//    initAppendNewTrainingItem: _initAppendNewTrainingItem,
+    initAppendNewTrainingItem: _initAppendNewTrainingItem,
     initRemoveTrainingItem: _initRemoveTrainingItem,
     initTrainingInputBoxes: _initTrainingInputBoxes,
     initTrainingTextArea: _initTrainingTextArea,
