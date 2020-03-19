@@ -339,11 +339,13 @@ class PageHelper {
 			//we need to set a unique id or class for each onboarding and training tab
 			$tableBody .= '<select name="itemDropdown ' . $counter . '" size=1 class="'. lcfirst($pageType) .'Dropdown" data-render-url="' . $_SERVER['PHP_SELF'] . '">';
 			$tableBody .= '<option value="">Choose here</option>';
-			foreach($dropdownItemTitles as $dropdownItemTitle){
-			    $dataObject[$columnDetail] === $dropdownItemTitle['title'] ? $selected = "selected" : $selected = '';
-			    $tableBody .= '<option value = "' . $dropdownItemTitle['id'] . '" ' . $selected . '>';
-			    $tableBody .= $dropdownItemTitle['title'];
-			    $tableBody .= '</option>';
+			if($dropdownItemTitles != null){
+			    foreach($dropdownItemTitles as $dropdownItemTitle){
+				$dataObject[$columnDetail] === $dropdownItemTitle['title'] ? $selected = "selected" : $selected = '';
+				$tableBody .= '<option value = "' . $dropdownItemTitle['id'] . '" ' . $selected . '>';
+				$tableBody .= $dropdownItemTitle['title'];
+				$tableBody .= '</option>';
+			    }
 			}
 			$tableBody .= '</select>';
 			$tableBody .= '</td>';
@@ -353,14 +355,39 @@ class PageHelper {
 			$tableBody .= '</td>';
 		    }
 		}
-		$tableBody .= '<td class="removeItemButton">';
+		$tableBody .= '<td class="remove'. $pageType .'ItemButton">';
 		$tableBody .= '<a href="#"><span class="remove'. $pageType .'ItemButton" title="Remove this item">&#x2716;</span></a>';
 		$tableBody .= '</td>';
 		$tableBody .= '</tr>';
 		$counter ++;
 	    }
-	    return $tableBody;
+	    
+//	    return $tableBody;
 	}
+	//class, name, id needs to be unique
+	$tableBody .= '<tr class="append' . $pageType . 'ItemTr" style="display:none;">';
+	$tableBody .= '<td class="item' . $pageType .'Td">';
+	$tableBody .= '<select name="append' . $pageType . 'ItemDropdown" size=1 class="selectItemTitle" data-render-url="' . $_SERVER['PHP_SELF'] . '">';
+	$tableBody .= '<option value="" selected>Choose here</option>';
+	if($dropdownItemTitles != null){
+	    foreach($dropdownItemTitles as $dropdownItemTitle){
+		$tableBody .= '<option value="'. $dropdownItemTitle['id'] .'">';
+		$tableBody .= $dropdownItemTitle['title'];
+		$tableBody .= '</option>';
+	    }
+	}
+	$tableBody .= '</select>';
+	$tableBody .= '</td>';
+	foreach($columnDetails as $columnDetail){
+	    $tableBody .= '<td class="' . $columnDetail . '"';
+	    $tableBody .= '</td>';
+	}
+	$tableBody .= '<td class="remove'. $pageType .'ItemButton">';
+	$tableBody .= '<a href="#"><span class="remove' . $pageType . 'ItemButton" title="Remove this item"></span></a>';
+	$tableBody .= '</td>';
+	$tableBody .= '</tr>';
+	
+	return $tableBody;
     }
 
     private static function dashesToCamelCase($string, $capitalizeFirstCharacter = false) {

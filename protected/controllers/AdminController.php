@@ -215,7 +215,7 @@ class AdminController extends Controller {
 		$userId = (int) $id;
 		$onboardingChecklistItems = OnboardingChecklistItem::model()->findOnboardingItemsForThisUser($userId);
 		$onboardingItemTitleArrRecord = OnboardingChecklistItem::model()->queryForOnboardingItemTitles();
-		$onboardingTab = AdminEnum::NEW_ONBOARDING;
+		$onboardingTab = AdminEnum::ONBOARDING_TAB;
 		$objModel->admin_password = '';
 		$objModel->admin_display_name = Validator::decodetag($objModel->admin_display_name);
 		$aResult['content'] = $this->renderPartial('edit', array('objModel' => $objModel, 'onboardingTab' => $onboardingTab, 'onboardingChecklistItems' => $onboardingChecklistItems, 'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord), true);
