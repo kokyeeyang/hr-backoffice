@@ -740,9 +740,9 @@ var Project = function () {
     $(rowToBeRemoved).remove();
     $('.updateTemplateButton').prop('disabled', false);
 
-    var counter = parseInt($('#hiddenVal').val());
+    var counter = parseInt($('#onboardingTabHiddenVal').val());
     counter--;
-    $('#hiddenVal').val(counter);
+    $('#onboardingTabHiddenVal').val(counter);
   }
 
   function _initOnboardingInputBoxes() {
@@ -766,13 +766,12 @@ var Project = function () {
 
   function _initAppendNewOnboardingChecklistItem() {
     $(':button#appendOnboardingTabItem').unbind('click').click(function (objEvent) {
-      console.log('hello');
       Project.append_new_onboarding_checklist_item(this, objEvent);
     });
   }
 
   function _initRemoveOnboardingChecklistItem() {
-    $('td.removeItemButton a').unbind('click').click(function (objEvent) {
+    $('td.removeOnboardingTabItemButton a').unbind('click').click(function (objEvent) {
       Project.remove_onboarding_checklist_item_row(this, objEvent);
 
     });

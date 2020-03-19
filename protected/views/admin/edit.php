@@ -35,8 +35,7 @@
       <?php echo PageHelper::printTemplateItems($onboardingTab, $onboardingChecklistItems, $onboardingItemTitleArrRecord); ?>
     </div>
     <div id="training" class="tabcontent">
-      <h3>Training stuff</h3>
-      <p>Training stuff wooohooo</p> 
+      <?php echo PageHelper::printTemplateItems($trainingTab, $trainingItems, $trainingItemTitleArrRecord); ?>
     </div>
   </div>
 </div>

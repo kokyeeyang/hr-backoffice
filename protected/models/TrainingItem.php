@@ -150,5 +150,25 @@ class TrainingItem extends AppActiveRecord {
             return false;
         }
     }
+    
+    public function findTrainingItemsForThisUser($userId){
+	$sql = 'SELECT TI.title AS "item_title", TIM.id AS "training_items_mapping_id", TIM.training_template_id, A.admin_display_name AS "responsibility", ';
+	$sql .= 'TI.description ';
+        $sql .= 'FROM ' . self::$tableName . ' TI ';
+	$sql .= 'INNER JOIN training_items_mapping TIM ON TI.id = TIM.training_item_id ';
+	$sql .= 'INNER JOIN training_items_user_mapping TIUM ON TIM.id = TIUM.training_items_mapping_id ';
+	$sql .= 'INNER JOIN admin A ON TI.responsibility = A.id ';
+	$sql .= 'WHERE TIUM.user_id = ' . $userId;
+
+	$objConnection = Yii::app()->db;
+        $objCommand = $objConnection->createCommand($sql);
+        $arrData = $objCommand->queryAll($sql);
+
+        if (!empty($arrData)) {
+            return $arrData;
+        } else {
+            return false;
+        }
+    }
 
 }
