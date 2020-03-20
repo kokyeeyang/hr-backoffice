@@ -140,10 +140,6 @@ var Setting = function () {
       $('.btnSubmitSettingForm').unbind('click').click(function (objEvent) {
         Setting.submit_form($(this), objEvent);
       });
-      
-      $(':button#appendItem').unbind('click').click(function (objEvent) {
-        console.log('hello');
-      });
     });
   }
 

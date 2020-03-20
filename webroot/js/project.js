@@ -715,7 +715,6 @@ var Project = function () {
 
     var appendRow = $('tr.appendOnboardingTabItemTr');
     
-    console.log(appendRow);
     //deciding to put list_even or list_odd for the front end
     var counter = $('#onboardingTabHiddenVal').val();
     counter++;
@@ -808,6 +807,7 @@ var Project = function () {
   }
 
   function _append_new_training_item(objElement, objEvent) {
+    console.log('hello');
     var dataTable = $('#data_table');
 
     var appendRow = $('tr.appendItemTr');
@@ -848,20 +848,9 @@ var Project = function () {
     });
   }
 
-  function _initTrainingInputBoxes() {
-    $('input.inputBoxes').unbind('keypress').keypress(function (objEvent) {
-      $('.updateTemplateButton').prop('disabled', false);
-    });
-  }
-
-  function _initTrainingTextArea() {
-    $('textarea#templateDescription').unbind('keypress').keypress(function (objEvent) {
-      $('.updateTemplateButton').prop('disabled', false);
-    });
-  }
-
   function _initAppendNewTrainingItem() {
     $(':button#appendTrainingTabItem').unbind('click').click(function (objEvent) {
+      console.log('hello');
       Project.append_new_training_item(this, objEvent);
     });
   }
@@ -918,8 +907,6 @@ var Project = function () {
       Project.initTrainingItemDropdown();
       Project.initAppendNewTrainingItem();
       Project.initRemoveTrainingItem();
-      Project.initTrainingInputBoxes();
-      Project.initTrainingTextArea();
     });
   }
 
@@ -964,8 +951,6 @@ var Project = function () {
     initTrainingItemDropdown: _initTrainingItemDropdown,
     initAppendNewTrainingItem: _initAppendNewTrainingItem,
     initRemoveTrainingItem: _initRemoveTrainingItem,
-    initTrainingInputBoxes: _initTrainingInputBoxes,
-    initTrainingTextArea: _initTrainingTextArea,
     render_training_item_details: _render_training_item_details,
     append_new_training_item: _append_new_training_item,
     remove_training_item_row: _remove_training_item_row,
