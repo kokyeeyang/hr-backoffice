@@ -36,7 +36,8 @@ class EmploymentCandidate extends AppActiveRecord {
             'refuse_reference_reason' => Yii::t('app', 'refuse_reference_reason'),
             'candidate_signature' => Yii::t('app', 'candidate_signature'),
             'candidate_signature_date' => Yii::t('app', 'candidate_signature_date'),
-            'remarks' => Yii::t('app', 'remarks')
+            'remarks' => Yii::t('app', 'remarks'),
+            'status' => Yii::t('app', 'status'),
         ];
     }
 

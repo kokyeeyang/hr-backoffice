@@ -34,10 +34,12 @@
     <div id="onboarding" class="tabcontent">
       <?php echo PageHelper::printTemplateItems($onboardingTab, $onboardingChecklistItems, $onboardingItemTitleArrRecord); ?>
       <br>
+      <br>
       <?php echo PageHelper::prepareSaveButton($onboardingTab, $onboardingSaveUrl); ?>
     </div>
     <div id="training" class="tabcontent">
       <?php echo PageHelper::printTemplateItems($trainingTab, $trainingItems, $trainingItemTitleArrRecord); ?>
+      <br>
       <br>
       <?php echo PageHelper::prepareSaveButton($trainingTab, $trainingSaveUrl); ?>
     </div>

@@ -21,7 +21,8 @@ class EmploymentJobOpening extends AppActiveRecord {
             'job_title' => Yii::t('app', 'job_title'),
             'department' => Yii::t('app', 'department'),
             'interview_manager' => Yii::t('app', 'interview_manager'),
-            'is_managerial_position' => Yii::t('app', 'is_managerial_position')
+            'is_managerial_position' => Yii::t('app', 'is_managerial_position'),
+	    'status' => Yii::t('app', 'status')
         ];
     }
 

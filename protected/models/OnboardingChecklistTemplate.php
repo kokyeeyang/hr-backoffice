@@ -20,6 +20,7 @@ class OnboardingChecklistTemplate extends AppActiveRecord {
 	return [
 	    'title' => Yii::t('app', 'title'),
 	    'description' => Yii::t('app', 'description'),
+	    'status' => Yii::t('app', 'status'),
 	    'created_date' => Yii::t('app', 'created_date'),
 	    'created_by' => Yii::t('app', 'created_by')
 	];

@@ -814,10 +814,10 @@ var Project = function () {
     var rowToBeRemoved = $(objElement).closest('tr');
     $(rowToBeRemoved).remove();
 
-    var counter = parseInt($('#hiddenVal').val());
+    var counter = parseInt($('#trainingTabHiddenVal').val());
 
     counter--;
-    $('#hiddenVal').val(counter);
+    $('#trainingTabHiddenVal').val(counter);
   }
 
   function _initTrainingItemDropdown() {
@@ -834,7 +834,7 @@ var Project = function () {
   }
 
   function _initRemoveTrainingItem() {
-    $('td.removeItemButton a').unbind('click').click(function (objEvent) {
+    $('td.removeTrainingTabItemButton a').unbind('click').click(function (objEvent) {
       Project.remove_training_item_row(this, objEvent);
     });
   }

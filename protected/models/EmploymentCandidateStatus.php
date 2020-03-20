@@ -20,7 +20,8 @@ class EmploymentCandidateStatus extends AppActiveRecord
 
 	public function attributeLabels(){
 		return [
-			'title' => Yii::t('app', 'title')
+			'title' => Yii::t('app', 'title'),
+			'status' => Yii::t('app', 'status')
 		];
 	}
 

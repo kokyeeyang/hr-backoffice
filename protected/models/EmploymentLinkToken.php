@@ -19,7 +19,7 @@ class EmploymentLinkToken extends AppActiveRecord {
 
 	public function attributeLabels(){
 		return [
-			'token' => Yii::t('app', 'token'),
+			'token' => Yii::t('app', 'token')
 		];
 	}
 

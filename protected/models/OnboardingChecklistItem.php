@@ -22,7 +22,8 @@ class OnboardingChecklistItem extends AppActiveRecord {
             'department_owner' => Yii::t('app', 'department_owner'),
             'is_offboarding_item' => Yii::t('app', 'is_offboarding_item'),
             'status' => Yii::t('app', 'status'),
-            'is_managerial' => Yii::t('app', 'is_managerial')
+            'is_managerial' => Yii::t('app', 'is_managerial'),
+	    'status' => Yii::t('app', 'status')
         ];
     }
 

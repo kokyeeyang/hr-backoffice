@@ -21,6 +21,7 @@ class TrainingTemplate extends AppActiveRecord {
 	    'title' => Yii::t('app', 'title'),
 	    'description' => Yii::t('app', 'description'),
 	    'department_id' => Yii::t('app', 'department_id'),
+	    'status' => Yii::t('app', 'status'),
 	    'created_date' => Yii::t('app', 'created_date'),
 	    'created_by' => Yii::t('app', 'created_by'),
 	    'modified_date' => Yii::t('app', 'modified_date'),
