@@ -217,7 +217,7 @@ class AdminController extends Controller {
 		$aResult['content'] = '';
 		$aResult['msg'] = '';
 
-		$onboardingItemId = $this->getParam('onboarding_item_id');
+		$onboardingItemId = $this->getParam('onboarding_item_id', '');
 		//put in the new function to find onboarding item details here
 		$selectedOnboardingItem = OnboardingChecklistItem::model()->findOnboardingItemDetails($onboardingItemId);
 		$aResult['description'] = $selectedOnboardingItem[0]['description'];
@@ -225,6 +225,24 @@ class AdminController extends Controller {
 		$aResult['is_offboarding_item'] = $selectedOnboardingItem[0]['is_offboarding_item'];
 		$aResult['is_managerial'] = $selectedOnboardingItem[0]['is_managerial'];
 
+		if (!empty($aResult['content'])) {
+		    $aResult['result'] = 1;
+		}
+		echo(json_encode($aResult));
+		Yii::app()->end();
+	    } else if ($_POST['ajax'] === 'render-training-item-details'){
+		$aResult = [];
+		$aResult['result'] = 0;
+		$aResult['content'] = '';
+		$aResult['msg'] = '';
+		
+		$trainingItemId = $this->getParam('training_item_id', '');
+		$condition = 'TI.id = ' . $trainingItemId;
+		$selectedTrainingItem = TrainingItem::model()->findTrainingItemDetails($condition, false);
+		$aResult['title'] = $trainingItem[0]['title'];
+		$aResult['description'] = $trainingItem[0]['description'];
+		$aResult['responsibility'] = $trainingItem[0]['responsibility'];
+		
 		if (!empty($aResult['content'])) {
 		    $aResult['result'] = 1;
 		}

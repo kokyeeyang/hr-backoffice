@@ -767,7 +767,7 @@ var Project = function () {
         type: 'post',
         url: $(objElement).attr('data-render-url'),
         data: {
-          ajax: 'trainingTemplateForm',
+          ajax: 'render-training-item-details',
           training_item_id: intTrainingItemId
         },
         dataType: 'json',
@@ -778,9 +778,9 @@ var Project = function () {
             var responsibility = data['responsibility'];
             var remove_logo = '&#x2716;';
             var objRow = $(objElement).closest('tr');
-            objRow.find('.itemDescription').text(description);
-            objRow.find('.itemResponsibility').text(responsibility);
-            objRow.find('span.removeItemButton').html(remove_logo);
+            objRow.find('.trainingDescription').text(description);
+            objRow.find('.responsibility').text(responsibility);
+            objRow.find('span.removeTrainingTabItemButton').html(remove_logo);
           }
         }
       });
