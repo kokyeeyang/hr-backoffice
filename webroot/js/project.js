@@ -703,7 +703,7 @@ var Project = function () {
   }
 
   function _append_new_onboarding_checklist_item(objElement, objEvent) {
-    var dataTable = $('#data_table');
+    var dataTable = $('#onboardingTab_data_table');
 
     var appendRow = $('tr.appendOnboardingTabItemTr');
 
@@ -737,7 +737,7 @@ var Project = function () {
   }
 
   function _initOnboardingItemDropdown() {
-    $('select[class="selectItemTitle"]').unbind('change').change(function (objEvent) {
+    $('select[class="onboardingTabItemDropdown"]').unbind('change').change(function (objEvent) {
       Project.render_onboarding_item_details(this, objEvent);
       $('.updateTemplateButton').prop('disabled', false);
     });
@@ -745,7 +745,6 @@ var Project = function () {
 
   function _initAppendNewOnboardingChecklistItem() {
     $(':button#appendOnboardingTabItem').unbind('click').click(function (objEvent) {
-      console.log($(':button#appendTrainingTabItem'));
       Project.append_new_onboarding_checklist_item(this, objEvent);
     });
   }
@@ -758,6 +757,7 @@ var Project = function () {
   }
 
   //end js codes for assigning onboarding items for new hirees
+
 
   //start js codes for assigning training items for new hirees
   function _render_training_item_details(objElement, objEvent) {
@@ -788,22 +788,21 @@ var Project = function () {
   }
 
   function _append_new_training_item(objElement, objEvent) {
-    var dataTable = $('#data_table');
-
-    var appendRow = $('tr.appendItemTr');
+    var dataTable = $('#trainingTab_data_table');
+    var appendRow = $('tr.appendTrainingTabItemTr');
 
     //deciding to put list_even or list_odd for the front end
-    var counter = parseInt($('#hiddenVal').val());
+    var counter = parseInt($('#trainingTabHiddenVal').val());
     counter++;
-    $('#hiddenVal').val(counter);
+    $('#trainingTabHiddenVal').val(counter);
     var numberAfterModulus = counter % 2;
 
     if (numberAfterModulus == 1) {
-      var clonedRow = $(appendRow).clone().attr('class', 'appendedItemTr list_even').show().appendTo(dataTable);
-      $(clonedRow).find('.selectItemTitle').attr('name', 'appended itemDropdown ' + counter);
+      var clonedRow = $(appendRow).clone().attr('class', 'appendedTrainingTabItemTr list_even').show().appendTo(dataTable);
+      $(clonedRow).find('.trainingTabItemDropdown').attr('name', 'appended trainingTabItemDropdown ' + counter);
     } else {
-      var clonedRow = $(appendRow).clone().attr('class', 'appendedItemTr list_odd').show().appendTo(dataTable);
-      $(clonedRow).find('.selectItemTitle').attr('name', 'appended itemDropdown ' + counter);
+      var clonedRow = $(appendRow).clone().attr('class', 'appendedTrainingTabItemTr list_odd').show().appendTo(dataTable);
+      $(clonedRow).find('.trainingTabItemDropdown').attr('name', 'appended trainingTabItemDropdown ' + counter);
     }
 
     // need to reinitiate the dropdown for training title and the remove button after appending
@@ -822,9 +821,9 @@ var Project = function () {
   }
 
   function _initTrainingItemDropdown() {
-    $('select[class="selectItemTitle"]').unbind('change').change(function (objEvent) {
+    $('select[class="trainingTabItemDropdown"]').unbind('change').change(function (objEvent) {
       Project.render_training_item_details(this, objEvent);
-      $('.updateTemplateButton').prop('disabled', false);
+//      $('.updateTemplateButton').prop('disabled', false);
     });
   }
 
@@ -856,7 +855,14 @@ var Project = function () {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
 
+    Project.initOnboardingItemDropdown();
     Project.initAppendNewOnboardingChecklistItem();
+    Project.initRemoveOnboardingChecklistItem();
+
+    Project.initTrainingItemDropdown();
+    Project.initAppendNewTrainingItem();
+    Project.initRemoveTrainingItem();
+
   }
 
   function _init() {

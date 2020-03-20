@@ -33,10 +33,13 @@
     </div>
     <div id="onboarding" class="tabcontent">
       <?php echo PageHelper::printTemplateItems($onboardingTab, $onboardingChecklistItems, $onboardingItemTitleArrRecord); ?>
+      <br>
+      <?php echo PageHelper::prepareSaveButton($onboardingTab, $onboardingSaveUrl); ?>
     </div>
     <div id="training" class="tabcontent">
       <?php echo PageHelper::printTemplateItems($trainingTab, $trainingItems, $trainingItemTitleArrRecord); ?>
-      <?php //  echo PageHelper::printTemplateItems($onboardingTab, $onboardingChecklistItems, $onboardingItemTitleArrRecord); ?>
+      <br>
+      <?php echo PageHelper::prepareSaveButton($trainingTab, $trainingSaveUrl); ?>
     </div>
   </div>
 </div>

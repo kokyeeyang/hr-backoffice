@@ -285,28 +285,41 @@ class PageHelper {
 	return $alertMessage;
     }
 
+    //printing out items inside onboarding and training templates
+    //can also be used for viewing, adding onboarding and training items for employees
     public static function printTemplateItems($pageType, $dataObjects, $dropdownItemTitles) {
-
+	
+	//prepare variables for use later
 	$formData = PageEnum::FORM_DATA[$pageType];
 	$tableHeaders = $formData['table-header'];
 	$columnDetails = $formData['column-details'];
-
+//	isset($dataObjects) && $dataObjects != null ? $hiddenVal = count($dataObjects) : $hiddenVal = 0;
+	if(isset($dataObjects) && $dataObjects != null){
+	    $hiddenVal = count($dataObjects);
+	    $disabledStatus = 'disabled';
+	} else if (!isset($dataObjects) || $dataObjects == null){
+	    $hiddenVal = 0;
+	    $disabledStatus = '';
+	}
+	
 	$tableBody = '<table class="widget_table grid">';
 	$tableBody .= '<thead>';
 	$tableBody .= '<tr>';
 	$tableBody .= self::prepareTableHeaderForTemplateItems($tableHeaders);
 	$tableBody .= '</tr>';
 	$tableBody .= '</thead>';
-	$tableBody .= '<tbody id="data_table">';
-	isset($dataObjects) && $dataObjects != null ? $hiddenVal = count($dataObjects) : $hiddenVal = 0;
+	$tableBody .= '<tbody id="' . lcfirst($pageType) . '_data_table">';
 	$tableBody .= '<input type="hidden" id="' . lcfirst($pageType) . 'HiddenVal" value="' . $hiddenVal . '" />';
 	$tableBody .= self::prepareTableDataForTemplateItems($dataObjects, $columnDetails, $dropdownItemTitles, $pageType);
-
 	$tableBody .= '</tbody>';
 	$tableBody .= '</table>';
 	$tableBody .= '<button type="button" id="append' . $pageType . 'Item" title="Add more items to this list">+</button>';
 
 	return $tableBody;
+    }
+    
+    public static function prepareSaveButton($pageType, $saveUrl=null){
+	return '<button title="Save" class="' . lcfirst($pageType) . 'SaveButton"' . $saveUrl . '> Save </button>';
     }
 
     private static function prepareTableHeaderForTemplateItems($tableHeaders) {
@@ -334,34 +347,13 @@ class PageHelper {
 	if ($dataObjects != null && isset($dataObjects)) {
 	    foreach ($dataObjects as $dataObject) {
 		$counterAfterModulus = $counter % 2;
-		if ($counterAfterModulus == 1){
+		if ($counterAfterModulus == 1) {
 		    $lineDiff = ' list_odd';
-		} else if ($counterAfterModulus == 0){
+		} else if ($counterAfterModulus == 0) {
 		    $lineDiff = ' list_even';
 		}
 		$tableBody .= '<tr class="itemTr' . $lineDiff . '">';
-		foreach ($columnDetails as $columnDetail) {
-		    if ($columnDetail == 'item_title') {
-			$tableBody .= '<td class="itemTd">';
-			//we need to set a unique id or class for each onboarding and training tab
-			$tableBody .= '<select name="' . lcfirst($pageType) . 'ItemDropdown' . $counter . '" size=1 class="' . lcfirst($pageType) . 'Dropdown" data-render-url="' . $_SERVER['PHP_SELF'] . '">';
-			$tableBody .= '<option value="">Choose here</option>';
-			if ($dropdownItemTitles != null) {
-			    foreach ($dropdownItemTitles as $dropdownItemTitle) {
-				$dataObject[$columnDetail] === $dropdownItemTitle['title'] ? $selected = "selected" : $selected = '';
-				$tableBody .= '<option value = "' . $dropdownItemTitle['id'] . '" ' . $selected . '>';
-				$tableBody .= $dropdownItemTitle['title'];
-				$tableBody .= '</option>';
-			    }
-			}
-			$tableBody .= '</select>';
-			$tableBody .= '</td>';
-		    } else {
-			$tableBody .= '<td class="' . self::dashesToCamelCase($columnDetail) . '">';
-			$tableBody .= $dataObject[$columnDetail];
-			$tableBody .= '</td>';
-		    }
-		}
+		$tableBody .= self::prepareColumnDetails($columnDetails, $counter, $pageType, $dropdownItemTitles, $dataObject);
 		$tableBody .= '<td class="remove' . $pageType . 'ItemButton">';
 		$tableBody .= '<a href="#"><span class="remove' . $pageType . 'ItemButton" title="Remove this item">&#x2716;</span></a>';
 		$tableBody .= '</td>';
@@ -369,12 +361,11 @@ class PageHelper {
 		$counter ++;
 	    }
 
-//	    return $tableBody;
 	}
 	//class, name, id needs to be unique
 	$tableBody .= '<tr class="append' . $pageType . 'ItemTr" style="display:none;">';
 	$tableBody .= '<td class="item' . $pageType . 'Td">';
-	$tableBody .= '<select name="append' . $pageType . 'ItemDropdown" size=1 class="selectItemTitle" data-render-url="' . $_SERVER['PHP_SELF'] . '">';
+	$tableBody .= '<select name="append' . $pageType . 'ItemDropdown" size=1 class="' . lcfirst($pageType) . 'ItemDropdown" data-render-url="' . $_SERVER['PHP_SELF'] . '">';
 	$tableBody .= '<option value="" selected>Choose here</option>';
 	if ($dropdownItemTitles != null) {
 	    foreach ($dropdownItemTitles as $dropdownItemTitle) {
@@ -410,6 +401,34 @@ class PageHelper {
 	}
 
 	return $str;
+    }
+
+    private static function prepareColumnDetails($columnDetails, $counter, $pageType, $dropdownItemTitles, $dataObject) {
+	$tableBody = "";
+	foreach ($columnDetails as $columnDetail) {
+	    if ($columnDetail == 'item_title') {
+		$tableBody .= '<td class="itemTd">';
+		//we need to set a unique id or class for each onboarding and training tab
+		$tableBody .= '<select name="' . lcfirst($pageType) . 'ItemDropdown ' . $counter . '" size=1 class="' . lcfirst($pageType) . 'ItemDropdown" data-render-url="' . $_SERVER['PHP_SELF'] . '">';
+		$tableBody .= '<option value="">Choose here</option>';
+		if ($dropdownItemTitles != null) {
+		    foreach ($dropdownItemTitles as $dropdownItemTitle) {
+			$dataObject[$columnDetail] === $dropdownItemTitle['title'] ? $selected = "selected" : $selected = '';
+			$tableBody .= '<option value = "' . $dropdownItemTitle['id'] . '" ' . $selected . '>';
+			$tableBody .= $dropdownItemTitle['title'];
+			$tableBody .= '</option>';
+		    }
+		}
+		$tableBody .= '</select>';
+		$tableBody .= '</td>';
+	    } else {
+		$tableBody .= '<td class="' . self::dashesToCamelCase($columnDetail) . '">';
+		$tableBody .= $dataObject[$columnDetail];
+		$tableBody .= '</td>';
+	    }
+	}
+	
+	return $tableBody;
     }
 
 }

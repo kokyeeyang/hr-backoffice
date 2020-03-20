@@ -239,9 +239,9 @@ class AdminController extends Controller {
 		$trainingItemId = $this->getParam('training_item_id', '');
 		$condition = 'TI.id = ' . $trainingItemId;
 		$selectedTrainingItem = TrainingItem::model()->findTrainingItemDetails($condition, false);
-		$aResult['title'] = $trainingItem[0]['title'];
-		$aResult['description'] = $trainingItem[0]['description'];
-		$aResult['responsibility'] = $trainingItem[0]['responsibility'];
+		$aResult['title'] = $selectedTrainingItem[0]['title'];
+		$aResult['description'] = $selectedTrainingItem[0]['description'];
+		$aResult['responsibility'] = $selectedTrainingItem[0]['responsibility'];
 		
 		if (!empty($aResult['content'])) {
 		    $aResult['result'] = 1;
@@ -253,16 +253,18 @@ class AdminController extends Controller {
 		$onboardingChecklistItems = OnboardingChecklistItem::model()->findOnboardingItemsForThisUser($userId);
 		$onboardingItemTitleArrRecord = OnboardingChecklistItem::model()->queryForOnboardingItemTitles();
 		$onboardingTab = AdminEnum::ONBOARDING_TAB;
+		$onboardingSaveUrl = 'onboarding-save-url = ' . Yii::app()->createUrl('onboarding/saveOnboardingItemsForThisUser');
 
 		$trainingItems = TrainingItem::model()->findTrainingItemsForThisUser($userId);
 		$trainingItemTitleArrRecord = TrainingItem::model()->queryForTrainingItemTitles();
 		$trainingTab = AdminEnum::TRAINING_TAB;
+		$trainingSaveUrl = 'training-save-url = ' . Yii::app()->createUrl('training/saveTrainingItemsForThisUser');
 
 		$objModel->admin_password = '';
 		$objModel->admin_display_name = Validator::decodetag($objModel->admin_display_name);
 		$aResult['content'] = $this->renderPartial('edit',
-		    array('objModel' => $objModel, 'onboardingTab' => $onboardingTab, 'onboardingChecklistItems' => $onboardingChecklistItems, 'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord,
-			'trainingTab' => $trainingTab, 'trainingItemTitleArrRecord' => $trainingItemTitleArrRecord, 'trainingItems' => $trainingItems), true);
+		    array('objModel' => $objModel, 'onboardingTab' => $onboardingTab, 'onboardingChecklistItems' => $onboardingChecklistItems, 'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord, 'onboardingSaveUrl' =>  $onboardingSaveUrl,
+			'trainingTab' => $trainingTab, 'trainingItemTitleArrRecord' => $trainingItemTitleArrRecord, 'trainingItems' => $trainingItems, 'trainingSaveUrl' => $trainingSaveUrl), true);
 	    }
 
 	    if (!empty($aResult['content'])) {
