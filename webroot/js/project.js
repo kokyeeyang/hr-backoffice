@@ -671,14 +671,6 @@ var Project = function () {
     }
   }
 
-  function _filter_results() {
-    $("#label_filter").unbind('keypress').keypress(function (e) {
-      if (e.which == 13) {
-        $('form').submit;
-      }
-    });
-  }
-
   //start js codes for assigning onboarding items for new hirees
   //work on this now!
   //need to set an ajax form data to post to
@@ -744,18 +736,6 @@ var Project = function () {
     $('#onboardingTabHiddenVal').val(counter);
   }
 
-  function _initOnboardingInputBoxes() {
-    $('input#templateTitle').unbind('keypress').keypress(function (objEvent) {
-      $('.updateTemplateButton').prop('disabled', false);
-    });
-  }
-
-  function _initOnboardingTextArea() {
-    $('textarea#templateDescription').unbind('keypress').keypress(function (objEvent) {
-      $('.updateTemplateButton').prop('disabled', false);
-    });
-  }
-
   function _initOnboardingItemDropdown() {
     $('select[class="selectItemTitle"]').unbind('change').change(function (objEvent) {
       Project.render_onboarding_item_details(this, objEvent);
@@ -765,6 +745,7 @@ var Project = function () {
 
   function _initAppendNewOnboardingChecklistItem() {
     $(':button#appendOnboardingTabItem').unbind('click').click(function (objEvent) {
+      console.log('hello');
       Project.append_new_onboarding_checklist_item(this, objEvent);
     });
   }
@@ -807,7 +788,6 @@ var Project = function () {
   }
 
   function _append_new_training_item(objElement, objEvent) {
-    console.log('hello');
     var dataTable = $('#data_table');
 
     var appendRow = $('tr.appendItemTr');
@@ -896,13 +876,10 @@ var Project = function () {
       Project.init_flash_error();
       Project.init_flash_alert();
       Project.init_leftnav_iframe_link();
-      Project.filter_results();
 
       Project.initOnboardingItemDropdown();
       Project.initAppendNewOnboardingChecklistItem();
       Project.initRemoveOnboardingChecklistItem();
-      Project.initOnboardingTextArea();
-      Project.initOnboardingInputBoxes();
 
       Project.initTrainingItemDropdown();
       Project.initAppendNewTrainingItem();
@@ -937,13 +914,10 @@ var Project = function () {
     copy_code: _copy_code,
     onload_iframe: _onload_iframe,
     init: _init,
-    filter_results: _filter_results,
 
     initOnboardingItemDropdown: _initOnboardingItemDropdown,
     initAppendNewOnboardingChecklistItem: _initAppendNewOnboardingChecklistItem,
     initRemoveOnboardingChecklistItem: _initRemoveOnboardingChecklistItem,
-    initOnboardingInputBoxes: _initOnboardingInputBoxes,
-    initOnboardingTextArea: _initOnboardingTextArea,
     render_onboarding_item_details: _render_onboarding_item_details,
     append_new_onboarding_checklist_item: _append_new_onboarding_checklist_item,
     remove_onboarding_checklist_item_row: _remove_onboarding_checklist_item_row,

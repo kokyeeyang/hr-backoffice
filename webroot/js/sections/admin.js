@@ -205,26 +205,7 @@ var Admin = function () {
     get_admin_list: _get_admin_list,
     get_admin_form: _get_admin_form,
     submit_admin_form: _submit_admin_form,
-//    initRemoveOnboardingChecklistItem: _initRemoveOnboardingChecklistItem,
     init: _init,
-
-    initOnboardingItemDropdown: _initOnboardingItemDropdown,
-    initAppendNewOnboardingChecklistItem: _initAppendNewOnboardingChecklistItem,
-    initRemoveOnboardingChecklistItem: _initRemoveOnboardingChecklistItem,
-    initOnboardingInputBoxes: _initOnboardingInputBoxes,
-    initOnboardingTextArea: _initOnboardingTextArea,
-    render_onboarding_item_details: _render_onboarding_item_details,
-    append_new_onboarding_checklist_item: _append_new_onboarding_checklist_item,
-    remove_onboarding_checklist_item_row: _remove_onboarding_checklist_item_row,
-
-    initTrainingItemDropdown: _initTrainingItemDropdown,
-    initAppendNewTrainingItem: _initAppendNewTrainingItem,
-    initRemoveTrainingItem: _initRemoveTrainingItem,
-    initTrainingInputBoxes: _initTrainingInputBoxes,
-    initTrainingTextArea: _initTrainingTextArea,
-    render_training_item_details: _render_training_item_details,
-    append_new_training_item: _append_new_training_item,
-    remove_training_item_row: _remove_training_item_row
   }
 }();
 Admin.init();

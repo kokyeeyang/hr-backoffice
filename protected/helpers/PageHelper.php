@@ -304,7 +304,7 @@ class PageHelper {
 
 	$tableBody .= '</tbody>';
 	$tableBody .= '</table>';
-	$tableBody .= '<button type="button" id="append' . $pageType . 'Item" title="Add more items to this template">+</button>';
+	$tableBody .= '<button type="button" id="append' . $pageType . 'Item" title="Add more items to this list">+</button>';
 
 	return $tableBody;
     }

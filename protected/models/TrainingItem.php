@@ -153,7 +153,7 @@ class TrainingItem extends AppActiveRecord {
     
     public function findTrainingItemsForThisUser($userId){
 	$sql = 'SELECT TI.title AS "item_title", TIM.id AS "training_items_mapping_id", TIM.training_template_id, A.admin_display_name AS "responsibility", ';
-	$sql .= 'TI.description ';
+	$sql .= 'TI.description AS "training_description" ';
         $sql .= 'FROM ' . self::$tableName . ' TI ';
 	$sql .= 'INNER JOIN training_items_mapping TIM ON TI.id = TIM.training_item_id ';
 	$sql .= 'INNER JOIN training_items_user_mapping TIUM ON TIM.id = TIUM.training_items_mapping_id ';
