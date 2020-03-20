@@ -690,7 +690,7 @@ var Project = function () {
           if ((typeof data['description']) !== 'undefined' && data !== null) {
             var remove_logo = '&#x2716;';
             var objRow = $(objElement).closest('tr');
-            
+
             objRow.find('.description').text(data['description']);
             objRow.find('.departmentOwner').text(data['department_owner']);
             objRow.find('.isManagerial').text(data['is_managerial']);
@@ -706,7 +706,7 @@ var Project = function () {
     var dataTable = $('#data_table');
 
     var appendRow = $('tr.appendOnboardingTabItemTr');
-    
+
     //deciding to put list_even or list_odd for the front end
     var counter = $('#onboardingTabHiddenVal').val();
     counter++;
@@ -745,7 +745,7 @@ var Project = function () {
 
   function _initAppendNewOnboardingChecklistItem() {
     $(':button#appendOnboardingTabItem').unbind('click').click(function (objEvent) {
-      console.log('hello');
+      console.log($(':button#appendTrainingTabItem'));
       Project.append_new_onboarding_checklist_item(this, objEvent);
     });
   }
@@ -830,7 +830,6 @@ var Project = function () {
 
   function _initAppendNewTrainingItem() {
     $(':button#appendTrainingTabItem').unbind('click').click(function (objEvent) {
-      console.log('hello');
       Project.append_new_training_item(this, objEvent);
     });
   }
