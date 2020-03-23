@@ -326,6 +326,9 @@ class RegistrationController extends Controller {
 	$jobOpeningObjModel->department = $this->getParam('departmentDropdown', '');
 	$jobOpeningObjModel->is_managerial_position = $this->getParam('isManagerialCheckbox', '');
 	$jobOpeningObjModel->interviewing_manager = $this->getParam('interviewManager', '');
+	$jobOpeningObjModel->status = 1;
+	$jobOpeningObjModel->created_by = Yii::app()->user->id;
+	$jobOpeningObjModel->modified_by = Yii::app()->user->id;
 
 	$jobOpeningObjModel->save();
 
@@ -337,16 +340,13 @@ class RegistrationController extends Controller {
     }
 
     public function actionShowAllJobOpenings() {
-//	$arrRecords = EmploymentJobOpening::model()->findAll(array('order' => 'id ASC'));
-//	$arrRecords = EmploymentJobOpening::model()->findAllJobOpenings();
-//        var_dump($arrRecords);exit;
 	$strSortKey = $this->getParam('sort_key', '');
 	$pageType = EmploymentJobOpeningEnum::JOB_OPENING;
 
 	$objPagination = self::getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, false, CommonEnum::RETURN_PAGINATION);
 	$objCriteria = self::getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, false, CommonEnum::RETURN_CRITERIA);
 	$arrRecords = self::getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, EmploymentJobOpeningEnum::JOB_OPENING_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
-
+	
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'jobopening-list' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
 	    $aResult['result'] = 0;
@@ -425,7 +425,10 @@ class RegistrationController extends Controller {
 	$jobOpeningIds = $this->getParam('deleteCheckBox', '');
 
 	if ($jobOpeningIds != '') {
-	    $deleteJobOpening = EmploymentJobOpening::model()->deleteSelectedJobOpening($jobOpeningIds);
+	    foreach ($jobOpeningIds as $jobOpeningId) {
+		$condition = 'id = ' . $jobOpeningId;
+		EmploymentJobOpening::model()->updateAll(['status' => 0, 'modified_by' => Yii::app()->user->id], $condition);
+	    }
 	}
 
 	$this->redirect(array('showAllJobOpenings'));
@@ -736,21 +739,19 @@ class RegistrationController extends Controller {
 
 	$offerLetterTitle = $this->getParam('offerLetterTitle', '') != null ? $this->getParam('offerLetterTitle', '') : "Untitled";
 	$offerLetterDescription = $this->getParam('offerLetterDescription', '') != null ? $this->getParam('offerLetterDescription', '') : "Unspecified";
-
-	$currentUserId = Yii::app()->user->id;
-
 	$offerLetterDepartmentArray = $this->getParam('department', '');
-
 	$offerLetterObjModel = new EmploymentOfferLetterTemplates;
 
 	// TODO: add the new employmentofferlettertemplatemapping object here
 	//foreach the $offerLetterDepartmentArray and save new rows of employmentofferlettertemplatemapping here
 	$offerLetterObjModel->offer_letter_title = $offerLetterTitle;
-	$offerLetterObjModel->offer_letter_description = $this->getParam('offerLetterDescription', '');
+	$offerLetterObjModel->offer_letter_description = $offerLetterDescription;
 
 	$offerLetterObjModel->is_managerial = $this->getParam('offerLetterIsManagerial', '');
 	$offerLetterObjModel->offer_letter_content = $this->getParam('offerLetterTemplate', '');
-	$offerLetterObjModel->created_by = $currentUserId;
+	$offerLetterObjModel->status = 1;
+	$offerLetterObjModel->created_by = Yii::app()->user->id;
+	$offerLetterObjModel->modified_by = Yii::app()->user->id;
 	$offerLetterObjModel->save();
 
 	foreach ($offerLetterDepartmentArray as $offerLetterDepartmentObj) {
@@ -949,8 +950,10 @@ class RegistrationController extends Controller {
 	$offerLetterIds = $this->getParam('deleteCheckBox', '');
 
 	if ($offerLetterIds != '') {
-	    EmploymentOfferLetterTemplatesMapping::model()->deleteMappingItem(OfferLetterMappingEnum::OFFER_LETTER_ID, $offerLetterIds);
-	    EmploymentOfferLetterTemplates::model()->deleteSelectedOfferLetterTemplates($offerLetterIds);
+	    foreach ($offerLetterIds as $offerLetterId) {
+		$condition = 'id = ' . $offerLetterId;
+		EmploymentOfferLetterTemplates::model()->updateAll(['status' => 0, 'modified_by' => Yii::app()->user->id], $condition);
+	    }
 	    $this->redirect("showOfferLetterTemplates");
 	} else {
 	    echo "No offer letter template is found with this id";
@@ -1004,8 +1007,7 @@ class RegistrationController extends Controller {
 			    $filter = 'offer_letter_title LIKE "%' . $this->getParam('label_filter', '') . '%"';
 			}
 
-			$tableArr = EmploymentOfferLetterTemplates::model()->findAllOfferLetters($strSortBy, $intPage, $numPerPage, true, $filter);
-			return $tableArr;
+			return EmploymentOfferLetterTemplates::model()->findAllOfferLetters($strSortBy, $intPage, $numPerPage, true, $filter);
 			break;
 
 		    case EmploymentCandidateEnum::CANDIDATE_TABLE_IN_SQL:
@@ -1015,13 +1017,14 @@ class RegistrationController extends Controller {
 			}
 
 			$numPerPage = Yii::app()->params['numPerPage'];
-			$tableArr = EmploymentCandidate::model()->findAllCandidates($strSortBy, $intPage, $numPerPage, $filter);
-			return $tableArr;
+			return EmploymentCandidate::model()->findAllCandidates($strSortBy, $intPage, $numPerPage, $filter);
 			break;
 
 		    case EmploymentJobOpeningEnum::JOB_OPENING_TABLE_IN_SQL:
 			if (isset($_POST['label_filter']) && $_POST['label_filter'] != false) {
-			    $filter = 'EJO.title LIKE "%' . $_POST['label_filter'] . '%"';
+			    $filter = 'EJO.title LIKE "%' . $_POST['label_filter'] . '%" AND EJO.status = 1';
+			} else if (!isset($_POST['label_filter']) || $_POST['label_filter'] == false) {
+			    $filter = 'EJO.status = 1';
 			}
 
 			$numPerPage = Yii::app()->params['numPerPage'];
@@ -1042,18 +1045,20 @@ class RegistrationController extends Controller {
 	if (array_key_exists('label_filter', $_POST) && $_POST['label_filter'] != null) {
 	    switch ($tableName) {
 		case EmploymentJobOpeningEnum::JOB_OPENING_TABLE:
-		    return 'job_title LIKE "%' . $_POST['label_filter'] . '%"';
+		    return 'job_title LIKE "%' . $_POST['label_filter'] . '%" AND status = 1';
 		    break;
 		case OfferLetterEnum::OFFER_LETTER_TABLE:
-		    return 'offer_letter_title LIKE "%' . $_POST['label_filter'] . '%"';
+		    return 'offer_letter_title LIKE "%' . $_POST['label_filter'] . '%" AND status = 1';
 		    break;
 		case EmploymentCandidateEnum::CANDIDATE_TABLE:
-		    return 'full_name LIKE "%' . $_POST['label_filter'] . '%"';
+		    return 'full_name LIKE "%' . $_POST['label_filter'] . '%" AND status = 1';
 		    break;
 		case EmploymentCandidateStatusEnum::CANDIDATE_STATUS_TABLE:
-		    return 'title LIKE "%' . $_POST['label_filter'] . '%"';
+		    return 'title LIKE "%' . $_POST['label_filter'] . '%" AND status = 1';
 		    break;
 	    }
+	} else if (!array_key_exists('label_filter', $_POST) || $_POST['label_filter'] == null) {
+	    return 'status = 1';
 	}
     }
 
@@ -1239,7 +1244,10 @@ class RegistrationController extends Controller {
 	$deleteCandidateStatusIds = $this->getParam('deleteCheckBox', '');
 
 	if ($deleteCandidateStatusIds != '') {
-	    EmploymentCandidateStatus::model()->deleteSelectedCandidateStatus($deleteCandidateStatusIds);
+	    foreach ($deleteCandidateStatusIds as $deleteCandidateStatusId) {
+		$candidateStatusCondition = 'id = ' . $deleteCandidateStatusId;
+		EmploymentCandidateStatus::model()->updateAll(['modified_by' => Yii::app()->user->id, 'status' => 0], $candidateStatusCondition);
+	    }
 	}
 
 	$this->redirect(array('showAllCandidateStatus'));
@@ -1248,6 +1256,9 @@ class RegistrationController extends Controller {
     public function actionSaveCandidateStatus() {
 	$candidateStatusObjModel = new EmploymentCandidateStatus;
 	$candidateStatusObjModel->title = $this->getParam('newCandidateStatus', '');
+	$candidateStatusObjModel->status = 1;
+	$candidateStatusObjModel->created_by = Yii::app()->user->id;
+	$candidateStatusObjModel->modified_by = Yii::app()->user->id;
 	$candidateStatusObjModel->save();
 
 	if (!$error = $this->objError->getError()) {

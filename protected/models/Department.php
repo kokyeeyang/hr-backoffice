@@ -56,12 +56,4 @@ class Department extends AppActiveRecord {
 
 	return $arrData;
     }
-
-    public function deleteSelectedDepartment($departmentIds) {
-	foreach ($departmentIds as $departmentId) {
-	    $condition = "id = $departmentId";
-	    Department::model()->deleteAll($condition);
-	}
-    }
-
 }

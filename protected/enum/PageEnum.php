@@ -126,10 +126,8 @@ class PageEnum {
 		"msg-confirm-delete" => "Are you sure that you want to delete the selected onboarding item?",
 		"msg-select-delete" => "Please select a onboarding item that you would like to delete!"),
 	    "data-url" => "",
-	    "foreign-key-check" => "onboarding/checkOnboardingItemExistInTemplate",
 	    "column-link-to-details" => "title",
 	    "form-action-view-selected" => "onboarding/viewSelectedOnboardingItem",
-	    "msg-foreign-key" => "Delete this onboarding item from their respective checklist template first"
 	),
 	"Onboarding Checklist Template" =>
 	array(

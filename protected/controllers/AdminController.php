@@ -230,19 +230,19 @@ class AdminController extends Controller {
 		}
 		echo(json_encode($aResult));
 		Yii::app()->end();
-	    } else if ($_POST['ajax'] === 'render-training-item-details'){
+	    } else if ($_POST['ajax'] === 'render-training-item-details') {
 		$aResult = [];
 		$aResult['result'] = 0;
 		$aResult['content'] = '';
 		$aResult['msg'] = '';
-		
+
 		$trainingItemId = $this->getParam('training_item_id', '');
 		$condition = 'TI.id = ' . $trainingItemId;
 		$selectedTrainingItem = TrainingItem::model()->findTrainingItemDetails($condition, false);
 		$aResult['title'] = $selectedTrainingItem[0]['title'];
 		$aResult['description'] = $selectedTrainingItem[0]['description'];
 		$aResult['responsibility'] = $selectedTrainingItem[0]['responsibility'];
-		
+
 		if (!empty($aResult['content'])) {
 		    $aResult['result'] = 1;
 		}
@@ -263,7 +263,7 @@ class AdminController extends Controller {
 		$objModel->admin_password = '';
 		$objModel->admin_display_name = Validator::decodetag($objModel->admin_display_name);
 		$aResult['content'] = $this->renderPartial('edit',
-		    array('objModel' => $objModel, 'onboardingTab' => $onboardingTab, 'onboardingChecklistItems' => $onboardingChecklistItems, 'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord, 'onboardingSaveUrl' =>  $onboardingSaveUrl,
+		    array('objModel' => $objModel, 'onboardingTab' => $onboardingTab, 'onboardingChecklistItems' => $onboardingChecklistItems, 'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord, 'onboardingSaveUrl' => $onboardingSaveUrl,
 			'trainingTab' => $trainingTab, 'trainingItemTitleArrRecord' => $trainingItemTitleArrRecord, 'trainingItems' => $trainingItems, 'trainingSaveUrl' => $trainingSaveUrl), true);
 	    }
 
@@ -396,7 +396,9 @@ class AdminController extends Controller {
 	//to capitalize the first alphabet of each word
 	$newDepartmentObjModel->title = ucwords($departmentTitle);
 	$newDepartmentObjModel->description = $this->getParam('departmentDescription', '');
+	$newDepartmentObjModel->status = 1;
 	$newDepartmentObjModel->created_by = Yii::app()->user->id;
+	$newDepartmentObjModel->modified_by = Yii::app()->user->id;
 	$newDepartmentObjModel->save();
 
 	$this->redirect('showAllDepartments');
@@ -426,7 +428,7 @@ class AdminController extends Controller {
 	$departmentTitle = $this->getParam('newDepartment', '');
 	$departmentDescription = $this->getParam('departmentDescription', '');
 
-	Department::model()->updateAll(['title' => $departmentTitle, 'description' => $departmentDescription], $departmentCondition);
+	Department::model()->updateAll(['title' => $departmentTitle, 'description' => $departmentDescription, 'modified_by' => Yii::app()->user->id], $departmentCondition);
 
 	$this->redirect('showAllDepartments');
     }
@@ -435,7 +437,11 @@ class AdminController extends Controller {
 	$departmentIds = $this->getParam('deleteCheckBox', '');
 
 	if ($departmentIds != '') {
-	    $deleteDepartment = Department::model()->deleteSelectedDepartment($departmentIds);
+	    foreach ($departmentIds as $departmentId) {
+		$condition = "id = $departmentId";
+		Department::model()->updateAll(['status' => 0, 'modified_by' => Yii::app()->user->id],$condition);
+	    }
+//	    $deleteDepartment = Department::model()->deleteSelectedDepartment($departmentIds);
 	}
 
 	$this->redirect('showAllDepartments');
@@ -548,7 +554,13 @@ class AdminController extends Controller {
 	if (array_key_exists('label_filter', $_POST) && $_POST['label_filter'] != null) {
 	    switch ($tableName) {
 		case AdminEnum::DEPARTMENT_TABLE:
-		    return 'title LIKE "%' . $_POST['label_filter'] . '%"';
+		    return 'title LIKE "%' . $_POST['label_filter'] . '%" AND status = 1';
+		    break;
+	    }
+	} else if (!array_key_exists('label_filter', $_POST) || $_POST['label_filter'] == null){
+	    switch ($tableName) {
+		case AdminEnum::DEPARTMENT_TABLE:
+		    return 'status = 1';
 		    break;
 	    }
 	}

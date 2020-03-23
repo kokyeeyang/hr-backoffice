@@ -114,7 +114,9 @@ class EmploymentOfferLetterTemplates extends AppActiveRecord {
 	$sql .= 'ON EOLTM.department_id = D.id';
 	
 	if ($filter != false) {
-	    $sql .= ' WHERE ' . $filter;
+	    $sql .= ' WHERE ' . $filter . ' AND EOLT.status = 1';
+	} else if ($filter == false) {
+	    $sql .= ' WHERE EOLT.status = 1';
 	}
 
 	if ($condition != false) {
