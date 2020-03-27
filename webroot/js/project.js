@@ -787,6 +787,62 @@ var Project = function () {
     }
   }
 
+  function _save_onboarding_item_for_this_user(objElement, objEvent) {
+    var objForm = objElement.closest('form');
+    var strUrl = objForm.attr('action');
+    var arrParams = convert_url_to_array(strUrl);
+    var strLang = '';
+
+    if (typeof (arrParams['lang']) != 'undefined') {
+      strLang = arrParams['lang'];
+    }
+
+    $.ajax({
+      type: 'post',
+      url: strUrl,
+      data: {
+        ajax: 'onboarding-tab-form'
+      },
+      datatype: json,
+      success: function (data) {
+        if (data != null && data.result == 1 && data.content != '') {
+          // Removes Loading...
+          Project.hide_loading();
+          var objContentElement = $('#main_content .main_content_wrapper');
+
+          objContentElement.html('');
+          objContentElement.append(data.content);
+          //Project.set_leftnav_active_item(objElement);
+          Project.init_common_button();
+          Project.init_enter_submit();
+          Project.set_grid();
+          Project.submit_page();
+          Admin.init();
+
+          if (data.msg != '') {
+            Project.popup_alert(data.msg);
+          }
+        } else if (data != null && data.msg != '') {
+          Project.popup_error(data.msg);
+        } else {
+          Project.popup_error($('#common-msg .msg_operation_failed').attr('rel'));
+        }
+      },
+      beforeSend: function () {
+        // Adds Loading...
+        Project.show_loading();
+      },
+      complete: function () {
+        // Removes Loading...
+        Project.hide_loading();
+      },
+      error: function (request, status, err) {
+        // Removes Loading...
+        Project.popup_ajax_error(request, status, err);
+      }
+    });
+  }
+
   function _append_new_training_item(objElement, objEvent) {
     var dataTable = $('#trainingTab_data_table');
     var appendRow = $('tr.appendTrainingTabItemTr');
@@ -839,6 +895,12 @@ var Project = function () {
     });
   }
 
+  function _initSaveOnboardingItemsForThisUser() {
+    $(':button.onboardingTabSaveButton').unbind('click').click(function (objEvent) {
+      Project.save_onboarding_item_for_this_user(this, objEvent);
+    });
+  }
+
   //end assigning training items for new hirees
 
   function _openTab(evt, tabName) {
@@ -858,10 +920,12 @@ var Project = function () {
     Project.initOnboardingItemDropdown();
     Project.initAppendNewOnboardingChecklistItem();
     Project.initRemoveOnboardingChecklistItem();
+    Project.initSaveOnboardingItemsForThisUser();
 
     Project.initTrainingItemDropdown();
     Project.initAppendNewTrainingItem();
     Project.initRemoveTrainingItem();
+
 
   }
 
@@ -885,6 +949,7 @@ var Project = function () {
       Project.initOnboardingItemDropdown();
       Project.initAppendNewOnboardingChecklistItem();
       Project.initRemoveOnboardingChecklistItem();
+      Project.initSaveOnboardingItemsForThisUser();
 
       Project.initTrainingItemDropdown();
       Project.initAppendNewTrainingItem();
@@ -923,6 +988,7 @@ var Project = function () {
     initOnboardingItemDropdown: _initOnboardingItemDropdown,
     initAppendNewOnboardingChecklistItem: _initAppendNewOnboardingChecklistItem,
     initRemoveOnboardingChecklistItem: _initRemoveOnboardingChecklistItem,
+    initSaveOnboardingItemsForThisUser: _initSaveOnboardingItemsForThisUser,
     render_onboarding_item_details: _render_onboarding_item_details,
     append_new_onboarding_checklist_item: _append_new_onboarding_checklist_item,
     remove_onboarding_checklist_item_row: _remove_onboarding_checklist_item_row,

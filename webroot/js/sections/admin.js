@@ -139,7 +139,6 @@ var Admin = function () {
         admin_display_name: $(objForm.find('#Admin_admin_display_name')).val(),
         admin_status: $(objForm.find('input:radio[name="Admin[admin_status]"]:checked')).val(),
         admin_priv: $(objForm.find('select[name="Admin[admin_priv]"]')).val(),
-        // admin_department				: $(objForm.find('select[name="Admin[admin_department]"]')).val()
         admin_department: $(objForm.find('select[name=admin_department]')).val()
       },
       dataType: 'json',

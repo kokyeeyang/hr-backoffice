@@ -248,6 +248,8 @@ class AdminController extends Controller {
 		}
 		echo(json_encode($aResult));
 		Yii::app()->end();
+		// need to put the save onboarding items for user here
+		// needs to be ajax
 	    } else {
 		$userId = (int) $id;
 		$onboardingChecklistItems = OnboardingChecklistItem::model()->findOnboardingItemsForThisUser($userId);
