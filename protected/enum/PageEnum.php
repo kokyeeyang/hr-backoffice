@@ -200,13 +200,13 @@ class PageEnum {
 	//for onboarding items for new hirees
 	"OnboardingTab" =>
 	array(
-	    "table-header" => array("Title", "Description", "Department Owner", "Is Managerial", "Is Offboarding Item", ""),
-	    "column-details" => array("item_title", "description", "department_owner", "is_managerial", "is_offboarding_item"),
+	    "table-header" => array("Title", "Description", "Department Owner", "Is Managerial", "Is Offboarding Item", "", "Remarks"),
+	    "column-details" => array("item_title", "description", "department_owner", "is_managerial", "is_offboarding_item", "onboarding_checklist_items_user_mapping_id", "remarks")
 	),
 	"TrainingTab" =>
 	array(
-	    "table-header" => array("Title", "Description", "Responsibility", ""),
-	    "column-details" => array("item_title", "training_description", "responsibility")
+	    "table-header" => array("Title", "Description", "Responsibility", "", "Remarks"),
+	    "column-details" => array("item_title", "training_description", "responsibility", "training_items_user_mapping_id", "remarks")
 	)
     );
 

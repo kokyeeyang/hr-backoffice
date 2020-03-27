@@ -184,7 +184,7 @@ class OnboardingChecklistItem extends AppActiveRecord {
     }
     
     public function findOnboardingItemsForThisUser($userId){
-	$sql = 'SELECT OCI.title AS "item_title", OCIM.id AS "onboarding_checklist_items_mapping_id", OCIM.checklist_template_id, D.title AS "department_owner", ';
+	$sql = 'SELECT OCIUM.id AS "onboarding_checklist_items_user_mapping_id", OCI.title AS "item_title", OCIM.id AS "onboarding_checklist_items_mapping_id", OCIM.checklist_template_id, D.title AS "department_owner", ';
 	$sql .= 'CASE WHEN OCI.is_offboarding_item = 1 THEN "Yes" WHEN OCI.is_offboarding_item = 0 THEN "No" END AS "is_offboarding_item", ';
 	$sql .= 'OCI.description, ';
 	$sql .= 'CASE WHEN OCI.is_managerial = 1 THEN "Yes" WHEN OCI.is_managerial = 0 THEN "No" END AS "is_managerial" ';

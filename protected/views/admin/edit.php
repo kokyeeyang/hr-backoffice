@@ -32,16 +32,20 @@
       <?php $this->renderPartial('_form', array('objModel' => $objModel)); ?>
     </div>
     <div id="onboarding" class="tabcontent">
-      <?php echo PageHelper::printTemplateItems($onboardingTab, $onboardingChecklistItems, $onboardingItemTitleArrRecord); ?>
-      <br>
-      <br>
-      <?php echo PageHelper::prepareSaveButton($onboardingTab, $onboardingSaveUrl); ?>
+      <form id="onboarding-tab-form" action="admin/saveOnboardingItemsForThisUser" method="post">
+	<?php echo PageHelper::printTemplateItems($onboardingTab, $onboardingChecklistItems, $onboardingItemTitleArrRecord, $actionOrDelete); ?>
+	<br>
+	<br>
+	<?php echo PageHelper::prepareSaveButton($onboardingTab, $onboardingSaveUrl); ?>
+      </form>
     </div>
     <div id="training" class="tabcontent">
-      <?php echo PageHelper::printTemplateItems($trainingTab, $trainingItems, $trainingItemTitleArrRecord); ?>
-      <br>
-      <br>
-      <?php echo PageHelper::prepareSaveButton($trainingTab, $trainingSaveUrl); ?>
+      <form id="training-tab-form" action="admin/saveTrainingItemsForThisUser" method="post">
+	<?php echo PageHelper::printTemplateItems($trainingTab, $trainingItems, $trainingItemTitleArrRecord, $actionOrDelete); ?>
+	<br>
+	<br>
+	<?php echo PageHelper::prepareSaveButton($trainingTab, $trainingSaveUrl); ?>
+      </form>
     </div>
   </div>
 </div>

@@ -118,6 +118,7 @@ class RegistrationController extends Controller {
 	$candidateObjModel->email_address = $this->getParam('emailAddress', '');
 	$candidateObjModel->date_of_birth = $this->getParam('DOB', '');
 	$candidateObjModel->marital_status = strtoupper($this->getParam('maritalStatus', ''));
+	$candidateObjModel->status = 1;
 
 	if ($this->getParam('findingMethod', '') == 'others') {
 	    $candidateObjModel->finding_method = 'OTHERS-' . strtoupper($this->getParam('otherFindingMethod', ''));
@@ -346,7 +347,7 @@ class RegistrationController extends Controller {
 	$objPagination = self::getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, false, CommonEnum::RETURN_PAGINATION);
 	$objCriteria = self::getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, false, CommonEnum::RETURN_CRITERIA);
 	$arrRecords = self::getStrSortByList($strSortKey, EmploymentJobOpeningEnum::JOB_OPENING_TABLE, EmploymentJobOpeningEnum::JOB_OPENING_TABLE_IN_SQL, CommonEnum::RETURN_TABLE_ARRAY_BY_SQL);
-	
+
 	if (isset($_POST['ajax']) && $_POST['ajax'] === 'jobopening-list' && Yii::app()->request->isAjaxRequest) {
 	    $aResult = [];
 	    $aResult['result'] = 0;
@@ -437,7 +438,10 @@ class RegistrationController extends Controller {
     public function actionDeleteSelectedCandidates() {
 	$candidateIds = $this->getParam('deleteCheckBox', '');
 	if ($candidateIds != '') {
-	    $deleteCandidates = EmploymentCandidate::model()->deleteSelectedCandidate($candidateIds);
+	    foreach ($candidateIds as $candidateId) {
+		$candidateCondition = 'id_no = "' . $candidateId . '"';
+		EmploymentCandidate::model()->updateAll(['status' => 0, 'modified_by'=> Yii::app()->user->id], $candidateCondition);
+	    }
 	}
 
 	$this->redirect(array('showAllCandidates'));
@@ -517,7 +521,8 @@ class RegistrationController extends Controller {
 	    'nationality' => $this->getParam('nationality', ''), 'terminated_before' => $this->getParam('terminatedBefore', ''),
 	    'termination_reason' => $this->getParam('terminationDetails', ''), 'reference_consent' => $this->getParam('consent', ''),
 	    'refuse_reference_reason' => $this->getParam('noReferenceReason', ''), 'candidate_agree_terms' => $this->getParam('agreeTerms', ''),
-	    'candidate_signature_date' => $this->getParam('signatureDate', ''), 'remarks' => $candidateRemarks
+	    'candidate_signature_date' => $this->getParam('signatureDate', ''), 'remarks' => $candidateRemarks,
+	    'modified_by' => Yii::app()->user->id
 	    ], $candidateCondition);
 	//Updating of employment_candidate table END
 
@@ -1004,7 +1009,9 @@ class RegistrationController extends Controller {
 			$numPerPage = Yii::app()->params['numPerPage'];
 
 			if (isset($_POST['label_filter']) && $_POST['label_filter'] != false) {
-			    $filter = 'offer_letter_title LIKE "%' . $this->getParam('label_filter', '') . '%"';
+			    $filter = 'EOLT.offer_letter_title LIKE "%' . $this->getParam('label_filter', '') . '%" AND EOLT.status = 1';
+			} else if (!isset($_POST['label_filter']) || $_POST['label_filter'] == false) {
+			    $filter = 'EOLT.status = 1';
 			}
 
 			return EmploymentOfferLetterTemplates::model()->findAllOfferLetters($strSortBy, $intPage, $numPerPage, true, $filter);
@@ -1013,7 +1020,9 @@ class RegistrationController extends Controller {
 		    case EmploymentCandidateEnum::CANDIDATE_TABLE_IN_SQL:
 
 			if (isset($_POST['label_filter']) && $_POST['label_filter'] != false) {
-			    $filter = 'EC.full_name LIKE "%' . $_POST['label_filter'] . '%"';
+			    $filter = 'EC.full_name LIKE "%' . $_POST['label_filter'] . '%" AND EC.status = 1';
+			} else if (!isset($_POST['label_filter']) || $_POST['label_filter'] == false) {
+			    $filter = 'EC.status = 1';
 			}
 
 			$numPerPage = Yii::app()->params['numPerPage'];

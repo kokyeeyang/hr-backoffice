@@ -508,3 +508,17 @@ CREATE TABLE training_items_user_mapping (
   FOREIGN KEY (user_id) REFERENCES admin(admin_id),
   FOREIGN KEY (training_items_mapping_id) REFERENCES training_items_mapping(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE onboarding_checklist_items_action (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `onboarding_checklist_user_mapping_id` int(11) UNSIGNED NOT NULL,
+  `onboarding_remark` varchar(160) NULL,
+  `onboarding_checked_by` int(11) UNSIGNED NULL,
+  `onboarding_updated_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `offboarding_remark` varchar(160) NULL,
+  `offboarding_checked_by` int(11) UNSIGNED NULL,
+  `offboarding_updated_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(40) NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;

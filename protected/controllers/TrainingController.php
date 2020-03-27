@@ -216,6 +216,7 @@ class TrainingController extends Controller {
 	$trainingItemObjModel->responsibility = $this->getParam('responsibilityDropdown', '');
 	$trainingItemObjModel->status = $this->getParam('isActiveCheckbox', '');
 	$trainingItemObjModel->created_by = Yii::app()->user->id;
+	$trainingItemObjModel->modified_by = Yii::app()->user->id;
 	$trainingItemObjModel->save();
 
 	if ($trainingItemObjModel->save()) {

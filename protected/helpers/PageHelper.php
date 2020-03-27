@@ -287,21 +287,21 @@ class PageHelper {
 
     //printing out items inside onboarding and training templates
     //can also be used for viewing, adding onboarding and training items for employees
-    public static function printTemplateItems($pageType, $dataObjects, $dropdownItemTitles) {
-	
+    public static function printTemplateItems($pageType, $dataObjects, $dropdownItemTitles, $actionOrDelete) {
+
 	//prepare variables for use later
 	$formData = PageEnum::FORM_DATA[$pageType];
 	$tableHeaders = $formData['table-header'];
 	$columnDetails = $formData['column-details'];
 //	isset($dataObjects) && $dataObjects != null ? $hiddenVal = count($dataObjects) : $hiddenVal = 0;
-	if(isset($dataObjects) && $dataObjects != null){
+	if (isset($dataObjects) && $dataObjects != null) {
 	    $hiddenVal = count($dataObjects);
 	    $disabledStatus = 'disabled';
-	} else if (!isset($dataObjects) || $dataObjects == null){
+	} else if (!isset($dataObjects) || $dataObjects == null) {
 	    $hiddenVal = 0;
 	    $disabledStatus = '';
 	}
-	
+
 	$tableBody = '<table class="widget_table grid">';
 	$tableBody .= '<thead>';
 	$tableBody .= '<tr>';
@@ -310,16 +310,16 @@ class PageHelper {
 	$tableBody .= '</thead>';
 	$tableBody .= '<tbody id="' . lcfirst($pageType) . '_data_table">';
 	$tableBody .= '<input type="hidden" id="' . lcfirst($pageType) . 'HiddenVal" value="' . $hiddenVal . '" />';
-	$tableBody .= self::prepareTableDataForTemplateItems($dataObjects, $columnDetails, $dropdownItemTitles, $pageType);
+	$tableBody .= self::prepareTableDataForTemplateItems($dataObjects, $columnDetails, $dropdownItemTitles, $pageType, $actionOrDelete);
 	$tableBody .= '</tbody>';
 	$tableBody .= '</table>';
 	$tableBody .= '<button type="button" id="append' . $pageType . 'Item" title="Add more items to this list">+</button>';
 
 	return $tableBody;
     }
-    
-    public static function prepareSaveButton($pageType, $saveUrl=null){
-	return '<button title="Save" class="' . lcfirst($pageType) . 'SaveButton"' . $saveUrl . '> Save </button>';
+
+    public static function prepareSaveButton($pageType, $saveUrl = null) {
+	return '<input type="submit" title="Save">';
     }
 
     private static function prepareTableHeaderForTemplateItems($tableHeaders) {
@@ -339,7 +339,7 @@ class PageHelper {
 	return $tableBody;
     }
 
-    private static function prepareTableDataForTemplateItems($dataObjects, $columnDetails, $dropdownItemTitles, $pageType) {
+    private static function prepareTableDataForTemplateItems($dataObjects, $columnDetails, $dropdownItemTitles, $pageType, $actionOrDelete) {
 	$tableBody = "";
 	$ptn = "/_[a-z]?/";
 	$counter = 0;
@@ -354,13 +354,16 @@ class PageHelper {
 		}
 		$tableBody .= '<tr class="itemTr' . $lineDiff . '">';
 		$tableBody .= self::prepareColumnDetails($columnDetails, $counter, $pageType, $dropdownItemTitles, $dataObject);
-		$tableBody .= '<td class="remove' . $pageType . 'ItemButton">';
-		$tableBody .= '<a href="#"><span class="remove' . $pageType . 'ItemButton" title="Remove this item">&#x2716;</span></a>';
-		$tableBody .= '</td>';
+
+//		if ($actionOrDelete == 'delete') {
+//		    $tableBody .= '<td class="remove' . $pageType . 'ItemButton">';
+//		    $tableBody .= '<a href="#"><span class="remove' . $pageType . 'ItemButton" title="Remove this item">&#x2716;</span></a>';
+//		    $tableBody .= '</td>';
+//		}
+
 		$tableBody .= '</tr>';
 		$counter ++;
 	    }
-
 	}
 	//class, name, id needs to be unique
 	$tableBody .= '<tr class="append' . $pageType . 'ItemTr" style="display:none;">';
@@ -378,7 +381,7 @@ class PageHelper {
 	$tableBody .= '</td>';
 
 	foreach ($columnDetails as $columnDetail) {
-	    if ($columnDetail != 'item_title') {
+	    if ($columnDetail != 'item_title' && strpos($columnDetail, 'items_user_mapping') == false && $columnDetail != 'remarks') {
 		$tableBody .= '<td class="' . self::dashesToCamelCase($columnDetail) . '">';
 		$tableBody .= '</td>';
 	    }
@@ -386,6 +389,8 @@ class PageHelper {
 
 	$tableBody .= '<td class="remove' . $pageType . 'ItemButton">';
 	$tableBody .= '<a href="#"><span class="remove' . $pageType . 'ItemButton" title="Remove this item"></span></a>';
+	$tableBody .= '</td>';
+	$tableBody .= '<td>';
 	$tableBody .= '</td>';
 	$tableBody .= '</tr>';
 
@@ -421,13 +426,23 @@ class PageHelper {
 		}
 		$tableBody .= '</select>';
 		$tableBody .= '</td>';
-	    } else {
-		$tableBody .= '<td class="' . self::dashesToCamelCase($columnDetail) . '">';
+	    }
+
+	    if ($columnDetail != 'item_title' && strpos($columnDetail, 'items_user_mapping_id') === false && $columnDetail != 'remarks') {
+		$tableBody .= '<td class="' . self::dashesToCamelCase($columnDetail) . '" name="' . self::dashesToCamelCase($columnDetail) . '">';
 		$tableBody .= $dataObject[$columnDetail];
+		$tableBody .= '</td>';
+	    } else if ($columnDetail != 'item_title' && strpos($columnDetail, 'items_user_mapping_id') !== false && $columnDetail != 'remarks') {
+		$tableBody .= '<td class="action' . $pageType . 'Box">';
+		$tableBody .= '<input type="checkbox" name=action' . $pageType . 'Box value="' . $dataObject[$columnDetail] . '">';
+		$tableBody .= '</td>';
+	    } else if ($columnDetail != 'item_title' && $columnDetail == 'remarks') {
+		$tableBody .= '<td class="' . lcfirst($pageType) . 'Remark">';
+		$tableBody .= '<input type="text" name="' . lcfirst($pageType) . 'Remark" required>';
 		$tableBody .= '</td>';
 	    }
 	}
-	
+
 	return $tableBody;
     }
 

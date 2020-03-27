@@ -253,18 +253,18 @@ class AdminController extends Controller {
 		$onboardingChecklistItems = OnboardingChecklistItem::model()->findOnboardingItemsForThisUser($userId);
 		$onboardingItemTitleArrRecord = OnboardingChecklistItem::model()->queryForOnboardingItemTitles();
 		$onboardingTab = AdminEnum::ONBOARDING_TAB;
-		$onboardingSaveUrl = 'onboarding-save-url = ' . Yii::app()->createUrl('onboarding/saveOnboardingItemsForThisUser');
+		$onboardingSaveUrl = 'onboarding-save-url = ' . Yii::app()->createUrl('admin/saveOnboardingItemsForThisUser');
 
 		$trainingItems = TrainingItem::model()->findTrainingItemsForThisUser($userId);
 		$trainingItemTitleArrRecord = TrainingItem::model()->queryForTrainingItemTitles();
 		$trainingTab = AdminEnum::TRAINING_TAB;
-		$trainingSaveUrl = 'training-save-url = ' . Yii::app()->createUrl('training/saveTrainingItemsForThisUser');
+		$trainingSaveUrl = 'training-save-url = ' . Yii::app()->createUrl('admin/saveTrainingItemsForThisUser');
 
 		$objModel->admin_password = '';
 		$objModel->admin_display_name = Validator::decodetag($objModel->admin_display_name);
 		$aResult['content'] = $this->renderPartial('edit',
 		    array('objModel' => $objModel, 'onboardingTab' => $onboardingTab, 'onboardingChecklistItems' => $onboardingChecklistItems, 'onboardingItemTitleArrRecord' => $onboardingItemTitleArrRecord, 'onboardingSaveUrl' => $onboardingSaveUrl,
-			'trainingTab' => $trainingTab, 'trainingItemTitleArrRecord' => $trainingItemTitleArrRecord, 'trainingItems' => $trainingItems, 'trainingSaveUrl' => $trainingSaveUrl), true);
+			'trainingTab' => $trainingTab, 'trainingItemTitleArrRecord' => $trainingItemTitleArrRecord, 'trainingItems' => $trainingItems, 'trainingSaveUrl' => $trainingSaveUrl, 'actionOrDelete' => 'action'), true);
 	    }
 
 	    if (!empty($aResult['content'])) {
@@ -564,6 +564,10 @@ class AdminController extends Controller {
 		    break;
 	    }
 	}
+    }
+    
+    public function saveOnboardingItemsForThisUser(){
+	var_dump($_POST);
     }
 
 }

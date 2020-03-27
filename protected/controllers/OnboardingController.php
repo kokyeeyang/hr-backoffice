@@ -69,6 +69,7 @@ class OnboardingController extends Controller {
 	$onboardingItemObjModel->status = $this->getParam('isActiveCheckbox', '');
 	$onboardingItemObjModel->is_managerial = $this->getParam('isManagerialCheckbox', '');
 	$onboardingItemObjModel->created_by = Yii::app()->user->id;
+	$onboardingItemObjModel->modified_by = Yii::app()->user->id;
 	$onboardingItemObjModel->save();
 
 	if ($onboardingItemObjModel->save()) {
@@ -288,7 +289,7 @@ class OnboardingController extends Controller {
 	    'title' => $this->getParam('onboardingItemName', ''), 'description' => $this->getParam('onboardingItemDescription', ''),
 	    'department_owner' => $this->getParam('responsibilityDropdown', ''), 'is_offboarding_item' => $isOffBoarding,
 	    'status' => $this->getParam('isActiveCheckbox', ''), 'is_managerial' => $this->getParam('isManagerialCheckbox', ''),
-	    'created_by' => Yii::app()->user->id
+	    'modified_by' => Yii::app()->user->id
 	    ], $onboardingItemCondition);
 
 	$this->redirect(array('showAllOnboardingItems'));
