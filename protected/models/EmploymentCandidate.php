@@ -168,12 +168,15 @@ class EmploymentCandidate extends AppActiveRecord {
     }
 
     public static function findAllCandidates($strSortBy, $intPage, $numPerPage, $filter = false) {
-        $sql = 'SELECT EC.id_no, EC.full_name, EC.created_date, ECS.title AS candidate_status, EC.job_id, EJO.job_title, EJO.department, EJO.interviewing_manager ';
+        $sql = 'SELECT EC.id_no, EC.full_name, EC.created_date, ECS.title AS candidate_status, EC.job_id, EJO.job_title, D.title as department, EJO.interviewing_manager ';
         $sql .= 'FROM employment_candidate EC ';
         $sql .= 'INNER JOIN employment_job_opening EJO ';
         $sql .= 'ON EC.job_id = EJO.id ';
         $sql .= 'INNER JOIN employment_candidate_status ECS ';
-        $sql .= 'ON EC.candidate_status = ECS.id';
+        $sql .= 'ON EC.candidate_status = ECS.id ';
+	$sql .= 'INNER JOIN department D ';
+	$sql .= 'ON EJO.department = D.id';
+	
         if ($filter != false) {
             $sql .= ' WHERE ' . $filter;
         }
