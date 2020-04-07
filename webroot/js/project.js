@@ -715,10 +715,10 @@ var Project = function () {
 
     if (numberAfterModulus == 1) {
       var clonedRow = $(appendRow).clone().attr('class', 'appendedOnboardingTabItemTr list_even').show().appendTo(dataTable);
-      $(clonedRow).find('.selectItemTitle').attr('name', 'appended onboardingTabItemDropdown ' + counter);
+      $(clonedRow).find('.onboardingTabItemDropdown').attr('name', 'appended onboardingTabItemDropdown ' + counter);
     } else {
       var clonedRow = $(appendRow).clone().attr('class', 'appendedOnboardingTabItemTr list_odd').show().appendTo(dataTable);
-      $(clonedRow).find('.selectItemTitle').attr('name', 'appended onboardingTabItemDropdown ' + counter);
+      $(clonedRow).find('.onboardingTabItemDropdown').attr('name', 'appended onboardingTabItemDropdown ' + counter);
     }
 
     // need to reinitiate the dropdown for onboarding title and the remove button after appending
@@ -879,7 +879,6 @@ var Project = function () {
   function _initTrainingItemDropdown() {
     $('select[class="trainingTabItemDropdown"]').unbind('change').change(function (objEvent) {
       Project.render_training_item_details(this, objEvent);
-//      $('.updateTemplateButton').prop('disabled', false);
     });
   }
 
@@ -898,6 +897,12 @@ var Project = function () {
   function _initSaveOnboardingItemsForThisUser() {
     $(':button.onboardingTabSaveButton').unbind('click').click(function (objEvent) {
       Project.save_onboarding_item_for_this_user(this, objEvent);
+    });
+  }
+  
+  function _initEnableOnboardingRemarkBox() {
+    $('.OnboardingTabBox').unbind('check').check(function (objEvent) {
+      console.log('hello');
     });
   }
 
@@ -954,6 +959,8 @@ var Project = function () {
       Project.initTrainingItemDropdown();
       Project.initAppendNewTrainingItem();
       Project.initRemoveTrainingItem();
+      
+      Project._initEnableOnboardingRemarkBox();
     });
   }
 
@@ -989,6 +996,7 @@ var Project = function () {
     initAppendNewOnboardingChecklistItem: _initAppendNewOnboardingChecklistItem,
     initRemoveOnboardingChecklistItem: _initRemoveOnboardingChecklistItem,
     initSaveOnboardingItemsForThisUser: _initSaveOnboardingItemsForThisUser,
+    initEnableOnboardingRemarkBox: _initEnableOnboardingRemarkBox,
     render_onboarding_item_details: _render_onboarding_item_details,
     append_new_onboarding_checklist_item: _append_new_onboarding_checklist_item,
     remove_onboarding_checklist_item_row: _remove_onboarding_checklist_item_row,

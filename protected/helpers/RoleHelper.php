@@ -40,7 +40,8 @@ class RoleHelper {
 		    $arrActionsList = array_merge($arrActionsList, ['list', 'add', 'edit',
 			'showAllDepartments', 'addNewDepartment', 'saveDepartment',
 			'viewSelectedDepartment', 'updateDepartment', 'deleteSelectedDepartments',
-			'showAllDepartmentsTest', 'checkAdminDepartmentExist'
+			'showAllDepartmentsTest', 'checkAdminDepartmentExist',
+			'saveOnboardingItemsForThisUser', 'saveTrainingItemsForThisUser'
 		    ]);
 		}
 		break;

@@ -354,13 +354,6 @@ class PageHelper {
 		}
 		$tableBody .= '<tr class="itemTr' . $lineDiff . '">';
 		$tableBody .= self::prepareColumnDetails($columnDetails, $counter, $pageType, $dropdownItemTitles, $dataObject);
-
-//		if ($actionOrDelete == 'delete') {
-//		    $tableBody .= '<td class="remove' . $pageType . 'ItemButton">';
-//		    $tableBody .= '<a href="#"><span class="remove' . $pageType . 'ItemButton" title="Remove this item">&#x2716;</span></a>';
-//		    $tableBody .= '</td>';
-//		}
-
 		$tableBody .= '</tr>';
 		$counter ++;
 	    }
@@ -410,11 +403,12 @@ class PageHelper {
 
     private static function prepareColumnDetails($columnDetails, $counter, $pageType, $dropdownItemTitles, $dataObject) {
 	$tableBody = "";
+	
 	foreach ($columnDetails as $columnDetail) {
 	    if ($columnDetail == 'item_title') {
 		$tableBody .= '<td class="itemTd">';
 		//we need to set a unique id or class for each onboarding and training tab
-		$tableBody .= '<select name="' . lcfirst($pageType) . 'ItemDropdown ' . $counter . '" size=1 class="' . lcfirst($pageType) . 'ItemDropdown" data-render-url="' . $_SERVER['PHP_SELF'] . '">';
+		$tableBody .= '<select name="' . lcfirst($pageType) . 'ItemDropdown_' . $counter . '" size=1 class="' . lcfirst($pageType) . 'ItemDropdown" data-render-url="' . $_SERVER['PHP_SELF'] . '">';
 		$tableBody .= '<option value="">Choose here</option>';
 		if ($dropdownItemTitles != null) {
 		    foreach ($dropdownItemTitles as $dropdownItemTitle) {
@@ -427,22 +421,29 @@ class PageHelper {
 		$tableBody .= '</select>';
 		$tableBody .= '</td>';
 	    }
-
-	    if ($columnDetail != 'item_title' && strpos($columnDetail, 'items_user_mapping_id') === false && $columnDetail != 'remarks') {
-		$tableBody .= '<td class="' . self::dashesToCamelCase($columnDetail) . '" name="' . self::dashesToCamelCase($columnDetail) . '">';
-		$tableBody .= $dataObject[$columnDetail];
-		$tableBody .= '</td>';
-	    } else if ($columnDetail != 'item_title' && strpos($columnDetail, 'items_user_mapping_id') !== false && $columnDetail != 'remarks') {
-		$tableBody .= '<td class="action' . $pageType . 'Box">';
-		$tableBody .= '<input type="checkbox" name=action' . $pageType . 'Box value="' . $dataObject[$columnDetail] . '">';
-		$tableBody .= '</td>';
-	    } else if ($columnDetail != 'item_title' && $columnDetail == 'remarks') {
-		$tableBody .= '<td class="' . lcfirst($pageType) . 'Remark">';
-		$tableBody .= '<input type="text" name="' . lcfirst($pageType) . 'Remark" required>';
-		$tableBody .= '</td>';
-	    }
+	    $tableBody .= self::printOutIndividualColumn($columnDetail, $dataObject, $pageType, $counter);
 	}
 
+	return $tableBody;
+    }
+
+    private static function printOutIndividualColumn($columnDetail, $dataObject, $pageType, $counter) {
+	$tableBody = "";
+	
+	if ($columnDetail != 'item_title' && strpos($columnDetail, 'items_user_mapping_id') === false && $columnDetail != 'remarks') {
+	    $tableBody .= '<td class="' . self::dashesToCamelCase($columnDetail) . '" name="' . self::dashesToCamelCase($columnDetail) . '">';
+	    $tableBody .= $dataObject[$columnDetail];
+	    $tableBody .= '</td>';
+	} else if ($columnDetail != 'item_title' && strpos($columnDetail, 'items_user_mapping_id') !== false && $columnDetail != 'remarks') {
+	    $tableBody .= '<td class="action' . $pageType . 'Box">';
+	    $tableBody .= '<input type="checkbox" name=action' . $pageType . 'Box_' . $counter . '" value="' . $dataObject[$columnDetail] . '" class="' . $pageType . 'Box">';
+	    $tableBody .= '</td>';
+	} else if ($columnDetail != 'item_title' && $columnDetail == 'remarks') {
+	    $tableBody .= '<td class="' . lcfirst($pageType) . 'Remark">';
+	    $tableBody .= '<input type="text" name="' . lcfirst($pageType) . 'Remark_' . $counter . '" disabled>';
+	    $tableBody .= '</td>';
+	}
+	
 	return $tableBody;
     }
 

@@ -255,12 +255,12 @@ class AdminController extends Controller {
 		$onboardingChecklistItems = OnboardingChecklistItem::model()->findOnboardingItemsForThisUser($userId);
 		$onboardingItemTitleArrRecord = OnboardingChecklistItem::model()->queryForOnboardingItemTitles();
 		$onboardingTab = AdminEnum::ONBOARDING_TAB;
-		$onboardingSaveUrl = 'onboarding-save-url = ' . Yii::app()->createUrl('admin/saveOnboardingItemsForThisUser');
+		$onboardingSaveUrl = 'onboarding-save-url = ' . $this->createUrl('saveOnboardingItemsForThisUser');
 
 		$trainingItems = TrainingItem::model()->findTrainingItemsForThisUser($userId);
 		$trainingItemTitleArrRecord = TrainingItem::model()->queryForTrainingItemTitles();
 		$trainingTab = AdminEnum::TRAINING_TAB;
-		$trainingSaveUrl = 'training-save-url = ' . Yii::app()->createUrl('admin/saveTrainingItemsForThisUser');
+		$trainingSaveUrl = 'training-save-url = ' . $this->createUrl('saveTrainingItemsForThisUser');
 
 		$objModel->admin_password = '';
 		$objModel->admin_display_name = Validator::decodetag($objModel->admin_display_name);
@@ -568,8 +568,8 @@ class AdminController extends Controller {
 	}
     }
     
-    public function saveOnboardingItemsForThisUser(){
-	var_dump($_POST);
+    public function actionSaveOnboardingItemsForThisUser(){
+	var_dump($_POST); exit;
     }
 
 }

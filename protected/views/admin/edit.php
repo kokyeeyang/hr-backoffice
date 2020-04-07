@@ -32,7 +32,8 @@
       <?php $this->renderPartial('_form', array('objModel' => $objModel)); ?>
     </div>
     <div id="onboarding" class="tabcontent">
-      <form id="onboarding-tab-form" action="admin/saveOnboardingItemsForThisUser" method="post">
+      <!--<form id="onboarding-tab-form" action="admin/saveOnboardingItemsForThisUser" method="post">-->
+      <form id="onboarding-tab-form" action="<?php echo $this->createUrl('admin/saveOnboardingItemsForThisUser') ?>" method="post">
 	<?php echo PageHelper::printTemplateItems($onboardingTab, $onboardingChecklistItems, $onboardingItemTitleArrRecord, $actionOrDelete); ?>
 	<br>
 	<br>
@@ -40,7 +41,8 @@
       </form>
     </div>
     <div id="training" class="tabcontent">
-      <form id="training-tab-form" action="admin/saveTrainingItemsForThisUser" method="post">
+      <!--<form id="training-tab-form" action="admin/saveTrainingItemsForThisUser" method="post">-->
+      <form id="training-tab-form" action="<?php echo $this->createUrl('admin/saveTrainingItemsForThisUser') ?>" method="post">
 	<?php echo PageHelper::printTemplateItems($trainingTab, $trainingItems, $trainingItemTitleArrRecord, $actionOrDelete); ?>
 	<br>
 	<br>
