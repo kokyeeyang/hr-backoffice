@@ -365,7 +365,7 @@ class PageHelper {
 	$tableBody .= '<option value="" selected>Choose here</option>';
 	if ($dropdownItemTitles != null) {
 	    foreach ($dropdownItemTitles as $dropdownItemTitle) {
-		$tableBody .= '<option value="' . $dropdownItemTitle['id'] . '">';
+		$tableBody .= '<option value="' . $dropdownItemTitle['id'] . '"' . "name=" . $pageType . 'ItemTr_' . $dropdownItemTitle['id'] . '>';
 		$tableBody .= $dropdownItemTitle['title'];
 		$tableBody .= '</option>';
 	    }
@@ -436,11 +436,11 @@ class PageHelper {
 	    $tableBody .= '</td>';
 	} else if ($columnDetail != 'item_title' && strpos($columnDetail, 'items_user_mapping_id') !== false && $columnDetail != 'remarks') {
 	    $tableBody .= '<td class="action' . $pageType . 'Box">';
-	    $tableBody .= '<input type="checkbox" name=action' . $pageType . 'Box_' . $counter . '" value="' . $dataObject[$columnDetail] . '" class="' . $pageType . 'Box">';
+	    $tableBody .= '<input type="checkbox" name="action' . $pageType . 'Box_' . $counter . '" value="' . $dataObject[$columnDetail] . '" class="' . $pageType . 'Box">';
 	    $tableBody .= '</td>';
 	} else if ($columnDetail != 'item_title' && $columnDetail == 'remarks') {
 	    $tableBody .= '<td class="' . lcfirst($pageType) . 'Remark">';
-	    $tableBody .= '<input type="text" name="' . lcfirst($pageType) . 'Remark_' . $counter . '" disabled>';
+	    $tableBody .= '<input type="text" name="' . lcfirst($pageType) . 'Remark_' . $counter . '" class="' . $pageType . 'Remark" disabled>';
 	    $tableBody .= '</td>';
 	}
 	

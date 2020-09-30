@@ -901,8 +901,8 @@ var Project = function () {
   }
   
   function _initEnableOnboardingRemarkBox() {
-    $('.OnboardingTabBox').unbind('check').check(function (objEvent) {
-      console.log('hello');
+    $('.OnboardingTabBox').unbind('click').click(function (objEvent) {
+      $(this).closest('td').next('td').find('input').prop('disabled', false);
     });
   }
 
@@ -926,11 +926,11 @@ var Project = function () {
     Project.initAppendNewOnboardingChecklistItem();
     Project.initRemoveOnboardingChecklistItem();
     Project.initSaveOnboardingItemsForThisUser();
+    Project.initEnableOnboardingRemarkBox();
 
     Project.initTrainingItemDropdown();
     Project.initAppendNewTrainingItem();
     Project.initRemoveTrainingItem();
-
 
   }
 
@@ -960,7 +960,7 @@ var Project = function () {
       Project.initAppendNewTrainingItem();
       Project.initRemoveTrainingItem();
       
-      Project._initEnableOnboardingRemarkBox();
+      Project.initEnableOnboardingRemarkBox();
     });
   }
 

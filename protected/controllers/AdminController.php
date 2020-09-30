@@ -569,7 +569,19 @@ class AdminController extends Controller {
     }
     
     public function actionSaveOnboardingItemsForThisUser(){
-	var_dump($_POST); exit;
+	//any input name with onboardingTabItemTr
+	$onboardingChecklistItems = filter_input_array(INPUT_POST,$_POST);
+	
+	foreach($onboardingChecklistItems as $key=>$value){
+	    if(strpos($key, 'appended') !== false){
+		$onboardingChecklistItemUserMappingObjModel = new OnboardingChecklistItemsUserMapping;
+		$onboardingChecklistItemUserMappingObjModel->onboarding_checklist_items_mapping_id = $value;
+		$onboardingChecklistItemUserMappingObjModel->created_by = Yii::app()->user->id;
+		$onboardingChecklistItemUserMappingObjModel->save();
+	    }
+	}
+	
+	$this->redirect(array('List'));
     }
 
 }
